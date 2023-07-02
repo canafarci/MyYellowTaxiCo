@@ -38,7 +38,7 @@ public class UnlockObject : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        yield return StartCoroutine(_payUnlockLoop.WaitLoop(0f, null,
+        yield return StartCoroutine(_payUnlockLoop.PayLoop(0f, null,
                                                             () => { if (_unlocker != null) _unlocker.UnlockObject(); },
                                                             () => StopAllCoroutines()));
     }

@@ -5,7 +5,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-public class PayUnlockLoop : MonoBehaviour, IWaitLoop
+public class PayUnlockLoop : MonoBehaviour
 {
     [SerializeField] protected float _timeToUnlock, _moneyToUnlock;
     [SerializeField] protected TextMeshProUGUI _text;
@@ -25,7 +25,7 @@ public class PayUnlockLoop : MonoBehaviour, IWaitLoop
         if (_text != null)
             FormatText(_moneyToUnlock);
     }
-    public IEnumerator WaitLoop(float time, TextMeshProUGUI text = null, Action successCallback = null, Action failCallback = null, GameObject slider = null)
+    public IEnumerator PayLoop(float time, TextMeshProUGUI text = null, Action successCallback = null, Action failCallback = null, GameObject slider = null)
     {
         float step = StaticVariables.WAIT_ZONES_TIME_STEP;
         float moneyStep = _remainingMoney / _remainingTime * step;
