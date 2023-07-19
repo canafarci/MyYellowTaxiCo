@@ -17,6 +17,6 @@ public class LevelUnlock : MonoBehaviour
     private void OnLevelIncrease(int level)
     {
         if (_levelToUnlock <= level)
-            GetComponent<IUnlockable>().Unlock();
+            GetComponent<IUnlockable>().UnlockObject();
     }
 }

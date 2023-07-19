@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IUnlockable
 {
-    public void Unlock();
+    public void UnlockObject();
 }

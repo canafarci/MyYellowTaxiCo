@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Ketchapp.MayoSDK;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class TutorialUnlock : Unlock
+public class TutorialUnlock : UnlockBase
 {
+
     [SerializeField] bool _isFirst;
+
     [SerializeField] TutorialUnlock _nextUnlocker;
     private void Start()
     {
@@ -15,10 +18,7 @@ public class TutorialUnlock : Unlock
         }
         else if (!HasUnlockedBefore)
         {
-            var data = new Ketchapp.MayoSDK.Analytics.Data();
-            data.AddValue("ProgressionStatus", "Started");
-            data.AddValue("Money", (int)GameManager.Instance.Resources.Money);
-            KetchappSDK.Analytics.CustomEvent(_identifier, data);
+            SendAnalyticsDataForProgressionStart();
         }
     }
 
@@ -37,4 +37,5 @@ public class TutorialUnlock : Unlock
             _nextUnlocker.SequentialUnlock();
         }
     }
+
 }

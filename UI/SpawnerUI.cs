@@ -5,22 +5,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpawnerUI : MonoBehaviour
+public class SpawnerUI : GeneratorUI
 {
     [SerializeField] float _spawnRate, _initialSpawnTime;
     [SerializeField] GameObject _object;
-    IFillableUI _fillable;
     float _currentSpawnTime;
-    private void Awake()
-    {
-        _fillable = GetComponent<IFillableUI>();
-    }
     private void Start()
     {
         _currentSpawnTime = _spawnRate;
         StartCoroutine(WaitLoop(_initialSpawnTime));
     }
-    public IEnumerator WaitLoop(float time = 0f)
+    public override IEnumerator WaitLoop(float time = 0f, TextMeshProUGUI text = null, Action successCallback = null, Action failCallback = null, GameObject slider = null)
     {
         _object.SetActive(true);
         _fillable.SetFill(0f, 1f);

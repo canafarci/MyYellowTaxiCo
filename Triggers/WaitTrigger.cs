@@ -5,16 +5,16 @@ using DG.Tweening;
 using UnityEngine;
 using TMPro;
 
-public class UnlockObject : MonoBehaviour
+public class WaitTrigger : MonoBehaviour
 {
     private PayUnlockLoop _payUnlockLoop;
     private Coroutine _payRoutine;
-    Unlock _unlocker;
+    IUnlockable _unlockable;
 
     private void Awake()
     {
         _payUnlockLoop = GetComponent<PayUnlockLoop>();
-        _unlocker = GetComponent<Unlock>();
+        _unlockable = GetComponent<IUnlockable>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -36,10 +36,10 @@ public class UnlockObject : MonoBehaviour
 
     private IEnumerator UnlockItemLoop()
     {
+        //prevent accidental player walking and paying
         yield return new WaitForSeconds(1f);
 
-        yield return StartCoroutine(_payUnlockLoop.PayLoop(0f, null,
-                                                            () => { if (_unlocker != null) _unlocker.UnlockObject(); },
+        yield return StartCoroutine(_payUnlockLoop.PayLoop(() => { if (_unlockable != null) _unlockable.UnlockObject(); },
                                                             () => StopAllCoroutines()));
     }
 

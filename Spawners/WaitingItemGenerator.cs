@@ -14,6 +14,7 @@ public class WaitingItemGenerator : ItemGenerator
     [SerializeField] Transform _nextTutorialObjective;
     [SerializeField] private GameObject[] _itemsToActivate, _itemsToDeactivate;
     [SerializeField] string _identifier;
+    IWaitLoop _ui;
 
     Dictionary<Collider, Coroutine> _spawnRoutines;
     void Awake()
@@ -22,6 +23,7 @@ public class WaitingItemGenerator : ItemGenerator
         _sliders = new Dictionary<Collider, GameObject>();
         _inventories = new Dictionary<Collider, Inventory>();
         _spawnRoutines = new Dictionary<Collider, Coroutine>();
+        _ui = GetComponent<IWaitLoop>();
         _stacker = GetComponent<Stacker>();
     }
 
@@ -124,7 +126,7 @@ public class WaitingItemGenerator : ItemGenerator
         if (_objectToSwitch != null)
             _objectToSwitch.SetActive(true);
 
-        yield return new WaitForSeconds(_spawnRate);
+        yield return StartCoroutine(_ui.WaitLoop(_spawnRate, null, null, null, slider));
 
         StackableItem item = GameObject.Instantiate(_stackableItem[0], _startTransform.position, _startTransform.rotation).GetComponent<StackableItem>();
         inventory.StackItem(item);

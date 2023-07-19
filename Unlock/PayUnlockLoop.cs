@@ -25,7 +25,7 @@ public class PayUnlockLoop : MonoBehaviour
         if (_text != null)
             FormatText(_moneyToUnlock);
     }
-    public IEnumerator PayLoop(float time, TextMeshProUGUI text = null, Action successCallback = null, Action failCallback = null, GameObject slider = null)
+    public IEnumerator PayLoop(Action successCallback = null, Action failCallback = null)
     {
         float step = StaticVariables.WAIT_ZONES_TIME_STEP;
         float moneyStep = _remainingMoney / _remainingTime * step;
