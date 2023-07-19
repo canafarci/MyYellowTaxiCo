@@ -7,9 +7,14 @@ using UnityEngine;
 public class ContiniousPayUnlockLoop : BasePayLoop
 {
     [SerializeField] UpgradeData _upgradeData;
-    [SerializeField] ItemGenerator _stacker;
+    [SerializeField] GameObject _spawnerObject;
+    private IItemSpawner _itemSpawner;
     [SerializeField] TextMeshProUGUI _levelText;
     private int _currentIndex;
+    private void Awake()
+    {
+        _itemSpawner = _spawnerObject.GetComponent<IItemSpawner>();
+    }
     void Start()
     {
         if (PlayerPrefs.HasKey(Globals.STACKER_UPGRADE_KEY))
@@ -33,7 +38,7 @@ public class ContiniousPayUnlockLoop : BasePayLoop
     private void SetStackerSpeed(int index)
     {
         if (_currentIndex < _upgradeData.StackSpeeds.Length)
-            _stacker.SpawnRate = _upgradeData.StackSpeeds[_currentIndex].SpawnRate;
+            _itemSpawner.SetSpawnRate(_upgradeData.StackSpeeds[_currentIndex].SpawnRate);
     }
     private void SetVariables(int currentIndex)
     {

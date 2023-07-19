@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemGenerator : MonoBehaviour
+public class ItemGenerator : MonoBehaviour, IStackedItemSpawner
 {
-    public float SpawnRate { set { _spawnRate = value; } }
     [SerializeField] protected float _spawnRate;
     [SerializeField] protected GameObject[] _stackableItem, _stage2Hats, _stage3Hats;
     [SerializeField] protected Transform _startTransform;
     protected Stacker _stacker;
     private bool _spawnedFirst = false;
     private int _spawnUpgradeIndex = 0;
-
     void Awake()
     {
         _stacker = GetComponent<Stacker>();
@@ -24,10 +22,9 @@ public class ItemGenerator : MonoBehaviour
             yield return new WaitForSeconds(_spawnedFirst ? _spawnRate : 0.1f);
             _spawnedFirst = true;
 
-            if (_stacker.MaxStackSize >= _stacker.ItemStack.Count)
+            if (CanSpawnItem())
             {
-                StackableItem item = GameObject.Instantiate(_stackableItem[GetRandomIndex()], _startTransform.position, _startTransform.rotation).GetComponent<StackableItem>();
-                _stacker.StackItem(item);
+                SpawnItem();
             }
         }
     }
@@ -72,5 +69,20 @@ public class ItemGenerator : MonoBehaviour
     {
         _stackableItem = _stage3Hats;
         _spawnUpgradeIndex = 2;
+    }
+
+    public bool CanSpawnItem()
+    {
+        return _stacker.MaxStackSize >= _stacker.ItemStack.Count;
+    }
+
+    public void SpawnItem()
+    {
+        StackableItem item = GameObject.Instantiate(_stackableItem[GetRandomIndex()], _startTransform.position, _startTransform.rotation).GetComponent<StackableItem>();
+        _stacker.StackItem(item);
+    }
+    public void SetSpawnRate(float rate)
+    {
+        _spawnRate = rate;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSpawner : MonoBehaviour, IItemSpawner
+public class ItemSpawner : MonoBehaviour, IInventoryItemSpawner
 {
     [SerializeField] protected GameObject _stackableItem;
     [SerializeField] protected Transform _startTransform;

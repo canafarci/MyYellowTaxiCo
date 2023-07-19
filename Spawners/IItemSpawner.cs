@@ -1,9 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IItemSpawner
+public interface IItemSpawner : IInventoryItemSpawner, IStackedItemSpawner
 {
-    bool CanSpawnItem(Collider other);
-    void SpawnItem(Collider other);
 }
