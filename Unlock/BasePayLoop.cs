@@ -5,7 +5,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-public abstract class BasePayLoop : MonoBehaviour, IWaitLoop
+public abstract class BasePayLoop : MonoBehaviour, IPayLoop
 {
     [SerializeField] protected float _timeToUnlock, _moneyToUnlock;
     [SerializeField] protected TextMeshProUGUI _text;

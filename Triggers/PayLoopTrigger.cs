@@ -7,7 +7,7 @@ using TMPro;
 
 public class PayLoopTrigger : MonoBehaviour
 {
-    private IWaitLoop _payUnlockLoop;
+    private IPayLoop _payUnlockLoop;
     private Coroutine _payRoutine;
     private IUnlockable _unlockable;
 
