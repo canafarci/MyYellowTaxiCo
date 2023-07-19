@@ -12,8 +12,8 @@ public class MoneyPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StartCoroutine(Pickup());
-            Unlock unlocker = GetComponent<Unlock>();
-            if (unlocker != null && !unlocker.HasUnlockedBefore)
+            IUnlockable unlocker = GetComponent<IUnlockable>();
+            if (unlocker != null)
                 unlocker.UnlockObject();
         }
     }

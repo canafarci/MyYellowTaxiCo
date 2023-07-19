@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ContiniousPayUnlockLoop : PayUnlockLoop
+public class ContiniousPayUnlockLoop : BasePayLoop
 {
     [SerializeField] UpgradeData _upgradeData;
     [SerializeField] ItemGenerator _stacker;
@@ -12,10 +12,10 @@ public class ContiniousPayUnlockLoop : PayUnlockLoop
     int _currentIndex;
     void Start()
     {
-        if (PlayerPrefs.HasKey(StaticVariables.STACKER_UPGRADE_KEY))
-            _currentIndex = PlayerPrefs.GetInt(StaticVariables.STACKER_UPGRADE_KEY);
+        if (PlayerPrefs.HasKey(Globals.STACKER_UPGRADE_KEY))
+            _currentIndex = PlayerPrefs.GetInt(Globals.STACKER_UPGRADE_KEY);
         else
-            PlayerPrefs.SetInt(StaticVariables.STACKER_UPGRADE_KEY, 1);
+            PlayerPrefs.SetInt(Globals.STACKER_UPGRADE_KEY, 1);
 
         SetVariables(_currentIndex);
     }
@@ -26,11 +26,11 @@ public class ContiniousPayUnlockLoop : PayUnlockLoop
     protected override void OnSuccess(Action successCallback)
     {
         _currentIndex++;
-        PlayerPrefs.SetInt(StaticVariables.STACKER_UPGRADE_KEY, _currentIndex);
+        PlayerPrefs.SetInt(Globals.STACKER_UPGRADE_KEY, _currentIndex);
         SetStackerSpeed(_currentIndex);
         base.OnSuccess(successCallback);
     }
-    void SetStackerSpeed(int index)
+    private void SetStackerSpeed(int index)
     {
         if (_currentIndex < _upgradeData.StackSpeeds.Length)
             _stacker.SpawnRate = _upgradeData.StackSpeeds[_currentIndex].SpawnRate;

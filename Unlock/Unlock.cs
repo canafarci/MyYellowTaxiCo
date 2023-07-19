@@ -8,7 +8,7 @@ public class Unlock : UnlockBase
 {
     private void Start()
     {
-        if (HasUnlockedBefore)
+        if (HasUnlockedBefore())
             UnlockObject();
         else
             SendAnalyticsDataForProgressionStart();

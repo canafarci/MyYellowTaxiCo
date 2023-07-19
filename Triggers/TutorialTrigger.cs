@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class TutorialTrigger : MonoBehaviour
 {
-    Unlock _unlocker;
+    IUnlockable _unlocker;
 
     private void Awake()
     {
-        _unlocker = GetComponent<Unlock>();
+        _unlocker = GetComponent<IUnlockable>();
     }
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && _unlocker != null && !_unlocker.HasUnlockedBefore)
+        if (other.CompareTag("Player") && _unlocker != null && !_unlocker.HasUnlockedBefore())
         {
             _unlocker.UnlockObject();
         }

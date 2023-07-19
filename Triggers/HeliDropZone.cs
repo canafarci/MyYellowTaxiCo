@@ -37,11 +37,11 @@ public class HeliDropZone : MonoBehaviour
         _npc.transform.localScale = Vector3.one * 0.00001f;
         _npc.transform.DOScale(baseScale, .4f);
 
-        Unlock unlock = GetComponent<Unlock>();
-        if (unlock != null && !unlock.HasUnlockedBefore)
+        IUnlockable unlock = GetComponent<IUnlockable>();
+        if (unlock != null && !unlock.HasUnlockedBefore())
         {
             unlock.UnlockObject();
-            PlayerPrefs.SetInt(StaticVariables.FIFTH_WANDERER_TUTORIAL_COMPLETE, 1);
+            PlayerPrefs.SetInt(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE, 1);
         }
     }
 }

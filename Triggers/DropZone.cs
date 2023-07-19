@@ -66,10 +66,10 @@ public class DropZone : MonoBehaviour
 
     IEnumerator Unload(NavMeshNPC[] followers, Car car)
     {
-        if (!PlayerPrefs.HasKey(StaticVariables.FOURTH_CUSTOMER_TUTORIAL_COMPLETE))
+        if (!PlayerPrefs.HasKey(Globals.FOURTH_CUSTOMER_TUTORIAL_COMPLETE))
         {
             FindObjectOfType<ConditionalTutorial>().OnFirstCustomerDelivered();
-            PlayerPrefs.SetInt(StaticVariables.FOURTH_CUSTOMER_TUTORIAL_COMPLETE, 1);
+            PlayerPrefs.SetInt(Globals.FOURTH_CUSTOMER_TUTORIAL_COMPLETE, 1);
         }
 
         for (int i = 0; i < followers.Length; i++)

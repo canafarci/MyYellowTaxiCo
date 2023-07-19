@@ -21,7 +21,7 @@ public class WaitSpawnLoop : MonoBehaviour
         GameObject slider = other.GetComponent<ComponentReference>().Slider;
         Sliders[other] = slider;
         Material mat = slider.transform.GetChild(1).GetComponent<Renderer>().material;
-        float step = StaticVariables.WAIT_ZONES_TIME_STEP;
+        float step = Globals.WAIT_ZONES_TIME_STEP;
 
         mat.SetFloat("_ClipUvUp", 1f);
         slider.SetActive(true);
@@ -38,8 +38,8 @@ public class WaitSpawnLoop : MonoBehaviour
         StackableItem item = GameObject.Instantiate(_stackableItem, _startTransform.position, _startTransform.rotation).GetComponent<StackableItem>();
         inventory.StackItem(item);
 
-        Unlock unlock = GetComponent<Unlock>();
-        if (unlock == null || unlock.HasUnlockedBefore) yield break;
+        IUnlockable unlock = GetComponent<IUnlockable>();
+        if (unlock == null || unlock.HasUnlockedBefore()) yield break;
         unlock.UnlockObject();
     }
 }

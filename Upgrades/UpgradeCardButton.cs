@@ -54,39 +54,33 @@ public class UpgradeCardButton : MonoBehaviour
         if (_upgradeType == Enums.UpgradeType.PlayerSpeed)
         {
             _cost = _upgradeData.SpeedModifiers[_currentIndex + 1].Cost;
-            CanBuy(currentMoney);
-
         }
         else if (_upgradeType == Enums.UpgradeType.PlayerIncome)
         {
             _cost = _upgradeData.IncomeModifiers[_currentIndex + 1].Cost;
-            CanBuy(currentMoney);
         }
         else if (_upgradeType == Enums.UpgradeType.PlayerInventorySize)
         {
             _cost = _upgradeData.PlayerInventorySizes[_currentIndex + 1].Cost;
-            CanBuy(currentMoney);
         }
         else if (_upgradeType == Enums.UpgradeType.HelperNPCCount)
         {
             _cost = _upgradeData.HelperNPCCount[_currentIndex + 1].Cost;
-            CanBuy(currentMoney);
         }
         else if (_upgradeType == Enums.UpgradeType.HelperNPCInventorySize)
         {
             _cost = _upgradeData.HelperNPCInventorySizes[_currentIndex + 1].Cost;
-            CanBuy(currentMoney);
         }
         else if (_upgradeType == Enums.UpgradeType.HelperNPCSpeed)
         {
             _cost = _upgradeData.HelperNPCSpeeds[_currentIndex + 1].Cost;
-            CanBuy(currentMoney);
         }
 
+        CheckHasMoney(currentMoney);
         SetCostText(_cost);
     }
 
-    private void CanBuy(float currentMoney)
+    private void CheckHasMoney(float currentMoney)
     {
         if (_cost > currentMoney)
             _button.interactable = false;
@@ -120,17 +114,17 @@ public class UpgradeCardButton : MonoBehaviour
     private void SetTypeName()
     {
         if (_upgradeType == Enums.UpgradeType.PlayerSpeed)
-            _upgradeName = StaticVariables.PLAYER_SPEED_KEY;
+            _upgradeName = Globals.PLAYER_SPEED_KEY;
         else if (_upgradeType == Enums.UpgradeType.PlayerIncome)
-            _upgradeName = StaticVariables.PLAYER_INCOME_KEY;
+            _upgradeName = Globals.PLAYER_INCOME_KEY;
         else if (_upgradeType == Enums.UpgradeType.PlayerInventorySize)
-            _upgradeName = StaticVariables.PLAYER_INVENTORY_KEY;
+            _upgradeName = Globals.PLAYER_INVENTORY_KEY;
         else if (_upgradeType == Enums.UpgradeType.HelperNPCCount)
-            _upgradeName = StaticVariables.NPC_COUNT_KEY;
+            _upgradeName = Globals.NPC_COUNT_KEY;
         else if (_upgradeType == Enums.UpgradeType.HelperNPCInventorySize)
-            _upgradeName = StaticVariables.NPC_INVENTORY_KEY;
+            _upgradeName = Globals.NPC_INVENTORY_KEY;
         else
-            _upgradeName = StaticVariables.NPC_SPEED_KEY;
+            _upgradeName = Globals.NPC_SPEED_KEY;
     }
 
     bool IndexAtMaxLength()

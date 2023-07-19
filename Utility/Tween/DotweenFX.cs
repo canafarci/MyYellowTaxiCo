@@ -107,7 +107,7 @@ public class DotweenFX : MonoBehaviour
         yield return new WaitForSeconds(0.51f);
 
         Sequence seq = DOTween.Sequence();
-        Vector3 endBaseScale = new Vector3(StaticVariables.HAT_SCALE, StaticVariables.HAT_SCALE, StaticVariables.HAT_SCALE);
+        Vector3 endBaseScale = new Vector3(Globals.HAT_SCALE, Globals.HAT_SCALE, Globals.HAT_SCALE);
         seq.Append(item.transform.DOScale(endBaseScale * 1.2f, .1f));
         seq.Append(item.transform.DOScale(endBaseScale, .1f));
     }
@@ -167,7 +167,7 @@ public class DotweenFX : MonoBehaviour
         item.transform.DOScale(1f, .2f);
 
         Sequence seq1 = DOTween.Sequence();
-        Vector3 baseScale1 = new Vector3(StaticVariables.HAT_WORN_SCALE, StaticVariables.HAT_WORN_SCALE, StaticVariables.HAT_WORN_SCALE);
+        Vector3 baseScale1 = new Vector3(Globals.HAT_WORN_SCALE, Globals.HAT_WORN_SCALE, Globals.HAT_WORN_SCALE);
         seq1.Append(item.transform.GetChild(0).DOScale(baseScale1 * 1.2f, .1f));
         seq1.Append(item.transform.GetChild(0).DOScale(baseScale1, .1f));
     }

@@ -24,7 +24,7 @@ public class UpgradeUIHolder : MonoBehaviour
     {
         if (_isPlayerUI)
         {
-            if (PlayerPrefs.GetInt(StaticVariables.PLAYER_INVENTORY_KEY) == 0)
+            if (PlayerPrefs.GetInt(Globals.PLAYER_INVENTORY_KEY) == 0)
             {
                 _tutorialFader.SetActive(true);
                 _tutorialHand.SetActive(true);
@@ -32,7 +32,7 @@ public class UpgradeUIHolder : MonoBehaviour
         }
         else
         {
-            if (PlayerPrefs.GetInt(StaticVariables.NPC_COUNT_KEY) == 0)
+            if (PlayerPrefs.GetInt(Globals.NPC_COUNT_KEY) == 0)
             {
                 _tutorialFader.SetActive(true);
                 _tutorialHand.SetActive(true);

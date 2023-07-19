@@ -60,12 +60,12 @@ public class CarGasFill : MonoBehaviour
         hose.bulgeThickness = 0.075f;
         handle.Return();
 
-        if (!PlayerPrefs.HasKey(StaticVariables.FIRST_CHARGER_TUTORIAL_COMPLETE))
+        if (!PlayerPrefs.HasKey(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE))
         {
             ConditionalTutorial tuto = FindObjectOfType<ConditionalTutorial>();
             tuto.OnFirstCharge();
 
-            PlayerPrefs.SetInt(StaticVariables.FIRST_CHARGER_TUTORIAL_COMPLETE, 1);
+            PlayerPrefs.SetInt(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE, 1);
         }
 
 

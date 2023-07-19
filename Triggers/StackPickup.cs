@@ -43,8 +43,8 @@ public class StackPickup : MonoBehaviour
             {
                 inventory.StackItem(item);
 
-                Unlock unlock = GetComponent<Unlock>();
-                if (unlock != null && !unlock.HasUnlockedBefore)
+                IUnlockable unlock = GetComponent<IUnlockable>();
+                if (unlock != null && !unlock.HasUnlockedBefore())
                 {
                     unlock.UnlockObject();
                 }

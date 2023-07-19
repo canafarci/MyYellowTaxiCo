@@ -43,8 +43,8 @@ public class Upgrader : MonoBehaviour
             _incomeModifierIndex = index;
 
         if (!saveChanges) return;
-        Save(StaticVariables.PLAYER_INCOME_KEY, _incomeModifierIndex);
-        PostProgression(StaticVariables.PLAYER_INCOME_KEY, _incomeModifierIndex);
+        Save(Globals.PLAYER_INCOME_KEY, _incomeModifierIndex);
+        PostProgression(Globals.PLAYER_INCOME_KEY, _incomeModifierIndex);
     }
     void IncreaseSpeed(int index, bool saveChanges = false)
     {
@@ -54,8 +54,8 @@ public class Upgrader : MonoBehaviour
         FindObjectOfType<Mover>().IncreaseSpeed(SpeedModifier);
 
         if (!saveChanges) return;
-        Save(StaticVariables.PLAYER_SPEED_KEY, _playerSpeedIndex);
-        PostProgression(StaticVariables.PLAYER_SPEED_KEY, _playerSpeedIndex);
+        Save(Globals.PLAYER_SPEED_KEY, _playerSpeedIndex);
+        PostProgression(Globals.PLAYER_SPEED_KEY, _playerSpeedIndex);
     }
 
     private void IncreasePlayerInventorySize(int index, bool saveChanges = false)
@@ -64,8 +64,8 @@ public class Upgrader : MonoBehaviour
         GameManager.Instance.References.PlayerInventory.MaxStackSize = _upgrades.PlayerInventorySizes[index].Size;
 
         if (!saveChanges) return;
-        Save(StaticVariables.PLAYER_INVENTORY_KEY, index);
-        PostProgression(StaticVariables.PLAYER_INVENTORY_KEY, index);
+        Save(Globals.PLAYER_INVENTORY_KEY, index);
+        PostProgression(Globals.PLAYER_INVENTORY_KEY, index);
     }
     private void IncreaseNPCInventorySize(int index, bool saveChanges = false)
     {
@@ -75,8 +75,8 @@ public class Upgrader : MonoBehaviour
         OnNPCInventorySizeUpgrade?.Invoke(NPCInventorySize);
 
         if (!saveChanges) return;
-        Save(StaticVariables.NPC_INVENTORY_KEY, index);
-        PostProgression(StaticVariables.NPC_INVENTORY_KEY, index);
+        Save(Globals.NPC_INVENTORY_KEY, index);
+        PostProgression(Globals.NPC_INVENTORY_KEY, index);
     }
 
     private void IncreaseNPCSpeed(int index, bool saveChanges = false)
@@ -86,8 +86,8 @@ public class Upgrader : MonoBehaviour
         OnNPCSpeedUpgrade?.Invoke(NPCSpeed);
 
         if (!saveChanges) return;
-        Save(StaticVariables.NPC_SPEED_KEY, index);
-        PostProgression(StaticVariables.NPC_SPEED_KEY, index);
+        Save(Globals.NPC_SPEED_KEY, index);
+        PostProgression(Globals.NPC_SPEED_KEY, index);
     }
 
     void SpawnHelperNPC(int count, bool saveChanges = false)
@@ -98,8 +98,8 @@ public class Upgrader : MonoBehaviour
         StartCoroutine(SpawnNPCs());
 
         if (!saveChanges) return;
-        Save(StaticVariables.NPC_COUNT_KEY, _npcMaxCount);
-        PostProgression(StaticVariables.NPC_COUNT_KEY, _npcMaxCount);
+        Save(Globals.NPC_COUNT_KEY, _npcMaxCount);
+        PostProgression(Globals.NPC_COUNT_KEY, _npcMaxCount);
     }
 
     IEnumerator SpawnNPCs()
@@ -120,35 +120,35 @@ public class Upgrader : MonoBehaviour
     void Load()
     {
         //player income
-        if (PlayerPrefs.HasKey(StaticVariables.PLAYER_INCOME_KEY))
-            IncreaseIncome(PlayerPrefs.GetInt(StaticVariables.PLAYER_INCOME_KEY));
+        if (PlayerPrefs.HasKey(Globals.PLAYER_INCOME_KEY))
+            IncreaseIncome(PlayerPrefs.GetInt(Globals.PLAYER_INCOME_KEY));
         else
-            PlayerPrefs.SetInt(StaticVariables.PLAYER_INCOME_KEY, 0);
+            PlayerPrefs.SetInt(Globals.PLAYER_INCOME_KEY, 0);
         //player speed
-        if (PlayerPrefs.HasKey(StaticVariables.PLAYER_SPEED_KEY))
-            IncreaseSpeed(PlayerPrefs.GetInt(StaticVariables.PLAYER_SPEED_KEY));
+        if (PlayerPrefs.HasKey(Globals.PLAYER_SPEED_KEY))
+            IncreaseSpeed(PlayerPrefs.GetInt(Globals.PLAYER_SPEED_KEY));
         else
-            PlayerPrefs.SetInt(StaticVariables.PLAYER_SPEED_KEY, 0);
+            PlayerPrefs.SetInt(Globals.PLAYER_SPEED_KEY, 0);
         //player capacity
-        if (PlayerPrefs.HasKey(StaticVariables.PLAYER_INVENTORY_KEY))
-            IncreasePlayerInventorySize(PlayerPrefs.GetInt(StaticVariables.PLAYER_INVENTORY_KEY));
+        if (PlayerPrefs.HasKey(Globals.PLAYER_INVENTORY_KEY))
+            IncreasePlayerInventorySize(PlayerPrefs.GetInt(Globals.PLAYER_INVENTORY_KEY));
         else
-            PlayerPrefs.SetInt(StaticVariables.PLAYER_INVENTORY_KEY, 0);
+            PlayerPrefs.SetInt(Globals.PLAYER_INVENTORY_KEY, 0);
         //bot buy
-        if (PlayerPrefs.HasKey(StaticVariables.NPC_COUNT_KEY))
-            SpawnHelperNPC(PlayerPrefs.GetInt(StaticVariables.NPC_COUNT_KEY));
+        if (PlayerPrefs.HasKey(Globals.NPC_COUNT_KEY))
+            SpawnHelperNPC(PlayerPrefs.GetInt(Globals.NPC_COUNT_KEY));
         else
-            PlayerPrefs.SetInt(StaticVariables.NPC_COUNT_KEY, 0);
+            PlayerPrefs.SetInt(Globals.NPC_COUNT_KEY, 0);
         //bot speed
-        if (PlayerPrefs.HasKey(StaticVariables.NPC_SPEED_KEY))
-            IncreaseNPCSpeed(PlayerPrefs.GetInt(StaticVariables.NPC_SPEED_KEY));
+        if (PlayerPrefs.HasKey(Globals.NPC_SPEED_KEY))
+            IncreaseNPCSpeed(PlayerPrefs.GetInt(Globals.NPC_SPEED_KEY));
         else
-            PlayerPrefs.SetInt(StaticVariables.NPC_SPEED_KEY, 0);
+            PlayerPrefs.SetInt(Globals.NPC_SPEED_KEY, 0);
         //bot capacity
-        if (PlayerPrefs.HasKey(StaticVariables.NPC_INVENTORY_KEY))
-            IncreaseNPCInventorySize(PlayerPrefs.GetInt(StaticVariables.NPC_INVENTORY_KEY));
+        if (PlayerPrefs.HasKey(Globals.NPC_INVENTORY_KEY))
+            IncreaseNPCInventorySize(PlayerPrefs.GetInt(Globals.NPC_INVENTORY_KEY));
         else
-            PlayerPrefs.SetInt(StaticVariables.NPC_INVENTORY_KEY, 0);
+            PlayerPrefs.SetInt(Globals.NPC_INVENTORY_KEY, 0);
     }
 
     void PostProgression(string identifier, int upgradeLevel)

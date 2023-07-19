@@ -26,7 +26,7 @@ public class Wanderer : Follower
         Target = inventory.transform;
         _followLoop = StartCoroutine(FollowLoop());
 
-        if (!PlayerPrefs.HasKey(StaticVariables.FIFTH_WANDERER_TUTORIAL_COMPLETE))
+        if (!PlayerPrefs.HasKey(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE))
         {
             FindObjectOfType<ConditionalTutorial>().WandererTriggered();
         }

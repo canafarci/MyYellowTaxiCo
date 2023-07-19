@@ -38,12 +38,12 @@ public class BrokenTire : MonoBehaviour
 
         _image.SetActive(false);
 
-        if (!PlayerPrefs.HasKey(StaticVariables.THIRD_TIRE_TUTORIAL_COMPLETE))
+        if (!PlayerPrefs.HasKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE))
         {
             ConditionalTutorial tuto = FindObjectOfType<ConditionalTutorial>();
             tuto.OnThirdRepair();
 
-            PlayerPrefs.SetInt(StaticVariables.THIRD_TIRE_TUTORIAL_COMPLETE, 1);
+            PlayerPrefs.SetInt(Globals.THIRD_TIRE_TUTORIAL_COMPLETE, 1);
         }
 
         GetComponent<Car>().OnCarRepaired();

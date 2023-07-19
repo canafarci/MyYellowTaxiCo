@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class StaticVariables
+public static class Globals
 {
     public const float WAIT_ZONES_TIME_STEP = 0.05f;
     public const string PLAYER_INCOME_KEY = "INCOMEUPGRADE";

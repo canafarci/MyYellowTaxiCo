@@ -42,8 +42,8 @@ public class FollowerPickup : MonoBehaviour
             if (follower != null)
             {
                 follower.FollowPlayer(inventory, true);
-                Unlock unlock = GetComponent<Unlock>();
-                if (unlock != null && !unlock.HasUnlockedBefore)
+                IUnlockable unlock = GetComponent<IUnlockable>();
+                if (unlock != null && !unlock.HasUnlockedBefore())
                 {
                     unlock.UnlockObject();
                 }

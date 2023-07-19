@@ -6,17 +6,15 @@ using UnityEngine.Events;
 
 public class TutorialUnlock : UnlockBase
 {
-
     [SerializeField] bool _isFirst;
-
     [SerializeField] TutorialUnlock _nextUnlocker;
     private void Start()
     {
-        if (_isFirst && HasUnlocked())
+        if (_isFirst && HasUnlockedBefore())
         {
             SequentialUnlock();
         }
-        else if (!HasUnlockedBefore)
+        else if (!HasUnlockedBefore())
         {
             SendAnalyticsDataForProgressionStart();
         }
@@ -24,7 +22,7 @@ public class TutorialUnlock : UnlockBase
 
     public void SequentialUnlock()
     {
-        if (HasUnlocked())
+        if (HasUnlockedBefore())
             StartCoroutine(UnlockCoroutine());
     }
 
@@ -34,6 +32,7 @@ public class TutorialUnlock : UnlockBase
         UnlockObject();
         if (_nextUnlocker != null)
         {
+            _nextUnlocker.gameObject.SetActive(true);
             _nextUnlocker.SequentialUnlock();
         }
     }

@@ -32,12 +32,12 @@ public class ConditionalTutorial : MonoBehaviour
 
     private void Load()
     {
-        if (PlayerPrefs.HasKey(StaticVariables.FIRST_CHARGER_TUTORIAL_COMPLETE))
+        if (PlayerPrefs.HasKey(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE))
         {
             _afterFirstChargeReload.Invoke();
         }
 
-        if (PlayerPrefs.HasKey(StaticVariables.SECOND_BROKEN_TUTORIAL_COMPLETE))
+        if (PlayerPrefs.HasKey(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE))
         {
             _afterRepairLoad.Invoke();
 
@@ -46,7 +46,7 @@ public class ConditionalTutorial : MonoBehaviour
                 sp.BrokenCars = _secondStageBrokenCars;
             }
         }
-        if (PlayerPrefs.HasKey(StaticVariables.THIRD_TIRE_TUTORIAL_COMPLETE))
+        if (PlayerPrefs.HasKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE))
         {
             _afterTireReload.Invoke();
 
@@ -56,10 +56,10 @@ public class ConditionalTutorial : MonoBehaviour
             }
         }
 
-        if (PlayerPrefs.HasKey(StaticVariables.FOURTH_CUSTOMER_TUTORIAL_COMPLETE))
+        if (PlayerPrefs.HasKey(Globals.FOURTH_CUSTOMER_TUTORIAL_COMPLETE))
             _afterCustomerDeliveredLoad.Invoke();
 
-        if (PlayerPrefs.HasKey(StaticVariables.FIFTH_WANDERER_TUTORIAL_COMPLETE))
+        if (PlayerPrefs.HasKey(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE))
             _afterWandererDeliveredLoad.Invoke();
     }
 

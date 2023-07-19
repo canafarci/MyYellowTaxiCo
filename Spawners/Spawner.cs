@@ -67,7 +67,7 @@ public class Spawner : MonoBehaviour
     {
         Car car;
 
-        if (_specialChargerSpawn && !PlayerPrefs.HasKey(StaticVariables.FIRST_CHARGER_TUTORIAL_COMPLETE))
+        if (_specialChargerSpawn && !PlayerPrefs.HasKey(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE))
         {
             car = GameObject.Instantiate(_brokenCars[0],
                                  _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
@@ -76,7 +76,7 @@ public class Spawner : MonoBehaviour
             car.CarInPlaceHandler += FirstChargerReturn;
 
         }
-        else if (_specialBrokenSpawn && !PlayerPrefs.HasKey(StaticVariables.SECOND_BROKEN_TUTORIAL_COMPLETE))
+        else if (_specialBrokenSpawn && !PlayerPrefs.HasKey(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE))
         {
             car = GameObject.Instantiate(_brokenCars[0],
                                  _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
@@ -85,7 +85,7 @@ public class Spawner : MonoBehaviour
             car.CarInPlaceHandler += FirstBrokenReturn;
 
         }
-        else if (_specialTireSpawn && !PlayerPrefs.HasKey(StaticVariables.THIRD_TIRE_TUTORIAL_COMPLETE))
+        else if (_specialTireSpawn && !PlayerPrefs.HasKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE))
         {
             car = GameObject.Instantiate(_brokenCars[0],
                                  _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).

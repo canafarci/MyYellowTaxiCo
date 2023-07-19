@@ -12,7 +12,7 @@ public class SpawnWanderer : MonoBehaviour
 
     private void Awake()
     {
-        if (!PlayerPrefs.HasKey(StaticVariables.FIFTH_WANDERER_TUTORIAL_COMPLETE))
+        if (!PlayerPrefs.HasKey(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE))
         {
             _currentTime = 10f;
 
@@ -40,7 +40,7 @@ public class SpawnWanderer : MonoBehaviour
     {
         Wanderer wanderer = GameObject.Instantiate(_prefab, _spawnTransform.position, _prefab.transform.rotation).GetComponent<Wanderer>();
         wanderer.Initialize(_waypoints);
-        if (!PlayerPrefs.HasKey(StaticVariables.FIFTH_WANDERER_TUTORIAL_COMPLETE))
+        if (!PlayerPrefs.HasKey(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE))
             FindObjectOfType<ConditionalTutorial>().OnFirstWandererSpawned(wanderer);
     }
 }

@@ -45,12 +45,12 @@ public class BrokenToolbox : MonoBehaviour
 
         Destroy(toolbox.gameObject);
 
-        if (!PlayerPrefs.HasKey(StaticVariables.SECOND_BROKEN_TUTORIAL_COMPLETE))
+        if (!PlayerPrefs.HasKey(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE))
         {
             ConditionalTutorial tuto = FindObjectOfType<ConditionalTutorial>();
             tuto.OnSecondRepair();
 
-            PlayerPrefs.SetInt(StaticVariables.SECOND_BROKEN_TUTORIAL_COMPLETE, 1);
+            PlayerPrefs.SetInt(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE, 1);
         }
 
         GetComponent<Car>().OnCarRepaired();
