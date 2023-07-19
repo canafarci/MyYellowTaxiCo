@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class WaitSpawnTrigger : MonoBehaviour
 {
-    WaitSpawnLoop _waitLoop;
-    Dictionary<Collider, Coroutine> _coroutines = new Dictionary<Collider, Coroutine>();
+    private WaitSpawnLoop _waitLoop;
+    private Dictionary<Collider, Coroutine> _coroutines = new Dictionary<Collider, Coroutine>();
     private void Awake()
     {
         _waitLoop = GetComponent<WaitSpawnLoop>();
@@ -22,10 +22,11 @@ public class WaitSpawnTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("HatHelperNPC"))
         {
-            if (_coroutines[other] != null)
+            if (_coroutines.TryGetValue(other, out Coroutine coroutine))
             {
-                StopCoroutine(_coroutines[other]);
+                StopCoroutine(coroutine);
                 _waitLoop.Sliders[other].SetActive(false);
+                _coroutines.Remove(other);
             }
         }
     }

@@ -50,7 +50,7 @@ public class Spawner : MonoBehaviour
 
     public void StartMove()
     {
-        StartCoroutine(_ui.WaitLoop());
+        StartCoroutine(_ui.WaitLoop(false));
         _currentCar.TakeOffFX();
         _parkAnimator.Play("ParkOut");
         _spawnIndex += 1;

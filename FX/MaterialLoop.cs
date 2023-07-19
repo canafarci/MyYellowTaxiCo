@@ -8,7 +8,6 @@ public class MaterialLoop : MonoBehaviour
     [SerializeField] Renderer _renderer;
     [SerializeField] Material _default, _active;
     [SerializeField] float _disabledDuration, _disabledToActiveRatio, _cycleOffset;
-    [SerializeField] WaitingItemGenerator _generator;
 
 
     private void Start()
@@ -23,14 +22,10 @@ public class MaterialLoop : MonoBehaviour
         yield return new WaitForSeconds(_disabledDuration);
 
         _renderer.material = _active;
-        if (_generator != null)
-            _generator.IsActive = true;
 
         yield return new WaitForSeconds(_disabledDuration / _disabledToActiveRatio);
 
         _renderer.material = _default;
-        if (_generator != null)
-            _generator.IsActive = false;
 
         StartCoroutine(Loop());
     }

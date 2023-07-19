@@ -9,7 +9,7 @@ public class ContiniousPayUnlockLoop : BasePayLoop
     [SerializeField] UpgradeData _upgradeData;
     [SerializeField] ItemGenerator _stacker;
     [SerializeField] TextMeshProUGUI _levelText;
-    int _currentIndex;
+    private int _currentIndex;
     void Start()
     {
         if (PlayerPrefs.HasKey(Globals.STACKER_UPGRADE_KEY))

@@ -5,21 +5,31 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpawnerUI : GeneratorUI
+public class SpawnerUI : MonoBehaviour
 {
     [SerializeField] float _spawnRate, _initialSpawnTime;
     [SerializeField] GameObject _object;
-    float _currentSpawnTime;
+    protected IFillableUI _fillable;
+    private float _currentSpawnTime;
+    protected void Awake()
+    {
+        _fillable = GetComponent<IFillableUI>();
+    }
     private void Start()
     {
         _currentSpawnTime = _spawnRate;
-        StartCoroutine(WaitLoop(_initialSpawnTime));
+        StartCoroutine(WaitLoop(true));
     }
-    public override IEnumerator WaitLoop(float time = 0f, TextMeshProUGUI text = null, Action successCallback = null, Action failCallback = null, GameObject slider = null)
+    public IEnumerator WaitLoop(bool isInitialSpawn)
     {
         _object.SetActive(true);
         _fillable.SetFill(0f, 1f);
-        time = time == 0f ? time = _currentSpawnTime : time;
+
+        float time;
+        if (isInitialSpawn)
+            time = _initialSpawnTime;
+        else
+            time = _spawnRate;
 
         float maxTime = time;
         float step = .025f;

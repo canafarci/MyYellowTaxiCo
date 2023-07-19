@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class WaitingGeneratorUI : MonoBehaviour, IWaitLoop
+public class WaitingGeneratorUI : MonoBehaviour
 {
     float _money, _moneyStep, _remainingTime, _maxTime;
 

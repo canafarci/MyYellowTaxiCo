@@ -8,23 +8,20 @@ public class ItemGenerator : MonoBehaviour
     [SerializeField] protected float _spawnRate;
     [SerializeField] protected GameObject[] _stackableItem, _stage2Hats, _stage3Hats;
     [SerializeField] protected Transform _startTransform;
-    GeneratorUI _ui;
     protected Stacker _stacker;
-    bool _spawnedFirst = false;
-    int _spawnUpgradeIndex = 0;
+    private bool _spawnedFirst = false;
+    private int _spawnUpgradeIndex = 0;
 
     void Awake()
     {
         _stacker = GetComponent<Stacker>();
-        _ui = GetComponent<GeneratorUI>();
     }
     void Start() => StartCoroutine(SpawnLoop());
     virtual protected IEnumerator SpawnLoop()
     {
-        for (int i = 0; i < Mathf.Infinity; i++)
+        while (true)
         {
-            _ui.HasInitialized = false;
-            yield return StartCoroutine(_ui.WaitLoop(_spawnedFirst ? _spawnRate : 0.1f));
+            yield return new WaitForSeconds(_spawnedFirst ? _spawnRate : 0.1f);
             _spawnedFirst = true;
 
             if (_stacker.MaxStackSize >= _stacker.ItemStack.Count)

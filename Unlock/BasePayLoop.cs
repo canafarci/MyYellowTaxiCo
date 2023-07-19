@@ -5,7 +5,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-public abstract class BasePayLoop : MonoBehaviour
+public abstract class BasePayLoop : MonoBehaviour, IWaitLoop
 {
     [SerializeField] protected float _timeToUnlock, _moneyToUnlock;
     [SerializeField] protected TextMeshProUGUI _text;
@@ -24,7 +24,7 @@ public abstract class BasePayLoop : MonoBehaviour
     {
         ResetLoop();
         StopCoroutine(_moneyFXCoroutine);
-        successCallback();
+        successCallback?.Invoke();
     }
 
     protected void FormatText(float value)
@@ -60,7 +60,6 @@ public abstract class BasePayLoop : MonoBehaviour
         float playerMoney = GameManager.Instance.Resources.Money;
         float precalculatedPlayerMoneyAfterStep = playerMoney - moneyStep;
         float preCalculatedRemainingPayMoney = _remainingMoney - moneyStep;
-
 
         if (preCalculatedRemainingPayMoney <= 0f)
         {

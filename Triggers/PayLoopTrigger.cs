@@ -5,11 +5,11 @@ using DG.Tweening;
 using UnityEngine;
 using TMPro;
 
-public class WaitTrigger : MonoBehaviour
+public class PayLoopTrigger : MonoBehaviour
 {
-    private PayUnlockLoop _payUnlockLoop;
+    private IWaitLoop _payUnlockLoop;
     private Coroutine _payRoutine;
-    IUnlockable _unlockable;
+    private IUnlockable _unlockable;
 
     private void Awake()
     {
@@ -36,11 +36,15 @@ public class WaitTrigger : MonoBehaviour
 
     private IEnumerator UnlockItemLoop()
     {
-        //prevent accidental player walking and paying
+        // Prevent accidental player walking and paying
         yield return new WaitForSeconds(1f);
 
-        yield return StartCoroutine(_payUnlockLoop.PayLoop(() => { if (_unlockable != null) _unlockable.UnlockObject(); },
-                                                            () => StopAllCoroutines()));
+        yield return _payUnlockLoop.PayLoop(() =>
+            {
+                if (_unlockable != null)
+                    _unlockable.UnlockObject();
+            },
+            () => StopAllCoroutines());
     }
 
 

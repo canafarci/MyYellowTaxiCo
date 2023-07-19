@@ -19,7 +19,6 @@ public class Resource : MonoBehaviour
     {
         MoneyStacker.MoneyPickupHandler += OnMoneyPickup;
         WandererMoney.WandererMoneyPickupHandler += OnMoneyPickup;
-        GeneratorUI.MoneyPayHandler += OnPayMoney;
         PayUnlockLoop.MoneyPayHandler += OnPayMoney;
     }
 
@@ -27,7 +26,6 @@ public class Resource : MonoBehaviour
     {
         MoneyStacker.MoneyPickupHandler -= OnMoneyPickup;
         WandererMoney.WandererMoneyPickupHandler -= OnMoneyPickup;
-        GeneratorUI.MoneyPayHandler -= OnPayMoney;
         PayUnlockLoop.MoneyPayHandler -= OnPayMoney;
     }
     public void ZeroMoney()
