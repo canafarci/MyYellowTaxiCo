@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41ec3f131ea216a48a3a623dc8f6a892, type: 3}
+  m_Name: UpgradeData
+  m_EditorClassIdentifier: 
+  SpeedModifiers:
+  - SpeedMultiplier: 1
+    Cost: 0
+  - SpeedMultiplier: 1.2
+    Cost: 500
+  - SpeedMultiplier: 1.3
+    Cost: 2000
+  - SpeedMultiplier: 1.4
+    Cost: 4000
+  - SpeedMultiplier: 1.5
+    Cost: 8000
+  - SpeedMultiplier: 1.6
+    Cost: 16000
+  IncomeModifiers:
+  - IncomeMultiplier: 1
+    Cost: 0
+  - IncomeMultiplier: 1.1
+    Cost: 500
+  - IncomeMultiplier: 1.2
+    Cost: 2000
+  - IncomeMultiplier: 1.3
+    Cost: 4000
+  - IncomeMultiplier: 1.4
+    Cost: 8000
+  - IncomeMultiplier: 1.5
+    Cost: 16000
+  PlayerInventorySizes:
+  - Size: 1
+    Cost: 0
+  - Size: 2
+    Cost: 0
+  - Size: 3
+    Cost: 4000
+  - Size: 4
+    Cost: 8000
+  - Size: 5
+    Cost: 16000
+  - Size: 6
+    Cost: 32000
+  HelperNPCCount:
+  - Cost: 0
+  - Cost: 0
+  - Cost: 8000
+  HelperNPCSpeeds:
+  - Speed: 3
+    Cost: 0
+  - Speed: 3.5
+    Cost: 500
+  - Speed: 4
+    Cost: 2000
+  - Speed: 4.5
+    Cost: 4000
+  - Speed: 5
+    Cost: 8000
+  - Speed: 5.5
+    Cost: 16000
+  HelperNPCInventorySizes:
+  - Size: 1
+    Cost: 0
+  - Size: 2
+    Cost: 2000
+  - Size: 3
+    Cost: 4000
+  - Size: 4
+    Cost: 8000
+  - Size: 5
+    Cost: 16000
+  - Size: 6
+    Cost: 32000
+  StackSpeeds:
+  - SpawnRate: 6
+    Cost: 0
+  - SpawnRate: 5
+    Cost: 1500
+  - SpawnRate: 4
+    Cost: 3000
+  - SpawnRate: 3
+    Cost: 4500

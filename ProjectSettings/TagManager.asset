@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - FxTemporaire
+  - ClusterTrigger
+  - Handle
+  - CarNoGas
+  - GasSlider
+  - WallPush
+  - CarBrokenToolbox
+  - CarBrokenTire
+  - WandererCamera
+  - HatHelperNPC
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - CollisionLayer
+  - NoCollision
+  - BloomLayer
+  - Obi
+  - Player
+  - NPC
+  - Apartman
+  - Driver
+  - push
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
