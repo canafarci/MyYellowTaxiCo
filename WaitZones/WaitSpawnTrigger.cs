@@ -16,23 +16,29 @@ public class WaitSpawnTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("HatHelperNPC"))
         {
-            GameObject slider = other.GetComponent<ComponentReference>().Slider;
-            _coroutines[other] = StartCoroutine(_waitLoop.SpawnLoop(other, slider));
+            OnWaitZoneEnter(other);
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player") || other.CompareTag("HatHelperNPC"))
         {
-            if (_coroutines.TryGetValue(other, out Coroutine coroutine))
-            {
-                StopCoroutine(coroutine);
-                GameObject slider = other.GetComponent<ComponentReference>().Slider;
-                _sliderVisual.HideSlider(slider);
-                _coroutines.Remove(other);
-            }
+            OnWaitZoneExit(other);
         }
     }
-
+    private void OnWaitZoneEnter(Collider other)
+    {
+        GameObject slider = other.GetComponent<ComponentReference>().Slider;
+        _coroutines[other] = StartCoroutine(_waitLoop.SpawnLoop(other, slider));
+    }
+    private void OnWaitZoneExit(Collider other)
+    {
+        if (_coroutines.TryGetValue(other, out Coroutine coroutine))
+        {
+            StopCoroutine(coroutine);
+            GameObject slider = other.GetComponent<ComponentReference>().Slider;
+            _sliderVisual.HideSlider(slider);
+            _coroutines.Remove(other);
+        }
+    }
 }
