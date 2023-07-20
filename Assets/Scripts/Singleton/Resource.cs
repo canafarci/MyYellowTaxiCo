@@ -19,14 +19,14 @@ public class Resource : MonoBehaviour
     {
         MoneyStacker.MoneyPickupHandler += OnMoneyPickup;
         WandererMoney.WandererMoneyPickupHandler += OnMoneyPickup;
-        BuyableWaitingZone.MoneyPayHandler += OnPayMoney;
+        PayMoneyProcessor.MoneyPayHandler += OnPayMoney;
     }
 
     private void OnDisable()
     {
         MoneyStacker.MoneyPickupHandler -= OnMoneyPickup;
         WandererMoney.WandererMoneyPickupHandler -= OnMoneyPickup;
-        BuyableWaitingZone.MoneyPayHandler -= OnPayMoney;
+        PayMoneyProcessor.MoneyPayHandler -= OnPayMoney;
     }
     public void ZeroMoney()
     {

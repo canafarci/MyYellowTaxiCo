@@ -4,15 +4,14 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-[RequireComponent(typeof(BuyableWaitingZoneVisual))]
+[RequireComponent(typeof(BuyableWaitingZoneVisual), typeof(PayMoneyProcessor))]
 public class BuyableWaitingZone : WaitingEngine
 {
-    [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] float _moneyToUnlock;
     private float _remainingMoney;
     private float _moneyStep;
     private BuyableWaitingZoneVisual _visual;
-    public static Action<float> MoneyPayHandler;
+    private PayMoneyProcessor _payCalculator;
 
     private void Start()
     {
@@ -20,10 +19,12 @@ public class BuyableWaitingZone : WaitingEngine
     }
     private void Initialize()
     {
+        _payCalculator = GetComponent<PayMoneyProcessor>();
+
         _remainingTime = _timeToUnlock;
         _remainingMoney = _moneyToUnlock;
 
-        _moneyStep = _remainingMoney / _remainingTime * Globals.WAIT_ZONES_TIME_STEP;
+        //_moneyStep = _remainingMoney / _remainingTime * Globals.WAIT_ZONES_TIME_STEP;
 
         _visual = GetComponent<BuyableWaitingZoneVisual>();
         _visual.Initialize(_moneyToUnlock);
@@ -37,54 +38,23 @@ public class BuyableWaitingZone : WaitingEngine
     }
     protected override void Execute()
     {
-        float playerMoney = GameManager.Instance.Resources.Money;
-        float precalculatedPlayerMoneyAfterStep = playerMoney - _moneyStep;
-        float preCalculatedRemainingPayMoney = _remainingMoney - _moneyStep;
+        bool isSuccessful = _payCalculator.ProcessPay(ref _remainingTime, ref _remainingMoney);
 
-        if (preCalculatedRemainingPayMoney <= 0f)
+        if (!isSuccessful)
         {
-            FinishPaying();
-            return;
+            _currentConfig.OnFail();
+            Cancel();
         }
 
-        if (precalculatedPlayerMoneyAfterStep < 0)
-        {
-            OnNotEnoughMoney(playerMoney);
-            return;
-        }
-
-        UpdateState();
+        _visual.UpdateVisual(_remainingMoney, _moneyToUnlock);
     }
 
     private void UpdateState()
     {
         _visual.UpdateVisual(_remainingMoney, _moneyToUnlock);
 
-        _remainingMoney -= _moneyStep;
-        MoneyPayHandler?.Invoke(_moneyStep);
 
         _remainingTime -= Globals.WAIT_ZONES_TIME_STEP;
-    }
-
-    private void OnNotEnoughMoney(float playerMoney)
-    {
-        _remainingMoney -= playerMoney;
-        _remainingTime -= Globals.WAIT_ZONES_TIME_STEP;
-        //Visual
-        _text.DOColor(Color.white, 0.001f);
-        _visual.UpdateVisual(_remainingMoney, _moneyToUnlock);
-
-        GameManager.Instance.Resources.ZeroMoney();
-        _currentConfig.OnFail();
-        Cancel();
-    }
-
-    private void FinishPaying()
-    {
-        _remainingMoney = 0;
-        _remainingTime -= Globals.WAIT_ZONES_TIME_STEP;
-
-        _visual.UpdateVisual(0, 1);
     }
 
     protected override bool CheckCanContinue()
