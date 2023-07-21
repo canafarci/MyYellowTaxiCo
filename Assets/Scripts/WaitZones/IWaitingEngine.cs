@@ -6,6 +6,6 @@ using UnityEngine;
 
 public interface IWaitingEngine
 {
-    void Begin(WaitZoneConfigSO config);
-    void Cancel();
+    void Begin(WaitZoneConfigSO config, GameObject instigator);
+    void Cancel(GameObject instigator);
 }

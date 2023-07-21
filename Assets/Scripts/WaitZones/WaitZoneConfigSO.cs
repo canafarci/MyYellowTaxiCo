@@ -5,12 +5,9 @@ using UnityEngine;
 public class WaitZoneConfigSO : ScriptableObject
 {
     public Action OnSuccess { get { return _onSuccess; } }
-    public Action OnFail { get { return _onFail; } }
     private Action _onSuccess;
-    private Action _onFail;
-    public WaitZoneConfigSO(Action OnSuccess, Action OnFail)
+    public WaitZoneConfigSO(Action OnSuccess)
     {
         _onSuccess = OnSuccess;
-        _onFail = OnFail;
     }
 }

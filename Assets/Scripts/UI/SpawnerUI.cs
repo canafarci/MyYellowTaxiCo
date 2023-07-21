@@ -9,11 +9,11 @@ public class SpawnerUI : MonoBehaviour
 {
     [SerializeField] float _spawnRate, _initialSpawnTime;
     [SerializeField] GameObject _object;
-    protected IFillableUI _fillable;
+    protected IFeedbackVisual _fillable;
     private float _currentSpawnTime;
     protected void Awake()
     {
-        _fillable = GetComponent<IFillableUI>();
+        _fillable = GetComponent<IFeedbackVisual>();
     }
     private void Start()
     {
@@ -23,7 +23,7 @@ public class SpawnerUI : MonoBehaviour
     public IEnumerator WaitLoop(bool isInitialSpawn)
     {
         _object.SetActive(true);
-        _fillable.SetFill(0f, 1f);
+        _fillable.SetValue(0f, 1f);
 
         float time;
         if (isInitialSpawn)
@@ -41,7 +41,7 @@ public class SpawnerUI : MonoBehaviour
             yield return new WaitForSeconds(step);
 
             if (_fillable != null)
-                _fillable.SetFill(maxTime - time, maxTime);
+                _fillable.SetValue(maxTime - time, maxTime);
         }
 
         _object.SetActive(false);

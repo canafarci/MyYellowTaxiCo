@@ -8,12 +8,10 @@ public class BuyableWaitingZoneVisual : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] TextMeshProUGUI _levelText;
-    private IFillableUI _fillable;
-
-
+    private IFeedbackVisual _fillable;
     public void Initialize(float moneyToUnlock)
     {
-        _fillable = GetComponent<IFillableUI>();
+        _fillable = GetComponent<IFeedbackVisual>();
 
         if (_text != null)
             FormatText(moneyToUnlock);
@@ -36,13 +34,14 @@ public class BuyableWaitingZoneVisual : MonoBehaviour
             FormatText(moneyToUnlock);
 
         if (_fillable != null)
-            _fillable.SetFill(0, 1);
+            _fillable.SetValue(0, 1);
     }
     public void UpdateVisual(float value, float maxValue)
     {
         FormatText(value);
         _text.DOColor(Color.green, 0.1f);
-        _fillable.SetFill(value, maxValue);
+        _fillable?.SetValue(value, maxValue);
+        DotweenFX.MoneyArcTween(transform.position);
     }
     public void SetLevelText(int currentIndex)
     {

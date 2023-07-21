@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FillableSlider : MonoBehaviour, IFillableUI
+public class FillableSlider : MonoBehaviour, IFeedbackVisual
 {
     [SerializeField] protected Slider _slider;
-    public void SetFill(float currentValue, float maxValue)
+    public void SetValue(float currentValue, float maxValue)
     {
         _slider.value = currentValue / maxValue;
     }

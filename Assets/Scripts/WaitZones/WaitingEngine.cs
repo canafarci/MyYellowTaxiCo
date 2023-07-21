@@ -4,39 +4,40 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public abstract class WaitingEngine : MonoBehaviour, IWaitingEngine
 {
     [SerializeField] protected float _timeToUnlock;
-    protected float _remainingTime;
-    protected Coroutine _currentRun;
-    protected WaitZoneConfigSO _currentConfig = null;
+    private Dictionary<GameObject, Coroutine> _runs = new();
+    private Dictionary<GameObject, WaitZoneConfigSO> _configs = new();
 
-    public void Begin(WaitZoneConfigSO config)
+    public virtual void Begin(WaitZoneConfigSO config, GameObject other)
     {
-        _currentConfig = config;
-        _currentRun = StartCoroutine(Run());
+        _runs[other] = StartCoroutine(Run(other));
+        _configs[other] = config;
+    }
+    public virtual void Cancel(GameObject other)
+    {
+        Assert.IsTrue(_runs.ContainsKey(other) && _runs[other] != null);
+        StopCoroutine(_runs[other]);
     }
 
-    private IEnumerator Run()
+    private IEnumerator Run(GameObject instigator)
     {
-        while (CheckCanContinue())
+        float remainingTime = _timeToUnlock;
+        while (CheckCanContinue(remainingTime))
         {
-            Execute();
+            Iterate(ref remainingTime, instigator);
             yield return new WaitForSeconds(Globals.WAIT_ZONES_TIME_STEP);
         }
-        OnSuccess();
+        OnSuccess(instigator);
     }
-    public void Cancel()
+
+    protected abstract bool CheckCanContinue(float remainingTime);
+    protected abstract void Iterate(ref float remainingTime, GameObject instigator);
+    protected virtual void OnSuccess(GameObject instigator)
     {
-        StopCoroutine(_currentRun);
-    }
-    protected abstract bool CheckCanContinue();
-    protected abstract void ResetLoop();
-    protected abstract void Execute();
-    protected virtual void OnSuccess()
-    {
-        _currentConfig.OnSuccess();
-        ResetLoop();
+        _configs[instigator].OnSuccess();
     }
 }

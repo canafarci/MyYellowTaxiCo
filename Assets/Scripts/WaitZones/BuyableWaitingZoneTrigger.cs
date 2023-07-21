@@ -11,10 +11,9 @@ public class BuyableWaitingZoneTrigger : MonoBehaviour
     private IWaitingEngine _payingZoneEngine;
     private IUnlockable _unlockable;
     private Action _successAction;
-    private Action _failAction;
     private void Awake()
     {
-        _payingZoneEngine = GetComponent<BuyableWaitingZone>();
+        _payingZoneEngine = GetComponent<IWaitingEngine>();
         _unlockable = GetComponent<IUnlockable>();
     }
     private void Start()
@@ -24,23 +23,20 @@ public class BuyableWaitingZoneTrigger : MonoBehaviour
                 if (_unlockable != null)
                     _unlockable.UnlockObject();
             };
-        _failAction = () => StopAllCoroutines();
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            WaitZoneConfigSO config = new WaitZoneConfigSO(_successAction,
-                                                            _failAction
-                                                                            );
-            _payingZoneEngine.Begin(config);
+            WaitZoneConfigSO config = new WaitZoneConfigSO(_successAction);
+            _payingZoneEngine.Begin(config, other.gameObject);
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            _payingZoneEngine.Cancel();
+            _payingZoneEngine.Cancel(other.gameObject);
         }
     }
 }

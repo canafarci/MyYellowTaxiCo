@@ -8,24 +8,20 @@ using UnityEngine;
 public class RepeatableBuyingWaitingZone : WaitingEngine
 {
     [SerializeField] private UpgradeData _upgradeData;
-    [SerializeField] private GameObject _spawnerObject;
+    [SerializeField] private ItemGenerator _itemGenerator;
     [SerializeField] float _moneyToUnlock;
     private float _remainingMoney;
     private BuyableWaitingZoneVisual _visual;
     private PayMoneyProcessor _payCalculator;
-    private float _moneyStep;
-    private IItemSpawner _itemSpawner;
     private int _currentUpgradeIndex;
     private void Awake()
     {
-        _itemSpawner = _spawnerObject.GetComponent<IItemSpawner>();
         _payCalculator = GetComponent<PayMoneyProcessor>();
     }
     void Start()
     {
         Initialize(LoadUpgradeIndex());
     }
-
     private int LoadUpgradeIndex()
     {
         if (PlayerPrefs.HasKey(Globals.STACKER_UPGRADE_KEY))
@@ -35,27 +31,31 @@ public class RepeatableBuyingWaitingZone : WaitingEngine
         return _currentUpgradeIndex;
     }
 
-    protected override void ResetLoop()
+    private void ResetLoop()
     {
         Initialize(_currentUpgradeIndex);
     }
-    protected override void OnSuccess()
+    public override void Begin(WaitZoneConfigSO config, GameObject other)
+    {
+        base.Begin(config, other);
+    }
+    protected override void OnSuccess(GameObject instigator)
     {
         _currentUpgradeIndex++;
         PlayerPrefs.SetInt(Globals.STACKER_UPGRADE_KEY, _currentUpgradeIndex);
         SetStackerSpeed(_currentUpgradeIndex);
 
-        base.OnSuccess();
+        ResetLoop();
+        base.OnSuccess(instigator);
     }
     private void SetStackerSpeed(int index)
     {
         if (_currentUpgradeIndex < _upgradeData.StackSpeeds.Length)
-            _itemSpawner.SetSpawnRate(_upgradeData.StackSpeeds[_currentUpgradeIndex].SpawnRate);
+            _itemGenerator.SetSpawnRate(_upgradeData.StackSpeeds[_currentUpgradeIndex].SpawnRate);
     }
     private void Initialize(int currentIndex)
     {
         SetStackerSpeed(currentIndex);
-        _moneyStep = _remainingMoney / _remainingTime * Globals.WAIT_ZONES_TIME_STEP;
 
         if (GetIndexIsAtMaxLength())
             return;
@@ -65,10 +65,9 @@ public class RepeatableBuyingWaitingZone : WaitingEngine
         _visual.SetLevelText(_currentUpgradeIndex);
 
 
-        _remainingTime = _timeToUnlock;
         _remainingMoney = _upgradeData.StackSpeeds[_currentUpgradeIndex + 1].Cost;
     }
-    bool GetIndexIsAtMaxLength()
+    private bool GetIndexIsAtMaxLength()
     {
         bool retVal = _currentUpgradeIndex >= _upgradeData.StackSpeeds.Length - 1;
         if (retVal)
@@ -77,19 +76,18 @@ public class RepeatableBuyingWaitingZone : WaitingEngine
         return retVal;
     }
 
-    protected override bool CheckCanContinue()
+    protected override bool CheckCanContinue(float remainingTime)
     {
-        return _remainingTime > 0f && _remainingMoney > 0f;
+        return remainingTime > 0f && _remainingMoney > 0f;
     }
 
-    protected override void Execute()
+    protected override void Iterate(ref float remainingTime, GameObject instigator)
     {
-        bool isSuccessful = _payCalculator.ProcessPay(ref _remainingTime, ref _remainingMoney);
+        bool isSuccessful = _payCalculator.ProcessPay(ref remainingTime, ref _remainingMoney);
 
         if (!isSuccessful)
         {
-            _currentConfig.OnFail();
-            Cancel();
+            Cancel(instigator);
         }
 
         _visual.UpdateVisual(_remainingMoney, _moneyToUnlock);

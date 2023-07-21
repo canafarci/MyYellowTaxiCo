@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(BuyableWaitingZoneVisual), typeof(PayMoneyProcessor))]
 public class BuyableWaitingZone : WaitingEngine
 {
-    [SerializeField] float _moneyToUnlock;
+    [SerializeField] private float _moneyToUnlock;
     private float _remainingMoney;
     private float _moneyStep;
     private BuyableWaitingZoneVisual _visual;
@@ -21,29 +21,18 @@ public class BuyableWaitingZone : WaitingEngine
     {
         _payCalculator = GetComponent<PayMoneyProcessor>();
 
-        _remainingTime = _timeToUnlock;
         _remainingMoney = _moneyToUnlock;
-
-        //_moneyStep = _remainingMoney / _remainingTime * Globals.WAIT_ZONES_TIME_STEP;
 
         _visual = GetComponent<BuyableWaitingZoneVisual>();
         _visual.Initialize(_moneyToUnlock);
     }
-
-    protected override void ResetLoop()
+    protected override void Iterate(ref float remainingTime, GameObject instigator)
     {
-        _remainingMoney = _moneyToUnlock;
-        _visual.Reset(_moneyToUnlock);
-
-    }
-    protected override void Execute()
-    {
-        bool isSuccessful = _payCalculator.ProcessPay(ref _remainingTime, ref _remainingMoney);
+        bool isSuccessful = _payCalculator.ProcessPay(ref remainingTime, ref _remainingMoney);
 
         if (!isSuccessful)
         {
-            _currentConfig.OnFail();
-            Cancel();
+            Cancel(instigator);
         }
 
         _visual.UpdateVisual(_remainingMoney, _moneyToUnlock);
@@ -52,13 +41,10 @@ public class BuyableWaitingZone : WaitingEngine
     private void UpdateState()
     {
         _visual.UpdateVisual(_remainingMoney, _moneyToUnlock);
-
-
-        _remainingTime -= Globals.WAIT_ZONES_TIME_STEP;
     }
 
-    protected override bool CheckCanContinue()
+    protected override bool CheckCanContinue(float remainingTime)
     {
-        return _remainingTime > 0f && _remainingMoney > 0f;
+        return remainingTime > 0f && _remainingMoney > 0f;
     }
 }

@@ -31,18 +31,5 @@ public class PayMoneyProcessor : MonoBehaviour
         MoneyPayHandler?.Invoke(moneyStep);
         return true;
     }
-
 }
 
-public struct PayOutput
-{
-    public float RemainingMoney;
-    public float RemainingTime;
-    public bool LoopSuccessfullyCompleted;
-    public PayOutput(float remainingMoney, float remainingTime, bool loopSuccessfullyCompleted)
-    {
-        RemainingMoney = remainingMoney;
-        RemainingTime = remainingTime;
-        LoopSuccessfullyCompleted = loopSuccessfullyCompleted;
-    }
-}
