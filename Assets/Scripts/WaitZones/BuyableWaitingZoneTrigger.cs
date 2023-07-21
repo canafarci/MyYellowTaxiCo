@@ -6,37 +6,40 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class BuyableWaitingZoneTrigger : MonoBehaviour
+namespace Taxi.WaitZones
 {
-    private IWaitingEngine _payingZoneEngine;
-    private IUnlockable _unlockable;
-    private Action _successAction;
-    private void Awake()
+    public class BuyableWaitingZoneTrigger : MonoBehaviour
     {
-        _payingZoneEngine = GetComponent<IWaitingEngine>();
-        _unlockable = GetComponent<IUnlockable>();
-    }
-    private void Start()
-    {
-        _successAction = () =>
-            {
-                if (_unlockable != null)
-                    _unlockable.UnlockObject();
-            };
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        private IWaitingEngine _payingZoneEngine;
+        private IUnlockable _unlockable;
+        private Action _successAction;
+        private void Awake()
         {
-            WaitZoneConfigSO config = new WaitZoneConfigSO(_successAction);
-            _payingZoneEngine.Begin(config, other.gameObject);
+            _payingZoneEngine = GetComponent<IWaitingEngine>();
+            _unlockable = GetComponent<IUnlockable>();
         }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        private void Start()
         {
-            _payingZoneEngine.Cancel(other.gameObject);
+            _successAction = () =>
+                {
+                    if (_unlockable != null)
+                        _unlockable.UnlockObject();
+                };
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                WaitZoneConfigSO config = new WaitZoneConfigSO(_successAction);
+                _payingZoneEngine.Begin(config, other.gameObject);
+            }
+        }
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                _payingZoneEngine.Cancel(other.gameObject);
+            }
         }
     }
 }

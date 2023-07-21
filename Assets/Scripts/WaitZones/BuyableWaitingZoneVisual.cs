@@ -3,49 +3,50 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
-
-public class BuyableWaitingZoneVisual : MonoBehaviour
+namespace Taxi.WaitZones
 {
-    [SerializeField] private TextMeshProUGUI _text;
-    [SerializeField] TextMeshProUGUI _levelText;
-    private IFeedbackVisual _fillable;
-    public void Initialize(float moneyToUnlock)
+    public class BuyableWaitingZoneVisual : MonoBehaviour
     {
-        _fillable = GetComponent<IFeedbackVisual>();
-
-        if (_text != null)
-            FormatText(moneyToUnlock);
-    }
-    private void FormatText(float value)
-    {
-        if (value >= 1000)
+        [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] TextMeshProUGUI _levelText;
+        private IFeedbackVisual _fillable;
+        public void Initialize(float moneyToUnlock)
         {
-            if (value % 1000 == 0)
-                _text.text = (value / 1000).ToString("F0") + "K";
-            else
-                _text.text = (value / 1000).ToString("F1") + "K";
-        }
-        else
-            _text.text = value.ToString("F0");
-    }
-    public void Reset(float moneyToUnlock)
-    {
-        if (_text != null)
-            FormatText(moneyToUnlock);
+            _fillable = GetComponent<IFeedbackVisual>();
 
-        if (_fillable != null)
-            _fillable.SetValue(0, 1);
-    }
-    public void UpdateVisual(float value, float maxValue)
-    {
-        FormatText(value);
-        _text.DOColor(Color.green, 0.1f);
-        _fillable?.SetValue(value, maxValue);
-        DotweenFX.MoneyArcTween(transform.position);
-    }
-    public void SetLevelText(int currentIndex)
-    {
-        _levelText.text = "LEVEL " + (currentIndex + 1).ToString();
+            if (_text != null)
+                FormatText(moneyToUnlock);
+        }
+        private void FormatText(float value)
+        {
+            if (value >= 1000)
+            {
+                if (value % 1000 == 0)
+                    _text.text = (value / 1000).ToString("F0") + "K";
+                else
+                    _text.text = (value / 1000).ToString("F1") + "K";
+            }
+            else
+                _text.text = value.ToString("F0");
+        }
+        public void Reset(float moneyToUnlock)
+        {
+            if (_text != null)
+                FormatText(moneyToUnlock);
+
+            if (_fillable != null)
+                _fillable.SetValue(0, 1);
+        }
+        public void UpdateVisual(float value, float maxValue)
+        {
+            FormatText(value);
+            _text.DOColor(Color.green, 0.1f);
+            _fillable?.SetValue(value, maxValue);
+            DotweenFX.MoneyArcTween(transform.position);
+        }
+        public void SetLevelText(int currentIndex)
+        {
+            _levelText.text = "LEVEL " + (currentIndex + 1).ToString();
+        }
     }
 }
-

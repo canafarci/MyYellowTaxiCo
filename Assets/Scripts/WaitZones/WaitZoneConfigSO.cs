@@ -1,13 +1,16 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WaitZoneConfigSO", menuName = "NewYork Taxi/WaitZoneConfigSO", order = 0)]
-public class WaitZoneConfigSO : ScriptableObject
+namespace Taxi.WaitZones
 {
-    public Action OnSuccess { get { return _onSuccess; } }
-    private Action _onSuccess;
-    public WaitZoneConfigSO(Action OnSuccess)
+    [CreateAssetMenu(fileName = "WaitZoneConfigSO", menuName = "NewYork Taxi/WaitZoneConfigSO", order = 0)]
+    public class WaitZoneConfigSO : ScriptableObject
     {
-        _onSuccess = OnSuccess;
+        public Action OnSuccess { get { return _onSuccess; } }
+        private Action _onSuccess;
+        public WaitZoneConfigSO(Action OnSuccess)
+        {
+            _onSuccess = OnSuccess;
+        }
     }
 }

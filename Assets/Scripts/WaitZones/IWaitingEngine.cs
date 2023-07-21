@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public interface IWaitingEngine
+namespace Taxi.WaitZones
 {
-    void Begin(WaitZoneConfigSO config, GameObject instigator);
-    void Cancel(GameObject instigator);
+    public interface IWaitingEngine
+    {
+        void Begin(WaitZoneConfigSO config, GameObject instigator);
+        void Cancel(GameObject instigator);
+    }
 }
