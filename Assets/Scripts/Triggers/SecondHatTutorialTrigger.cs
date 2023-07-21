@@ -19,7 +19,7 @@ public class SecondHatTutorialTrigger : TutorialTrigger
 
             var data = new Ketchapp.MayoSDK.Analytics.Data();
             data.AddValue("ProgressionStatus", "Completed");
-            data.AddValue("Money", (int)GameManager.Instance.Resources.Money);
+            data.AddValue("Money", (int)GameManager.Instance.Resources.PlayerMoney);
             KetchappSDK.Analytics.CustomEvent("----SecondHatTutorialGiveHatToDrivers", data);
         }
     }

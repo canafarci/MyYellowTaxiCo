@@ -58,12 +58,12 @@ public class StackPickup : MonoBehaviour
 
                     var data = new Ketchapp.MayoSDK.Analytics.Data();
                     data.AddValue("ProgressionStatus", "Completed");
-                    data.AddValue("Money", (int)GameManager.Instance.Resources.Money);
+                    data.AddValue("Money", (int)GameManager.Instance.Resources.PlayerMoney);
                     KetchappSDK.Analytics.CustomEvent("----SecondHatTutorialStart", data);
 
                     var dataStart = new Ketchapp.MayoSDK.Analytics.Data();
                     dataStart.AddValue("ProgressionStatus", "Started");
-                    dataStart.AddValue("Money", (int)GameManager.Instance.Resources.Money);
+                    dataStart.AddValue("Money", (int)GameManager.Instance.Resources.PlayerMoney);
                     KetchappSDK.Analytics.CustomEvent("----SecondHatTutorialGiveHatToDrivers", data);
                 }
             }

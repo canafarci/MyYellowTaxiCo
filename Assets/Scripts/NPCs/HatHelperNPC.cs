@@ -8,7 +8,6 @@ public class HatHelperNPC : NavMeshNPC
     Inventory _inventory;
     DriverQueue[] _queues;
     public static List<StackPickup> _hatStackers;
-    Upgrader _upgrader;
     float _hatStackersUpdateInterval = 5f;
     Animator _animator;
 
@@ -18,20 +17,19 @@ public class HatHelperNPC : NavMeshNPC
         _animator = GetComponentInChildren<Animator>();
         _inventory = GetComponent<Inventory>();
         _queues = FindObjectsOfType<DriverQueue>();
-        _upgrader = FindObjectOfType<Upgrader>();
-        _agent.speed = _upgrader.NPCSpeed;
+        _agent.speed = Upgrades.Instance.NPCSpeed;
         _animator.speed = _agent.speed / 7f; //constant base speed
-        _inventory.MaxStackSize = _upgrader.NPCInventorySize;
+        _inventory.MaxStackSize = Upgrades.Instance.NPCInventorySize;
     }
     private void OnEnable()
     {
-        _upgrader.OnNPCInventorySizeUpgrade += IncreaseInventoryHandler;
-        _upgrader.OnNPCSpeedUpgrade += IncreaseSpeedHandler;
+        Upgrades.Instance.OnNPCInventorySizeUpgrade += IncreaseInventoryHandler;
+        Upgrades.Instance.OnNPCSpeedUpgrade += IncreaseSpeedHandler;
     }
     private void OnDisable()
     {
-        _upgrader.OnNPCInventorySizeUpgrade -= IncreaseInventoryHandler;
-        _upgrader.OnNPCSpeedUpgrade -= IncreaseSpeedHandler;
+        Upgrades.Instance.OnNPCInventorySizeUpgrade -= IncreaseInventoryHandler;
+        Upgrades.Instance.OnNPCSpeedUpgrade -= IncreaseSpeedHandler;
     }
     private void IncreaseSpeedHandler(float speed)
     {

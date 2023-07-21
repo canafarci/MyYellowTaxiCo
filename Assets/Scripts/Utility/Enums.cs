@@ -21,6 +21,6 @@ public class Enums
         HelperNPCCount,
         PlayerInventorySize,
         HelperNPCSpeed,
-        HelperNPCInventorySize
+        HelperNPCInventorySize,
     }
 }

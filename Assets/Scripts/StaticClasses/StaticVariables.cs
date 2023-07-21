@@ -10,7 +10,7 @@ public static class Globals
     public const string PLAYER_INVENTORY_KEY = "INVENTORYUPGRADE";
     public const string NPC_COUNT_KEY = "NPCCOUNTUPGRADE";
     public const string NPC_SPEED_KEY = "NPCSPEEDUPGRADE";
-    public const string NPC_INVENTORY_KEY = "NPCCOUNTUPGRADE";
+    public const string NPC_INVENTORY_KEY = "NPCINVENTORYUPGRADE";
     public const string FIRST_CHARGER_TUTORIAL_COMPLETE = "FIRSTTUTORIAL";
     public const string SECOND_BROKEN_TUTORIAL_COMPLETE = "SECONDTUTORIAL";
     public const string THIRD_TIRE_TUTORIAL_COMPLETE = "THIRDTUTORIAL";

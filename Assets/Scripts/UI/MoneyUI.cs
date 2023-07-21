@@ -13,7 +13,7 @@ public class MoneyUI : MonoBehaviour
     }
     private void OnEnable()
     {
-        _text.text = GameManager.Instance.Resources.Money.ToString("F0");
+        _text.text = GameManager.Instance.Resources.PlayerMoney.ToString("F0");
         GameManager.Instance.Resources.MoneyChangeHandler += OnMoneyChange;
     }
 

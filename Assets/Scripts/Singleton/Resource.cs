@@ -6,14 +6,12 @@ using Taxi.WaitZones;
 
 public class Resource : MonoBehaviour
 {
-    public float Money { get { return _currentMoney; } }
+    public float PlayerMoney { get { return _currentMoney; } }
     public event Action<float> MoneyChangeHandler;
     float _currentMoney;
-    Upgrader _upgrader;
     private void Awake()
     {
         ReadPrefs();
-        _upgrader = FindObjectOfType<Upgrader>();
     }
 
     private void OnEnable()
@@ -47,7 +45,7 @@ public class Resource : MonoBehaviour
     }
     private void OnMoneyPickup()
     {
-        _currentMoney += (_upgrader.IncomeModifier * GameManager.Instance.References.GameConfig.MoneyPerStack);
+        _currentMoney += (Upgrades.Instance.IncomeModifier * GameManager.Instance.References.GameConfig.MoneyPerStack);
         OnMoneyChange();
     }
     void OnMoneyChange()

@@ -37,21 +37,21 @@ public abstract class UnlockBase : MonoBehaviour, IUnlockable
     {
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("ProgressionStatus", "Failed");
-        data.AddValue("Money", (int)GameManager.Instance.Resources.Money);
+        data.AddValue("Money", (int)GameManager.Instance.Resources.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent(_identifier, data);
     }
     private void SendOnUnlockCompleteAnalytics()
     {
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("ProgressionStatus", "Completed");
-        data.AddValue("Money", (int)GameManager.Instance.Resources.Money);
+        data.AddValue("Money", (int)GameManager.Instance.Resources.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent(_identifier, data);
     }
     protected void SendAnalyticsDataForProgressionStart()
     {
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("ProgressionStatus", "Started");
-        data.AddValue("Money", (int)GameManager.Instance.Resources.Money);
+        data.AddValue("Money", (int)GameManager.Instance.Resources.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent(_identifier, data);
     }
 }
