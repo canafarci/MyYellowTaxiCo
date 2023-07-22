@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public interface IUpgradeCommand
+namespace Taxi.Upgrades
 {
-    public void Execute();
+    public interface IUpgradeCommand
+    {
+        public void Execute();
+    }
 }

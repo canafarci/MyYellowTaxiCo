@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Taxi.Upgrades;
 using TMPro;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Taxi.WaitZones
     [RequireComponent(typeof(BuyableWaitingZoneVisual))]
     public class RepeatableBuyingWaitingZone : WaitingEngine
     {
-        [SerializeField] private UpgradeData _upgradeData;
+        [SerializeField] private UpgradeDataSO _upgradeData;
         [SerializeField] private ItemGenerator _itemGenerator;
         [SerializeField] float _moneyToUnlock;
         private float _remainingMoney;

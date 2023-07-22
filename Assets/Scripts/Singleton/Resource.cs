@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Taxi.WaitZones;
+using Taxi.Upgrades;
 
 public class Resource : MonoBehaviour
 {
     public float PlayerMoney { get { return _currentMoney; } }
-    public event Action<float> MoneyChangeHandler;
+    public event Action<float> OnPlayerMoneyChanged;
     float _currentMoney;
     private void Awake()
     {
@@ -31,7 +32,7 @@ public class Resource : MonoBehaviour
     {
         PlayerPrefs.SetInt("Money", 0);
         _currentMoney = 0;
-        MoneyChangeHandler?.Invoke(_currentMoney);
+        OnPlayerMoneyChanged?.Invoke(_currentMoney);
     }
     public void OnPayMoney(float change)
     {
@@ -45,13 +46,13 @@ public class Resource : MonoBehaviour
     }
     private void OnMoneyPickup()
     {
-        _currentMoney += (Upgrades.Instance.IncomeModifier * GameManager.Instance.References.GameConfig.MoneyPerStack);
+        _currentMoney += (UpgradesFacade.Instance.GetIncomeModifier() * GameManager.Instance.References.GameConfig.MoneyPerStack);
         OnMoneyChange();
     }
     void OnMoneyChange()
     {
         PlayerPrefs.SetInt("Money", (int)_currentMoney);
-        MoneyChangeHandler?.Invoke(_currentMoney);
+        OnPlayerMoneyChanged?.Invoke(_currentMoney);
     }
     void ReadPrefs()
     {

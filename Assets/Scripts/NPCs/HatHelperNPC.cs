@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Taxi.Upgrades;
 using UnityEngine;
 
 public class HatHelperNPC : NavMeshNPC
@@ -17,19 +18,19 @@ public class HatHelperNPC : NavMeshNPC
         _animator = GetComponentInChildren<Animator>();
         _inventory = GetComponent<Inventory>();
         _queues = FindObjectsOfType<DriverQueue>();
-        _agent.speed = Upgrades.Instance.NPCSpeed;
+        _agent.speed = UpgradesFacade.Instance.GetNPCSpeed();
         _animator.speed = _agent.speed / 7f; //constant base speed
-        _inventory.MaxStackSize = Upgrades.Instance.NPCInventorySize;
+        _inventory.MaxStackSize = UpgradesFacade.Instance.GetNPCInventorySize();
     }
     private void OnEnable()
     {
-        Upgrades.Instance.OnNPCInventorySizeUpgrade += IncreaseInventoryHandler;
-        Upgrades.Instance.OnNPCSpeedUpgrade += IncreaseSpeedHandler;
+        UpgradeReceiver.Instance.OnNPCInventorySizeUpgrade += IncreaseInventoryHandler;
+        UpgradeReceiver.Instance.OnNPCSpeedUpgrade += IncreaseSpeedHandler;
     }
     private void OnDisable()
     {
-        Upgrades.Instance.OnNPCInventorySizeUpgrade -= IncreaseInventoryHandler;
-        Upgrades.Instance.OnNPCSpeedUpgrade -= IncreaseSpeedHandler;
+        UpgradeReceiver.Instance.OnNPCInventorySizeUpgrade -= IncreaseInventoryHandler;
+        UpgradeReceiver.Instance.OnNPCSpeedUpgrade -= IncreaseSpeedHandler;
     }
     private void IncreaseSpeedHandler(float speed)
     {

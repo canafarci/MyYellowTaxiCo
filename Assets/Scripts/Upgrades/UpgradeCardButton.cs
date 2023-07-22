@@ -2,45 +2,49 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class UpgradeCardButton : MonoBehaviour
+namespace Taxi.Upgrades
 {
-    [SerializeField] Enums.UpgradeType _upgradeType;
-    private UpgradeCardVisual _upgradeVisual;
-    private void Awake()
+    public class UpgradeCardButton : MonoBehaviour
     {
-        _upgradeVisual = GetComponent<UpgradeCardVisual>();
-    }
-    public void OnButtonClicked()
-    {
-        //buy the upgrade
-        IUpgradeCommand upgradeCommand = UpgradeClient.Instance.GetUpgradeCommand(_upgradeType, _upgradeVisual);
-        UpgradeInvoker.Instance.InvokeUpgradeCommand(upgradeCommand);
+        [SerializeField] Enums.UpgradeType _upgradeType;
+        private IUpgradeCommand _upgradeCommand;
+        private IUpgradeCommand _checkCanBuyCommand;
+        public void OnButtonClicked()
+        {
+            //buy the upgrade
+            _upgradeCommand.Execute();
+            //check next upgrade can be bought
+            CheckCanBuy();
+        }
+        private void OnEnable()
+        {
+            CheckCanBuy();
+        }
+        private void Start()
+        {
+            //check if upgrade can be bought whenever player money changes
+            GameManager.Instance.Resources.OnPlayerMoneyChanged += PlayerMoneyChangedHandler;
+        }
 
-        //check next upgrade can be bought
-        CheckCanBuyUpgrade();
-    }
+        private void PlayerMoneyChangedHandler(float obj)
+        {
+            CheckCanBuy();
+        }
 
-    private void OnEnable()
-    {
-        GameManager.Instance.Resources.MoneyChangeHandler += CheckCanBuy;
-        CheckCanBuyUpgrade();
-    }
-    private void CheckCanBuyUpgrade()
-    {
-        //check next upgrade can be bought
-        IUpgradeCommand checkCommand = UpgradeClient.Instance.GetCheckCommand(_upgradeType, _upgradeVisual);
-        UpgradeInvoker.Instance.InvokeUpgradeCommand(checkCommand);
-    }
-    private void CheckCanBuy(float obj)
-    {
-        CheckCanBuyUpgrade();
-    }
+        private void CheckCanBuy()
+        {
+            _checkCanBuyCommand.Execute();
+        }
 
-    //cleanup
-    private void OnDisable()
-    {
-        GameManager.Instance.Resources.MoneyChangeHandler -= CheckCanBuy;
-    }
+        //cleanup
+        private void OnDisable()
+        {
+            GameManager.Instance.Resources.OnPlayerMoneyChanged -= PlayerMoneyChangedHandler;
+        }
+        public Enums.UpgradeType GetUpgradeType() => _upgradeType;
+        public void SetUpgradeCommand(IUpgradeCommand upgradeCommand) => _upgradeCommand = upgradeCommand;
+        public void SetCheckCanUpgradeCommand(IUpgradeCommand checkCanBuyCommand) => _checkCanBuyCommand = checkCanBuyCommand;
 
+
+    }
 }

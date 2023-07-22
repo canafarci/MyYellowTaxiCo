@@ -3,65 +3,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeLoader : MonoBehaviour
+namespace Taxi.Upgrades
 {
-    void Start()
+    public class UpgradeLoader : MonoBehaviour
     {
-        Load();
-    }
-    void Load()
-    {
-        // TODO NULL OBJECT
-        //IUpgradeCommand command;
+        void Start() => Load();
+        void Load()
+        {
+            LoadUpgrade(Enums.UpgradeType.PlayerSpeed);
+            LoadUpgrade(Enums.UpgradeType.PlayerIncome);
+            LoadUpgrade(Enums.UpgradeType.PlayerInventorySize);
+            LoadUpgrade(Enums.UpgradeType.HelperNPCCount);
+            LoadUpgrade(Enums.UpgradeType.HelperNPCInventorySize);
+            LoadUpgrade(Enums.UpgradeType.HelperNPCSpeed);
+        }
 
-        //player income
-        if (PlayerPrefs.HasKey(Globals.PLAYER_INCOME_KEY))
+        private void LoadUpgrade(Enums.UpgradeType type)
         {
-            IUpgradeCommand command = UpgradeClient.Instance.GetLoadUpgradeCommand(Enums.UpgradeType.PlayerIncome);
-            UpgradeInvoker.Instance.InvokeUpgradeCommand(command);
-        }
-        else
-            PlayerPrefs.SetInt(Globals.PLAYER_INCOME_KEY, 0);
+            string upgradeKey = UpgradeUtility.Instance.GetTypeKey(type);
+            int index = GetIndex(upgradeKey);
 
-        //player speed
-        if (PlayerPrefs.HasKey(Globals.PLAYER_SPEED_KEY))
-        {
-            IUpgradeCommand command = UpgradeClient.Instance.GetLoadUpgradeCommand(Enums.UpgradeType.PlayerSpeed);
-            UpgradeInvoker.Instance.InvokeUpgradeCommand(command);
+            IUpgradeCommand command = UpgradeClient.Instance.GetLoadUpgradeCommand(type);
+            command.Execute();
         }
-        else
-            PlayerPrefs.SetInt(Globals.PLAYER_SPEED_KEY, 0);
-        //player capacity
-        if (PlayerPrefs.HasKey(Globals.PLAYER_INVENTORY_KEY))
+
+        private int GetIndex(string key)
         {
-            IUpgradeCommand command = UpgradeClient.Instance.GetLoadUpgradeCommand(Enums.UpgradeType.PlayerInventorySize);
-            UpgradeInvoker.Instance.InvokeUpgradeCommand(command);
+            if (PlayerPrefs.HasKey(key))
+            {
+                return PlayerPrefs.GetInt(key);
+            }
+            else
+            {
+                PlayerPrefs.SetInt(key, 0);
+                return 0;
+            }
         }
-        else
-            PlayerPrefs.SetInt(Globals.PLAYER_INVENTORY_KEY, 0);
-        //bot buy
-        if (PlayerPrefs.HasKey(Globals.NPC_COUNT_KEY))
-        {
-            IUpgradeCommand command = UpgradeClient.Instance.GetLoadUpgradeCommand(Enums.UpgradeType.HelperNPCCount);
-            UpgradeInvoker.Instance.InvokeUpgradeCommand(command);
-        }
-        else
-            PlayerPrefs.SetInt(Globals.NPC_COUNT_KEY, 0);
-        //bot speed
-        if (PlayerPrefs.HasKey(Globals.NPC_SPEED_KEY))
-        {
-            IUpgradeCommand command = UpgradeClient.Instance.GetLoadUpgradeCommand(Enums.UpgradeType.PlayerSpeed);
-            UpgradeInvoker.Instance.InvokeUpgradeCommand(command);
-        }
-        else
-            PlayerPrefs.SetInt(Globals.NPC_SPEED_KEY, 0);
-        //bot capacity
-        if (PlayerPrefs.HasKey(Globals.NPC_INVENTORY_KEY))
-        {
-            IUpgradeCommand command = UpgradeClient.Instance.GetLoadUpgradeCommand(Enums.UpgradeType.HelperNPCInventorySize);
-            UpgradeInvoker.Instance.InvokeUpgradeCommand(command);
-        }
-        else
-            PlayerPrefs.SetInt(Globals.NPC_INVENTORY_KEY, 0);
     }
 }
