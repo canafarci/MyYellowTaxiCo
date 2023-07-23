@@ -41,7 +41,6 @@ namespace Taxi.Upgrades.Tests
 
             // Act
             button.onClick.Invoke();
-
             // Assert
             Assert.IsTrue(upgradeCommandExecuted, "Upgrade command was not executed.");
         }
