@@ -10,7 +10,7 @@ namespace Taxi.WaitZones
         public static Action<float> MoneyPayHandler;
         public bool ProcessPay(ref float remainingTime, ref float remainingMoney)
         {
-            float playerMoney = GameManager.Instance.Resources.PlayerMoney;
+            float playerMoney = ResourceTracker.Instance.PlayerMoney;
             float moneyStep = remainingMoney / remainingTime * Globals.WAIT_ZONES_TIME_STEP;
 
             float precalculatedPlayerMoneyAfterStep = playerMoney - moneyStep;
@@ -25,7 +25,7 @@ namespace Taxi.WaitZones
             if (precalculatedPlayerMoneyAfterStep < 0)
             {
                 remainingMoney -= playerMoney;
-                GameManager.Instance.Resources.ZeroMoney();
+                ResourceTracker.Instance.ZeroMoney();
                 return false;
             }
 

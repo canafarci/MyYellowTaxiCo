@@ -33,7 +33,7 @@ namespace Taxi.Upgrades
         private void UpdateVisualByUpgradeIndex(int index)
         {
             float cost = UpgradeUtility.Instance.GetUpgradeCost(index, _upgradeType);
-            float playerMoney = GameManager.Instance.Resources.PlayerMoney;
+            float playerMoney = ResourceTracker.Instance.PlayerMoney;
 
             if (cost > playerMoney)
             {

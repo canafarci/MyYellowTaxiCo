@@ -23,7 +23,7 @@ namespace Taxi.Upgrades
         private void Start()
         {
             //check if upgrade can be bought whenever player money changes
-            GameManager.Instance.Resources.OnPlayerMoneyChanged += PlayerMoneyChangedHandler;
+            ResourceTracker.Instance.OnPlayerMoneyChanged += PlayerMoneyChangedHandler;
         }
 
         private void PlayerMoneyChangedHandler(float obj)
@@ -39,7 +39,7 @@ namespace Taxi.Upgrades
         //cleanup
         private void OnDisable()
         {
-            GameManager.Instance.Resources.OnPlayerMoneyChanged -= PlayerMoneyChangedHandler;
+            ResourceTracker.Instance.OnPlayerMoneyChanged -= PlayerMoneyChangedHandler;
         }
         public Enums.UpgradeType GetUpgradeType() => _upgradeType;
         public void SetUpgradeCommand(IUpgradeCommand upgradeCommand) => _upgradeCommand = upgradeCommand;

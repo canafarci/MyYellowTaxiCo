@@ -83,7 +83,7 @@ public class ConditionalTutorial : MonoBehaviour
 
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("ProgressionStatus", "Started");
-        data.AddValue("Money", (int)GameManager.Instance.Resources.PlayerMoney);
+        data.AddValue("Money", (int)ResourceTracker.Instance.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent("----SecondHatTutorialStart", data);
     }
     public void OnSecondRepair()

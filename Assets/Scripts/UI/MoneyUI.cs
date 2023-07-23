@@ -13,13 +13,13 @@ public class MoneyUI : MonoBehaviour
     }
     private void OnEnable()
     {
-        _text.text = GameManager.Instance.Resources.PlayerMoney.ToString("F0");
-        GameManager.Instance.Resources.OnPlayerMoneyChanged += OnMoneyChange;
+        _text.text = ResourceTracker.Instance.PlayerMoney.ToString("F0");
+        ResourceTracker.Instance.OnPlayerMoneyChanged += OnMoneyChange;
     }
 
     private void OnDisable()
     {
-        GameManager.Instance.Resources.OnPlayerMoneyChanged -= OnMoneyChange;
+        ResourceTracker.Instance.OnPlayerMoneyChanged -= OnMoneyChange;
     }
 
     void OnMoneyChange(float value)

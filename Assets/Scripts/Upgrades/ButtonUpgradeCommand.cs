@@ -40,7 +40,7 @@ public class ButtonUpgradeCommand : IUpgradeCommand
     private void PayMoney(int index)
     {
         float cost = UpgradeUtility.Instance.GetUpgradeCost(index, _upgradeType);
-        GameManager.Instance.Resources.OnPayMoney(cost);
+        ResourceTracker.Instance.OnPayMoney(cost);
     }
 
 }

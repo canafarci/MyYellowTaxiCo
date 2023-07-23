@@ -11,15 +11,12 @@ public class GameManager : MonoBehaviour
     public AudioPlayer AudioManager { get { return _audioManager; } }
     public Fader Fader { get { return _fader; } }
     public References References { get { return _references; } }
-    public Resource Resources { get { return _resources; } }
-
     SceneLoader _sceneLoader;
     GameStart _gameStart;
     CameraController _cameraController;
     AudioPlayer _audioManager;
     Fader _fader;
     References _references;
-    Resource _resources;
 
     public static GameManager Instance { get; private set; }
     void Awake()
@@ -39,7 +36,6 @@ public class GameManager : MonoBehaviour
         _audioManager = GetComponentInChildren<AudioPlayer>();
         _fader = GetComponent<Fader>();
         _references = GetComponent<References>();
-        _resources = GetComponent<Resource>();
     }
 
     private void OnEnable() => SceneManager.activeSceneChanged += OnSceneLoaded;

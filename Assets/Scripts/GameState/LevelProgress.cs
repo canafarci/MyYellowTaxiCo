@@ -31,7 +31,7 @@ public class LevelProgress : MonoBehaviour
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("StarLevel", _currentLevel);
         data.AddValue("ProgressionStatus", "Completed");
-        data.AddValue("Money", (int)GameManager.Instance.Resources.PlayerMoney);
+        data.AddValue("Money", (int)ResourceTracker.Instance.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent("StarLevel", data);
 
 
@@ -91,7 +91,7 @@ public class LevelProgress : MonoBehaviour
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("StarLevel", _currentLevel);
         data.AddValue("ProgressionStatus", "Started");
-        data.AddValue("Money", (int)GameManager.Instance.Resources.PlayerMoney);
+        data.AddValue("Money", (int)ResourceTracker.Instance.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent("StarLevel", data);
     }
 
@@ -102,7 +102,7 @@ public class LevelProgress : MonoBehaviour
             var data = new Ketchapp.MayoSDK.Analytics.Data();
             data.AddValue("StarLevel", _currentLevel);
             data.AddValue("ProgressionStatus", "Faied");
-            data.AddValue("Money", (int)GameManager.Instance.Resources.PlayerMoney);
+            data.AddValue("Money", (int)ResourceTracker.Instance.PlayerMoney);
             KetchappSDK.Analytics.CustomEvent("StarLevel", data);
         }
     }

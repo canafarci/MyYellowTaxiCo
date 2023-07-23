@@ -15,7 +15,7 @@ public class CheatPanel : MonoBehaviour
     }
     public void OnGainButtonClicked()
     {
-        GameManager.Instance.Resources.OnCheatMoneyGain(1000f);
+        ResourceTracker.Instance.OnCheatMoneyGain(1000f);
     }
     public void OnResetCameraButtonClicked()
     {

@@ -5,16 +5,22 @@ using UnityEngine;
 using Taxi.WaitZones;
 using Taxi.Upgrades;
 
-public class Resource : MonoBehaviour
+public class ResourceTracker : MonoBehaviour
 {
     public float PlayerMoney { get { return _currentMoney; } }
-    public event Action<float> OnPlayerMoneyChanged;
     float _currentMoney;
+    public event Action<float> OnPlayerMoneyChanged;
+    public static ResourceTracker Instance { get; private set; }
     private void Awake()
     {
+        if (Instance)
+            Destroy(gameObject);
+        else
+        {
+            Instance = this;
+        }
         ReadPrefs();
     }
-
     private void OnEnable()
     {
         MoneyStacker.MoneyPickupHandler += OnMoneyPickup;
