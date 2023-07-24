@@ -24,13 +24,13 @@ public class HatHelperNPC : NavMeshNPC
     }
     private void OnEnable()
     {
-        UpgradeReceiver.Instance.OnNPCInventorySizeUpgrade += IncreaseInventoryHandler;
-        UpgradeReceiver.Instance.OnNPCSpeedUpgrade += IncreaseSpeedHandler;
+        UpgradesFacade.Instance.OnNPCInventorySizeUpgrade += IncreaseInventoryHandler;
+        UpgradesFacade.Instance.OnNPCSpeedUpgrade += IncreaseSpeedHandler;
     }
     private void OnDisable()
     {
-        UpgradeReceiver.Instance.OnNPCInventorySizeUpgrade -= IncreaseInventoryHandler;
-        UpgradeReceiver.Instance.OnNPCSpeedUpgrade -= IncreaseSpeedHandler;
+        UpgradesFacade.Instance.OnNPCInventorySizeUpgrade -= IncreaseInventoryHandler;
+        UpgradesFacade.Instance.OnNPCSpeedUpgrade -= IncreaseSpeedHandler;
     }
     private void IncreaseSpeedHandler(float speed)
     {

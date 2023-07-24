@@ -9,7 +9,8 @@ namespace Taxi.Upgrades
         private float _incomeModifier;
         private float _npcSpeed;
         private int _npcInventorySize;
-
+        public event Action<int> OnNPCInventorySizeUpgrade;
+        public event Action<float> OnNPCSpeedUpgrade;
         public static UpgradesFacade Instance;
         private void Awake()
         {
@@ -25,9 +26,17 @@ namespace Taxi.Upgrades
 
         public void SetIncomeModifier(float incomeModifier) => _incomeModifier = incomeModifier;
         public float GetIncomeModifier() => _incomeModifier;
-        public void SetNPCSpeed(float speed) => _npcSpeed = speed;
+        public void SetNPCSpeed(float speed)
+        {
+            _npcSpeed = speed;
+            OnNPCSpeedUpgrade?.Invoke(_npcSpeed);
+        }
         public float GetNPCSpeed() => _npcSpeed;
-        public void SetNPCInventorySize(int size) => _npcInventorySize = size;
+        public void SetNPCInventorySize(int size)
+        {
+            _npcInventorySize = size;
+            OnNPCInventorySizeUpgrade?.Invoke(_npcInventorySize);
+        }
         public int GetNPCInventorySize() => _npcInventorySize;
 
 

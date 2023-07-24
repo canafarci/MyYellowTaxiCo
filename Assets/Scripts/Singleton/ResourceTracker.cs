@@ -8,7 +8,7 @@ using Taxi.Upgrades;
 public class ResourceTracker : MonoBehaviour
 {
     public float PlayerMoney { get { return _currentMoney; } }
-    float _currentMoney;
+    private float _currentMoney;
     public event Action<float> OnPlayerMoneyChanged;
     public static ResourceTracker Instance { get; private set; }
     private void Awake()
@@ -19,7 +19,7 @@ public class ResourceTracker : MonoBehaviour
         {
             Instance = this;
         }
-        ReadPrefs();
+        Load();
     }
     private void OnEnable()
     {
@@ -55,12 +55,12 @@ public class ResourceTracker : MonoBehaviour
         _currentMoney += (UpgradesFacade.Instance.GetIncomeModifier() * GameManager.Instance.References.GameConfig.MoneyPerStack);
         OnMoneyChange();
     }
-    void OnMoneyChange()
+    private void OnMoneyChange()
     {
         PlayerPrefs.SetInt("Money", (int)_currentMoney);
         OnPlayerMoneyChanged?.Invoke(_currentMoney);
     }
-    void ReadPrefs()
+    private void Load()
     {
         if (!PlayerPrefs.HasKey("Money"))
         {

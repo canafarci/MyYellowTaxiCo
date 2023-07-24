@@ -5,7 +5,6 @@ namespace Taxi.Upgrades
 {
     public class UpgradeClient : MonoBehaviour
     {
-        [SerializeField] private UpgradeDataSO _upgradeData;
         public static UpgradeClient Instance;
         private void Awake()
         {

@@ -8,13 +8,10 @@ namespace Taxi.Upgrades
     public class UpgradeReceiver : MonoBehaviour
     {
         [SerializeField] private UpgradeDataSO _upgradeData;
-        [SerializeField] GameObject _helperNPCPrefab;
-        [SerializeField] Transform _spawnPoint;
+        [SerializeField] private GameObject _helperNPCPrefab;
+        [SerializeField] private Transform _spawnPoint;
         private int _npcMaxCount, _currentNPCCount;
-        int _npcInventorySizeIndex;
         public static UpgradeReceiver Instance;
-        public event Action<int> OnNPCInventorySizeUpgrade;
-        public event Action<float> OnNPCSpeedUpgrade;
         private void Awake()
         {
             if (Instance)
@@ -40,10 +37,10 @@ namespace Taxi.Upgrades
                     SpawnHelperNPC(index);
                     break;
                 case (Enums.UpgradeType.HelperNPCInventorySize):
-                    NPCInventorySizeUpgrade(index);
+                    UpgradeNPCInventorySize(index);
                     break;
                 case (Enums.UpgradeType.HelperNPCSpeed):
-                    NPCSpeedUpgrade(index);
+                    UpgradeNPCSpeed(index);
                     break;
                 default:
                     break;
@@ -61,17 +58,16 @@ namespace Taxi.Upgrades
             float incomeModifier = _upgradeData.IncomeModifiers[index].IncomeMultiplier;
             UpgradesFacade.Instance.SetIncomeModifier(incomeModifier);
         }
-        private void NPCSpeedUpgrade(int index)
+        private void UpgradeNPCSpeed(int index)
         {
             float npcSpeed = _upgradeData.HelperNPCSpeeds[index].Speed;
             UpgradesFacade.Instance.SetNPCSpeed(npcSpeed);
-            OnNPCSpeedUpgrade?.Invoke(npcSpeed);
+
         }
-        private void NPCInventorySizeUpgrade(int index)
+        private void UpgradeNPCInventorySize(int index)
         {
             int inventorySize = _upgradeData.HelperNPCInventorySizes[index].Size;
             UpgradesFacade.Instance.SetNPCInventorySize(inventorySize);
-            OnNPCInventorySizeUpgrade?.Invoke(inventorySize);
         }
 
         private void UpgradePlayerSpeed(int index)

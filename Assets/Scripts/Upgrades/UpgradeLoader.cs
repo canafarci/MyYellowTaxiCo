@@ -7,8 +7,8 @@ namespace Taxi.Upgrades
 {
     public class UpgradeLoader : MonoBehaviour
     {
-        void Start() => Load();
-        void Load()
+        private void Start() => Load();
+        private void Load()
         {
             LoadUpgrade(Enums.UpgradeType.PlayerSpeed);
             LoadUpgrade(Enums.UpgradeType.PlayerIncome);

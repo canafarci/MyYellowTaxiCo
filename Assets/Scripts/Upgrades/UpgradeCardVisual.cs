@@ -9,7 +9,7 @@ namespace Taxi.Upgrades
 {
     public class UpgradeCardVisual : MonoBehaviour
     {
-        [SerializeField] TextMeshProUGUI _costText;
+        [SerializeField] private TextMeshProUGUI _costText;
         [SerializeField] private GameObject[] _upgradeDots;
         [SerializeField] private Button _button;
         public void UpdateDotUI(int index)
