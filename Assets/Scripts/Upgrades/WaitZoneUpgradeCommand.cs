@@ -8,10 +8,10 @@ namespace Taxi.Upgrades
     class WaitZoneUpgradeCommand : IUpgradeCommand
     {
         private RepeatableBuyingWaitingZone _waitZone;
-        private BuyableWaitingZoneVisual _visual;
+        private RepeatableBuyableWaitingZoneVisual _visual;
         private bool _isLoading;
 
-        public WaitZoneUpgradeCommand(RepeatableBuyingWaitingZone waitZone, BuyableWaitingZoneVisual visual, bool isLoading = false)
+        public WaitZoneUpgradeCommand(RepeatableBuyingWaitingZone waitZone, RepeatableBuyableWaitingZoneVisual visual, bool isLoading = false)
         {
             _waitZone = waitZone;
             _visual = visual;

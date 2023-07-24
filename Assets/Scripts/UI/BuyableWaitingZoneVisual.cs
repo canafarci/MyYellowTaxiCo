@@ -3,14 +3,41 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using Taxi.WaitZones;
+using UnityEngine.Assertions;
+using System;
 
 namespace Taxi.UI
 {
     public class BuyableWaitingZoneVisual : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _text;
-        [SerializeField] TextMeshProUGUI _levelText;
+        protected WaitingEngine _waitZone;
         private IFeedbackVisual _fillable;
+        private void Awake()
+        {
+            _waitZone = GetComponent<WaitingEngine>();
+            Assert.IsNotNull(_waitZone);
+        }
+        private void OnEnable()
+        {
+            _waitZone.OnWaitEngineIteration += UpdateVisual;
+        }
+
+        private void UpdateVisual(object sender, WaitEngineIterationEventArgs e)
+        {
+            FormatText(e.CurrentValue);
+            _text.DOColor(Color.green, 0.1f);
+            _fillable?.SetValue(e.CurrentValue, e.MaxValue);
+            DotweenFX.MoneyArcTween(transform.position);
+        }
+
+        private void Start()
+        {
+            BuyableWaitingZone buyableWaitingZone = _waitZone as BuyableWaitingZone;
+            Initialize(buyableWaitingZone.GetCost());
+        }
+        //can be called from upgrade command as well
         public void Initialize(float moneyToUnlock)
         {
             _fillable = GetComponent<IFeedbackVisual>();
@@ -38,16 +65,10 @@ namespace Taxi.UI
             if (_fillable != null)
                 _fillable.SetValue(0, 1);
         }
-        public void UpdateVisual(float value, float maxValue)
+        //Cleanup
+        private void OnDisable()
         {
-            FormatText(value);
-            _text.DOColor(Color.green, 0.1f);
-            _fillable?.SetValue(value, maxValue);
-            DotweenFX.MoneyArcTween(transform.position);
-        }
-        public void SetLevelText(int currentIndex)
-        {
-            _levelText.text = "LEVEL " + (currentIndex + 1).ToString();
+            _waitZone.OnWaitEngineIteration -= UpdateVisual;
         }
     }
 }

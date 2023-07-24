@@ -1,25 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Taxi.UI;
 using Taxi.Upgrades;
 using TMPro;
 using UnityEngine;
 
 namespace Taxi.WaitZones
 {
-    [RequireComponent(typeof(BuyableWaitingZoneVisual))]
     public class RepeatableBuyingWaitingZone : WaitingEngine
     {
         private float _moneyToUnlock;
         private IUpgradeCommand _upgradeCommand;
         private float _remainingMoney;
-        private BuyableWaitingZoneVisual _visual;
         private PayMoneyProcessor _payCalculator;
         private void Awake()
         {
             _payCalculator = GetComponent<PayMoneyProcessor>();
-            _visual = GetComponent<BuyableWaitingZoneVisual>();
         }
         public override void Begin(WaitZoneConfigSO config, GameObject other)
         {
@@ -45,8 +41,7 @@ namespace Taxi.WaitZones
             {
                 Cancel(instigator);
             }
-
-            _visual.UpdateVisual(_remainingMoney, _moneyToUnlock);
+            RaiseIterationEvent(instigator, _remainingMoney, _moneyToUnlock);
         }
 
         //Getters-Setters
@@ -56,6 +51,7 @@ namespace Taxi.WaitZones
             _remainingMoney = cost;
         }
         public void SetUpgradeCommand(IUpgradeCommand command) => _upgradeCommand = command;
+        public float GetCost() => _moneyToUnlock;
     }
 }
 

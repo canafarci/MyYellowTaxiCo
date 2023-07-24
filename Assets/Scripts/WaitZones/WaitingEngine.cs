@@ -13,7 +13,7 @@ namespace Taxi.WaitZones
         [SerializeField] protected float _timeToUnlock;
         private Dictionary<GameObject, Coroutine> _runs = new();
         private Dictionary<GameObject, WaitZoneConfigSO> _configs = new();
-
+        public event EventHandler<WaitEngineIterationEventArgs> OnWaitEngineIteration;
         public virtual void Begin(WaitZoneConfigSO config, GameObject other)
         {
             _runs[other] = StartCoroutine(Run(other));
@@ -42,5 +42,17 @@ namespace Taxi.WaitZones
         {
             _configs[instigator].OnSuccess();
         }
+        protected void RaiseIterationEvent(GameObject instigator, float currentValue, float maxValue)
+        {
+            WaitEngineIterationEventArgs eventArgs = new WaitEngineIterationEventArgs { Instigator = instigator, CurrentValue = currentValue, MaxValue = maxValue };
+            OnWaitEngineIteration?.Invoke(this, eventArgs);
+        }
+    }
+
+    public class WaitEngineIterationEventArgs : EventArgs
+    {
+        public GameObject Instigator;
+        public float CurrentValue;
+        public float MaxValue;
     }
 }

@@ -80,7 +80,7 @@ namespace Taxi.Upgrades
         private IUpgradeCommand CreateWaitZoneCommand(bool isLoading)
         {
             RepeatableBuyingWaitingZone zone = FindObjectOfType<RepeatableBuyingWaitingZone>(true);
-            BuyableWaitingZoneVisual visual = zone.GetComponent<BuyableWaitingZoneVisual>();
+            RepeatableBuyableWaitingZoneVisual visual = zone.GetComponent<RepeatableBuyableWaitingZoneVisual>();
             IUpgradeCommand command = new WaitZoneUpgradeCommand(zone, visual, isLoading);
             return command;
         }

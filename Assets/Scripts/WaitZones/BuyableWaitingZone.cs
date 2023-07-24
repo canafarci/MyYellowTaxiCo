@@ -2,19 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Taxi.UI;
 using TMPro;
 using UnityEngine;
 
 namespace Taxi.WaitZones
 {
-    [RequireComponent(typeof(BuyableWaitingZoneVisual), typeof(PayMoneyProcessor))]
+    [RequireComponent(typeof(PayMoneyProcessor))]
     public class BuyableWaitingZone : WaitingEngine
     {
         [SerializeField] private float _moneyToUnlock;
         private float _remainingMoney;
         private float _moneyStep;
-        private BuyableWaitingZoneVisual _visual;
         private PayMoneyProcessor _payCalculator;
 
         private void Start()
@@ -26,9 +24,6 @@ namespace Taxi.WaitZones
             _payCalculator = GetComponent<PayMoneyProcessor>();
 
             _remainingMoney = _moneyToUnlock;
-
-            _visual = GetComponent<BuyableWaitingZoneVisual>();
-            _visual.Initialize(_moneyToUnlock);
         }
         protected override void Iterate(ref float remainingTime, GameObject instigator)
         {
@@ -39,17 +34,14 @@ namespace Taxi.WaitZones
                 Cancel(instigator);
             }
 
-            _visual.UpdateVisual(_remainingMoney, _moneyToUnlock);
-        }
-
-        private void UpdateState()
-        {
-            _visual.UpdateVisual(_remainingMoney, _moneyToUnlock);
+            RaiseIterationEvent(instigator, _remainingMoney, _moneyToUnlock);
         }
 
         protected override bool CheckCanContinue(float remainingTime)
         {
             return remainingTime > 0f && _remainingMoney > 0f;
         }
+        //Getters-Setters
+        public float GetCost() => _moneyToUnlock;
     }
 }

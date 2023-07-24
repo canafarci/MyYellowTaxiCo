@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,35 +6,34 @@ namespace Taxi.WaitZones
 {
     public class WaitToSpawnItemZone : WaitingEngine
     {
-        private SliderVisual _sliderVisual;
-
-        private void Awake()
-        {
-            _sliderVisual = GetComponent<SliderVisual>();
-        }
+        public event EventHandler<OnChangeSliderActivationEventArgs> OnChangeSliderActivation;
         public override void Begin(WaitZoneConfigSO config, GameObject instigator)
         {
             base.Begin(config, instigator);
-            _sliderVisual.Show(instigator);
+            OnChangeSliderActivationEventArgs args = new OnChangeSliderActivationEventArgs { Instigator = instigator, Active = true };
+            OnChangeSliderActivation?.Invoke(this, args);
         }
-
         protected override bool CheckCanContinue(float remainingTime)
         {
             return remainingTime > 0f;
         }
-
         protected override void Iterate(ref float remainingTime, GameObject instigator)
         {
             remainingTime -= Globals.WAIT_ZONES_TIME_STEP;
 
-            _sliderVisual.SetValue(instigator, remainingTime, _timeToUnlock);
+            RaiseIterationEvent(instigator, remainingTime, _timeToUnlock);
         }
-
         public override void Cancel(GameObject instigator)
         {
             base.Cancel(instigator);
-            _sliderVisual.Hide(instigator);
+            OnChangeSliderActivationEventArgs args = new OnChangeSliderActivationEventArgs { Instigator = instigator, Active = false };
+            OnChangeSliderActivation?.Invoke(this, args);
         }
     }
 
+    public class OnChangeSliderActivationEventArgs : EventArgs
+    {
+        public GameObject Instigator;
+        public bool Active;
+    }
 }
