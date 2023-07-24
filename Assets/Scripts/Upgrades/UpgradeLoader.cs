@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Taxi.UI;
+using Taxi.WaitZones;
 using UnityEngine;
 
 namespace Taxi.Upgrades
@@ -16,28 +18,12 @@ namespace Taxi.Upgrades
             LoadUpgrade(Enums.UpgradeType.HelperNPCCount);
             LoadUpgrade(Enums.UpgradeType.HelperNPCInventorySize);
             LoadUpgrade(Enums.UpgradeType.HelperNPCSpeed);
+            LoadUpgrade(Enums.UpgradeType.HatStackerSpeed);
         }
-
         private void LoadUpgrade(Enums.UpgradeType type)
         {
-            string upgradeKey = UpgradeUtility.Instance.GetTypeKey(type);
-            int index = GetIndex(upgradeKey);
-
             IUpgradeCommand command = UpgradeClient.Instance.GetLoadUpgradeCommand(type);
             command.Execute();
-        }
-
-        private int GetIndex(string key)
-        {
-            if (PlayerPrefs.HasKey(key))
-            {
-                return PlayerPrefs.GetInt(key);
-            }
-            else
-            {
-                PlayerPrefs.SetInt(key, 0);
-                return 0;
-            }
         }
     }
 }

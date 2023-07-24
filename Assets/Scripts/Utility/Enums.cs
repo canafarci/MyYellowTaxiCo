@@ -22,5 +22,6 @@ public class Enums
         PlayerInventorySize,
         HelperNPCSpeed,
         HelperNPCInventorySize,
+        HatStackerSpeed
     }
 }

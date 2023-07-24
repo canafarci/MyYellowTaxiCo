@@ -32,6 +32,8 @@ namespace Taxi.Upgrades
                     return Globals.NPC_INVENTORY_KEY;
                 case (Enums.UpgradeType.HelperNPCSpeed):
                     return Globals.NPC_SPEED_KEY;
+                case (Enums.UpgradeType.HatStackerSpeed):
+                    return Globals.STACKER_UPGRADE_KEY;
                 default:
                     return null;
             }
@@ -53,6 +55,8 @@ namespace Taxi.Upgrades
                     return _upgradeData.HelperNPCInventorySizes[index + 1].Cost;
                 case (Enums.UpgradeType.HelperNPCSpeed):
                     return _upgradeData.HelperNPCSpeeds[index + 1].Cost;
+                case (Enums.UpgradeType.HatStackerSpeed):
+                    return _upgradeData.StackSpeeds[index + 1].Cost;
                 default:
                     return 0f;
             }
@@ -63,7 +67,13 @@ namespace Taxi.Upgrades
             bool isAtMax;
 
             if (upgradeType == Enums.UpgradeType.HelperNPCCount)
+            {
                 isAtMax = index >= _upgradeData.HelperNPCCount.Length - 1;
+            }
+            else if (upgradeType == Enums.UpgradeType.HatStackerSpeed)
+            {
+                isAtMax = index >= _upgradeData.StackSpeeds.Length - 1;
+            }
             else
             {
                 //return  true if index is at the end of upgrades, reference list is arbitary, all of them has the same length
@@ -71,6 +81,10 @@ namespace Taxi.Upgrades
             }
 
             return isAtMax;
+        }
+        public float GetItemGeneratorSpeed(int index)
+        {
+            return _upgradeData.StackSpeeds[index].SpawnRate;
         }
 
     }

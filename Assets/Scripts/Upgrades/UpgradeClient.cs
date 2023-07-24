@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Taxi.UI;
+using Taxi.WaitZones;
 using UnityEngine;
 namespace Taxi.Upgrades
 {
@@ -18,6 +21,26 @@ namespace Taxi.Upgrades
         private void Start()
         {
             InitializeUpgradeCards();
+            InitializeWaitZoneUpgrade();
+        }
+        public IUpgradeCommand GetLoadUpgradeCommand(Enums.UpgradeType upgradeType)
+        {
+            if (upgradeType == Enums.UpgradeType.HatStackerSpeed)
+            {
+                IUpgradeCommand command = CreateWaitZoneCommand(true);
+                return command;
+            }
+            else
+            {
+                return new LoadUpgradeCommand(upgradeType);
+            }
+        }
+
+        private void InitializeWaitZoneUpgrade()
+        {
+            RepeatableBuyingWaitingZone zone = FindObjectOfType<RepeatableBuyingWaitingZone>(true);
+            IUpgradeCommand command = CreateWaitZoneCommand(false);
+            zone.SetUpgradeCommand(command);
         }
 
         private void InitializeUpgradeCards()
@@ -53,9 +76,13 @@ namespace Taxi.Upgrades
         {
             return new CheckCanUpgradeCommand(visual, upgradeType);
         }
-        public IUpgradeCommand GetLoadUpgradeCommand(Enums.UpgradeType upgradeType)
+
+        private IUpgradeCommand CreateWaitZoneCommand(bool isLoading)
         {
-            return new LoadUpgradeCommand(upgradeType);
+            RepeatableBuyingWaitingZone zone = FindObjectOfType<RepeatableBuyingWaitingZone>(true);
+            BuyableWaitingZoneVisual visual = zone.GetComponent<BuyableWaitingZoneVisual>();
+            IUpgradeCommand command = new WaitZoneUpgradeCommand(zone, visual, isLoading);
+            return command;
         }
     }
 }

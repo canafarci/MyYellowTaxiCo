@@ -42,17 +42,24 @@ namespace Taxi.Upgrades
                 case (Enums.UpgradeType.HelperNPCSpeed):
                     UpgradeNPCSpeed(index);
                     break;
+                case (Enums.UpgradeType.HatStackerSpeed):
+                    UpgradeStackerSpeed(index);
+                    break;
                 default:
                     break;
             }
         }
 
+        private void UpgradeStackerSpeed(int index)
+        {
+            float speed = UpgradeUtility.Instance.GetItemGeneratorSpeed(index);
+            FindObjectOfType<ItemGenerator>(true).SetSpawnRate(speed);
+        }
         private void UpgradePlayerInventorySize(int index)
         {
             Inventory playerInventory = GameManager.Instance.References.PlayerInventory;
             playerInventory.MaxStackSize = _upgradeData.PlayerInventorySizes[index].Size;
         }
-
         private void UpgradePlayerIncome(int index)
         {
             float incomeModifier = _upgradeData.IncomeModifiers[index].IncomeMultiplier;
@@ -62,14 +69,12 @@ namespace Taxi.Upgrades
         {
             float npcSpeed = _upgradeData.HelperNPCSpeeds[index].Speed;
             UpgradesFacade.Instance.SetNPCSpeed(npcSpeed);
-
         }
         private void UpgradeNPCInventorySize(int index)
         {
             int inventorySize = _upgradeData.HelperNPCInventorySizes[index].Size;
             UpgradesFacade.Instance.SetNPCInventorySize(inventorySize);
         }
-
         private void UpgradePlayerSpeed(int index)
         {
             float speedModifier = _upgradeData.SpeedModifiers[index].SpeedMultiplier;
@@ -89,10 +94,6 @@ namespace Taxi.Upgrades
                 _currentNPCCount++;
                 yield return new WaitForSeconds(1f);
             }
-        }
-        public void SetUpgradeDataSO(UpgradeDataSO dataSO)
-        {
-
         }
     }
 }
