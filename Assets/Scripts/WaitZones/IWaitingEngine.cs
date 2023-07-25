@@ -8,7 +8,7 @@ namespace Taxi.WaitZones
 {
     public interface IWaitingEngine
     {
-        void Begin(WaitZoneConfigSO config, GameObject instigator);
+        void Begin(Action config, GameObject instigator);
         void Cancel(GameObject instigator);
     }
 }

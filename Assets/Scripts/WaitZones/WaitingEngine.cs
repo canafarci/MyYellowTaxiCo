@@ -11,22 +11,24 @@ namespace Taxi.WaitZones
     public abstract class WaitingEngine : MonoBehaviour, IWaitingEngine
     {
         [SerializeField] protected float _timeToUnlock;
-        private Dictionary<GameObject, Coroutine> _runs = new();
-        private Dictionary<GameObject, WaitZoneConfigSO> _configs = new();
+        private Dictionary<GameObject, Coroutine> _runs = new Dictionary<GameObject, Coroutine>();
+        private Dictionary<GameObject, Action> _configs = new Dictionary<GameObject, Action>();
         public event EventHandler<WaitEngineIterationEventArgs> OnWaitEngineIteration;
-        public virtual void Begin(WaitZoneConfigSO config, GameObject other)
+        public virtual void Begin(Action onSuccess, GameObject other)
         {
+            _configs[other] = onSuccess;
             _runs[other] = StartCoroutine(Run(other));
-            _configs[other] = config;
         }
         public virtual void Cancel(GameObject other)
         {
-            Assert.IsTrue(_runs.ContainsKey(other) && _runs[other] != null);
             StopCoroutine(_runs[other]);
         }
 
         private IEnumerator Run(GameObject instigator)
         {
+            //prevent accidental buys
+            yield return new WaitForSeconds(0.5f);
+
             float remainingTime = _timeToUnlock;
             while (CheckCanContinue(remainingTime))
             {
@@ -40,13 +42,17 @@ namespace Taxi.WaitZones
         protected abstract void Iterate(ref float remainingTime, GameObject instigator);
         protected virtual void OnSuccess(GameObject instigator)
         {
-            _configs[instigator].OnSuccess();
+            _configs[instigator]();
         }
         protected void RaiseIterationEvent(GameObject instigator, float currentValue, float maxValue)
         {
             WaitEngineIterationEventArgs eventArgs = new WaitEngineIterationEventArgs { Instigator = instigator, CurrentValue = currentValue, MaxValue = maxValue };
             OnWaitEngineIteration?.Invoke(this, eventArgs);
         }
+#if UNITY_INCLUDE_TESTS
+        // Getters-Setters for testing purpose
+        public void SetRemainingTime(float time) => _timeToUnlock = time;
+#endif
     }
 
     public class WaitEngineIterationEventArgs : EventArgs

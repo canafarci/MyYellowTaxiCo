@@ -30,11 +30,10 @@ namespace Taxi.WaitZones
             bool isSuccessful = _payCalculator.ProcessPay(ref remainingTime, ref _remainingMoney);
 
             if (!isSuccessful)
-            {
                 Cancel(instigator);
-            }
+            else
+                RaiseIterationEvent(instigator, _remainingMoney, _moneyToUnlock);
 
-            RaiseIterationEvent(instigator, _remainingMoney, _moneyToUnlock);
         }
 
         protected override bool CheckCanContinue(float remainingTime)

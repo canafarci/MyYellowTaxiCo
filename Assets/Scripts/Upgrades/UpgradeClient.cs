@@ -38,9 +38,9 @@ namespace Taxi.Upgrades
 
         private void InitializeWaitZoneUpgrade()
         {
-            RepeatableBuyingWaitingZone zone = FindObjectOfType<RepeatableBuyingWaitingZone>(true);
+            RepeatableBuyableWaitingZoneTrigger trigger = FindObjectOfType<RepeatableBuyableWaitingZoneTrigger>(true);
             IUpgradeCommand command = CreateWaitZoneCommand(false);
-            zone.SetUpgradeCommand(command);
+            trigger.SetUpgradeCommand(command);
         }
 
         private void InitializeUpgradeCards()

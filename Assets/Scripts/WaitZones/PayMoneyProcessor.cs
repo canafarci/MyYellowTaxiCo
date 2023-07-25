@@ -16,11 +16,10 @@ namespace Taxi.WaitZones
             float precalculatedPlayerMoneyAfterStep = playerMoney - moneyStep;
             float preCalculatedRemainingPayMoney = remainingMoney - moneyStep;
 
-            remainingTime -= Globals.WAIT_ZONES_TIME_STEP;
-
             if (preCalculatedRemainingPayMoney <= 0f)
             {
                 MoneyPayHandler?.Invoke(remainingMoney);
+                remainingMoney = 0f;
                 return true;
             }
             if (precalculatedPlayerMoneyAfterStep < 0)
@@ -29,6 +28,7 @@ namespace Taxi.WaitZones
                 return false;
             }
 
+            remainingTime -= Globals.WAIT_ZONES_TIME_STEP;
             remainingMoney -= moneyStep;
             MoneyPayHandler?.Invoke(moneyStep);
             return true;
@@ -38,7 +38,6 @@ namespace Taxi.WaitZones
         {
             remainingMoney -= playerMoney;
             ResourceTracker.Instance.ZeroMoney();
-
         }
     }
 }

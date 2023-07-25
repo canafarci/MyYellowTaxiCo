@@ -7,9 +7,9 @@ namespace Taxi.WaitZones
     public class WaitToSpawnItemZone : WaitingEngine
     {
         public event EventHandler<OnChangeSliderActivationEventArgs> OnChangeSliderActivation;
-        public override void Begin(WaitZoneConfigSO config, GameObject instigator)
+        public override void Begin(Action successAction, GameObject instigator)
         {
-            base.Begin(config, instigator);
+            base.Begin(successAction, instigator);
             OnChangeSliderActivationEventArgs args = new OnChangeSliderActivationEventArgs { Instigator = instigator, Active = true };
             OnChangeSliderActivation?.Invoke(this, args);
         }
