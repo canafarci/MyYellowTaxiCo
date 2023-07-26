@@ -60,12 +60,6 @@ public class ItemGenerator : MonoBehaviour
                 return 2;
         }
     }
-
-    virtual protected IEnumerator SpawnLoop(Collider other)
-    {
-        yield break;
-    }
-
     public void SetSecondStageHats()
     {
         _stackableItem = _stage2Hats;
@@ -79,11 +73,7 @@ public class ItemGenerator : MonoBehaviour
 
     private bool CanSpawnItem()
     {
-#if UNITY_INCLUDE_TESTS
-        return true;
-#else
         return _stacker.MaxStackSize >= _stacker.ItemStack.Count;
-#endif
     }
     public void SetSpawnRate(float rate)
     {

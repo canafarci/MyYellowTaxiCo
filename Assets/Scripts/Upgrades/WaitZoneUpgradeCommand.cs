@@ -43,9 +43,6 @@ namespace Taxi.Upgrades
 
         private void UpdateVisual(int index, float cost)
         {
-#if UNITY_INCLUDE_TESTS
-            return;
-#endif
             _visual.SetLevelText(index);
             _visual.Initialize(cost);
         }

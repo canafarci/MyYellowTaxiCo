@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 5376548428503412633}
   - component: {fileID: 4060143908344952533}
   - component: {fileID: 11184270712693954}
+  - component: {fileID: 1282538978}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -247,6 +248,8 @@ MonoBehaviour:
   PlayerInventory: {fileID: 0}
   PlayerHand: {fileID: 0}
   PlayerAnimator: {fileID: 0}
+  PlayerSliderRenderer: {fileID: 0}
+  ObjectiveArrow: {fileID: 0}
 --- !u!114 &5493024469438314971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,3 +299,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437bee2176e5e9142a3b736aaa86410a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1282538978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6517872307133621143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd17fa8cc3a1d844b9b65b34ab5a36f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolSize: 20

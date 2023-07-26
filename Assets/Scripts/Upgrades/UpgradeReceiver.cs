@@ -94,5 +94,9 @@ namespace Taxi.Upgrades
                 yield return new WaitForSeconds(1f);
             }
         }
+#if UNITY_INCLUDE_TESTS
+        public void SetDataSO(UpgradeDataSO dataSO) => _upgradeData = dataSO;
+#endif
     }
+
 }
