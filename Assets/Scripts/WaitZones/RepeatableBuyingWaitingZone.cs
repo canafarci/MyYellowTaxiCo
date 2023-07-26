@@ -12,21 +12,10 @@ namespace Taxi.WaitZones
         private float _moneyToUnlock;
         private float _remainingMoney;
         private PayMoneyProcessor _payCalculator;
-
         private void Awake()
         {
             _payCalculator = GetComponent<PayMoneyProcessor>();
         }
-        public override void Begin(Action onSuccess, GameObject other)
-        {
-            base.Begin(onSuccess, other);
-        }
-
-        protected override bool CheckCanContinue(float remainingTime)
-        {
-            return remainingTime > 0f && _remainingMoney > 0f;
-        }
-
         protected override void Iterate(ref float remainingTime, GameObject instigator)
         {
             bool isSuccessful = _payCalculator.ProcessPay(ref remainingTime, ref _remainingMoney);
@@ -36,14 +25,16 @@ namespace Taxi.WaitZones
             else
                 RaiseIterationEvent(instigator, _remainingMoney, _moneyToUnlock);
         }
-
+        protected override bool CheckCanContinue(float remainingTime)
+        {
+            return remainingTime > 0f && _remainingMoney > 0f;
+        }
         //Getters-Setters
         public void SetPrice(float cost)
         {
             _moneyToUnlock = cost;
             _remainingMoney = cost;
         }
-
         public float GetCost() => _moneyToUnlock;
 
 #if UNITY_INCLUDE_TESTS

@@ -8,7 +8,7 @@ namespace Taxi.WaitZones
     public abstract class WaitZoneTrigger : MonoBehaviour
     {
         protected IWaitingEngine _waitEngine;
-        private void Awake()
+        protected virtual void Awake()
         {
             _waitEngine = GetComponent<IWaitingEngine>();
         }

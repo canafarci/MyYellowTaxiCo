@@ -12,17 +12,11 @@ namespace Taxi.WaitZones
     {
         [SerializeField] private float _moneyToUnlock;
         private float _remainingMoney;
-        private float _moneyStep;
         private PayMoneyProcessor _payCalculator;
 
-        private void Start()
-        {
-            Initialize();
-        }
-        private void Initialize()
+        private void Awake()
         {
             _payCalculator = GetComponent<PayMoneyProcessor>();
-
             _remainingMoney = _moneyToUnlock;
         }
         protected override void Iterate(ref float remainingTime, GameObject instigator)
@@ -33,7 +27,6 @@ namespace Taxi.WaitZones
                 Cancel(instigator);
             else
                 RaiseIterationEvent(instigator, _remainingMoney, _moneyToUnlock);
-
         }
 
         protected override bool CheckCanContinue(float remainingTime)

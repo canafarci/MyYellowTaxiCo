@@ -8,12 +8,16 @@ namespace Taxi.WaitZones
     public class WaitToSpawnItemZoneTrigger : WaitZoneTrigger
     {
         private ItemSpawner _itemSpawner;
+        protected override void Awake()
+        {
+            base.Awake();
+            _itemSpawner = GetComponent<ItemSpawner>();
 
+        }
         protected override Action GetSuccessAction(Collider other)
         {
             return () =>
             {
-                _itemSpawner = GetComponent<ItemSpawner>();
                 _itemSpawner.SpawnItem(other);
             };
         }

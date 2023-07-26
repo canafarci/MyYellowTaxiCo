@@ -23,19 +23,17 @@ namespace Taxi.UI
         {
             _waitZone.OnWaitEngineIteration += UpdateVisual;
         }
-
+        private void Start()
+        {
+            BuyableWaitingZone buyableWaitingZone = _waitZone as BuyableWaitingZone;
+            Initialize(buyableWaitingZone.GetCost());
+        }
         private void UpdateVisual(object sender, WaitEngineIterationEventArgs e)
         {
             FormatText(e.CurrentValue);
             _text.DOColor(Color.green, 0.1f);
             _fillable?.SetValue(e.CurrentValue, e.MaxValue);
             DotweenFX.MoneyArcTween(transform.position);
-        }
-
-        private void Start()
-        {
-            BuyableWaitingZone buyableWaitingZone = _waitZone as BuyableWaitingZone;
-            Initialize(buyableWaitingZone.GetCost());
         }
         //can be called from upgrade command as well
         public void Initialize(float moneyToUnlock)
