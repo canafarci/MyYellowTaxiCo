@@ -6,6 +6,7 @@ using Taxi.Upgrades;
 using UnityEditor;
 using System;
 using System.Collections;
+using Taxi.UI;
 
 namespace Taxi.WaitZones.Tests
 {
@@ -100,26 +101,41 @@ namespace Taxi.WaitZones.Tests
             Assert.AreEqual(10f, remainingTime);
         }
 
-        // [UnityTest]
-        // public IEnumerator RepeatableZone_UpgradesWhenSuccessful()
-        // {
-        //     // //Arrange
-        //     // TestableRepeatableBuyingWaitingZone waitingZone = new GameObject("BWZ", typeof(TestableRepeatableBuyingWaitingZone)).GetComponent<TestableRepeatableBuyingWaitingZone>();
-        //     // GameObject instigator = new GameObject("instigator");
+        [UnityTest]
+        public IEnumerator RepeatableZone_UpgradesWhenSuccessful()
+        {
+            //Arrange
+            TestableRepeatableBuyingWaitingZone waitingZone = new GameObject("BWZ", typeof(TestableRepeatableBuyingWaitingZone)).GetComponent<TestableRepeatableBuyingWaitingZone>();
+            RepeatableBuyableWaitingZoneVisual visual = waitingZone.gameObject.AddComponent<RepeatableBuyableWaitingZoneVisual>();
+            UpgradeReceiver receiver = new GameObject("UpgradeReceiver", typeof(UpgradeReceiver)).GetComponent<UpgradeReceiver>();
+            UpgradeUtility utility = new GameObject("UpgradeUtility", typeof(UpgradeUtility)).GetComponent<UpgradeUtility>();
+            ItemGenerator ItemGenerator = new GameObject("ItemGenerator", typeof(ItemGenerator)).GetComponent<ItemGenerator>();
+            ResourceTracker resourceTracker = new GameObject("res", typeof(ResourceTracker)).GetComponent<ResourceTracker>();
+            waitingZone.SetRemainingTime(0.00001f);
+            waitingZone.SetRemainingMoney(0.00001f);
+            resourceTracker.OnCheatMoneyGain(1000f);
 
-        //     // WaitZoneConfig config = ScriptableObject.CreateInstance<WaitZoneConfig>();
-        //     // config.OnSuccess = () => { };
 
-        //     // //Act
-        //     // waitingZone.Begin(config, instigator);
-        //     // yield return new WaitForSeconds(Globals.WAIT_ZONES_TIME_STEP * 2f);
-        //     // float remainingMoneyAfterIteration = waitingZone.GetRemainingMoney();
-        //     // TestContext.WriteLine($"remainingTime : {remainingTime}, remainingMoney: {remainingMoneyAfterIteration}");            //Assert
+            string[] assetNames = AssetDatabase.FindAssets("UpgradeData", new[] { "Assets/Settings" });
+            foreach (string SOName in assetNames)
+            {
+                var SOpath = AssetDatabase.GUIDToAssetPath(SOName);
+                var soData = AssetDatabase.LoadAssetAtPath<UpgradeDataSO>(SOpath);
+                utility.SetUpgradeData(soData);
+            }
+            GameObject instigator = new GameObject("instigator");
 
-        //     // //Assert
-        //     // Assert.AreEqual(remainingMoney, remainingMoneyAfterIteration);
-        //     // Assert.AreEqual(remainingTime, remainingTime);
-        // }
+            float spawnRateBefore = ItemGenerator.GetSpawnRate();
+            IUpgradeCommand _upgradeCommand = new WaitZoneUpgradeCommand(waitingZone, visual, false);
+            //Act
+            waitingZone.Begin(() => { _upgradeCommand.Execute(); }, instigator);
+            yield return new WaitForSeconds(Globals.WAIT_ZONES_TIME_STEP * 2f);
+
+            float spawnRateAfter = ItemGenerator.GetSpawnRate();
+
+            //Assert
+            Assert.IsTrue(spawnRateAfter < spawnRateBefore);
+        }
 
 
     }

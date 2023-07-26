@@ -49,7 +49,6 @@ namespace Taxi.Upgrades
                     break;
             }
         }
-
         private void UpgradeStackerSpeed(int index)
         {
             float speed = UpgradeUtility.Instance.GetItemGeneratorSpeed(index);

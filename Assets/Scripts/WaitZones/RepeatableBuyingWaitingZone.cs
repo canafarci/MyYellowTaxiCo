@@ -17,9 +17,9 @@ namespace Taxi.WaitZones
         {
             _payCalculator = GetComponent<PayMoneyProcessor>();
         }
-        public override void Begin(Action config, GameObject other)
+        public override void Begin(Action onSuccess, GameObject other)
         {
-            base.Begin(config, other);
+            base.Begin(onSuccess, other);
         }
 
         protected override bool CheckCanContinue(float remainingTime)

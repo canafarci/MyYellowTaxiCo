@@ -79,10 +79,18 @@ public class ItemGenerator : MonoBehaviour
 
     private bool CanSpawnItem()
     {
+#if UNITY_INCLUDE_TESTS
+        return true;
+#else
         return _stacker.MaxStackSize >= _stacker.ItemStack.Count;
+#endif
     }
     public void SetSpawnRate(float rate)
     {
         _spawnRate = rate;
     }
+
+#if UNITY_INCLUDE_TESTS
+    public float GetSpawnRate() => _spawnRate;
+#endif
 }

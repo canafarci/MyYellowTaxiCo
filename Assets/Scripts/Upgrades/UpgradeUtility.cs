@@ -87,6 +87,10 @@ namespace Taxi.Upgrades
             return _upgradeData.StackSpeeds[index].SpawnRate;
         }
 
+#if UNITY_INCLUDE_TESTS
+        public void SetUpgradeData(UpgradeDataSO so) => _upgradeData = so;
+#endif
+
     }
 
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Taxi.Upgrades
 {
-    class WaitZoneUpgradeCommand : IUpgradeCommand
+    public class WaitZoneUpgradeCommand : IUpgradeCommand
     {
         private RepeatableBuyingWaitingZone _waitZone;
         private RepeatableBuyableWaitingZoneVisual _visual;
@@ -43,6 +43,9 @@ namespace Taxi.Upgrades
 
         private void UpdateVisual(int index, float cost)
         {
+#if UNITY_INCLUDE_TESTS
+            return;
+#endif
             _visual.SetLevelText(index);
             _visual.Initialize(cost);
         }
