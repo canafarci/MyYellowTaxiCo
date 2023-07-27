@@ -7,10 +7,9 @@ using UnityEngine;
 public class FollowerQueue : MonoBehaviour
 {
     public bool OnSpawnCooldown = false;
-
-    LinkedList<FollowerQueueSpot> _sitSpots = new LinkedList<FollowerQueueSpot>();
     public int CurrentSitIndex = 0;
-    [SerializeField] Transform[] _sitTransforms;
+    private LinkedList<FollowerQueueSpot> _sitSpots = new LinkedList<FollowerQueueSpot>();
+    [SerializeField] private Transform[] _sitTransforms;
     private void Awake()
     {
         int sitSpotsStartIndex = 3; // Add this line to calculate the starting index for sit spots
@@ -63,7 +62,7 @@ public class FollowerQueue : MonoBehaviour
 
         GetToQueuePosition(follower, spot.Value);
     }
-    void MoveQueue()
+    private void MoveQueue()
     {
         LinkedListNode<FollowerQueueSpot> currentNode = _sitSpots.Last;
 
@@ -93,7 +92,7 @@ public class FollowerQueue : MonoBehaviour
             currentNode = currentNode.Previous;
         }
     }
-    void GetToQueuePosition(Follower follower, FollowerQueueSpot spot)
+    private void GetToQueuePosition(Follower follower, FollowerQueueSpot spot)
     {
         if (!spot.IsSitSpot)
             follower.GetToPos(spot.Transform.position);
@@ -102,7 +101,7 @@ public class FollowerQueue : MonoBehaviour
 
         spot.Follower = follower;
     }
-    IEnumerator GetToPosAndSit(Follower follower, FollowerQueueSpot spot)
+    private IEnumerator GetToPosAndSit(Follower follower, FollowerQueueSpot spot)
     {
         //follower.GetComponentInChildren<Animator>().SetTrigger("MoveEmpty");
 

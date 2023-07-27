@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class HatHelperNPC : NavMeshNPC
 {
-    Inventory _inventory;
-    DriverQueue[] _queues;
-    public static List<StackPickup> _hatStackers;
-    float _hatStackersUpdateInterval = 5f;
-    Animator _animator;
+    private Inventory _inventory;
+    private DriverQueue[] _queues;
+    private float _hatStackersUpdateInterval = 5f;
+    private Animator _animator;
+    public static List<StackPickup> HatStackers;
 
     override protected void Awake()
     {
@@ -24,52 +24,44 @@ public class HatHelperNPC : NavMeshNPC
     }
     private void OnEnable()
     {
-        UpgradesFacade.Instance.OnNPCInventorySizeUpgrade += IncreaseInventoryHandler;
-        UpgradesFacade.Instance.OnNPCSpeedUpgrade += IncreaseSpeedHandler;
+        UpgradesFacade.Instance.OnNPCInventorySizeUpgrade += IncreaseInventoryUpgradeHandler;
+        UpgradesFacade.Instance.OnNPCSpeedUpgrade += IncreaseSpeedUpgradeHandler;
     }
     private void OnDisable()
     {
-        UpgradesFacade.Instance.OnNPCInventorySizeUpgrade -= IncreaseInventoryHandler;
-        UpgradesFacade.Instance.OnNPCSpeedUpgrade -= IncreaseSpeedHandler;
+        UpgradesFacade.Instance.OnNPCInventorySizeUpgrade -= IncreaseInventoryUpgradeHandler;
+        UpgradesFacade.Instance.OnNPCSpeedUpgrade -= IncreaseSpeedUpgradeHandler;
     }
-    private void IncreaseSpeedHandler(float speed)
-    {
-        _agent.speed = speed;
-        _animator.speed = _agent.speed / 7f; //constant base speed
-    }
-    private void IncreaseInventoryHandler(int size)
-    {
-        _inventory.MaxStackSize = size;
-    }
-
     private void Start()
     {
         StartCoroutine(NPCLoop());
 
         // Only start the update coroutine in one NPC instance
-        if (_hatStackers == null)
+        if (HatStackers == null)
         {
-            _hatStackers = new List<StackPickup>(FindObjectsOfType<StackPickup>());
+            HatStackers = new List<StackPickup>(FindObjectsOfType<StackPickup>());
             StartCoroutine(UpdateHatStackersPeriodically());
         }
     }
-
-    void IncreaseSize(int size)
+    private void IncreaseSpeedUpgradeHandler(float speed)
+    {
+        _agent.speed = speed;
+        _animator.speed = _agent.speed / 7f; //constant base speed
+    }
+    private void IncreaseInventoryUpgradeHandler(int size)
     {
         _inventory.MaxStackSize = size;
     }
-
-    IEnumerator UpdateHatStackersPeriodically()
+    private IEnumerator UpdateHatStackersPeriodically()
     {
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            _hatStackers = new List<StackPickup>(FindObjectsOfType<StackPickup>());
+            HatStackers = new List<StackPickup>(FindObjectsOfType<StackPickup>());
             yield return new WaitForSeconds(_hatStackersUpdateInterval);
         }
     }
-
-    IEnumerator NPCLoop()
+    private IEnumerator NPCLoop()
     {
         while (true)
         {
@@ -94,7 +86,7 @@ public class HatHelperNPC : NavMeshNPC
 
             // Get the corresponding hat stacker
             StackPickup hatStacker = null;
-            foreach (StackPickup stacker in _hatStackers)
+            foreach (StackPickup stacker in HatStackers)
             {
                 if (stacker.IsHatStacker)
                 {

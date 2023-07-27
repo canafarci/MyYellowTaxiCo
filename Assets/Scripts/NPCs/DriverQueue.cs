@@ -7,21 +7,14 @@ using UnityEngine;
 
 public class DriverQueue : MonoBehaviour
 {
-    [SerializeField] Transform[] _driverSpots;
-    List<DriverInQueue> _drivers = new List<DriverInQueue>();
-    List<SitSpot> _spots = new List<SitSpot>();
     public Enums.StackableItemType ItemType;
-    Coroutine _dropLoop;
-    Inventory _inventory;
-    Stacker _stacker;
-    bool _npcWaitingForDriver = false;
-    public Driver GetDriverWithoutHat()
-    {
-        DriverInQueue driverIQ = _drivers.Where(x => x.HasHat == false).FirstOrDefault();
-        if (driverIQ != null)
-            return driverIQ.Driver;
-        return null;
-    }
+    [SerializeField] private Transform[] _driverSpots;
+    private List<DriverInQueue> _drivers = new List<DriverInQueue>();
+    private List<SitSpot> _spots = new List<SitSpot>();
+    private Coroutine _dropLoop;
+    private Inventory _inventory;
+    private Stacker _stacker;
+    private bool _npcWaitingForDriver = false;
     private void Awake()
     {
         _stacker = GetComponentInChildren<Stacker>();
@@ -32,7 +25,6 @@ public class DriverQueue : MonoBehaviour
             _spots.Add(new SitSpot(_driverSpots[i], false));
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") || other.CompareTag("HatHelperNPC"))
@@ -49,20 +41,14 @@ public class DriverQueue : MonoBehaviour
                 StopCoroutine(_dropLoop);
         }
     }
-
-    public void GetIntoQueue(Driver driver) => StartCoroutine(AddToList(driver));
-
-    IEnumerator AddToList(Driver driver)
+    public Driver GetDriverWithoutHat()
     {
-        SitSpot spot = _spots.Where(x => x.IsOccupied != true).OrderBy(x => Vector3.Distance(x.Spot.position, driver.transform.position)).FirstOrDefault();
-        spot.IsOccupied = true;
-        DriverInQueue qSpot = new DriverInQueue(driver, spot);
-        driver.DriverInQueue = qSpot;
-        StartCoroutine(driver.GetToPosAndSit(qSpot.SitSpot.Spot));
-        yield return new WaitForSeconds(0.25f);
-        _drivers.Add(qSpot);
+        DriverInQueue driverIQ = _drivers.Where(x => x.HasHat == false).FirstOrDefault();
+        if (driverIQ != null)
+            return driverIQ.Driver;
+        return null;
     }
-
+    public void GetIntoQueue(Driver driver) => StartCoroutine(AddToList(driver));
     public IEnumerator CallDriver(Action<Driver> callback)
     {
         _npcWaitingForDriver = true;
@@ -74,8 +60,17 @@ public class DriverQueue : MonoBehaviour
             _npcWaitingForDriver = false;
         }));
     }
-
-    IEnumerator DropLoop()
+    private IEnumerator AddToList(Driver driver)
+    {
+        SitSpot spot = _spots.Where(x => x.IsOccupied != true).OrderBy(x => Vector3.Distance(x.Spot.position, driver.transform.position)).FirstOrDefault();
+        spot.IsOccupied = true;
+        DriverInQueue qSpot = new DriverInQueue(driver, spot);
+        driver.DriverInQueue = qSpot;
+        StartCoroutine(driver.GetToPosAndSit(qSpot.SitSpot.Spot));
+        yield return new WaitForSeconds(0.25f);
+        _drivers.Add(qSpot);
+    }
+    private IEnumerator DropLoop()
     {
         while (_inventory.GetItem(ItemType))
         {
@@ -85,8 +80,7 @@ public class DriverQueue : MonoBehaviour
             yield return new WaitForSeconds(.25f);
         }
     }
-
-    IEnumerator TryGiveHatToDriver()
+    private IEnumerator TryGiveHatToDriver()
     {
         while (true)
         {
@@ -112,7 +106,7 @@ public class DriverQueue : MonoBehaviour
             }
         }
     }
-    void MoveQueue(DriverInQueue diq)
+    private void MoveQueue(DriverInQueue diq)
     {
         SitSpot spot = diq.SitSpot;
 
@@ -120,9 +114,7 @@ public class DriverQueue : MonoBehaviour
 
         _drivers.Remove(diq);
     }
-
-
-    IEnumerator MoveDriver(Action<Driver> callback)
+    private IEnumerator MoveDriver(Action<Driver> callback)
     {
         while (true)
         {

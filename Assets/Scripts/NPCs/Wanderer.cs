@@ -4,23 +4,22 @@ using UnityEngine;
 
 public class Wanderer : Follower
 {
-    List<Waypoint> _waypoints = new List<Waypoint>();
-    int _currentWaypointIndex = 0;
-    Coroutine _wanderRoutine, _moveRoutine;
+    private List<Waypoint> _waypoints = new List<Waypoint>();
+    private int _currentWaypointIndex = 0;
+    private Coroutine _wanderCoroutine, _moveCoroutine;
 
     public void Initialize(Waypoint[] waypoints)
     {
-
         foreach (Waypoint wp in waypoints)
             _waypoints.Add(wp);
 
-        _wanderRoutine = StartCoroutine(WandererLoop());
+        _wanderCoroutine = StartCoroutine(WandererLoop());
     }
 
     public override void FollowPlayer(Inventory inventory, bool isInQueue = false)
     {
-        StopCoroutine(_wanderRoutine);
-        StopCoroutine(_moveRoutine);
+        StopCoroutine(_wanderCoroutine);
+        StopCoroutine(_moveCoroutine);
 
         inventory.AddFollowerToList(this);
         Target = inventory.transform;
@@ -34,13 +33,13 @@ public class Wanderer : Follower
         if (_followerCanvas != null)
             _followerCanvas.Remove();
     }
-    IEnumerator WandererLoop()
+    private IEnumerator WandererLoop()
     {
         while (true)
         {
             Waypoint wp = _waypoints[_currentWaypointIndex];
-            _moveRoutine = StartCoroutine(GetToPosCoroutine(wp.transform.position));
-            yield return _moveRoutine;
+            _moveCoroutine = StartCoroutine(GetToPosCoroutine(wp.transform.position));
+            yield return _moveCoroutine;
 
             if (wp.StopWaypoint)
                 yield return new WaitForSeconds(10f);

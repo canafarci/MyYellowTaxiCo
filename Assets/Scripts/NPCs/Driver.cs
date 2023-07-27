@@ -8,9 +8,9 @@ using UnityEngine.AI;
 
 public class Driver : NavMeshNPC
 {
-    [SerializeField] Transform _hatTransform;
-    [SerializeField] ParticleSystem _fx;
     public DriverInQueue DriverInQueue;
+    [SerializeField] private Transform _hatTransform;
+    [SerializeField] private ParticleSystem _fx;
     public IEnumerator GetToPosAndSit(Transform trans)
     {
         yield return StartCoroutine(GetToPosCoroutine(trans.position));

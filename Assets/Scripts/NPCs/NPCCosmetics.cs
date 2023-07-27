@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NPCCosmetics : MonoBehaviour
 {
-    [SerializeField] GameObject[] _hatsSuit, _hatsTshirt, _characters;
+    [SerializeField] private GameObject[] _hatsSuit, _hatsTshirt, _characters;
 
     private void Awake()
     {

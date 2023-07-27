@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class SpawnWanderer : MonoBehaviour
 {
-    [SerializeField] Waypoint[] _waypoints;
-    [SerializeField] Transform _spawnTransform;
-    [SerializeField] GameObject _prefab;
-    [SerializeField] float _spawnTime;
-    float _currentTime;
+    [SerializeField] private Waypoint[] _waypoints;
+    [SerializeField] private Transform _spawnTransform;
+    [SerializeField] private GameObject _prefab;
+    [SerializeField] private float _spawnTime;
+    private float _currentTime;
 
     private void Awake()
     {
         if (!PlayerPrefs.HasKey(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE))
         {
             _currentTime = 10f;
-
         }
         else
             _currentTime = _spawnTime;
     }
 
-    void Start() => StartCoroutine(SpawnTimer());
-    IEnumerator SpawnTimer()
+    private void Start() => StartCoroutine(SpawnTimer());
+    private IEnumerator SpawnTimer()
     {
         while (true)
         {
@@ -36,7 +35,7 @@ public class SpawnWanderer : MonoBehaviour
         }
     }
 
-    void Spawn()
+    private void Spawn()
     {
         Wanderer wanderer = GameObject.Instantiate(_prefab, _spawnTransform.position, _prefab.transform.rotation).GetComponent<Wanderer>();
         wanderer.Initialize(_waypoints);

@@ -8,7 +8,7 @@ public class NavMeshNPC : MonoBehaviour
 {
     public Enums.StackableItemType Hat;
     protected NavMeshAgent _agent;
-    Coroutine _getToPosCoroutine = null;
+    private Coroutine _getToPosCoroutine = null;
     virtual protected void Awake() => _agent = GetComponent<NavMeshAgent>();
     virtual public IEnumerator OpenDoorAndGetIn(Vector3 pos)
     {
@@ -31,8 +31,6 @@ public class NavMeshNPC : MonoBehaviour
         _getToPosCoroutine = StartCoroutine(GetToPosCoroutine(pos));
         return _getToPosCoroutine;
     }
-
-
     public IEnumerator GetToPosCoroutine(Vector3 pos)
     {
         yield return new WaitForSeconds(.1f);

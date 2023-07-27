@@ -21,7 +21,7 @@ namespace Taxi.Upgrades
         }
         private void Start()
         {
-            HatHelperNPC._hatStackers = null; //??????
+            HatHelperNPC.HatStackers = null; //??????
         }
 
         public void SetIncomeModifier(float incomeModifier) => _incomeModifier = incomeModifier;

@@ -9,12 +9,10 @@ public class ConditionalTutorial : MonoBehaviour
 {
     [SerializeField]
     UnityEvent _firstCarReturnWithoutCharger, _onFirstCharge, _afterFirstChargeReload,
-                                _firstReturnBroken, _onFirstRepair, _afterRepairLoad,
-                                _firstReturnTire, _onFirstTireChange, _afterTireReload,
-                                _onFirstCustomerDelivered, _afterCustomerDeliveredLoad,
-                                _onFirstWandererSpawn, _wandererTriggered, _afterWandererDeliveredLoad;
-
-
+                _firstReturnBroken, _onFirstRepair, _afterRepairLoad,
+                _firstReturnTire, _onFirstTireChange, _afterTireReload,
+                _onFirstCustomerDelivered, _afterCustomerDeliveredLoad,
+                _onFirstWandererSpawn, _wandererTriggered, _afterWandererDeliveredLoad;
 
     [SerializeField] GameObject[] _secondStageBrokenCars, _thirdStageBrokenCars;
     [SerializeField] Spawner[] _firstSpawners, _secondSpawners;
@@ -95,7 +93,6 @@ public class ConditionalTutorial : MonoBehaviour
             sp.BrokenCars = _secondStageBrokenCars;
         }
     }
-
     public void OnThirdRepair()
     {
         _onFirstTireChange.Invoke();
@@ -105,7 +102,6 @@ public class ConditionalTutorial : MonoBehaviour
             sp.BrokenCars = _thirdStageBrokenCars;
         }
     }
-
     public void DisableAllChildren()
     {
         _tutorialTexts.ToList().ForEach(x => x.SetActive(false));
