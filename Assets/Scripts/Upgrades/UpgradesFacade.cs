@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Ketchapp.MayoSDK;
+using Taxi.NPC;
 using UnityEngine;
 namespace Taxi.Upgrades
 {

@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class WandererTrigger : MonoBehaviour
+namespace Taxi.NPC
 {
-    private void OnTriggerEnter(Collider other)
+    public class WandererTrigger : MonoBehaviour
     {
-        if (!other.CompareTag("Player")) { return; }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!other.CompareTag("Player")) { return; }
 
-        Wanderer wanderer = GetComponent<Wanderer>();
-        wanderer.FollowPlayer(GameManager.Instance.References.PlayerInventory);
-        GetComponent<Collider>().enabled = false;
+            Wanderer wanderer = GetComponent<Wanderer>();
+            wanderer.FollowPlayer(GameManager.Instance.References.PlayerInventory);
+            GetComponent<Collider>().enabled = false;
+        }
     }
 }

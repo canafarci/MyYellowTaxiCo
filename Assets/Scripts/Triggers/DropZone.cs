@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using System.Linq;
+using Taxi.NPC;
 
 public class DropZone : MonoBehaviour
 {

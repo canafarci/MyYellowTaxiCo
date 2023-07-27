@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Ketchapp.MayoSDK;
+using Taxi.NPC;
 using UnityEngine;
 using UnityEngine.Events;
 
