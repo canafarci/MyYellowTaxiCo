@@ -35,8 +35,8 @@ public class Spawner : MonoBehaviour
         if (!IsBrokenCar)
             _currentCar = car;
         if (_spawnIndex > 0)
-            FindObjectsOfType<SpawnDriver>().Where(x => x.HatType == hatType).FirstOrDefault().
-                                                                                DriverSpawn(transform);
+            FindObjectsOfType<DriverSpawner>().Where(x => x.HatType == hatType).FirstOrDefault().
+                                                                                SpawnDriver(transform);
     }
 
     void OnCarRepaired(Car car) => _currentCar = car;

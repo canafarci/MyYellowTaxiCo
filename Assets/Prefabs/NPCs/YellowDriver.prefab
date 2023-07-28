@@ -155,7 +155,7 @@ PrefabInstance:
     - target: {fileID: 6089749160972410553, guid: b81f24906b9e9dc41b4e3568b22fc63b,
         type: 3}
       propertyPath: m_ObstacleAvoidanceType
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6089749160972410559, guid: b81f24906b9e9dc41b4e3568b22fc63b,
         type: 3}

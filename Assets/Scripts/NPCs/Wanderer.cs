@@ -38,7 +38,7 @@ namespace Taxi.NPC
             while (true)
             {
                 Waypoint wp = _waypoints[_currentWaypointIndex];
-                _moveCoroutine = StartCoroutine(GetToPosCoroutine(wp.transform.position));
+                _moveCoroutine = StartCoroutine(MoveToPosition(wp.transform.position));
                 yield return _moveCoroutine;
 
                 if (wp.StopWaypoint)

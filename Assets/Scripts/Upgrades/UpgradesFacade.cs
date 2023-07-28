@@ -20,11 +20,6 @@ namespace Taxi.Upgrades
             else
                 Instance = this;
         }
-        private void Start()
-        {
-            HatHelperNPC.HatStackers = null; //??????
-        }
-
         public void SetIncomeModifier(float incomeModifier) => _incomeModifier = incomeModifier;
         public float GetIncomeModifier() => _incomeModifier;
         public void SetNPCSpeed(float speed)

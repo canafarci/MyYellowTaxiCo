@@ -9,13 +9,20 @@ namespace Taxi.NPC
     {
         public Enums.StackableItemType Hat;
         protected NavMeshAgent _agent;
-        private Coroutine _getToPosCoroutine = null;
+        protected Coroutine _currentAction = null;
         virtual protected void Awake() => _agent = GetComponent<NavMeshAgent>();
+        protected void StartAction(IEnumerator enumerator)
+        {
+            if (_currentAction != null)
+                StopCoroutine(_currentAction);
+            _currentAction = StartCoroutine(enumerator);
+        }
+
         virtual public IEnumerator OpenDoorAndGetIn(Vector3 pos)
         {
             _agent.radius = 0.01f;
             _agent.stoppingDistance = 0.001f;
-            yield return StartCoroutine(GetToPosCoroutine(pos + new Vector3(0f, 0f, 1.5f)));
+            yield return StartCoroutine(MoveToPosition(pos + new Vector3(0f, 0f, 1.5f)));
 
             GetComponentInChildren<Animator>().Play("Car Door Open");
 
@@ -23,30 +30,19 @@ namespace Taxi.NPC
 
             Destroy(gameObject, 0.6f);
         }
-
-        public Coroutine GetToPos(Vector3 pos)
+        protected IEnumerator MoveToPosition(Vector3 pos)
         {
-            if (_getToPosCoroutine != null)
-                StopCoroutine(_getToPosCoroutine);
-
-            _getToPosCoroutine = StartCoroutine(GetToPosCoroutine(pos));
-            return _getToPosCoroutine;
-        }
-        public IEnumerator GetToPosCoroutine(Vector3 pos)
-        {
-            yield return new WaitForSeconds(.1f);
-
+            yield return new WaitForSeconds(0.2f); //time for navmesh agent to clean up and initialize
             Vector3 tarxz = new Vector3(pos.x, 0f, pos.z);
             _agent.destination = tarxz;
 
-            for (int i = 0; i < Mathf.Infinity; i++)
+            while (_agent != null)
             {
-                yield return new WaitForSeconds(.25f);
-                if (_agent == null) { yield break; }
+                yield return new WaitForSeconds(0.25f);
 
                 Vector3 posxz = new Vector3(transform.position.x, 0f, transform.position.z);
 
-                if (Vector3.Distance(posxz, tarxz) < 0.25f)
+                if (Vector3.Distance(posxz, tarxz) <= _agent.stoppingDistance)
                     break;
             }
         }

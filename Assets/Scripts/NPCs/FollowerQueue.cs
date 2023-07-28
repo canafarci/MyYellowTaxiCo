@@ -95,18 +95,18 @@ namespace Taxi.NPC
         }
         private void GetToQueuePosition(Follower follower, FollowerQueueSpot spot)
         {
-            if (!spot.IsSitSpot)
-                follower.GetToPos(spot.Transform.position);
-            else
-                StartCoroutine(GetToPosAndSit(follower, spot));
+            // if (!spot.IsSitSpot)
+            //     //follower.GetToPos(spot.Transform.position);
+            // else
+            //     StartCoroutine(GetToPosAndSit(follower, spot));
 
-            spot.Follower = follower;
+            // spot.Follower = follower;
         }
         private IEnumerator GetToPosAndSit(Follower follower, FollowerQueueSpot spot)
         {
             //follower.GetComponentInChildren<Animator>().SetTrigger("MoveEmpty");
 
-            yield return follower.GetToPos(spot.Transform.position);
+            //yield return follower.GetToPos(spot.Transform.position);
 
             Tween move = follower.transform.DOMove(spot.Transform.position, .2f);
             Tween rot = follower.transform.DORotate(spot.Transform.rotation.eulerAngles, .2f);
