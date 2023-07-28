@@ -168,5 +168,18 @@ public class DotweenFX : MonoBehaviour
         seq1.Append(item.transform.GetChild(0).DOScale(baseScale1 * 1.2f, .1f));
         seq1.Append(item.transform.GetChild(0).DOScale(baseScale1, .1f));
     }
+    public static void MoveObjectInArc(Transform item, Transform target)
+    {
+        item.parent = target;
+        Vector3 endPos = target.localPosition;
+        Vector3 startPos = item.transform.localPosition;
+        Vector3 intermediatePos = new Vector3((endPos.x + startPos.x) / 2f,
+                                                endPos.y + 2f,
+                                                (endPos.z + startPos.z) / 2f);
+
+        Vector3[] path = { startPos, intermediatePos, endPos };
+        item.transform.DOLocalPath(path, .5f, PathType.CatmullRom, PathMode.Full3D);
+        item.transform.DOLocalRotate(target.localRotation.eulerAngles, 0.5f);
+    }
 
 }

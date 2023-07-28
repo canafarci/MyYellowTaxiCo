@@ -16,12 +16,14 @@ public class Stacker : MonoBehaviour
         _positionCalculator = GetComponent<StackPositionCalculator>();
     }
 
-    public void StackItem(StackableItem item)
+    public void StackItem(StackableItem item) => StartCoroutine(Stack(item));
+
+    private IEnumerator Stack(StackableItem item)
     {
         item.transform.parent = transform;
 
         Vector3 endPos = _positionCalculator.CalculatePosition(_stack, item);
-        StartCoroutine(DotweenFX.StackTweenHat(item, endPos));
+        yield return StartCoroutine(DotweenFX.StackTweenHat(item, endPos));
 
         _stack.Push(item);
     }

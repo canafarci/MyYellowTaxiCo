@@ -26,20 +26,27 @@ namespace Taxi.NPC
             yield return move.WaitForCompletion();
             GetComponentInChildren<Animator>().SetBool("IsSitting", true);
         }
-        public void ActivateHat()
+        public void GiveHat(StackableItem item)
         {
             _hasHat = true;
-
-
-            //TODO seperate view
-            _hatTransform.GetChild(0).GetComponent<Renderer>().enabled = true;
-            Sequence seq = DOTween.Sequence();
-            Vector3 baseScale = _hatTransform.localScale;
-            seq.Append(_hatTransform.DOScale(baseScale * 1.2f, .1f));
-            seq.Append(_hatTransform.DOScale(baseScale, .1f));
+            DotweenFX.MoveObjectInArc(item.transform, _hatTransform);
         }
+        // public void ActivateHat()
+        // {
+        //     _hasHat = true;
+
+        //     //TODO seperate view
+        //     _hatTransform.GetChild(0).GetComponent<Renderer>().enabled = true;
+        //     Sequence seq = DOTween.Sequence();
+        //     Vector3 baseScale = _hatTransform.localScale;
+        //     seq.Append(_hatTransform.DOScale(baseScale * 1.2f, .1f));
+        //     seq.Append(_hatTransform.DOScale(baseScale, .1f));
+        // }
+
 
         //Getter-Setters
         public bool DriverHasHat() => _hasHat;
+
+
     }
 }

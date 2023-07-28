@@ -33,7 +33,7 @@ namespace Taxi.NPC
         }
         private IEnumerator DropLoop(Collider other)
         {
-            while (_inventories[other].GetItem(_queue.HatType))
+            while (_stacker.ItemStack.Count < _stacker.MaxStackSize && _inventories[other].GetItem(_queue.HatType))
             {
                 StackableItem item = _inventories[other].GetItem(_queue.HatType);
                 _inventories[other].RemoveItem(item);

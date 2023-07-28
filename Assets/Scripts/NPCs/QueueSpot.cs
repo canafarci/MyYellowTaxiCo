@@ -23,6 +23,11 @@ namespace Taxi.NPC
                 return _driver.DriverHasHat();
         }
         public void SetDriver(Driver driver) => _driver = driver;
+        public bool TryGetDriver(out Driver driver)
+        {
+            driver = _driver; // Assign the driver to the 'driver' output parameter.
+            return driver != null; // Return true if the driver is not null (i.e., a driver is available).
+        }
     }
     public class OnNewQueueSpotActivatedEventArgs : EventArgs
     {
