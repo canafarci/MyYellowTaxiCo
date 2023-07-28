@@ -7,8 +7,10 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public Car Car { get { return _currentCar; } }
-    public Action OnMovedAway;
+    public bool CarIsReady { get { return _currentCar != null; } }
+    public bool DriverIsComing = false;
+    public Enums.StackableItemType HatType;
+    //public Action OnMovedAway;
     public GameObject[] BrokenCars { set { _brokenCars = value; } }
     [SerializeField] bool _spawnAlternate;
     [SerializeField] Transform _enterNode, _exitNode;
@@ -21,12 +23,15 @@ public class Spawner : MonoBehaviour
     Car _currentCar = null;
     RoadNode _nodes;
     SpawnerUI _ui;
+    public static event EventHandler<OnNewSpawnerActivatedEventArgs> OnNewSpawnerActivated;
+
     int _spawnIndex = 0;
 
     private void Awake()
     {
         _nodes = FindObjectOfType<RoadNode>();
         _ui = GetComponent<SpawnerUI>();
+        OnNewSpawnerActivated?.Invoke(this, new OnNewSpawnerActivatedEventArgs { HatType = HatType });
     }
     private void Start() => InitialSpawn();
 
@@ -61,7 +66,8 @@ public class Spawner : MonoBehaviour
     {
         _currentCar.MoveAway();
         _currentCar = null;
-        OnMovedAway();
+        DriverIsComing = false;
+        //OnMovedAway();
         _parkAnimator.enabled = false;
     }
     public void SpawnCar()
@@ -147,4 +153,8 @@ public class Spawner : MonoBehaviour
         OnCarInPlace(car, IsBrokenCar, hatType);
         FindObjectOfType<ConditionalTutorial>().ThirdReturnBroken();
     }
+}
+public class OnNewSpawnerActivatedEventArgs : EventArgs
+{
+    public Enums.StackableItemType HatType;
 }

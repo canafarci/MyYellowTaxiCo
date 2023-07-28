@@ -28,6 +28,7 @@ namespace Taxi.NPC
             driver = _driver; // Assign the driver to the 'driver' output parameter.
             return driver != null; // Return true if the driver is not null (i.e., a driver is available).
         }
+        public void Clear() => _driver = null;
     }
     public class OnNewQueueSpotActivatedEventArgs : EventArgs
     {

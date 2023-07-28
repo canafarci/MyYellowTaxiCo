@@ -17,6 +17,10 @@ namespace Taxi.NPC
         {
             StartAction(MoveAndSit(spot.transform));
         }
+        public void GoToCarAndGetIn(Spawner spawner)
+        {
+            StartAction(GoToCarAndMove(spawner));
+        }
         private IEnumerator MoveAndSit(Transform trans)
         {
             yield return StartCoroutine(MoveToPosition(trans.position));
@@ -25,6 +29,21 @@ namespace Taxi.NPC
 
             yield return move.WaitForCompletion();
             GetComponentInChildren<Animator>().SetBool("IsSitting", true);
+        }
+        private IEnumerator GoToCarAndMove(Spawner spawner) //refactor
+        {
+            spawner.DriverIsComing = true;
+            GetComponentInChildren<Animator>().SetBool("IsSitting", false);
+            yield return StartCoroutine(MoveToPosition(spawner.transform.position));
+
+            GetComponentInChildren<Animator>().Play("Car Door Open");
+
+            Tween tween = transform.DOScale(Vector3.one * 0.0001f, .5f);
+
+            yield return tween.WaitForCompletion();
+
+            spawner.StartMove();
+            Destroy(gameObject, 0.6f);
         }
         public void GiveHat(StackableItem item)
         {

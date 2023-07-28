@@ -17,12 +17,13 @@ namespace Taxi.NPC
             base.Awake();
             _followerCanvas.Initialize();
         }
-
-        public override IEnumerator OpenDoorAndGetIn(Vector3 pos)
+        //TODO REFACTOR
+        public IEnumerator OpenDoorAndGetIn(Vector3 pos)
         {
             StopCoroutine(_followLoop);
             GameManager.Instance.References.PlayerInventory.RemoveFollower(this);
-            return base.OpenDoorAndGetIn(pos);
+            yield return null;
+            //return base.OpenDoorAndGetIn(pos);
         }
         public IEnumerator MoveToTarget(Vector3 pos)
         {

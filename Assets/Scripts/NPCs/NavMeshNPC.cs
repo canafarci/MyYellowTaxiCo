@@ -17,19 +17,6 @@ namespace Taxi.NPC
                 StopCoroutine(_currentAction);
             _currentAction = StartCoroutine(enumerator);
         }
-
-        virtual public IEnumerator OpenDoorAndGetIn(Vector3 pos)
-        {
-            _agent.radius = 0.01f;
-            _agent.stoppingDistance = 0.001f;
-            yield return StartCoroutine(MoveToPosition(pos + new Vector3(0f, 0f, 1.5f)));
-
-            GetComponentInChildren<Animator>().Play("Car Door Open");
-
-            transform.DOScale(Vector3.one * 0.0001f, .5f);
-
-            Destroy(gameObject, 0.6f);
-        }
         protected IEnumerator MoveToPosition(Vector3 pos)
         {
             yield return new WaitForSeconds(0.2f); //time for navmesh agent to clean up and initialize

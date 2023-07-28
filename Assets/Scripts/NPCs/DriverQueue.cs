@@ -15,12 +15,14 @@ namespace Taxi.NPC
         {
             QueueSpot.OnNewQueueSpotActivated += NewQueueSpotActivatedHandler;
         }
-
         private void NewQueueSpotActivatedHandler(object sender, OnNewQueueSpotActivatedEventArgs e)
         {
-            QueueSpot spot = sender as QueueSpot;
-            Assert.IsNotNull(spot);
-            _queueSpots.Add(spot);
+            if (e.HatType == HatType)
+            {
+                QueueSpot spot = sender as QueueSpot;
+                Assert.IsNotNull(spot);
+                _queueSpots.Add(spot);
+            }
         }
         public void AddDriverToQueue(Driver driver)
         {
@@ -31,15 +33,38 @@ namespace Taxi.NPC
             driver.MoveAndSit(spot);
             spot.SetDriver(driver);
         }
-        private IEnumerator CheckDrivers()
+        public List<Driver> GetDrivers()
         {
-            while (true)
+            List<Driver> drivers = new List<Driver>();
+            foreach (QueueSpot spot in _queueSpots)
             {
-                yield return null;
-                //check if stacker has avaliable hats
-                //if so, make driver wear hat
-                //if there are drivers with hats, check if there are avaliable cars
-                //make drivers move to the cars
+                if (spot.TryGetDriver(out Driver driver))
+                {
+                    drivers.Add(driver);
+                }
+            }
+            return drivers;
+        }
+        public List<Driver> GetDriversWithHat()
+        {
+            List<Driver> drivers = new List<Driver>();
+            foreach (QueueSpot spot in _queueSpots)
+            {
+                if (spot.TryGetDriver(out Driver driver) && driver.DriverHasHat())
+                {
+                    drivers.Add(driver);
+                }
+            }
+            return drivers;
+        }
+        public void Remove(Driver driverToRemove)
+        {
+            foreach (QueueSpot spot in _queueSpots)
+            {
+                if (spot.TryGetDriver(out Driver driver) && driver == driverToRemove)
+                {
+                    spot.Clear();
+                }
             }
         }
         //Cleanup

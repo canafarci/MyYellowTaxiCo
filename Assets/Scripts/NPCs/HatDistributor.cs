@@ -7,53 +7,41 @@ namespace Taxi.NPC
 {
     public class HatDistributor : MonoBehaviour
     {
-        private List<QueueSpot> _queueSpots = new List<QueueSpot>();
         private Stacker _stacker;
-
+        private DriverQueue _driverQueue;
         private void Awake()
         {
             _stacker = GetComponent<Stacker>();
+            _driverQueue = GetComponentInParent<DriverQueue>();
         }
-
         private void Start()
         {
-            QueueSpot.OnNewQueueSpotActivated += HandleNewQueueSpotActivated;
             StartCoroutine(TryGiveHatLoop());
         }
-
-        private void OnDestroy()
-        {
-            QueueSpot.OnNewQueueSpotActivated -= HandleNewQueueSpotActivated;
-        }
-
-        private void HandleNewQueueSpotActivated(object sender, OnNewQueueSpotActivatedEventArgs e)
-        {
-            QueueSpot queueSpot = sender as QueueSpot;
-            Assert.IsNotNull(queueSpot, "Sender should be a valid QueueSpot.");
-
-            _queueSpots.Add(queueSpot);
-        }
-
         private IEnumerator TryGiveHatLoop()
         {
             while (true)
             {
                 yield return new WaitForSeconds(0.5f);
 
-                if (_stacker.ItemStack.TryPop(out StackableItem item))
+                List<Driver> drivers = _driverQueue.GetDrivers();
+                if (_stacker.ItemStack.Count > 0 && drivers.Count > 0)
                 {
-                    DistributeHatToDrivers(item);
+                    TryDistributeHatToDrivers(drivers);
                 }
             }
         }
-
-        private void DistributeHatToDrivers(StackableItem hat)
+        private void TryDistributeHatToDrivers(List<Driver> drivers)
         {
-            foreach (QueueSpot spot in _queueSpots)
+
+            foreach (Driver driver in drivers)
             {
-                if (spot.TryGetDriver(out Driver driver) && !driver.DriverHasHat())
+                if (!driver.DriverHasHat())
                 {
-                    driver.GiveHat(hat);
+                    if (_stacker.ItemStack.TryPop(out StackableItem hat))
+                        driver.GiveHat(hat);
+                    else
+                        break;
                 }
             }
         }
