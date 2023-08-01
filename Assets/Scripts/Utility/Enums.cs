@@ -24,4 +24,9 @@ public class Enums
         HelperNPCInventorySize,
         HatStackerSpeed
     }
+    public enum UpgradeCommandType
+    {
+        ButtonUpgrade,
+        CheckCanUpgrade
+    }
 }

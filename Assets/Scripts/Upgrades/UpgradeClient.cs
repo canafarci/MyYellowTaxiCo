@@ -51,7 +51,6 @@ namespace Taxi.Upgrades
             {
                 UpgradeCardVisual visual = upgrade.GetComponent<UpgradeCardVisual>();
 
-                SetUpUpgradeCommand(upgrade, visual);
                 SetUpCheckCommand(upgrade, visual);
             }
         }
@@ -62,11 +61,6 @@ namespace Taxi.Upgrades
             upgrade.SetCheckCanUpgradeCommand(checkCommand);
         }
 
-        private void SetUpUpgradeCommand(UpgradeCardButton upgrade, UpgradeCardVisual visual)
-        {
-            IUpgradeCommand upgradeCommand = GetUpgradeCommand(upgrade.GetUpgradeType(), visual);
-            upgrade.SetUpgradeCommand(upgradeCommand);
-        }
 
         private IUpgradeCommand GetUpgradeCommand(Enums.UpgradeType upgradeType, UpgradeCardVisual visual)
         {

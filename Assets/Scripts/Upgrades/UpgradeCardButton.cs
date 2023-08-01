@@ -2,6 +2,8 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
+
 namespace Taxi.Upgrades
 {
     public class UpgradeCardButton : MonoBehaviour
@@ -9,6 +11,12 @@ namespace Taxi.Upgrades
         [SerializeField] Enums.UpgradeType _upgradeType;
         private IUpgradeCommand _upgradeCommand;
         private IUpgradeCommand _checkCanBuyCommand;
+
+        [Inject]
+        public void Construct(IUpgradeCommand upgradeCommand)
+        {
+            _upgradeCommand = upgradeCommand;
+        }
         public void OnButtonClicked()
         {
             //buy the upgrade
