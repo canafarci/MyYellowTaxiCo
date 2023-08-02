@@ -9,13 +9,21 @@ namespace Taxi.Upgrades
     {
         private RepeatableBuyingWaitingZone _waitZone;
         private RepeatableBuyableWaitingZoneVisual _visual;
+        private UpgradeUtility _upgradeUtility;
+        private UpgradeReceiver _upgradeReceiver;
         private bool _isLoading;
 
-        public WaitZoneUpgradeCommand(RepeatableBuyingWaitingZone waitZone, RepeatableBuyableWaitingZoneVisual visual, bool isLoading = false)
+        public WaitZoneUpgradeCommand(RepeatableBuyingWaitingZone waitZone,
+                                    RepeatableBuyableWaitingZoneVisual visual,
+                                    UpgradeUtility upgradeUtility,
+                                    UpgradeReceiver upgradeReceiver,
+                                    bool isLoading = false)
         {
             _waitZone = waitZone;
             _visual = visual;
             _isLoading = isLoading;
+            _upgradeUtility = upgradeUtility;
+            _upgradeReceiver = upgradeReceiver;
         }
         public void Execute()
         {
@@ -25,7 +33,7 @@ namespace Taxi.Upgrades
                 index++;
             }
 
-            bool isAtMaxIndex = UpgradeUtility.Instance.IsIndexAtMaxLength(index, Enums.UpgradeType.HatStackerSpeed);
+            bool isAtMaxIndex = _upgradeUtility.IsIndexAtMaxLength(index, Enums.UpgradeType.HatStackerSpeed);
 
             UpdateGameState(index);
 
@@ -35,7 +43,7 @@ namespace Taxi.Upgrades
             }
             else
             {
-                float cost = UpgradeUtility.Instance.GetUpgradeCost(index, Enums.UpgradeType.HatStackerSpeed);
+                float cost = _upgradeUtility.GetUpgradeCost(index, Enums.UpgradeType.HatStackerSpeed);
                 UpdateVisual(index, cost);
                 _waitZone.SetPrice(cost);
             }
@@ -49,14 +57,14 @@ namespace Taxi.Upgrades
 
         private void UpdateGameState(int index)
         {
-            string upgradeKey = UpgradeUtility.Instance.GetTypeKey(Enums.UpgradeType.HatStackerSpeed);
+            string upgradeKey = _upgradeUtility.GetTypeKey(Enums.UpgradeType.HatStackerSpeed);
             PlayerPrefs.SetInt(upgradeKey, index);
-            UpgradeReceiver.Instance.ReceiveUpgradeCommand(Enums.UpgradeType.HatStackerSpeed, index);
+            _upgradeReceiver.ReceiveUpgradeCommand(Enums.UpgradeType.HatStackerSpeed, index);
         }
 
         private int GetUpgradeIndex()
         {
-            string upgradeKey = UpgradeUtility.Instance.GetTypeKey(Enums.UpgradeType.HatStackerSpeed);
+            string upgradeKey = _upgradeUtility.GetTypeKey(Enums.UpgradeType.HatStackerSpeed);
             int index = PlayerPrefs.GetInt(upgradeKey);
             return index;
         }

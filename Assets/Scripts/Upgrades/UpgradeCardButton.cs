@@ -13,15 +13,16 @@ namespace Taxi.Upgrades
         private IUpgradeCommand _checkCanBuyCommand;
 
         [Inject]
-        public void Construct(IUpgradeCommand upgradeCommand)
+        public void Construct([Inject(Id = Enums.UpgradeCommandType.ButtonUpgrade)] IUpgradeCommand upgradeCommand,
+                              [Inject(Id = Enums.UpgradeCommandType.CheckCanUpgrade)] IUpgradeCommand checkCanBuyCommand)
         {
             _upgradeCommand = upgradeCommand;
+            _checkCanBuyCommand = checkCanBuyCommand;
         }
         public void OnButtonClicked()
         {
             //buy the upgrade
             _upgradeCommand.Execute();
-            print($"called from {gameObject.name}");
             //check next upgrade can be bought
             CheckCanBuy();
         }

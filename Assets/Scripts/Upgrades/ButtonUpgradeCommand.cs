@@ -10,11 +10,17 @@ namespace Taxi.Upgrades
     {
         private UpgradeCardVisual _upgradeVisual;
         private Enums.UpgradeType _upgradeType;
-
-        public ButtonUpgradeCommand(UpgradeCardVisual upgradeVisual, Enums.UpgradeType upgradeType)
+        private UpgradeUtility _upgradeUtility;
+        private UpgradeReceiver _upgradeReceiver;
+        public ButtonUpgradeCommand([Inject(Id = Enums.UpgradeCommandType.ButtonUpgrade)] UpgradeCardVisual upgradeVisual,
+                                    [Inject(Id = Enums.UpgradeCommandType.ButtonUpgrade)] Enums.UpgradeType upgradeType,
+                                    UpgradeUtility upgradeUtility,
+                                    UpgradeReceiver upgradeReceiver)
         {
             _upgradeVisual = upgradeVisual;
             _upgradeType = upgradeType;
+            _upgradeUtility = upgradeUtility;
+            _upgradeReceiver = upgradeReceiver;
         }
         public void Execute()
         {
@@ -28,22 +34,22 @@ namespace Taxi.Upgrades
 
         private int GetUpgradeIndex()
         {
-            string upgradeKey = UpgradeUtility.Instance.GetTypeKey(_upgradeType);
+            string upgradeKey = _upgradeUtility.GetTypeKey(_upgradeType);
             int index = PlayerPrefs.GetInt(upgradeKey);
             return index;
         }
 
         private void UpdateGameState(int index)
         {
-            UpgradeReceiver.Instance.ReceiveUpgradeCommand(_upgradeType, index);
-            string upgradeKey = UpgradeUtility.Instance.GetTypeKey(_upgradeType);
+            _upgradeReceiver.ReceiveUpgradeCommand(_upgradeType, index);
+            string upgradeKey = _upgradeUtility.GetTypeKey(_upgradeType);
             _upgradeVisual.UpdateDotUI(index);
             PlayerPrefs.SetInt(upgradeKey, index);
         }
 
         private void PayMoney(int index)
         {
-            float cost = UpgradeUtility.Instance.GetUpgradeCost(index, _upgradeType);
+            float cost = _upgradeUtility.GetUpgradeCost(index, _upgradeType);
             ResourceTracker.Instance.OnPayMoney(cost);
         }
     }

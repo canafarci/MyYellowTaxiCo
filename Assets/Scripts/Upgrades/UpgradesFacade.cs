@@ -5,21 +5,13 @@ using Taxi.NPC;
 using UnityEngine;
 namespace Taxi.Upgrades
 {
-    public class UpgradesFacade : MonoBehaviour
+    public class UpgradesFacade
     {
         private float _incomeModifier;
         private float _npcSpeed;
         private int _npcInventorySize;
         public event Action<int> OnNPCInventorySizeUpgrade;
         public event Action<float> OnNPCSpeedUpgrade;
-        public static UpgradesFacade Instance;
-        private void Awake()
-        {
-            if (Instance)
-                Destroy(gameObject);
-            else
-                Instance = this;
-        }
         public void SetIncomeModifier(float incomeModifier) => _incomeModifier = incomeModifier;
         public float GetIncomeModifier() => _incomeModifier;
         public void SetNPCSpeed(float speed)

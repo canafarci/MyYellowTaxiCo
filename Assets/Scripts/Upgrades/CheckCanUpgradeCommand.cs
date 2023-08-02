@@ -2,24 +2,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
+
 namespace Taxi.Upgrades
 {
     public class CheckCanUpgradeCommand : IUpgradeCommand
     {
         private UpgradeCardVisual _upgradeVisual;
         private Enums.UpgradeType _upgradeType;
-        public CheckCanUpgradeCommand(UpgradeCardVisual upgradeVisual, Enums.UpgradeType upgradeType)
+        private UpgradeUtility _upgradeUtility;
+        public CheckCanUpgradeCommand([Inject(Id = Enums.UpgradeCommandType.CheckCanUpgrade)] UpgradeCardVisual upgradeVisual,
+                                      [Inject(Id = Enums.UpgradeCommandType.CheckCanUpgrade)] Enums.UpgradeType upgradeType,
+                                      UpgradeUtility upgradeUtility)
         {
             _upgradeVisual = upgradeVisual;
             _upgradeType = upgradeType;
+            _upgradeUtility = upgradeUtility;
         }
 
         public void Execute()
         {
-            UnityEngine.Debug.Log("asdasdasdsad");
-            string upgradeKey = UpgradeUtility.Instance.GetTypeKey(_upgradeType);
+            string upgradeKey = _upgradeUtility.GetTypeKey(_upgradeType);
             int index = PlayerPrefs.GetInt(upgradeKey);
-            bool isAtMaxIndex = UpgradeUtility.Instance.IsIndexAtMaxLength(index, _upgradeType);
+            bool isAtMaxIndex = _upgradeUtility.IsIndexAtMaxLength(index, _upgradeType);
 
             if (isAtMaxIndex)
             {
@@ -34,7 +39,7 @@ namespace Taxi.Upgrades
 
         private void UpdateVisualByUpgradeIndex(int index)
         {
-            float cost = UpgradeUtility.Instance.GetUpgradeCost(index, _upgradeType);
+            float cost = _upgradeUtility.GetUpgradeCost(index, _upgradeType);
             float playerMoney = ResourceTracker.Instance.PlayerMoney;
 
             if (cost > playerMoney)

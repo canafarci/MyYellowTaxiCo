@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Taxi.WaitZones;
 using Taxi.Upgrades;
+using Zenject;
 
 public class ResourceTracker : MonoBehaviour
 {
     public float PlayerMoney { get { return _currentMoney; } }
     private float _currentMoney;
+    private UpgradesFacade _upgradesFacade;
+
     public event Action<float> OnPlayerMoneyChanged;
     public static ResourceTracker Instance { get; private set; }
     private void Awake()
@@ -21,6 +24,12 @@ public class ResourceTracker : MonoBehaviour
         }
         Load();
     }
+    [Inject]
+    private void Init(UpgradesFacade upgradesFacade)
+    {
+        _upgradesFacade = upgradesFacade;
+    }
+
     private void OnEnable()
     {
         MoneyStacker.MoneyPickupHandler += OnMoneyPickup;
@@ -52,7 +61,7 @@ public class ResourceTracker : MonoBehaviour
     }
     private void OnMoneyPickup()
     {
-        _currentMoney += (UpgradesFacade.Instance.GetIncomeModifier() * GameManager.Instance.References.GameConfig.MoneyPerStack);
+        _currentMoney += (_upgradesFacade.GetIncomeModifier() * GameManager.Instance.References.GameConfig.MoneyPerStack);
         OnMoneyChange();
     }
     private void OnMoneyChange()

@@ -27,6 +27,7 @@ public class Enums
     public enum UpgradeCommandType
     {
         ButtonUpgrade,
-        CheckCanUpgrade
+        CheckCanUpgrade,
+        LoadUpgrade
     }
 }

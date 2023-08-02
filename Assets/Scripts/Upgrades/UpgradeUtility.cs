@@ -1,21 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Taxi.Upgrades
 {
-    public class UpgradeUtility : MonoBehaviour
+    public class UpgradeUtility
     {
-        public static UpgradeUtility Instance;
-        [SerializeField] private UpgradeDataSO _upgradeData;
-        private void Awake()
-        {
-            if (Instance != null)
-                Destroy(gameObject);
-            else
-                Instance = this;
-        }
+        private UpgradeDataSO _upgradeData;
 
+        [Inject]
+        private void Init(UpgradeDataSO upgradeData)
+        {
+            _upgradeData = upgradeData;
+        }
         public string GetTypeKey(Enums.UpgradeType type)
         {
             switch (type)

@@ -1,33 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Taxi.Upgrades
 {
     public class LoadUpgradeCommand : IUpgradeCommand
     {
-        private Enums.UpgradeType _upgradeType;
-        public LoadUpgradeCommand(Enums.UpgradeType upgradeType)
+        private UpgradeUtility _upgradeUtility;
+        private UpgradeReceiver _upgradeReceiver;
+        public LoadUpgradeCommand(UpgradeUtility upgradeUtility, UpgradeReceiver upgradeReceiver)
         {
-            _upgradeType = upgradeType;
+            _upgradeUtility = upgradeUtility;
+            _upgradeReceiver = upgradeReceiver;
         }
+        private Enums.UpgradeType[] _upgradeTypes = new Enums.UpgradeType[] {
+            Enums.UpgradeType.PlayerSpeed,
+            Enums.UpgradeType.HatStackerSpeed,
+            Enums.UpgradeType.HelperNPCCount,
+            Enums.UpgradeType.HelperNPCInventorySize,
+            Enums.UpgradeType.PlayerIncome,
+            Enums.UpgradeType.PlayerInventorySize,
+        };
         public void Execute()
         {
-            int index = GetUpgradeIndex();
-
-            UpdateGameState(index);
+            foreach (Enums.UpgradeType upgradeType in _upgradeTypes)
+            {
+                LoadUpgrade(upgradeType);
+            }
         }
 
-        private int GetUpgradeIndex()
+        private void LoadUpgrade(Enums.UpgradeType upgradeType)
         {
-            string upgradeKey = UpgradeUtility.Instance.GetTypeKey(_upgradeType);
+            int index = GetUpgradeIndex(upgradeType);
+
+            UpdateGameState(index, upgradeType);
+        }
+
+        private int GetUpgradeIndex(Enums.UpgradeType upgradeType)
+        {
+            string upgradeKey = _upgradeUtility.GetTypeKey(upgradeType);
             int index = PlayerPrefs.GetInt(upgradeKey);
             return index;
         }
 
-        private void UpdateGameState(int index)
+        private void UpdateGameState(int index, Enums.UpgradeType upgradeType)
         {
-            UpgradeReceiver.Instance.ReceiveUpgradeCommand(_upgradeType, index);
+            _upgradeReceiver.ReceiveUpgradeCommand(upgradeType, index);
             PlayerPrefs.SetInt(Globals.PLAYER_INVENTORY_KEY, index);
         }
 

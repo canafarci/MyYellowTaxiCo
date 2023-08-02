@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Taxi.Upgrades
 {
@@ -11,15 +12,15 @@ namespace Taxi.Upgrades
         [SerializeField] private GameObject _helperNPCPrefab;
         [SerializeField] private Transform _spawnPoint;
         private int _npcMaxCount, _currentNPCCount;
-        public static UpgradeReceiver Instance;
-        private void Awake()
-        {
-            if (Instance)
-                Destroy(gameObject);
-            else
-                Instance = this;
-        }
+        UpgradeUtility _upgradeUtility;
+        UpgradesFacade _upgradesFacade;
 
+        [Inject]
+        private void Init(UpgradeUtility upgradeUtility, UpgradesFacade upgradesFacade)
+        {
+            _upgradeUtility = upgradeUtility;
+            _upgradesFacade = upgradesFacade;
+        }
         public void ReceiveUpgradeCommand(Enums.UpgradeType upgradeType, int index)
         {
             switch (upgradeType)
@@ -51,7 +52,7 @@ namespace Taxi.Upgrades
         }
         private void UpgradeStackerSpeed(int index)
         {
-            float speed = UpgradeUtility.Instance.GetItemGeneratorSpeed(index);
+            float speed = _upgradeUtility.GetItemGeneratorSpeed(index);
             FindObjectOfType<ItemGenerator>(true).SetSpawnRate(speed);
         }
         private void UpgradePlayerInventorySize(int index)
@@ -62,22 +63,22 @@ namespace Taxi.Upgrades
         private void UpgradePlayerIncome(int index)
         {
             float incomeModifier = _upgradeData.IncomeModifiers[index].IncomeMultiplier;
-            UpgradesFacade.Instance.SetIncomeModifier(incomeModifier);
+            _upgradesFacade.SetIncomeModifier(incomeModifier);
         }
         private void UpgradeNPCSpeed(int index)
         {
             float npcSpeed = _upgradeData.HelperNPCSpeeds[index].Speed;
-            UpgradesFacade.Instance.SetNPCSpeed(npcSpeed);
+            _upgradesFacade.SetNPCSpeed(npcSpeed);
         }
         private void UpgradeNPCInventorySize(int index)
         {
             int inventorySize = _upgradeData.HelperNPCInventorySizes[index].Size;
-            UpgradesFacade.Instance.SetNPCInventorySize(inventorySize);
+            _upgradesFacade.SetNPCInventorySize(inventorySize);
         }
         private void UpgradePlayerSpeed(int index)
         {
             float speedModifier = _upgradeData.SpeedModifiers[index].SpeedMultiplier;
-            FindObjectOfType<Mover>().IncreaseSpeed(speedModifier);
+            //FindObjectOfType<Mover>().IncreaseSpeed(speedModifier);
         }
         private void SpawnHelperNPC(int index)
         {
