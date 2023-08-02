@@ -4,7 +4,7 @@ using Taxi.Upgrades;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.Scripts
+namespace Taxi.Installers
 {
     public class UpgradesInstaller : MonoInstaller
     {
@@ -14,29 +14,27 @@ namespace Taxi.Scripts
             Container.Bind<IUpgradeCommand>()
                 .To<ButtonUpgradeCommand>().AsTransient();
 
-            Container.Bind<UpgradeCardVisual>().FromComponentInHierarchy().AsTransient();
+            Container.Bind<UpgradeCardVisual>().FromMethod(GetVisualFromButtonUpgrade).AsTransient();
 
             Container.Bind<Enums.UpgradeType>()
                 .FromMethod(GetUpgradeTypeFromButtonUpgrade).AsTransient();
         }
 
+        private UpgradeCardVisual GetVisualFromButtonUpgrade(InjectContext context)
+        {
+            // Get the UpgradeCardButton component from the context
+            UpgradeCardButton upgradeButton = context.ParentContext.ObjectInstance as UpgradeCardButton;
+
+            // Return the upgradeType obtained from the UpgradeCardButton
+            print(upgradeButton.gameObject.name);
+            return upgradeButton.transform.GetComponent<UpgradeCardVisual>();
+        }
         private Enums.UpgradeType GetUpgradeTypeFromButtonUpgrade(InjectContext context)
         {
             // Get the UpgradeCardButton component from the context
-            var upgradeButton = context.ParentContext.ObjectInstance as UpgradeCardButton;
+            UpgradeCardButton upgradeButton = context.ParentContext.ObjectInstance as UpgradeCardButton;
 
-            if (upgradeButton != null)
-            {
-                // Return the upgradeType obtained from the UpgradeCardButton
-                return upgradeButton.GetUpgradeType();
-            }
-            else
-            {
-                // Handle the case when the context.ObjectInstance is not of the correct type
-                // You can throw an exception or return a default value depending on your needs
-                throw new System.Exception(
-                    "Unable to resolve Enums.UpgradeType. The context.ObjectInstance is not of type UpgradeCardButton.");
-            }
+            return upgradeButton.GetUpgradeType();
         }
     }
 }

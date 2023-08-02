@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Taxi.Upgrades
 
         public void Execute()
         {
+            UnityEngine.Debug.Log("asdasdasdsad");
             string upgradeKey = UpgradeUtility.Instance.GetTypeKey(_upgradeType);
             int index = PlayerPrefs.GetInt(upgradeKey);
             bool isAtMaxIndex = UpgradeUtility.Instance.IsIndexAtMaxLength(index, _upgradeType);

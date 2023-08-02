@@ -21,6 +21,7 @@ namespace Taxi.Upgrades
         {
             //buy the upgrade
             _upgradeCommand.Execute();
+            print($"called from {gameObject.name}");
             //check next upgrade can be bought
             CheckCanBuy();
         }

@@ -18,6 +18,7 @@ namespace Taxi.Upgrades
             {
                 _upgradeDots[i].SetActive(true);
             }
+            print(gameObject.name);
         }
         public void SetButtonInteractable(bool active)
         {
