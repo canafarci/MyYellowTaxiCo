@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class CameraUnlocker : MonoBehaviour
 {
-    InputReader _reader;
-    Queue<IEnumerator> _camQueue = new Queue<IEnumerator>();
-    Coroutine _dequeueCoroutine;
+    private IInputReader _reader;
+    private Queue<IEnumerator> _camQueue = new Queue<IEnumerator>();
+    private Coroutine _dequeueCoroutine;
 
-    private void Awake() => _reader = FindObjectOfType<InputReader>();
+    [Inject]
+    private void Init(IInputReader reader)
+    {
+        _reader = reader;
+    }
     public void StartCameraRoutine(GameObject camera, float cameraDuration)
     {
         _camQueue.Enqueue(CameraRoutine(camera, cameraDuration));

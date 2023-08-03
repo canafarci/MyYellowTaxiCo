@@ -2,18 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 public class BrokenTire : MonoBehaviour
 {
     [SerializeField] Transform _target;
     [SerializeField] GameObject _image;
     bool _hasRepaired = false;
+    private InputReader _reader;
     private void OnTriggerEnter(Collider other)
     {
         if (!_hasRepaired && other.CompareTag("Player"))
         {
             StartCoroutine(Repair());
         }
+    }
+
+    [Inject]
+    private void Init(InputReader reader)
+    {
+        _reader = reader;
     }
 
     IEnumerator Repair()
@@ -25,9 +33,8 @@ public class BrokenTire : MonoBehaviour
 
         Animator animator = inventory.transform.GetComponentInChildren<Animator>();
         Mover mover = FindObjectOfType<Mover>();
-        InputReader reader = FindObjectOfType<InputReader>();
         mover.IsActive = false;
-        reader.Disable();
+        _reader.Disable();
 
         item.transform.parent = transform;
 
@@ -49,7 +56,7 @@ public class BrokenTire : MonoBehaviour
         GetComponent<Car>().OnCarRepaired();
         _hasRepaired = true;
         mover.IsActive = true;
-        reader.Enable();
+        _reader.Enable();
     }
 
 }

@@ -2,28 +2,33 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class Animations : MonoBehaviour
 {
-    public bool IsMoving;
-    [SerializeField] AnimationClip _idle, _holdingIdle, _running, _holdingRunning, _walking;
-    AnimatorOverrideController _animatorOverrideController;
-    bool _playingMove, _handsFull, _playingWalking;
-    Animator _animator;
-    Inventory _inventory;
-    string _idleTrigger = "Idle";
-    string _moveTrigger = "Move";
-    private void Awake()
+    [SerializeField] private AnimationClip _idle, _holdingIdle, _running, _holdingRunning, _walking;
+    private AnimatorOverrideController _animatorOverrideController;
+    private bool _playingMove, _handsFull, _playingWalking;
+    private Animator _animator;
+    private Inventory _inventory;
+    private IInputReader _inputReader;
+    private readonly string _idleTrigger = "Idle";
+    private readonly string _moveTrigger = "Move";
+
+    [Inject]
+    private void Init(IInputReader reader)
     {
+        _inputReader = reader;
+
         _animator = GetComponentInChildren<Animator>();
-        _inventory = GetComponent<Inventory>();
-    }
-    private void OnEnable() => _inventory.InventorySizeChangeHandler += OnStackSizeChange;
-    private void Start()
-    {
         _animatorOverrideController = new AnimatorOverrideController(_animator.runtimeAnimatorController);
         _animator.runtimeAnimatorController = _animatorOverrideController;
+        _inventory = GetComponent<Inventory>();
+        _inventory.InventorySizeChangeHandler += OnStackSizeChange;
+        print("called anims");
+        print(_animator);
     }
+
     private void OnStackSizeChange(int size)
     {
         if (size != 0)
@@ -35,19 +40,6 @@ public class Animations : MonoBehaviour
         {
             _animatorOverrideController["Running"] = _running;
             _animatorOverrideController["IDLE"] = _idle;
-        }
-    }
-    private void FixedUpdate()
-    {
-        if (!_playingMove && IsMoving)
-        {
-            _animator.SetTrigger(_moveTrigger);
-            _playingMove = true;
-        }
-        else if (!IsMoving && _playingMove)
-        {
-            _animator.SetTrigger(_idleTrigger);
-            _playingMove = false;
         }
     }
     public void SetHoldingIdle()
@@ -69,5 +61,20 @@ public class Animations : MonoBehaviour
     {
         _animatorOverrideController["Running"] = _running;
         _animatorOverrideController["IDLE"] = _idle;
+    }
+
+    private void FixedUpdate()
+    {
+        print(_inputReader);
+        if (!_playingMove && _inputReader.ReadInput() != Vector2.zero)
+        {
+            _animator.SetTrigger(_moveTrigger);
+            _playingMove = true;
+        }
+        else if (_inputReader.ReadInput() == Vector2.zero && _playingMove)
+        {
+            _animator.SetTrigger(_idleTrigger);
+            _playingMove = false;
+        }
     }
 }

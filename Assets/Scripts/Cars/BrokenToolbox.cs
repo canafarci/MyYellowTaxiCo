@@ -2,12 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 public class BrokenToolbox : MonoBehaviour
 {
     [SerializeField] Transform _toolboxTarget;
     [SerializeField] GameObject _fx, _image;
     bool _hasRepaired = false;
+    private InputReader _reader;
+
+    [Inject]
+    private void Init(InputReader reader)
+    {
+        _reader = reader;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!_hasRepaired && other.CompareTag("Player"))
@@ -25,11 +34,10 @@ public class BrokenToolbox : MonoBehaviour
         inventory.RemoveItem(toolbox);
 
         Mover mover = FindObjectOfType<Mover>();
-        InputReader reader = FindObjectOfType<InputReader>();
 
         Animator animator = inventory.transform.GetComponentInChildren<Animator>();
         mover.IsActive = false;
-        reader.Disable();
+        _reader.Disable();
 
         yield return new WaitForSeconds(.25f);
 
@@ -55,7 +63,7 @@ public class BrokenToolbox : MonoBehaviour
 
         GetComponent<Car>().OnCarRepaired();
         _hasRepaired = true;
-        reader.Enable();
+        _reader.Enable();
         mover.IsActive = true;
     }
 

@@ -2,36 +2,33 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-public class InputReader : MonoBehaviour
+public class InputReader : IInputReader
 {
-    Joystick _joystick;
-    Animations _animations;
-    bool _disabled = false;
-    private void Awake()
+    private Joystick _joystick;
+    private bool _disabled = false;
+
+    public InputReader(Joystick joystick)
     {
-        _animations = GameObject.FindGameObjectWithTag("Player").GetComponent<Animations>();
-        _joystick = FindObjectOfType<Joystick>();
+        _joystick = joystick;
     }
     public void Disable() => _disabled = true;
     public void Enable() => _disabled = false;
 
     public Vector2 ReadInput()
     {
-        Vector2 moveVector = new Vector2(_joystick.Horizontal, _joystick.Vertical);
         if (_disabled)
-            moveVector = Vector2.zero;
+            return Vector2.zero;
 
-        SetAnimations(moveVector);
-
+        Vector2 moveVector = new Vector2(_joystick.Horizontal, _joystick.Vertical);
         return moveVector;
     }
+}
 
-    void SetAnimations(Vector2 moveVector)
-    {
-        if (moveVector == Vector2.zero)
-            _animations.IsMoving = false;
-        else
-            _animations.IsMoving = true;
-    }
+public interface IInputReader
+{
+    public Vector2 ReadInput();
+    public void Disable();
+    public void Enable();
 }

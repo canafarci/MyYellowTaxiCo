@@ -6,19 +6,19 @@ using Zenject;
 
 namespace Taxi.Installers
 {
-    public class UpgradesInstaller : MonoInstaller
+    public class UpgradesInstaller : MonoInstaller<UpgradesInstaller>
     {
         [SerializeField] private UpgradeDataSO _upgradeData;
-        [SerializeField] GameObject _upgradeReceiver;
+        [SerializeField] private GameObject _upgradeReceiver;
         public override void InstallBindings()
         {
             Container.Bind<UpgradeDataSO>().FromInstance(_upgradeData).AsSingle();
             Container.BindInterfacesAndSelfTo<UpgradeUtility>().AsSingle();
             Container.BindInterfacesAndSelfTo<UpgradesFacade>().AsSingle();
+
             Container.BindInterfacesAndSelfTo<UpgradeReceiver>()
             .FromComponentInNewPrefab(_upgradeReceiver)
-            .AsSingle().Lazy();
-
+            .AsSingle();
 
             Container.Bind<Enums.UpgradeType>()
                 .WithId(Enums.UpgradeCommandType.ButtonUpgrade)

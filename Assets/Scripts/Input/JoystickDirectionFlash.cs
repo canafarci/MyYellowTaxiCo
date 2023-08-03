@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class JoystickDirectionFlash : MonoBehaviour
 {
-    InputReader _reader;
-    GameObject[] _allImages = new GameObject[4];
-    [SerializeField] GameObject _leftUp, _leftDown, _rightUp, _rightDown;
-    private void Awake()
+    private IInputReader _reader;
+    [SerializeField] private GameObject _leftUp, _leftDown, _rightUp, _rightDown;
+    private GameObject[] _allImages = new GameObject[4];
+
+    [Inject]
+    private void Init(IInputReader reader)
     {
-        _reader = GetComponent<InputReader>();
+        _reader = reader;
+        print("calledflash");
+        print(_reader);
         _allImages[0] = _rightUp;
         _allImages[1] = _rightDown;
         _allImages[2] = _leftUp;

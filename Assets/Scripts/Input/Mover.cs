@@ -1,26 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class Mover : MonoBehaviour
 {
     public bool IsActive = true;
     [SerializeField] protected float _speed, _rotateSpeed;
-    float _baseSpeed;
+    private float _baseSpeed;
     public Vector3 RotationOffset;
-    bool _disabledMovement = false;
-    InputReader _reader;
-    Rigidbody _rigidbody;
-    Animator _animator;
+    private bool _disabledMovement = false;
+    private IInputReader _reader;
+    private Rigidbody _rigidbody;
+    private Animator _animator;
     public void DisableMovement() => _disabledMovement = true;
     public void EnableMovement() => _disabledMovement = false;
-    private void Awake()
+    [Inject]
+    private void Init(IInputReader reader)
     {
-        _reader = FindObjectOfType<InputReader>();
         _rigidbody = GetComponent<Rigidbody>();
+        _reader = reader;
         _animator = GetComponentInChildren<Animator>();
         _baseSpeed = _speed;
-        _animator.speed = _speed / 7f; //constant base speed
+        _animator.speed = _speed / 7f;
     }
 
     private void FixedUpdate()
@@ -35,7 +37,7 @@ public class Mover : MonoBehaviour
         _animator.speed = _speed / 7f;
     }
 
-    void Move(Vector2 input)
+    private void Move(Vector2 input)
     {
         if (input == Vector2.zero) return;
 
@@ -46,12 +48,10 @@ public class Mover : MonoBehaviour
             _rigidbody.MovePosition(transform.position + (moveVector.normalized * Time.deltaTime * _speed));
     }
 
-    Vector3 RotateTowardsUp(Vector3 start)
+    private Vector3 RotateTowardsUp(Vector3 start)
     {
         // if you know start will always be normalized, can skip this step
         start.Normalize();
-
-        Vector3 axis = Vector3.Cross(start, Vector3.right);
 
         return Quaternion.AngleAxis(RotationOffset.y, Vector3.up) * start;
     }

@@ -17,11 +17,11 @@ public class HatHelperAnimator : MonoBehaviour
     {
         if (_agent.velocity.magnitude > 0.1f)
         {
-            _animations.IsMoving = true;
+            //_animations.IsMoving = true;
         }
         else
         {
-            _animations.IsMoving = false;
+            //_animations.IsMoving = false;
         }
     }
 }

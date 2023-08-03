@@ -14,12 +14,14 @@ namespace Taxi.Upgrades
         private int _npcMaxCount, _currentNPCCount;
         UpgradeUtility _upgradeUtility;
         UpgradesFacade _upgradesFacade;
+        References _references;
 
         [Inject]
-        private void Init(UpgradeUtility upgradeUtility, UpgradesFacade upgradesFacade)
+        private void Init(UpgradeUtility upgradeUtility, UpgradesFacade upgradesFacade, References references)
         {
             _upgradeUtility = upgradeUtility;
             _upgradesFacade = upgradesFacade;
+            _references = references;
         }
         public void ReceiveUpgradeCommand(Enums.UpgradeType upgradeType, int index)
         {
@@ -57,7 +59,7 @@ namespace Taxi.Upgrades
         }
         private void UpgradePlayerInventorySize(int index)
         {
-            Inventory playerInventory = GameManager.Instance.References.PlayerInventory;
+            Inventory playerInventory = _references.PlayerInventory;
             playerInventory.MaxStackSize = _upgradeData.PlayerInventorySizes[index].Size;
         }
         private void UpgradePlayerIncome(int index)
@@ -78,7 +80,7 @@ namespace Taxi.Upgrades
         private void UpgradePlayerSpeed(int index)
         {
             float speedModifier = _upgradeData.SpeedModifiers[index].SpeedMultiplier;
-            //FindObjectOfType<Mover>().IncreaseSpeed(speedModifier);
+            FindObjectOfType<Mover>().IncreaseSpeed(speedModifier);
         }
         private void SpawnHelperNPC(int index)
         {
@@ -95,9 +97,5 @@ namespace Taxi.Upgrades
                 yield return new WaitForSeconds(1f);
             }
         }
-#if UNITY_INCLUDE_TESTS
-        public void SetDataSO(UpgradeDataSO dataSO) => _upgradeData = dataSO;
-#endif
     }
-
 }
