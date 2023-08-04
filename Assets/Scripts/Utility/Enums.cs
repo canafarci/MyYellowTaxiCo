@@ -28,6 +28,8 @@ public class Enums
     {
         ButtonUpgrade,
         CheckCanUpgrade,
-        LoadUpgrade
+        LoadUpgrade,
+        LoadStackerSpeedUpgrade,
+        StackerSpeedUpgrade
     }
 }

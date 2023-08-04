@@ -38,7 +38,7 @@ namespace Taxi.Upgrades
         {
             RepeatableBuyingWaitingZone zone = FindObjectOfType<RepeatableBuyingWaitingZone>(true);
             RepeatableBuyableWaitingZoneVisual visual = zone.GetComponent<RepeatableBuyableWaitingZoneVisual>();
-            IUpgradeCommand command = new WaitZoneUpgradeCommand(zone, visual, null, null, isLoading);
+            IUpgradeCommand command = new StackerSpeedUpgradeCommand(zone, visual, null, null, isLoading);
             return command;
         }
     }

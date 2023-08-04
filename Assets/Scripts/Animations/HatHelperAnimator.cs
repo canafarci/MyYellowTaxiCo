@@ -5,12 +5,12 @@ using UnityEngine.AI;
 
 public class HatHelperAnimator : MonoBehaviour
 {
-    Animations _animations;
+    // Animations _animations;
     NavMeshAgent _agent;
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _animations = GetComponent<Animations>();
+        //_animations = GetComponent<Animations>();
     }
 
     private void FixedUpdate()

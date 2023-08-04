@@ -74,7 +74,6 @@ GameObject:
   - component: {fileID: 6783455744980478105}
   - component: {fileID: 6783455744980478109}
   - component: {fileID: 6308697438233435913}
-  - component: {fileID: 887846036754278602}
   - component: {fileID: 5128469876429631206}
   - component: {fileID: 8189274083459037163}
   - component: {fileID: 7105595496654495327}
@@ -132,28 +131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd7d321211d181c4c80e2ca9dd806650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &887846036754278602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6783455744980478104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12796fd858eedce49aa31268a9d404c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsMoving: 0
-  _idle: {fileID: -203655887218126122, guid: 791f03dbbce2e80499d9e4c1034063d9, type: 3}
-  _holdingIdle: {fileID: -203655887218126122, guid: 14237e501be0cb441b73be9cf40d5770,
-    type: 3}
-  _running: {fileID: -203655887218126122, guid: 3a223bc3fa4ad08459df58d8b3e97f90,
-    type: 3}
-  _holdingRunning: {fileID: -203655887218126122, guid: 440b876c2c627c24b85b25b45b810294,
-    type: 3}
-  _walking: {fileID: -203655887218126122, guid: 02cf6889b32dde2499800234aecd1e5c,
-    type: 3}
 --- !u!195 &5128469876429631206
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -215,7 +192,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.88, z: 0}
 --- !u!54 &1468741344
 Rigidbody:
   m_ObjectHideFlags: 0

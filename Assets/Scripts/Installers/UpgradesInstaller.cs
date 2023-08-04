@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Taxi.UI;
 using Taxi.Upgrades;
+using Taxi.WaitZones;
 using UnityEngine;
 using Zenject;
 
@@ -54,6 +56,21 @@ namespace Taxi.Installers
                 .WithId(Enums.UpgradeCommandType.LoadUpgrade)
                 .To<LoadUpgradeCommand>()
                 .AsTransient();
+
+            Container.Bind<ItemGenerator>().FromComponentInHierarchy().AsSingle();
+            Container.BindInterfacesAndSelfTo<StackerSpeedUpgradeReceiver>().AsSingle();
+            Container.Bind<RepeatableBuyingWaitingZone>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<RepeatableBuyableWaitingZoneVisual>().FromComponentInHierarchy().AsSingle();
+
+            Container.Bind<IUpgradeCommand>()
+                    .WithId(Enums.UpgradeCommandType.StackerSpeedUpgrade)
+                    .To<StackerSpeedUpgradeCommand>()
+                    .AsTransient();
+
+            Container.Bind<bool>()
+                    .WithId(Enums.UpgradeCommandType.LoadStackerSpeedUpgrade)
+                    .FromInstance(true)
+                    .AsTransient();
         }
 
         private UpgradeCardVisual GetVisualFromButtonUpgrade(InjectContext context)

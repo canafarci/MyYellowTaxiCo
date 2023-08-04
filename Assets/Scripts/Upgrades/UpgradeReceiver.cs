@@ -12,14 +12,12 @@ namespace Taxi.Upgrades
         [SerializeField] private GameObject _helperNPCPrefab;
         [SerializeField] private Transform _spawnPoint;
         private int _npcMaxCount, _currentNPCCount;
-        UpgradeUtility _upgradeUtility;
-        UpgradesFacade _upgradesFacade;
-        References _references;
+        private UpgradesFacade _upgradesFacade;
+        private References _references;
 
         [Inject]
-        private void Init(UpgradeUtility upgradeUtility, UpgradesFacade upgradesFacade, References references)
+        private void Init(UpgradesFacade upgradesFacade, References references)
         {
-            _upgradeUtility = upgradeUtility;
             _upgradesFacade = upgradesFacade;
             _references = references;
         }
@@ -45,18 +43,18 @@ namespace Taxi.Upgrades
                 case (Enums.UpgradeType.HelperNPCSpeed):
                     UpgradeNPCSpeed(index);
                     break;
-                case (Enums.UpgradeType.HatStackerSpeed):
-                    UpgradeStackerSpeed(index);
-                    break;
+                // case (Enums.UpgradeType.HatStackerSpeed):
+                //     UpgradeStackerSpeed(index);
+                //     break;
                 default:
                     break;
             }
         }
-        private void UpgradeStackerSpeed(int index)
-        {
-            float speed = _upgradeUtility.GetItemGeneratorSpeed(index);
-            FindObjectOfType<ItemGenerator>(true).SetSpawnRate(speed);
-        }
+        // private void UpgradeStackerSpeed(int index)
+        // {
+        //     float speed = _upgradeUtility.GetItemGeneratorSpeed(index);
+        //     FindObjectOfType<ItemGenerator>(true).SetSpawnRate(speed);
+        // }
         private void UpgradePlayerInventorySize(int index)
         {
             Inventory playerInventory = _references.PlayerInventory;

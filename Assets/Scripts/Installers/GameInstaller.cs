@@ -14,6 +14,9 @@ namespace Taxi.Installer
             Container.Bind<IInputReader>().To<InputReader>().AsSingle();
             Container.Bind<Joystick>().FromInstance(_joystick).AsSingle();
             Container.Bind<References>().FromInstance(_references).AsSingle();
+
+            Container.Bind<Animator>().FromComponentInChildren().AsTransient();
+            Container.Bind<Inventory>().FromComponentInChildren().AsTransient();
         }
     }
 }

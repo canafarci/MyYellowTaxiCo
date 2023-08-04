@@ -16,17 +16,15 @@ public class Animations : MonoBehaviour
     private readonly string _moveTrigger = "Move";
 
     [Inject]
-    private void Init(IInputReader reader)
+    private void Init(IInputReader reader, Animator animator, Inventory inventory)
     {
         _inputReader = reader;
+        _animator = animator;
+        _inventory = inventory;
 
-        _animator = GetComponentInChildren<Animator>();
         _animatorOverrideController = new AnimatorOverrideController(_animator.runtimeAnimatorController);
         _animator.runtimeAnimatorController = _animatorOverrideController;
-        _inventory = GetComponent<Inventory>();
         _inventory.InventorySizeChangeHandler += OnStackSizeChange;
-        print("called anims");
-        print(_animator);
     }
 
     private void OnStackSizeChange(int size)
@@ -65,7 +63,6 @@ public class Animations : MonoBehaviour
 
     private void FixedUpdate()
     {
-        print(_inputReader);
         if (!_playingMove && _inputReader.ReadInput() != Vector2.zero)
         {
             _animator.SetTrigger(_moveTrigger);

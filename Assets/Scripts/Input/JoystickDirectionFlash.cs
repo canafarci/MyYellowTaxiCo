@@ -13,8 +13,6 @@ public class JoystickDirectionFlash : MonoBehaviour
     private void Init(IInputReader reader)
     {
         _reader = reader;
-        print("calledflash");
-        print(_reader);
         _allImages[0] = _rightUp;
         _allImages[1] = _rightDown;
         _allImages[2] = _leftUp;

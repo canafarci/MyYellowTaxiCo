@@ -11,9 +11,11 @@ namespace Taxi.Upgrades
     public class UpgradeLoader : MonoBehaviour
     {
         [Inject]
-        private void Init([Inject(Id = Enums.UpgradeCommandType.LoadUpgrade)] IUpgradeCommand loadCommand)
+        private void Init([Inject(Id = Enums.UpgradeCommandType.LoadUpgrade)] IUpgradeCommand loadCommand,
+                          [Inject(Id = Enums.UpgradeCommandType.StackerSpeedUpgrade)] IUpgradeCommand loadStackerCommand)
         {
             loadCommand.Execute();
+            loadStackerCommand.Execute();
         }
     }
 }
