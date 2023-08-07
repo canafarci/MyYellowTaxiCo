@@ -29,7 +29,6 @@ public class Enums
         ButtonUpgrade,
         CheckCanUpgrade,
         LoadUpgrade,
-        LoadStackerSpeedUpgrade,
         StackerSpeedUpgrade
     }
 }

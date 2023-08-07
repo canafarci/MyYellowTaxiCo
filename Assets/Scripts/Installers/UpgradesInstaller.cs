@@ -68,9 +68,18 @@ namespace Taxi.Installers
                     .AsTransient();
 
             Container.Bind<bool>()
-                    .WithId(Enums.UpgradeCommandType.LoadStackerSpeedUpgrade)
-                    .FromInstance(true)
-                    .AsTransient();
+                    .WithId(Enums.UpgradeCommandType.StackerSpeedUpgrade)
+                    .FromMethod(GetIsLoadingStackerUpgrade).
+                    AsTransient();
+        }
+        private bool GetIsLoadingStackerUpgrade(InjectContext context)
+        {
+            UpgradeLoader loader = context.ParentContext.ObjectInstance as UpgradeLoader;
+
+            if (loader)
+                return true;
+            else
+                return false;
         }
 
         private UpgradeCardVisual GetVisualFromButtonUpgrade(InjectContext context)

@@ -18,7 +18,7 @@ namespace Taxi.Upgrades
                                     RepeatableBuyableWaitingZoneVisual visual,
                                     UpgradeUtility upgradeUtility,
                                     StackerSpeedUpgradeReceiver upgradeReceiver,
-                                   [Inject(Id = Enums.UpgradeCommandType.LoadStackerSpeedUpgrade)] bool isLoading = false)
+                                   [Inject(Id = Enums.UpgradeCommandType.StackerSpeedUpgrade)] bool isLoading = false)
         {
             _waitZone = waitZone;
             _visual = visual;
@@ -28,7 +28,6 @@ namespace Taxi.Upgrades
         }
         public void Execute()
         {
-            UnityEngine.Debug.Log(_isLoading);
             int index = GetUpgradeIndex();
             if (!_isLoading)
             {
@@ -55,7 +54,6 @@ namespace Taxi.Upgrades
         {
             _visual.SetLevelText(index);
             _visual.Initialize(cost);
-            UnityEngine.Debug.Log(_visual);
         }
 
         private void UpdateGameState(int index)
@@ -67,7 +65,6 @@ namespace Taxi.Upgrades
 
         private int GetUpgradeIndex()
         {
-            UnityEngine.Debug.Log(_upgradeUtility);
             string upgradeKey = _upgradeUtility.GetTypeKey(Enums.UpgradeType.HatStackerSpeed);
             int index = PlayerPrefs.GetInt(upgradeKey);
             return index;

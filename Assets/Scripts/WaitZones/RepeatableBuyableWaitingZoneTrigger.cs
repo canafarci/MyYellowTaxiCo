@@ -14,7 +14,6 @@ namespace Taxi.WaitZones
         private void Init([Inject(Id = Enums.UpgradeCommandType.StackerSpeedUpgrade)] IUpgradeCommand upgradeCommand)
         {
             _upgradeCommand = upgradeCommand;
-            _upgradeCommand.Execute();
         }
 
 
