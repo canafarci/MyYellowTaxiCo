@@ -14,61 +14,61 @@ namespace Taxi.Upgrades
         {
             _upgradeData = upgradeData;
         }
-        public string GetTypeKey(Enums.UpgradeType type)
+        public string GetTypeKey(UpgradeType type)
         {
             switch (type)
             {
-                case (Enums.UpgradeType.PlayerSpeed):
+                case (UpgradeType.PlayerSpeed):
                     return Globals.PLAYER_SPEED_KEY;
-                case (Enums.UpgradeType.PlayerIncome):
+                case (UpgradeType.PlayerIncome):
                     return Globals.PLAYER_INCOME_KEY;
-                case (Enums.UpgradeType.PlayerInventorySize):
+                case (UpgradeType.PlayerInventorySize):
                     return Globals.PLAYER_INVENTORY_KEY;
-                case (Enums.UpgradeType.HelperNPCCount):
+                case (UpgradeType.HelperNPCCount):
                     return Globals.NPC_COUNT_KEY;
-                case (Enums.UpgradeType.HelperNPCInventorySize):
+                case (UpgradeType.HelperNPCInventorySize):
                     return Globals.NPC_INVENTORY_KEY;
-                case (Enums.UpgradeType.HelperNPCSpeed):
+                case (UpgradeType.HelperNPCSpeed):
                     return Globals.NPC_SPEED_KEY;
-                case (Enums.UpgradeType.HatStackerSpeed):
+                case (UpgradeType.HatStackerSpeed):
                     return Globals.STACKER_UPGRADE_KEY;
                 default:
                     return null;
             }
         }
 
-        public float GetUpgradeCost(int index, Enums.UpgradeType upgradeType)
+        public float GetUpgradeCost(int index, UpgradeType upgradeType)
         {
             switch (upgradeType)
             {
-                case (Enums.UpgradeType.PlayerSpeed):
+                case (UpgradeType.PlayerSpeed):
                     return _upgradeData.SpeedModifiers[index + 1].Cost;
-                case (Enums.UpgradeType.PlayerIncome):
+                case (UpgradeType.PlayerIncome):
                     return _upgradeData.IncomeModifiers[index + 1].Cost;
-                case (Enums.UpgradeType.PlayerInventorySize):
+                case (UpgradeType.PlayerInventorySize):
                     return _upgradeData.PlayerInventorySizes[index + 1].Cost;
-                case (Enums.UpgradeType.HelperNPCCount):
+                case (UpgradeType.HelperNPCCount):
                     return _upgradeData.HelperNPCCount[index + 1].Cost;
-                case (Enums.UpgradeType.HelperNPCInventorySize):
+                case (UpgradeType.HelperNPCInventorySize):
                     return _upgradeData.HelperNPCInventorySizes[index + 1].Cost;
-                case (Enums.UpgradeType.HelperNPCSpeed):
+                case (UpgradeType.HelperNPCSpeed):
                     return _upgradeData.HelperNPCSpeeds[index + 1].Cost;
-                case (Enums.UpgradeType.HatStackerSpeed):
+                case (UpgradeType.HatStackerSpeed):
                     return _upgradeData.StackSpeeds[index + 1].Cost;
                 default:
                     return 0f;
             }
         }
 
-        public bool IsIndexAtMaxLength(int index, Enums.UpgradeType upgradeType)
+        public bool IsIndexAtMaxLength(int index, UpgradeType upgradeType)
         {
             bool isAtMax;
 
-            if (upgradeType == Enums.UpgradeType.HelperNPCCount)
+            if (upgradeType == UpgradeType.HelperNPCCount)
             {
                 isAtMax = index >= _upgradeData.HelperNPCCount.Length - 1;
             }
-            else if (upgradeType == Enums.UpgradeType.HatStackerSpeed)
+            else if (upgradeType == UpgradeType.HatStackerSpeed)
             {
                 isAtMax = index >= _upgradeData.StackSpeeds.Length - 1;
             }

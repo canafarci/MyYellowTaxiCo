@@ -11,7 +11,7 @@ namespace Taxi.WaitZones
         private IUpgradeCommand _upgradeCommand;
 
         [Inject]
-        private void Init([Inject(Id = Enums.UpgradeCommandType.StackerSpeedUpgrade)] IUpgradeCommand upgradeCommand)
+        private void Init([Inject(Id = UpgradeCommandType.StackerSpeedUpgrade)] IUpgradeCommand upgradeCommand)
         {
             _upgradeCommand = upgradeCommand;
         }

@@ -9,13 +9,13 @@ namespace Taxi.Upgrades
     public class ButtonUpgradeCommand : IUpgradeCommand
     {
         private UpgradeCardVisual _upgradeVisual;
-        private Enums.UpgradeType _upgradeType;
+        private UpgradeType _upgradeType;
         private UpgradeUtility _upgradeUtility;
-        private UpgradeReceiver _upgradeReceiver;
-        public ButtonUpgradeCommand([Inject(Id = Enums.UpgradeCommandType.ButtonUpgrade)] UpgradeCardVisual upgradeVisual,
-                                    [Inject(Id = Enums.UpgradeCommandType.ButtonUpgrade)] Enums.UpgradeType upgradeType,
+        private IUpgradeReceiver _upgradeReceiver;
+        public ButtonUpgradeCommand(UpgradeCardVisual upgradeVisual,
+                                    UpgradeType upgradeType,
                                     UpgradeUtility upgradeUtility,
-                                    UpgradeReceiver upgradeReceiver)
+                                    IUpgradeReceiver upgradeReceiver)
         {
             _upgradeVisual = upgradeVisual;
             _upgradeType = upgradeType;

@@ -18,7 +18,7 @@ namespace Taxi.Upgrades
                                     RepeatableBuyableWaitingZoneVisual visual,
                                     UpgradeUtility upgradeUtility,
                                     StackerSpeedUpgradeReceiver upgradeReceiver,
-                                   [Inject(Id = Enums.UpgradeCommandType.StackerSpeedUpgrade)] bool isLoading = false)
+                                   [Inject(Id = UpgradeCommandType.StackerSpeedUpgrade)] bool isLoading = false)
         {
             _waitZone = waitZone;
             _visual = visual;
@@ -34,7 +34,7 @@ namespace Taxi.Upgrades
                 index++;
             }
 
-            bool isAtMaxIndex = _upgradeUtility.IsIndexAtMaxLength(index, Enums.UpgradeType.HatStackerSpeed);
+            bool isAtMaxIndex = _upgradeUtility.IsIndexAtMaxLength(index, UpgradeType.HatStackerSpeed);
 
             UpdateGameState(index);
 
@@ -44,7 +44,7 @@ namespace Taxi.Upgrades
             }
             else
             {
-                float cost = _upgradeUtility.GetUpgradeCost(index, Enums.UpgradeType.HatStackerSpeed);
+                float cost = _upgradeUtility.GetUpgradeCost(index, UpgradeType.HatStackerSpeed);
                 UpdateVisual(index, cost);
                 _waitZone.SetPrice(cost);
             }
@@ -58,14 +58,14 @@ namespace Taxi.Upgrades
 
         private void UpdateGameState(int index)
         {
-            string upgradeKey = _upgradeUtility.GetTypeKey(Enums.UpgradeType.HatStackerSpeed);
+            string upgradeKey = _upgradeUtility.GetTypeKey(UpgradeType.HatStackerSpeed);
             PlayerPrefs.SetInt(upgradeKey, index);
             _upgradeReceiver.UpgradeStackerSpeed(index);
         }
 
         private int GetUpgradeIndex()
         {
-            string upgradeKey = _upgradeUtility.GetTypeKey(Enums.UpgradeType.HatStackerSpeed);
+            string upgradeKey = _upgradeUtility.GetTypeKey(UpgradeType.HatStackerSpeed);
             int index = PlayerPrefs.GetInt(upgradeKey);
             return index;
         }

@@ -8,13 +8,13 @@ namespace Taxi.Upgrades
 {
     public class UpgradeCardButton : MonoBehaviour
     {
-        [SerializeField] Enums.UpgradeType _upgradeType;
+        [SerializeField] UpgradeType _upgradeType;
         private IUpgradeCommand _upgradeCommand;
         private IUpgradeCommand _checkCanBuyCommand;
 
         [Inject]
-        public void Construct([Inject(Id = Enums.UpgradeCommandType.ButtonUpgrade)] IUpgradeCommand upgradeCommand,
-                              [Inject(Id = Enums.UpgradeCommandType.CheckCanUpgrade)] IUpgradeCommand checkCanBuyCommand)
+        public void Construct([Inject(Id = UpgradeCommandType.ButtonUpgrade)] IUpgradeCommand upgradeCommand,
+                              [Inject(Id = UpgradeCommandType.CheckCanUpgrade)] IUpgradeCommand checkCanBuyCommand)
         {
             _upgradeCommand = upgradeCommand;
             _checkCanBuyCommand = checkCanBuyCommand;
@@ -51,7 +51,7 @@ namespace Taxi.Upgrades
         {
             ResourceTracker.Instance.OnPlayerMoneyChanged -= PlayerMoneyChangedHandler;
         }
-        public Enums.UpgradeType GetUpgradeType() => _upgradeType;
+        public UpgradeType GetUpgradeType() => _upgradeType;
         public void SetUpgradeCommand(IUpgradeCommand upgradeCommand) => _upgradeCommand = upgradeCommand;
         public void SetCheckCanUpgradeCommand(IUpgradeCommand checkCanBuyCommand) => _checkCanBuyCommand = checkCanBuyCommand;
 

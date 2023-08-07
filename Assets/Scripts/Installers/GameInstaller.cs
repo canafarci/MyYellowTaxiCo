@@ -17,6 +17,7 @@ namespace Taxi.Installer
 
             Container.Bind<Animator>().FromComponentInChildren().AsTransient();
             Container.Bind<Inventory>().FromComponentInChildren().AsTransient();
+            Container.Bind<Mover>().FromComponentInHierarchy().AsSingle();
         }
     }
 }

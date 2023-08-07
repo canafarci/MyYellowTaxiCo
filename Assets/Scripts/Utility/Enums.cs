@@ -14,21 +14,4 @@ public class Enums
         RepairBox,
         NULL
     }
-    public enum UpgradeType
-    {
-        PlayerSpeed,
-        PlayerIncome,
-        HelperNPCCount,
-        PlayerInventorySize,
-        HelperNPCSpeed,
-        HelperNPCInventorySize,
-        HatStackerSpeed
-    }
-    public enum UpgradeCommandType
-    {
-        ButtonUpgrade,
-        CheckCanUpgrade,
-        LoadUpgrade,
-        StackerSpeedUpgrade
-    }
 }

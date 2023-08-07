@@ -9,10 +9,10 @@ namespace Taxi.Upgrades
     public class CheckCanUpgradeCommand : IUpgradeCommand
     {
         private UpgradeCardVisual _upgradeVisual;
-        private Enums.UpgradeType _upgradeType;
+        private UpgradeType _upgradeType;
         private UpgradeUtility _upgradeUtility;
-        public CheckCanUpgradeCommand([Inject(Id = Enums.UpgradeCommandType.CheckCanUpgrade)] UpgradeCardVisual upgradeVisual,
-                                      [Inject(Id = Enums.UpgradeCommandType.CheckCanUpgrade)] Enums.UpgradeType upgradeType,
+        public CheckCanUpgradeCommand(UpgradeCardVisual upgradeVisual,
+                                      UpgradeType upgradeType,
                                       UpgradeUtility upgradeUtility)
         {
             _upgradeVisual = upgradeVisual;
