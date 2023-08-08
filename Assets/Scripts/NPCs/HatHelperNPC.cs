@@ -9,15 +9,8 @@ namespace Taxi.NPC
 {
     public class HatHelperNPC : NavMeshNPC
     {
-        [Inject]
-        private void Init(Vector3 spawnPos)
-        {
-            transform.position = spawnPos;
-        }
-        public class Factory : PlaceholderFactory<Vector3, HatHelperNPC>
-        {
 
-        }
+
     }
 }
 

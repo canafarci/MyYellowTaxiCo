@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Taxi.Animations;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 namespace Taxi.NPC
 {
     public class Driver : NavMeshNPC
     {
         [SerializeField] private Transform _hatTransform;
-        [SerializeField] private ParticleSystem _fx;
         private bool _hasHat = false;
         public void MoveAndSit(QueueSpot spot)
         {
@@ -24,20 +25,20 @@ namespace Taxi.NPC
         private IEnumerator MoveAndSit(Transform trans)
         {
             yield return StartCoroutine(MoveToPosition(trans.position));
+
             Tween move = transform.DOMove(trans.position, .5f);
             Tween rot = transform.DORotate(trans.rotation.eulerAngles, .5f);
-
             yield return move.WaitForCompletion();
-            GetComponentInChildren<Animator>().SetBool("IsSitting", true);
+
+            InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, true);
         }
         private IEnumerator GoToCarAndMove(Spawner spawner) //refactor
         {
             spawner.DriverIsComing = true;
-            GetComponentInChildren<Animator>().SetBool("IsSitting", false);
+            InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
             yield return StartCoroutine(MoveToPosition(spawner.transform.position));
 
-            GetComponentInChildren<Animator>().Play("Car Door Open");
-
+            InvokeAnimationStateChangedEvent(AnimationValues.ENTERING_CAR, true);
             Tween tween = transform.DOScale(Vector3.one * 0.0001f, .5f);
 
             yield return tween.WaitForCompletion();
@@ -65,7 +66,5 @@ namespace Taxi.NPC
 
         //Getter-Setters
         public bool DriverHasHat() => _hasHat;
-
-
     }
 }

@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
+
 namespace Taxi.NPC
 {
     public abstract class NavMeshNPC : MonoBehaviour
@@ -10,7 +13,16 @@ namespace Taxi.NPC
         public Enums.StackableItemType Hat;
         protected NavMeshAgent _agent;
         protected Coroutine _currentAction = null;
-        virtual protected void Awake() => _agent = GetComponent<NavMeshAgent>();
+        public event EventHandler<OnNPCAnimationStateChangedArgs> OnNPCAnimationStateChanged;
+
+        [Inject]
+        private void Init(NavMeshAgent agent, Vector3 spawnPos, Quaternion rotation)
+        {
+            _agent = agent;
+            transform.position = spawnPos;
+            transform.rotation = rotation;
+        }
+
         protected void StartAction(IEnumerator enumerator)
         {
             if (_currentAction != null)
@@ -33,5 +45,23 @@ namespace Taxi.NPC
                     break;
             }
         }
+
+        protected void InvokeAnimationStateChangedEvent(string animationStateString, bool state)
+        {
+            OnNPCAnimationStateChanged?.Invoke(this, new OnNPCAnimationStateChangedArgs
+            {
+                AnimationStateString = animationStateString,
+                State = state
+            });
+        }
+        public class Factory : PlaceholderFactory<Vector3, Quaternion, NavMeshNPC>
+        {
+
+        }
+    }
+    public class OnNPCAnimationStateChangedArgs : EventArgs
+    {
+        public string AnimationStateString;
+        public bool State;
     }
 }

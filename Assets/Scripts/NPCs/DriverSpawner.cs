@@ -4,26 +4,33 @@ using System.Linq;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using Zenject;
+
 namespace Taxi.NPC
 {
     public class DriverSpawner : MonoBehaviour
     {
         [SerializeField] protected GameObject _follower;
-        [SerializeField] Transform _spawnTransform;
+        [SerializeField] private Transform _spawnTransform;
+
         public Enums.StackableItemType HatType;
-        DriverQueue _queue;
-        private void Awake()
+        private DriverQueue _queue;
+
+        private NavMeshNPC.Factory _driverFactory;
+
+        [Inject]
+        private void Init([Inject(Id = NPCType.Driver)] NavMeshNPC.Factory driverFactory,
+                        DriverQueue queue)
         {
-            _queue = FindObjectsOfType<DriverQueue>().First(x => x.HatType == HatType);
+            _queue = queue;
+
+            _driverFactory = driverFactory;
         }
         private void Start() => SpawnDriver(_spawnTransform);
         public void SpawnDriver(Transform spawnTransform)
         {
             //spawn driver and downsize scale
-            Driver driver = GameObject.Instantiate(_follower,
-                                                    spawnTransform.position,
-                                                    spawnTransform.transform.rotation).
-                                                    GetComponent<Driver>();
+            Driver driver = (Driver)_driverFactory.Create(spawnTransform.position, spawnTransform.rotation);
 
             //TODO move view to its own class
             Vector3 baseScale = driver.transform.lossyScale;

@@ -12,9 +12,8 @@ namespace Taxi.NPC
         protected Coroutine _followLoop;
         [SerializeField] protected FollowerCanvas _followerCanvas;
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
             _followerCanvas.Initialize();
         }
         //TODO REFACTOR

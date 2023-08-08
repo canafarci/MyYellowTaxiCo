@@ -13,7 +13,6 @@ namespace Taxi.Installers
     public class UpgradesInstaller : MonoInstaller<UpgradesInstaller>
     {
         [SerializeField] private UpgradeDataSO _upgradeData;
-        [SerializeField] GameObject _npcPrefab;
         [SerializeField] GameObject _npcSpawnerPrefab;
         [SerializeField] GameObject _modifierUpgradesReceiverPrefab;
 
@@ -24,8 +23,6 @@ namespace Taxi.Installers
             SetUpButtonUpgrades();
             SetUpLoadUpgrades();
             SetUpStackerSpeedUpgrade();
-
-            Container.BindFactory<Vector3, HatHelperNPC, HatHelperNPC.Factory>().FromComponentInNewPrefab(_npcPrefab);
         }
 
         private void SetUpUtilities()
