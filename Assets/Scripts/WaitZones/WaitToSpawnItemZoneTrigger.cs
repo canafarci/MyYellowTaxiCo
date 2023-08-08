@@ -3,15 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Zenject;
+
 namespace Taxi.WaitZones
 {
     public class WaitToSpawnItemZoneTrigger : WaitZoneTrigger
     {
         private ItemSpawner _itemSpawner;
-        protected override void Awake()
+
+        [Inject]
+        private void Init(ItemSpawner itemSpawner)
         {
-            base.Awake();
-            _itemSpawner = GetComponent<ItemSpawner>();
+            _itemSpawner = itemSpawner;
 
         }
         protected override Action GetSuccessAction(Collider other)

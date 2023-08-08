@@ -2,15 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Taxi.WaitZones
 {
     public abstract class WaitZoneTrigger : MonoBehaviour
     {
         protected IWaitingEngine _waitEngine;
-        protected virtual void Awake()
+
+        [Inject]
+        private void Init(IWaitingEngine waitEngine)
         {
-            _waitEngine = GetComponent<IWaitingEngine>();
+            _waitEngine = waitEngine;
         }
         protected abstract Action GetSuccessAction(Collider other);
         private void OnTriggerEnter(Collider other)

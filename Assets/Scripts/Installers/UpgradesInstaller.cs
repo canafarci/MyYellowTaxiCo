@@ -14,6 +14,8 @@ namespace Taxi.Installers
     {
         [SerializeField] private UpgradeDataSO _upgradeData;
         [SerializeField] GameObject _npcPrefab;
+        [SerializeField] GameObject _npcSpawnerPrefab;
+        [SerializeField] GameObject _modifierUpgradesReceiverPrefab;
 
         public override void InstallBindings()
         {
@@ -24,6 +26,13 @@ namespace Taxi.Installers
             SetUpStackerSpeedUpgrade();
 
             Container.BindFactory<Vector3, HatHelperNPC, HatHelperNPC.Factory>().FromComponentInNewPrefab(_npcPrefab);
+        }
+
+        private void SetUpUtilities()
+        {
+            Container.Bind<UpgradeDataSO>().FromInstance(_upgradeData).AsSingle();
+            Container.Bind<UpgradeUtility>().AsSingle();
+            Container.Bind<UpgradesFacade>().AsSingle();
         }
 
         private void SetUpStackerSpeedUpgrade()
@@ -100,20 +109,15 @@ namespace Taxi.Installers
         private void SetUpReceivers()
         {
             Container.Bind<ModifierUpgradesReceiver>()
-            .FromComponentInHierarchy()
+            .FromComponentInNewPrefab(_modifierUpgradesReceiverPrefab)
             .AsSingle();
 
             Container.Bind<HelperNPCSpawner>()
-            .FromComponentInHierarchy()
+            .FromComponentInNewPrefab(_npcSpawnerPrefab)
             .AsSingle();
         }
 
-        private void SetUpUtilities()
-        {
-            Container.Bind<UpgradeDataSO>().FromInstance(_upgradeData).AsSingle();
-            Container.Bind<UpgradeUtility>().AsSingle();
-            Container.Bind<UpgradesFacade>().AsSingle();
-        }
+
 
         private IUpgradeReceiver GetUpgradeReceiver(InjectContext context)
         {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Taxi.Upgrades;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace Taxi.WaitZones
 {
@@ -12,9 +13,11 @@ namespace Taxi.WaitZones
         private float _moneyToUnlock;
         private float _remainingMoney;
         private PayMoneyProcessor _payCalculator;
-        private void Awake()
+
+        [Inject]
+        private void Init(PayMoneyProcessor payCalculator)
         {
-            _payCalculator = GetComponent<PayMoneyProcessor>();
+            _payCalculator = payCalculator;
         }
         protected override void Iterate(ref float remainingTime, GameObject instigator)
         {

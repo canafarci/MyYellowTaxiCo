@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Taxi.WaitZones
 {
-    public class PayMoneyProcessor : MonoBehaviour
+    public class PayMoneyProcessor
     {
         public static Action<float> MoneyPayHandler;
         public bool ProcessPay(ref float remainingTime, ref float remainingMoney)

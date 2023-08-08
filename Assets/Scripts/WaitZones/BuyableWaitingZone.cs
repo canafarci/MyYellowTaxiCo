@@ -4,19 +4,23 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace Taxi.WaitZones
 {
-    [RequireComponent(typeof(PayMoneyProcessor))]
     public class BuyableWaitingZone : WaitingEngine
     {
         [SerializeField] private float _moneyToUnlock;
         private float _remainingMoney;
         private PayMoneyProcessor _payCalculator;
 
+        [Inject]
+        private void Init(PayMoneyProcessor payCalculator)
+        {
+            _payCalculator = payCalculator;
+        }
         private void Awake()
         {
-            _payCalculator = GetComponent<PayMoneyProcessor>();
             _remainingMoney = _moneyToUnlock;
         }
         protected override void Iterate(ref float remainingTime, GameObject instigator)

@@ -25,6 +25,5 @@ namespace Taxi.WaitZones
                 _upgradeCommand.Execute();
             };
         }
-        public void SetUpgradeCommand(IUpgradeCommand command) => _upgradeCommand = command;
     }
 }
