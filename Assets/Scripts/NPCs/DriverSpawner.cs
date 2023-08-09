@@ -33,9 +33,6 @@ namespace Taxi.NPC
             Driver driver = (Driver)_driverFactory.Create(spawnTransform.position, spawnTransform.rotation);
 
             //TODO move view to its own class
-            Vector3 baseScale = driver.transform.lossyScale;
-            driver.transform.localScale = Vector3.one * 0.0001f;
-            driver.transform.DOScale(baseScale, 0.5f);
 
             //add driver to the queue
             _queue.AddDriverToQueue(driver);

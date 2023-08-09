@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace Taxi.NPC
     {
         private Stacker _stacker;
         private DriverQueue _driverQueue;
+        public event EventHandler<HatDistributedEventArgs> OnHatDistributed;
         private void Awake()
         {
             _stacker = GetComponent<Stacker>();
@@ -33,17 +35,36 @@ namespace Taxi.NPC
         }
         private void TryDistributeHatToDrivers(List<Driver> drivers)
         {
-
             foreach (Driver driver in drivers)
             {
-                if (!driver.DriverHasHat())
+                if (driver.DriverHasHat()) { continue; }
+
+                if (_stacker.ItemStack.TryPop(out StackableItem hat))
                 {
-                    if (_stacker.ItemStack.TryPop(out StackableItem hat))
-                        driver.GiveHat(hat);
-                    else
-                        break;
+                    driver.SetHasHat(true);
+                    InvokeHatDistributedEvent(driver, hat);
+                }
+                else
+                {
+                    break;
                 }
             }
         }
+
+        private void InvokeHatDistributedEvent(Driver driver, StackableItem hat)
+        {
+            OnHatDistributed?.Invoke(this, new HatDistributedEventArgs
+            {
+                Item = hat.transform,
+                Target = driver.GetHatTransform()
+            });
+        }
+    }
+
+    public class HatDistributedEventArgs : EventArgs
+    {
+        public Transform Item;
+
+        public Transform Target;
     }
 }

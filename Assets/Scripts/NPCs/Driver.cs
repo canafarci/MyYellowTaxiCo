@@ -26,12 +26,19 @@ namespace Taxi.NPC
         {
             yield return StartCoroutine(MoveToPosition(trans.position));
 
-            Tween move = transform.DOMove(trans.position, .5f);
-            Tween rot = transform.DORotate(trans.rotation.eulerAngles, .5f);
+            Tween move = GetToExactPosition(trans);
             yield return move.WaitForCompletion();
 
             InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, true);
         }
+
+        private Tween GetToExactPosition(Transform trans)
+        {
+            Tween move = transform.DOMove(trans.position, .5f);
+            transform.DORotate(trans.rotation.eulerAngles, .5f);
+            return move;
+        }
+
         private IEnumerator GoToCarAndMove(Spawner spawner) //refactor
         {
             spawner.DriverIsComing = true;
@@ -39,32 +46,18 @@ namespace Taxi.NPC
             yield return StartCoroutine(MoveToPosition(spawner.transform.position));
 
             InvokeAnimationStateChangedEvent(AnimationValues.ENTERING_CAR, true);
-            Tween tween = transform.DOScale(Vector3.one * 0.0001f, .5f);
 
-            yield return tween.WaitForCompletion();
+            yield return new WaitForSeconds(.5f);
 
             spawner.StartMove();
             Destroy(gameObject, 0.6f);
         }
-        public void GiveHat(StackableItem item)
+        public void SetHasHat(bool hasHat)
         {
-            _hasHat = true;
-            DotweenFX.MoveObjectInArc(item.transform, _hatTransform);
+            _hasHat = hasHat;
         }
-        // public void ActivateHat()
-        // {
-        //     _hasHat = true;
-
-        //     //TODO seperate view
-        //     _hatTransform.GetChild(0).GetComponent<Renderer>().enabled = true;
-        //     Sequence seq = DOTween.Sequence();
-        //     Vector3 baseScale = _hatTransform.localScale;
-        //     seq.Append(_hatTransform.DOScale(baseScale * 1.2f, .1f));
-        //     seq.Append(_hatTransform.DOScale(baseScale, .1f));
-        // }
-
-
         //Getter-Setters
+        public Transform GetHatTransform() => _hatTransform;
         public bool DriverHasHat() => _hasHat;
     }
 }
