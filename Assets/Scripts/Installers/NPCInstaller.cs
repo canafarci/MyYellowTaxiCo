@@ -29,9 +29,25 @@ namespace Taxi.Installers
                                 .AsTransient();
 
                         Container.Bind<DriverQueue>()
+                                .WithId(NPCType.Driver)
                                 .FromMethod(GetDriverQueue)
                                 .AsTransient();
 
+                        Container.Bind<Stacker>()
+                                .FromComponentInChildren()
+                                .AsTransient();
+
+                        Container.Bind<DriverQueue>()
+                                .WithId(ModelType.Distributor)
+                                .FromComponentInParents()
+                                .AsTransient();
+
+                        BindFactories();
+
+                }
+
+                private void BindFactories()
+                {
                         Container.BindFactory<Vector3, Quaternion, NavMeshNPC, NavMeshNPC.Factory>()
                                 .WithId(NPCType.Driver)
                                 .FromComponentInNewPrefab(_driverPrefab);

@@ -20,7 +20,7 @@ namespace Taxi.NPC
 
         [Inject]
         private void Init([Inject(Id = NPCType.Driver)] NavMeshNPC.Factory driverFactory,
-                        DriverQueue queue)
+                        [Inject(Id = NPCType.Driver)] DriverQueue queue)
         {
             _queue = queue;
 

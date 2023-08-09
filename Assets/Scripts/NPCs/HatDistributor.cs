@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Zenject;
 
 namespace Taxi.NPC
 {
@@ -11,10 +12,13 @@ namespace Taxi.NPC
         private Stacker _stacker;
         private DriverQueue _driverQueue;
         public event EventHandler<HatDistributedEventArgs> OnHatDistributed;
-        private void Awake()
+
+        [Inject]
+        private void Init(Stacker stacker,
+                        [Inject(Id = ModelType.Distributor)] DriverQueue driverQueue)
         {
-            _stacker = GetComponent<Stacker>();
-            _driverQueue = GetComponentInParent<DriverQueue>();
+            _stacker = stacker;
+            _driverQueue = driverQueue;
         }
         private void Start()
         {

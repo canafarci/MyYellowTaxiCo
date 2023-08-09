@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+
 namespace Taxi.NPC
 {
     public class FollowerQueue : MonoBehaviour

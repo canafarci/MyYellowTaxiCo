@@ -1,7 +1,15 @@
-public enum NPCType
+namespace Taxi.NPC
 {
-    Driver,
-    Helper,
-    Follower,
-    VIP
+    public enum NPCType
+    {
+        Driver,
+        Helper,
+        Follower,
+        VIP
+    }
+
+    public enum ModelType
+    {
+        Distributor
+    }
 }
