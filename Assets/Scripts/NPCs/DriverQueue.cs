@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Taxi.NPC
 {
-    public class DriverQueue : MonoBehaviour
+    public class DriverQueue : MonoBehaviour, INPCQueue
     {
         public Enums.StackableItemType HatType;
         private List<QueueSpot> _queueSpots = new List<QueueSpot>();
@@ -25,8 +25,9 @@ namespace Taxi.NPC
                 _queueSpots.Add(spot);
             }
         }
-        public void AddDriverToQueue(Driver driver)
+        public void AddToQueue(NavMeshNPC npc)
         {
+            Driver driver = npc as Driver;
             //get first avaliable spot
             QueueSpot spot = _queueSpots.Where(x => !x.HasDriver()).FirstOrDefault();
             Assert.IsNotNull(spot);

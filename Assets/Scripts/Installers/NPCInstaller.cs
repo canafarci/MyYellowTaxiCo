@@ -11,6 +11,7 @@ namespace Taxi.Installers
         public class NPCInstaller : MonoInstaller<NPCInstaller>
         {
                 [SerializeField] private GameObject _driverPrefab;
+                [SerializeField] private GameObject _followerPrefab;
                 [SerializeField] private GameObject _helperPrefab;
                 [SerializeField] private DriverQueue[] _queues;
 
@@ -28,7 +29,16 @@ namespace Taxi.Installers
                                 .FromComponentInChildren(false)
                                 .AsTransient();
 
-                        Container.Bind<DriverQueue>()
+
+
+                        BindDriverModel();
+                        BindFactories();
+
+                }
+
+                private void BindDriverModel()
+                {
+                        Container.Bind<INPCQueue>()
                                 .WithId(NPCType.Driver)
                                 .FromMethod(GetDriverQueue)
                                 .AsTransient();
@@ -41,9 +51,6 @@ namespace Taxi.Installers
                                 .WithId(ModelType.Distributor)
                                 .FromComponentInParents()
                                 .AsTransient();
-
-                        BindFactories();
-
                 }
 
                 private void BindFactories()
@@ -55,6 +62,10 @@ namespace Taxi.Installers
                         Container.BindFactory<Vector3, Quaternion, NavMeshNPC, NavMeshNPC.Factory>()
                                 .WithId(NPCType.Helper)
                                 .FromComponentInNewPrefab(_helperPrefab);
+
+                        Container.BindFactory<Vector3, Quaternion, NavMeshNPC, NavMeshNPC.Factory>()
+                                .WithId(NPCType.Follower)
+                                .FromComponentInNewPrefab(_followerPrefab);
                 }
 
                 private DriverQueue GetDriverQueue(InjectContext context)

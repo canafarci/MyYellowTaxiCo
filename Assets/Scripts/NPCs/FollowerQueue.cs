@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Taxi.NPC
 {
-    public class FollowerQueue : MonoBehaviour
+    public class FollowerQueue : MonoBehaviour, INPCQueue
     {
         public bool OnSpawnCooldown = false;
         public int CurrentSitIndex = 0;
@@ -50,8 +50,9 @@ namespace Taxi.NPC
             }
             return null;
         }
-        public void AddToQueue(Follower follower)
+        public void AddToQueue(NavMeshNPC npc)
         {
+            Follower follower = npc as Follower;
             LinkedListNode<FollowerQueueSpot> spot = _sitSpots.First;
 
             for (int i = 0; i < _sitSpots.Count - 1; i++)
