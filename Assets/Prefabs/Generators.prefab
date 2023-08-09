@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9619873}
-  - component: {fileID: 9619879}
   - component: {fileID: 9619878}
   - component: {fileID: 9619877}
   - component: {fileID: 9619876}
@@ -39,19 +38,6 @@ Transform:
   m_Father: {fileID: 7056967062929080048}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9619879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9619872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 1572686763}
 --- !u!114 &9619878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,8 +51,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnRate: 1
-  _stackableItem: {fileID: 2313885161458636575, guid: 3c8abd9853b0d9449b41cde339b92952,
-    type: 3}
+  _stackableItem:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _stage2Hats: []
+  _stage3Hats: []
   _startTransform: {fileID: 266253593}
 --- !u!114 &9619877
 MonoBehaviour:
@@ -105,7 +95,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5830039f248d849a06597218404c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SecondHatTutorialStarted: 0
+  IsHatStacker: 0
   _clearStackRate: 0.1
+  _onSecondHatTutorialUnlock:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &9619874
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -209,7 +204,6 @@ GameObject:
   - component: {fileID: 225461874}
   - component: {fileID: 225461873}
   - component: {fileID: 225461872}
-  - component: {fileID: 225461871}
   m_Layer: 0
   m_Name: StackedItemGenerator BLUE (5)
   m_TagString: Untagged
@@ -247,8 +241,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnRate: 1
-  _stackableItem: {fileID: 2746241724542687273, guid: f20cdefe076271c48ab1dc8be1d5a979,
-    type: 3}
+  _stackableItem:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _stage2Hats: []
+  _stage3Hats: []
   _startTransform: {fileID: 1601802881}
 --- !u!114 &225461875
 MonoBehaviour:
@@ -287,7 +285,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5830039f248d849a06597218404c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SecondHatTutorialStarted: 0
+  IsHatStacker: 0
   _clearStackRate: 0.1
+  _onSecondHatTutorialUnlock:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &225461872
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -301,19 +304,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0053635, y: 2.479556, z: 1.0697613}
   m_Center: {x: 0.17240143, y: 0.26022196, z: -0.9991474}
---- !u!114 &225461871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225461869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 1658214765}
 --- !u!1 &265244193
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,7 +313,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 265244194}
-  - component: {fileID: 265244200}
   - component: {fileID: 265244199}
   - component: {fileID: 265244198}
   - component: {fileID: 265244197}
@@ -353,19 +342,6 @@ Transform:
   m_Father: {fileID: 7056967062929080048}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &265244200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265244193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 1670327159}
 --- !u!114 &265244199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,8 +355,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnRate: 1
-  _stackableItem: {fileID: 2313885161458636575, guid: 3c8abd9853b0d9449b41cde339b92952,
-    type: 3}
+  _stackableItem:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _stage2Hats: []
+  _stage3Hats: []
   _startTransform: {fileID: 1224178873}
 --- !u!114 &265244198
 MonoBehaviour:
@@ -419,7 +399,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5830039f248d849a06597218404c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SecondHatTutorialStarted: 0
+  IsHatStacker: 0
   _clearStackRate: 0.1
+  _onSecondHatTutorialUnlock:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &265244195
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -818,7 +803,6 @@ GameObject:
   - component: {fileID: 689822792}
   - component: {fileID: 689822791}
   - component: {fileID: 689822790}
-  - component: {fileID: 689822789}
   m_Layer: 0
   m_Name: StackedItemGenerator BLUE (2)
   m_TagString: Untagged
@@ -856,8 +840,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnRate: 1
-  _stackableItem: {fileID: 2746241724542687273, guid: f20cdefe076271c48ab1dc8be1d5a979,
-    type: 3}
+  _stackableItem:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _stage2Hats: []
+  _stage3Hats: []
   _startTransform: {fileID: 371182553}
 --- !u!114 &689822793
 MonoBehaviour:
@@ -896,7 +884,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5830039f248d849a06597218404c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SecondHatTutorialStarted: 0
+  IsHatStacker: 0
   _clearStackRate: 0.1
+  _onSecondHatTutorialUnlock:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &689822790
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -910,19 +903,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0053635, y: 2.479556, z: 1.0697613}
   m_Center: {x: 0.17240143, y: 0.26022196, z: -0.9991474}
---- !u!114 &689822789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 689822787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 550326977}
 --- !u!1 &729752726
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,7 +912,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 729752727}
-  - component: {fileID: 729752733}
   - component: {fileID: 729752732}
   - component: {fileID: 729752731}
   - component: {fileID: 729752730}
@@ -962,19 +941,6 @@ Transform:
   m_Father: {fileID: 7056967062929080048}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &729752733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729752726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 1873074332}
 --- !u!114 &729752732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -988,8 +954,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnRate: 1
-  _stackableItem: {fileID: 2313885161458636575, guid: 3c8abd9853b0d9449b41cde339b92952,
-    type: 3}
+  _stackableItem:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _stage2Hats: []
+  _stage3Hats: []
   _startTransform: {fileID: 1568543617}
 --- !u!114 &729752731
 MonoBehaviour:
@@ -1028,7 +998,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5830039f248d849a06597218404c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SecondHatTutorialStarted: 0
+  IsHatStacker: 0
   _clearStackRate: 0.1
+  _onSecondHatTutorialUnlock:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &729752728
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1334,7 +1309,6 @@ GameObject:
   - component: {fileID: 935716829}
   - component: {fileID: 935716828}
   - component: {fileID: 935716827}
-  - component: {fileID: 935716826}
   m_Layer: 0
   m_Name: StackedItemGenerator BLUE (3)
   m_TagString: Untagged
@@ -1372,8 +1346,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnRate: 1
-  _stackableItem: {fileID: 2746241724542687273, guid: f20cdefe076271c48ab1dc8be1d5a979,
-    type: 3}
+  _stackableItem:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _stage2Hats: []
+  _stage3Hats: []
   _startTransform: {fileID: 1172170387}
 --- !u!114 &935716830
 MonoBehaviour:
@@ -1412,7 +1390,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5830039f248d849a06597218404c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SecondHatTutorialStarted: 0
+  IsHatStacker: 0
   _clearStackRate: 0.1
+  _onSecondHatTutorialUnlock:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &935716827
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1426,19 +1409,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0053635, y: 2.479556, z: 1.0697613}
   m_Center: {x: 0.17240143, y: 0.26022196, z: -0.9991474}
---- !u!114 &935716826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 935716824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 1602065488}
 --- !u!1 &1035315372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1554,7 +1524,6 @@ GameObject:
   - component: {fileID: 1098277767}
   - component: {fileID: 1098277766}
   - component: {fileID: 1098277765}
-  - component: {fileID: 1098277764}
   m_Layer: 0
   m_Name: StackedItemGenerator BLUE (4)
   m_TagString: Untagged
@@ -1592,8 +1561,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnRate: 1
-  _stackableItem: {fileID: 2746241724542687273, guid: f20cdefe076271c48ab1dc8be1d5a979,
-    type: 3}
+  _stackableItem:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _stage2Hats: []
+  _stage3Hats: []
   _startTransform: {fileID: 1472163613}
 --- !u!114 &1098277768
 MonoBehaviour:
@@ -1632,7 +1605,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5830039f248d849a06597218404c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SecondHatTutorialStarted: 0
+  IsHatStacker: 0
   _clearStackRate: 0.1
+  _onSecondHatTutorialUnlock:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1098277765
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1646,19 +1624,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0053635, y: 2.479556, z: 1.0697613}
   m_Center: {x: 0.17240143, y: 0.26022196, z: -0.9991474}
---- !u!114 &1098277764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1098277762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 935672346}
 --- !u!1 &1172170386
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,8 +1934,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1591951336}
-  - component: {fileID: 1591951342}
-  - component: {fileID: 1591951343}
   - component: {fileID: 1591951340}
   - component: {fileID: 1591951339}
   - component: {fileID: 1591951338}
@@ -1999,35 +1962,6 @@ Transform:
   m_Father: {fileID: 7056967062929080048}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1591951342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1591951335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 1600789829}
---- !u!114 &1591951343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1591951335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2936a7380a22bb848907338dc7d666d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spawnRate: 5
-  _stackableItem: {fileID: 2313885161458636575, guid: 3c8abd9853b0d9449b41cde339b92952,
-    type: 3}
-  _startTransform: {fileID: 566346554}
 --- !u!114 &1591951340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2065,7 +1999,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5830039f248d849a06597218404c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SecondHatTutorialStarted: 0
+  IsHatStacker: 0
   _clearStackRate: 0.1
+  _onSecondHatTutorialUnlock:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1591951337
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2524,7 +2463,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1786427617}
-  - component: {fileID: 1786427623}
   - component: {fileID: 1786427622}
   - component: {fileID: 1786427621}
   - component: {fileID: 1786427620}
@@ -2554,19 +2492,6 @@ Transform:
   m_Father: {fileID: 7056967062929080048}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1786427623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786427616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 69847692}
 --- !u!114 &1786427622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2580,8 +2505,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnRate: 1
-  _stackableItem: {fileID: 2313885161458636575, guid: 3c8abd9853b0d9449b41cde339b92952,
-    type: 3}
+  _stackableItem:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _stage2Hats: []
+  _stage3Hats: []
   _startTransform: {fileID: 1914272349}
 --- !u!114 &1786427621
 MonoBehaviour:
@@ -2620,7 +2549,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5830039f248d849a06597218404c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SecondHatTutorialStarted: 0
+  IsHatStacker: 0
   _clearStackRate: 0.1
+  _onSecondHatTutorialUnlock:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1786427618
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3067,7 +3001,6 @@ MonoBehaviour:
   _follower: {fileID: 4909763518887318041, guid: 8fa74b05150313f409febd4ad59bb8a2,
     type: 3}
   _spawnRate: 3
-  _maxIdleFollowers: 5
   _spawnTransform: {fileID: 7056967063326139178}
 --- !u!65 &7056967063424031760
 BoxCollider:
@@ -3336,7 +3269,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7056967064126881621}
-  - component: {fileID: 7056967064126881631}
   - component: {fileID: 7056967064126881624}
   - component: {fileID: 7056967064126881625}
   - component: {fileID: 7056967064126881626}
@@ -3366,19 +3298,6 @@ Transform:
   m_Father: {fileID: 7056967062929080048}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7056967064126881631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7056967064126881622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 7056967064210556845}
 --- !u!114 &7056967064126881624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3392,8 +3311,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnRate: 1
-  _stackableItem: {fileID: 2313885161458636575, guid: 3c8abd9853b0d9449b41cde339b92952,
-    type: 3}
+  _stackableItem:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _stage2Hats: []
+  _stage3Hats: []
   _startTransform: {fileID: 7056967065033608158}
 --- !u!114 &7056967064126881625
 MonoBehaviour:
@@ -3432,7 +3355,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5830039f248d849a06597218404c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SecondHatTutorialStarted: 0
+  IsHatStacker: 0
   _clearStackRate: 0.1
+  _onSecondHatTutorialUnlock:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &7056967064126881620
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3612,7 +3540,6 @@ GameObject:
   - component: {fileID: 7056967064828131834}
   - component: {fileID: 7056967064828131835}
   - component: {fileID: 7056967064828131828}
-  - component: {fileID: 7056967064828131829}
   m_Layer: 0
   m_Name: StackedItemGenerator BLUE
   m_TagString: Untagged
@@ -3650,8 +3577,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnRate: 1
-  _stackableItem: {fileID: 2746241724542687273, guid: f20cdefe076271c48ab1dc8be1d5a979,
-    type: 3}
+  _stackableItem:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _stage2Hats: []
+  _stage3Hats: []
   _startTransform: {fileID: 7056967063755070808}
 --- !u!114 &7056967064828131833
 MonoBehaviour:
@@ -3690,7 +3621,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5830039f248d849a06597218404c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SecondHatTutorialStarted: 0
+  IsHatStacker: 0
   _clearStackRate: 0.1
+  _onSecondHatTutorialUnlock:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &7056967064828131828
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3704,19 +3640,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0053635, y: 2.479556, z: 1.0697613}
   m_Center: {x: 0.17240143, y: 0.26022196, z: -0.9991474}
---- !u!114 &7056967064828131829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7056967064828131831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 7056967064787308390}
 --- !u!1 &7056967065033608159
 GameObject:
   m_ObjectHideFlags: 0

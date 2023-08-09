@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1934714633378316019}
   - component: {fileID: 1934714633378316017}
   - component: {fileID: 1934714633378316018}
-  - component: {fileID: 4326244049884556385}
   m_Layer: 0
   m_Name: DriverSpawn (2)
   m_TagString: Untagged
@@ -51,14 +50,6 @@ MonoBehaviour:
     type: 3}
   _spawnTransform: {fileID: 1934714633482837845}
   HatType: 0
-  _text: {fileID: 0}
-  _spawnRate: 0
-  _maxDrivers: 0
-  _itemOpen: {fileID: 0}
-  _itemClose: {fileID: 0}
-  _itemsTOOpen: []
-  _itemsToClose: []
-  _identifier: 
 --- !u!65 &1934714633378316018
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72,19 +63,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4326244049884556385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1934714633378316020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6328c710a3d477449a1a7473be521f5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _price: 0
 --- !u!1 &1934714633482837846
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,7 +1010,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7918457502349041970}
   - component: {fileID: 4662777738623306995}
-  - component: {fileID: 1313125737459858144}
   - component: {fileID: 8179892283897814035}
   m_Layer: 0
   m_Name: "\u015E\xF6f\xF6rActionZone Yellow"
@@ -1071,33 +1048,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e799f47499235984585952f5027fb4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slider: {fileID: 0}
-  _itemsToActivate:
-  - {fileID: 1934714633378316020}
-  _itemsToDeactivate: []
-  _onEnterActivate: []
-  _behaviourToActivate: []
-  _colliderToActivate: {fileID: 0}
-  _activateDelay: 4
-  _text: {fileID: 1106798755564466393}
-  _noMoney: 0
-  _isTutorialZone: 0
-  _firstTutorialZone: 0
-  _identifier: 
-  _nextTutorialObjective: {fileID: 0}
---- !u!114 &1313125737459858144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7918457502349041973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _price: 0
 --- !u!65 &8179892283897814035
 BoxCollider:
   m_ObjectHideFlags: 0

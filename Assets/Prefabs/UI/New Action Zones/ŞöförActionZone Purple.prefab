@@ -107,7 +107,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 109095955898651247}
-  - component: {fileID: 9105924343736060349}
   - component: {fileID: 2153641625543241550}
   m_Layer: 0
   m_Name: "\u015E\xF6f\xF6rActionZone Purple"
@@ -134,21 +133,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9105924343736060349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109095955898651240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 4028075257563010558}
-  _slider: {fileID: 0}
-  _price: 0
 --- !u!65 &2153641625543241550
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1380,7 +1364,6 @@ GameObject:
   - component: {fileID: 8556533222676860242}
   - component: {fileID: 8556533222676860076}
   - component: {fileID: 8556533222676860077}
-  - component: {fileID: 7782353443706286780}
   m_Layer: 0
   m_Name: DriverSpawn (1)
   m_TagString: Untagged
@@ -1420,11 +1403,6 @@ MonoBehaviour:
     type: 3}
   _spawnTransform: {fileID: 8556533222829008953}
   HatType: 0
-  _text: {fileID: 0}
-  _spawnRate: 0
-  _maxDrivers: 0
-  _driverSeats: []
-  _identifier: 
 --- !u!65 &8556533222676860077
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1438,21 +1416,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7782353443706286780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8556533222676860243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6328c710a3d477449a1a7473be521f5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 0}
-  _slider: {fileID: 0}
-  _price: 250
 --- !u!1 &8556533222829008958
 GameObject:
   m_ObjectHideFlags: 0

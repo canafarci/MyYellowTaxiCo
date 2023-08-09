@@ -748,7 +748,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3231586321415831290}
   - component: {fileID: 110731954021143355}
-  - component: {fileID: 5982413494903727400}
   - component: {fileID: 3510614421002699739}
   m_Layer: 0
   m_Name: "\u015E\xF6f\xF6rActionZone White"
@@ -787,32 +786,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e799f47499235984585952f5027fb4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slider: {fileID: 0}
-  _itemsToActivate:
-  - {fileID: 6621867272737434155}
-  _itemsToDeactivate: []
-  _onEnterActivate: []
-  _behaviourToActivate: []
-  _colliderToActivate: {fileID: 0}
-  _activateDelay: 0.9
-  _text: {fileID: 5647731758947987217}
-  _noMoney: 0
-  _identifier: 
---- !u!114 &5982413494903727400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3231586321415831293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 1926952987978135915}
-  _slider: {fileID: 0}
-  _price: 0
 --- !u!65 &3510614421002699739
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1170,7 +1143,6 @@ GameObject:
   - component: {fileID: 6621867272737434154}
   - component: {fileID: 6621867272737434157}
   - component: {fileID: 6621867272737434156}
-  - component: {fileID: 8820446354185386835}
   m_Layer: 0
   m_Name: DriverSpawn
   m_TagString: Untagged
@@ -1210,11 +1182,6 @@ MonoBehaviour:
     type: 3}
   _spawnTransform: {fileID: 6621867272703267678}
   HatType: 0
-  _text: {fileID: 0}
-  _spawnRate: 0
-  _maxDrivers: 0
-  _driverSeats: []
-  _identifier: 
 --- !u!65 &6621867272737434156
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1228,21 +1195,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8820446354185386835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6621867272737434155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6328c710a3d477449a1a7473be521f5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 0}
-  _slider: {fileID: 0}
-  _price: 500
 --- !u!1 &6974011430537177550
 GameObject:
   m_ObjectHideFlags: 0

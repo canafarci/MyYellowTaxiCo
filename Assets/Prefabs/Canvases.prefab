@@ -17051,7 +17051,6 @@ GameObject:
   - component: {fileID: 2003300725764584283}
   - component: {fileID: 3616113195409650352}
   - component: {fileID: 4465972301567139562}
-  - component: {fileID: 5287204004295523502}
   m_Layer: 5
   m_Name: Floating Joystick Designed JoyStick
   m_TagString: Untagged
@@ -17137,18 +17136,6 @@ MonoBehaviour:
   snapY: 0
   background: {fileID: 806075597849747734}
   handle: {fileID: 6326651762385146169}
---- !u!114 &5287204004295523502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4530258018793925317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97ec347fbe92a1842b5dddb3f0f07da5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4545345427651269166
 GameObject:
   m_ObjectHideFlags: 0
@@ -22664,7 +22651,7 @@ MonoBehaviour:
   m_PixelsPerUnitMultiplier: 1
 --- !u!95 &1844870987765477606
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -22681,7 +22668,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5606368805355051291
 GameObject:
   m_ObjectHideFlags: 0
@@ -29595,21 +29583,3 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4545345429456033782}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5653838340391381491 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8170153791668043269, guid: 0d230cc8be529a542a08cb878ab14b18,
-    type: 3}
-  m_PrefabInstance: {fileID: 4545345429456033782}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4545345428499501142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5653838340391381491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97ec347fbe92a1842b5dddb3f0f07da5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

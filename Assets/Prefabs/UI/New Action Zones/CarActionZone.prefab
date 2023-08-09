@@ -1454,7 +1454,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: -89.98021, y: 0, z: 0}
 --- !u!95 &6396651414380700534
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1471,7 +1471,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &4700860836654209409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1822,7 +1823,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7469139691636161484}
   - component: {fileID: 5401564704651417101}
-  - component: {fileID: 1763895077903753246}
   - component: {fileID: 8919209108264240877}
   m_Layer: 0
   m_Name: CarActionZone
@@ -1863,35 +1863,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e799f47499235984585952f5027fb4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slider: {fileID: 1196490106986674062}
-  _itemsToActivate:
-  - {fileID: 7469139690839410248}
-  - {fileID: 6390357806538583129}
-  _itemsToDeactivate:
-  - {fileID: 7469139690535497554}
-  - {fileID: 6445487036052942901}
-  - {fileID: 9205802865891656700}
-  - {fileID: 1196490106986674062}
-  _onEnterActivate: []
-  _behaviourToActivate: []
-  _colliderToActivate: {fileID: 0}
-  _activateDelay: 0.9
-  _text: {fileID: 369178923243104807}
-  _noMoney: 0
-  _identifier: 
---- !u!114 &1763895077903753246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7469139691636161483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _price: 0
 --- !u!65 &8919209108264240877
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2460,12 +2431,6 @@ PrefabInstance:
 --- !u!4 &6445487036052942897 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5325560600889230405, guid: cba9ff367027e7943af419f5894ec820,
-    type: 3}
-  m_PrefabInstance: {fileID: 1196490107075671156}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6445487036052942901 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5325560600889230401, guid: cba9ff367027e7943af419f5894ec820,
     type: 3}
   m_PrefabInstance: {fileID: 1196490107075671156}
   m_PrefabAsset: {fileID: 0}

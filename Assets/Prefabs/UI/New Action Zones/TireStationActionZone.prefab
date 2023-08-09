@@ -404,7 +404,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 999843965}
-  - component: {fileID: 999843970}
   - component: {fileID: 999843969}
   - component: {fileID: 999843968}
   - component: {fileID: 999843967}
@@ -434,27 +433,6 @@ Transform:
   m_Father: {fileID: 6309328151904163122}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -90.255, z: 0}
---- !u!114 &999843970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999843964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2936a7380a22bb848907338dc7d666d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spawnRate: 1
-  _stackableItem: {fileID: 7804560129394761551, guid: 104ac206d5fc75644982d64c3a0589d8,
-    type: 3}
-  _startTransform: {fileID: 1084669125}
-  IsActive: 1
-  _tutoScene: 0
-  _objectToSwitch: {fileID: 8409296130063313726}
-  _activator: {fileID: 0}
-  _itemType: 0
 --- !u!114 &999843969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,7 +470,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5830039f248d849a06597218404c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SecondHatTutorialStarted: 0
+  IsHatStacker: 0
   _clearStackRate: 0.1
+  _onSecondHatTutorialUnlock:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &999843966
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -518,8 +501,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692639213092f0a4d96bfcd7b245aec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targets: []
-  _itemTypes: 
 --- !u!114 &1555051552225475983
 MonoBehaviour:
   m_ObjectHideFlags: 0

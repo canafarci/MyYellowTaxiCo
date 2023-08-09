@@ -1315,7 +1315,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5324834692743206956}
   - component: {fileID: 7256456183086970349}
-  - component: {fileID: 3907074108539503614}
   - component: {fileID: 6162418958769595661}
   m_Layer: 0
   m_Name: TelephoneActionZone
@@ -1356,29 +1355,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e799f47499235984585952f5027fb4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slider: {fileID: 4284606564310820567}
-  _itemsToActivate: []
-  _itemsToDeactivate: []
-  _onEnterActivate: []
-  _behaviourToActivate: []
-  _colliderToActivate: {fileID: 0}
-  _activateDelay: 4
-  _text: {fileID: 3124860766091184583}
-  _noMoney: 0
-  _identifier: 
---- !u!114 &3907074108539503614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5324834692743206955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _price: 0
 --- !u!65 &6162418958769595661
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2032,7 +2008,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2936366894424400961}
-  - component: {fileID: 6855307558433560174}
   - component: {fileID: 2746414864184707059}
   - component: {fileID: 13409370413776822}
   - component: {fileID: 5288633512911905055}
@@ -2060,27 +2035,6 @@ Transform:
   m_Father: {fileID: 5324834692743206956}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -89.997, z: 0}
---- !u!114 &6855307558433560174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8775383599596766485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2936a7380a22bb848907338dc7d666d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spawnRate: 1
-  _stackableItem: {fileID: 2313885161458636575, guid: 3c8abd9853b0d9449b41cde339b92952,
-    type: 3}
-  _startTransform: {fileID: 5843270389832374331}
-  IsActive: 0
-  _tutoScene: 0
-  _objectToSwitch: {fileID: 4284606564310820567}
-  _activator: {fileID: 0}
-  _itemType: 0
 --- !u!65 &2746414864184707059
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2118,8 +2072,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692639213092f0a4d96bfcd7b245aec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targets: []
-  _itemTypes: 
 --- !u!1 &8853818975220444320
 GameObject:
   m_ObjectHideFlags: 0
@@ -2326,4 +2278,3 @@ MonoBehaviour:
   _disabledDuration: 2
   _disabledToActiveRatio: 0.4
   _cycleOffset: 0
-  _generator: {fileID: 6855307558433560174}

@@ -1486,6 +1486,7 @@ MonoBehaviour:
   _columns: 1
   _prefab: {fileID: 6021824632675370999, guid: c596a6944b749c54082fb537c55a0648, type: 3}
   _spawnPos: {fileID: 4016084209906673728}
+  _identifier: 
 --- !u!114 &4016084210926984224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2030,7 +2031,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5772569868649365404}
   - component: {fileID: 9029094057690829405}
-  - component: {fileID: 3441139847887774798}
   - component: {fileID: 5511449516757041853}
   m_Layer: 0
   m_Name: HeliActionZone (6)
@@ -2072,36 +2072,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e799f47499235984585952f5027fb4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slider: {fileID: 2819594379629179870}
-  _itemsToActivate:
-  - {fileID: 5772569869455753752}
-  - {fileID: 8004272983489767433}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 4016084211122288698}
-  - {fileID: 0}
-  _itemsToDeactivate:
-  - {fileID: 310160622149063920}
-  _onEnterActivate: []
-  _behaviourToActivate: []
-  _colliderToActivate: {fileID: 0}
-  _activateDelay: 0.9
-  _text: {fileID: 3649157088375926391}
-  _noMoney: 0
-  _identifier: Helicopter
---- !u!114 &3441139847887774798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5772569868649365403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26c5cdef16115a49846148e312cceea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _price: 8000
 --- !u!65 &5511449516757041853
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2477,7 +2447,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: -89.98021, y: 0, z: 0}
 --- !u!95 &8034008172666611494
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2494,7 +2464,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &8540847211848162769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3045,6 +3016,8 @@ MonoBehaviour:
   _getInLocation: {fileID: 8004272983489767432}
   _animator: {fileID: 0}
   _stacker: {fileID: 0}
+  _npc: {fileID: 0}
+  _money: 0
 --- !u!1 &8295814639117451664
 GameObject:
   m_ObjectHideFlags: 0
