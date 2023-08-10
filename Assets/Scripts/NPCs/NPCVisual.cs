@@ -10,10 +10,10 @@ namespace Taxi.NPC
 {
     public class NPCVisual : MonoBehaviour
     {
-        private NavMeshNPC _npc;
+        private NPCActionScheduler _npc;
 
         [Inject]
-        private void Init(NavMeshNPC npc)
+        private void Init(NPCActionScheduler npc)
         {
             _npc = npc;
         }

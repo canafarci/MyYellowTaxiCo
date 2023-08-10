@@ -21,12 +21,16 @@ namespace Taxi.Installers
                                 .FromComponentInChildren(false)
                                 .AsTransient();
 
-                        Container.Bind<NavMeshNPC>()
+                        Container.Bind<NPCActionScheduler>()
                                 .FromComponentInChildren()
                                 .AsTransient();
 
                         Container.Bind<NavMeshAgent>()
                                 .FromComponentInChildren(false)
+                                .AsTransient();
+
+                        Container.Bind<NavMeshMover>()
+                                .FromComponentInChildren()
                                 .AsTransient();
 
 
@@ -55,15 +59,15 @@ namespace Taxi.Installers
 
                 private void BindFactories()
                 {
-                        Container.BindFactory<Vector3, Quaternion, NavMeshNPC, NavMeshNPC.Factory>()
+                        Container.BindFactory<Vector3, Quaternion, NPCActionScheduler, NPCActionScheduler.Factory>()
                                 .WithId(NPCType.Driver)
                                 .FromComponentInNewPrefab(_driverPrefab);
 
-                        Container.BindFactory<Vector3, Quaternion, NavMeshNPC, NavMeshNPC.Factory>()
+                        Container.BindFactory<Vector3, Quaternion, NPCActionScheduler, NPCActionScheduler.Factory>()
                                 .WithId(NPCType.Helper)
                                 .FromComponentInNewPrefab(_helperPrefab);
 
-                        Container.BindFactory<Vector3, Quaternion, NavMeshNPC, NavMeshNPC.Factory>()
+                        Container.BindFactory<Vector3, Quaternion, NPCActionScheduler, NPCActionScheduler.Factory>()
                                 .WithId(NPCType.Follower)
                                 .FromComponentInNewPrefab(_followerPrefab);
                 }

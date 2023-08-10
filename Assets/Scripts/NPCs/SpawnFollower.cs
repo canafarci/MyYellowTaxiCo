@@ -14,12 +14,10 @@ namespace Taxi.NPC
         [SerializeField] private float _spawnRate;
         [SerializeField] private Transform _spawnTransform;
         private INPCQueue _queue;
-        private bool _hasSpawnedFirst = false;
-
-        NavMeshNPC.Factory _followerFactory;
+        private NPCActionScheduler.Factory _followerFactory;
 
         [Inject]
-        private void Init([Inject(Id = NPCType.Follower)] NavMeshNPC.Factory factory)
+        private void Init([Inject(Id = NPCType.Follower)] NPCActionScheduler.Factory factory)
         {
             _followerFactory = factory;
         }
@@ -30,7 +28,7 @@ namespace Taxi.NPC
 
         private void Start()
         {
-
+            CreateFollower();
             StartCoroutine(SpawnLoop());
         }
 
@@ -42,11 +40,16 @@ namespace Taxi.NPC
 
                 //if (_queue.IsFull()) { continue; }
 
-                Follower follower = (Follower)_followerFactory.Create(_spawnTransform.position, _spawnTransform.rotation);
-
-                _queue.AddToQueue(follower);
+                CreateFollower();
             }
         }
 
+        private void CreateFollower()
+        {
+            RiderNPC npc = _followerFactory.Create(_spawnTransform.position, _spawnTransform.rotation).GetComponent<RiderNPC>();
+
+            if (!_queue.QueueIsFull())
+                _queue.AddToQueue(npc);
+        }
     }
 }

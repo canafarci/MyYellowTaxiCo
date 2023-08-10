@@ -6,6 +6,7 @@ namespace Taxi.NPC
 {
     public interface INPCQueue
     {
-        public void AddToQueue(NavMeshNPC npc);
+        public void AddToQueue(RiderNPC npc);
+        public bool QueueIsFull();
     }
 }

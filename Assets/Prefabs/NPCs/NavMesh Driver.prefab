@@ -3764,7 +3764,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4521944692394186028
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3781,7 +3781,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7557719311601941399
 GameObject:
   m_ObjectHideFlags: 0
@@ -4757,7 +4758,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7695578409700236713
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4774,7 +4775,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8932112152136960048
 GameObject:
   m_ObjectHideFlags: 0
@@ -6145,9 +6147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c76a055140b7d8f4ba78df7b5771222e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hat: 0
   _hatTransform: {fileID: 1610939982653693842}
-  _fx: {fileID: 4988930405712161056}
 --- !u!1001 &3663874743415615961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6329,9 +6329,3 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2076127209731146101, guid: a3ecacfa96d399a4f9e340c7156ca675, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a3ecacfa96d399a4f9e340c7156ca675, type: 3}
---- !u!198 &4988930405712161056 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1207831804104281021, guid: a3ecacfa96d399a4f9e340c7156ca675,
-    type: 3}
-  m_PrefabInstance: {fileID: 6196717129837863581}
-  m_PrefabAsset: {fileID: 0}

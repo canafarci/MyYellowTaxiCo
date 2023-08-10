@@ -40,7 +40,8 @@ namespace Taxi.NPC
 
                 Follower follower;
 
-                follower = _queue.TryUnload();
+                //follower = _queue.TryUnload();
+                follower = null;
                 if (follower != null)
                 {
                     follower.FollowPlayer(inventory, true);

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -11,68 +10,86 @@ namespace Taxi.NPC
     public class DriverQueue : MonoBehaviour, INPCQueue
     {
         public Enums.StackableItemType HatType;
-        private List<QueueSpot> _queueSpots = new List<QueueSpot>();
+        private List<DriverQueueSpot> _queueSpots = new List<DriverQueueSpot>();
+
         private void Start()
         {
-            QueueSpot.OnNewQueueSpotActivated += NewQueueSpotActivatedHandler;
+            DriverQueueSpot.OnNewDriverQueueSpotActivated += QueueSpot_NewQueueSpotActivatedHandler;
         }
-        private void NewQueueSpotActivatedHandler(object sender, OnNewQueueSpotActivatedEventArgs e)
+
+        public void AddToQueue(RiderNPC npc)
         {
-            if (e.HatType == HatType)
-            {
-                QueueSpot spot = sender as QueueSpot;
-                Assert.IsNotNull(spot);
-                _queueSpots.Add(spot);
-            }
-        }
-        public void AddToQueue(NavMeshNPC npc)
-        {
-            Driver driver = npc as Driver;
-            //get first avaliable spot
-            QueueSpot spot = _queueSpots.Where(x => !x.HasDriver()).FirstOrDefault();
+            DriverQueueSpot spot = FindAvailableSpot();
             Assert.IsNotNull(spot);
-            //move driver to the spot and sit
-            driver.MoveAndSit(spot);
-            spot.SetDriver(driver);
+            npc.MoveAndSit(spot.transform);
+            spot.SetNPC(npc);
         }
+
         public List<Driver> GetDrivers()
         {
-            List<Driver> drivers = new List<Driver>();
-            foreach (QueueSpot spot in _queueSpots)
-            {
-                if (spot.TryGetDriver(out Driver driver))
-                {
-                    drivers.Add(driver);
-                }
-            }
-            return drivers;
+            return GetDriversByCondition(driver => true);
         }
+
         public List<Driver> GetDriversWithHat()
         {
-            List<Driver> drivers = new List<Driver>();
-            foreach (QueueSpot spot in _queueSpots)
-            {
-                if (spot.TryGetDriver(out Driver driver) && driver.DriverHasHat())
-                {
-                    drivers.Add(driver);
-                }
-            }
-            return drivers;
+            return GetDriversByCondition(driver => driver.DriverHasHat());
         }
-        public void Remove(Driver driverToRemove)
+
+        public void Remove(RiderNPC driverToRemove)
         {
-            foreach (QueueSpot spot in _queueSpots)
+            foreach (DriverQueueSpot spot in _queueSpots)
             {
-                if (spot.TryGetDriver(out Driver driver) && driver == driverToRemove)
+                if (spot.TryGetNPC(out RiderNPC npc) && npc == driverToRemove)
                 {
                     spot.Clear();
                 }
             }
         }
-        //Cleanup
+
+        private DriverQueueSpot FindAvailableSpot()
+        {
+            return _queueSpots.FirstOrDefault(spot => !spot.HasNPC());
+        }
+
+        private List<Driver> GetDriversByCondition(Func<Driver, bool> condition)
+        {
+            List<Driver> drivers = new List<Driver>();
+            foreach (DriverQueueSpot spot in _queueSpots)
+            {
+                if (spot.TryGetNPC(out RiderNPC npc) && condition(npc as Driver))
+                {
+                    drivers.Add(npc as Driver);
+                }
+            }
+            return drivers;
+        }
+
+        private void QueueSpot_NewQueueSpotActivatedHandler(object sender, OnNewQueueSpotActivatedEventArgs e)
+        {
+            if (e.HatType == HatType)
+            {
+                DriverQueueSpot spot = sender as DriverQueueSpot;
+                Assert.IsNotNull(spot);
+                _queueSpots.Add(spot);
+            }
+        }
+
         private void OnDisable()
         {
-            QueueSpot.OnNewQueueSpotActivated -= NewQueueSpotActivatedHandler;
+            DriverQueueSpot.OnNewDriverQueueSpotActivated -= QueueSpot_NewQueueSpotActivatedHandler;
+        }
+
+        public bool QueueIsFull()
+        {
+            bool isFull = true;
+            foreach (DriverQueueSpot spot in _queueSpots)
+            {
+                if (!spot.HasNPC())
+                {
+                    isFull = false;
+                }
+            }
+            return isFull;
         }
     }
 }

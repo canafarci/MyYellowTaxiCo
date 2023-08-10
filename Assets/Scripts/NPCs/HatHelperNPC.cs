@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Taxi.NPC
 {
-    public class HatHelperNPC : NavMeshNPC
+    public class HatHelperNPC : NPCActionScheduler
     {
 
 

@@ -37,18 +37,18 @@ namespace Taxi.NPC
         {
             while (true)
             {
-                Waypoint wp = _waypoints[_currentWaypointIndex];
-                _moveCoroutine = StartCoroutine(MoveToPosition(wp.transform.position));
-                yield return _moveCoroutine;
+                // Waypoint wp = _waypoints[_currentWaypointIndex];
+                // _moveCoroutine = StartCoroutine(MoveToPosition(wp.transform.position));
+                // yield return _moveCoroutine;
 
-                if (wp.StopWaypoint)
-                    yield return new WaitForSeconds(10f);
+                // if (wp.StopWaypoint)
+                //     yield return new WaitForSeconds(10f);
 
-                else if (wp.EndWaypoint)
-                {
-                    Destroy(gameObject, 0.3f);
-                    yield break;
-                }
+                // else if (wp.EndWaypoint)
+                // {
+                //     Destroy(gameObject, 0.3f);
+                //     yield break;
+                // }
 
                 _currentWaypointIndex++;
             }

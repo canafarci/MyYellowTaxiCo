@@ -28,17 +28,17 @@ namespace Taxi.NPC
                 //if there are drivers with hats, check if there are avaliable cars
                 List<Driver> drivers = _driverQueue.GetDriversWithHat();
 
-                if (drivers.Count > 0)
+                if (drivers.Count == 0) { continue; }
+
+                foreach (Spawner spawner in _spawners)
                 {
-                    foreach (Spawner spawner in _spawners)
+                    if (spawner.CarIsReady)
                     {
-                        if (spawner.CarIsReady)
-                        {
-                            Driver driver = drivers[drivers.Count - 1];
-                            driver.GoToCarAndGetIn(spawner);
-                            drivers.RemoveAt(drivers.Count - 1);
-                            _driverQueue.Remove(driver);
-                        }
+                        spawner.DriverIsComing = true;
+                        Driver driver = drivers[^1];
+                        driver.GoToCar(spawner.transform, () => spawner.StartMove());
+                        drivers.RemoveAt(drivers.Count - 1);
+                        _driverQueue.Remove(driver);
                     }
                 }
                 //make drivers move to the cars

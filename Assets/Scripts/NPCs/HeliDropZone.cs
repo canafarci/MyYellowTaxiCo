@@ -28,7 +28,7 @@ namespace Taxi.NPC
         {
             Inventory inventory = GameManager.Instance.References.PlayerInventory;
 
-            NavMeshNPC[] followers = inventory.GetFollowers(HatType);
+            NPCActionScheduler[] followers = inventory.GetFollowers(HatType);
             if (followers.Length < 1) { yield break; }
             //yield return StartCoroutine(followers[0].OpenDoorAndGetIn(_getInLocation.position)); //TODO refactor
             _animator.Play("HeliAnim", 0, 0f);
