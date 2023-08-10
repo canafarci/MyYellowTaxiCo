@@ -40,6 +40,6 @@ public class Inventory : MonoBehaviour
     }
     public void RemoveFollower(Follower follower) => _followers.Remove(follower);
     public StackableItem GetItem(Enums.StackableItemType hat) => _linkedList.Where(x => x.Hat == hat).LastOrDefault();
-    public Follower[] GetFollowers(Enums.StackableItemType hat) => _followers.Where(x => x.Hat == hat).ToArray();
+    //public Follower[] GetFollowers(Enums.StackableItemType hat) => _followers.Where(x => x.Hat == hat).ToArray();
     private void RecalculatePositions() => _positionCalculator.RecalculatePositions(_linkedList);
 }

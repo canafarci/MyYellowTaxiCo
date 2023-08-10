@@ -15,14 +15,6 @@ namespace Taxi.NPC
         private Queue<IEnumerator> _actionsToPerform = new();
 
         public event EventHandler<OnNPCAnimationStateChangedArgs> OnNPCAnimationStateChanged;
-
-        [Inject]
-        private void Init(Vector3 spawnPos, Quaternion rotation)
-        {
-            transform.position = spawnPos;
-            transform.rotation = rotation;
-        }
-
         public void AddToActionQueue(IEnumerator actionToPerform)
         {
             _actionsToPerform.Enqueue(actionToPerform);
@@ -50,10 +42,6 @@ namespace Taxi.NPC
                 AnimationStateString = animationStateString,
                 State = state
             });
-        }
-        public class Factory : PlaceholderFactory<Vector3, Quaternion, NPCActionScheduler>
-        {
-
         }
     }
     public enum ActionPriority

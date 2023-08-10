@@ -39,7 +39,7 @@ namespace Taxi.NPC
         {
             foreach (DriverQueueSpot spot in _queueSpots)
             {
-                if (spot.TryGetNPC(out RiderNPC npc) && npc == driverToRemove)
+                if (spot.GetNPC() != null && spot.GetNPC() == driverToRemove)
                 {
                     spot.Clear();
                 }
@@ -48,7 +48,7 @@ namespace Taxi.NPC
 
         private DriverQueueSpot FindAvailableSpot()
         {
-            return _queueSpots.FirstOrDefault(spot => !spot.HasNPC());
+            return _queueSpots.FirstOrDefault(spot => spot.IsEmpty());
         }
 
         private List<Driver> GetDriversByCondition(Func<Driver, bool> condition)
@@ -56,9 +56,9 @@ namespace Taxi.NPC
             List<Driver> drivers = new List<Driver>();
             foreach (DriverQueueSpot spot in _queueSpots)
             {
-                if (spot.TryGetNPC(out RiderNPC npc) && condition(npc as Driver))
+                if (spot.GetNPC() != null && condition(spot.GetNPC() as Driver))
                 {
-                    drivers.Add(npc as Driver);
+                    drivers.Add(spot.GetNPC() as Driver);
                 }
             }
             return drivers;
@@ -84,7 +84,7 @@ namespace Taxi.NPC
             bool isFull = true;
             foreach (DriverQueueSpot spot in _queueSpots)
             {
-                if (!spot.HasNPC())
+                if (spot.IsEmpty())
                 {
                     isFull = false;
                 }

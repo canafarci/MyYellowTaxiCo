@@ -7,10 +7,20 @@ using Zenject;
 
 namespace Taxi.NPC
 {
-    public class HatHelperNPC : NPCActionScheduler
+    public class HatHelperNPC : MonoBehaviour
     {
 
+        [Inject]
+        private void Create(Vector3 spawnPos, Quaternion rotation)
+        {
+            transform.position = spawnPos;
+            transform.rotation = rotation;
+        }
 
+        public class Factory : PlaceholderFactory<Vector3, Quaternion, HatHelperNPC>
+        {
+
+        }
     }
 }
 

@@ -16,7 +16,7 @@ namespace Taxi.NPC
 
             _wanderCoroutine = StartCoroutine(WandererLoop());
         }
-        public override void FollowPlayer(Inventory inventory, bool isInQueue = false)
+        public void FollowPlayer(Inventory inventory, bool isInQueue = false)
         {
             StopCoroutine(_wanderCoroutine);
             StopCoroutine(_moveCoroutine);

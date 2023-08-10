@@ -19,6 +19,11 @@ namespace Taxi.NPC
             _mover = mover;
             _npc = npc;
         }
+        public void Move(Transform destination)
+        {
+            _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
+            _mover.Move(destination.position);
+        }
 
         public void MoveAndSit(Transform destination)
         {
@@ -31,6 +36,7 @@ namespace Taxi.NPC
 
         private IEnumerator GoAndSit(Transform trans)
         {
+            _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
             yield return StartCoroutine(_mover.GetMoveAction(trans.position));
             Tween move = GetToExactPosition(trans);
             yield return move.WaitForCompletion();

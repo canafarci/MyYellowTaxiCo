@@ -28,8 +28,8 @@ namespace Taxi.NPC
         {
             Inventory inventory = GameManager.Instance.References.PlayerInventory;
 
-            NPCActionScheduler[] followers = inventory.GetFollowers(HatType);
-            if (followers.Length < 1) { yield break; }
+            //NPCActionScheduler[] followers = inventory.GetFollowers(HatType);
+            //if (followers.Length < 1) { yield break; }
             //yield return StartCoroutine(followers[0].OpenDoorAndGetIn(_getInLocation.position)); //TODO refactor
             _animator.Play("HeliAnim", 0, 0f);
             _stacker.StackItem(_money);
@@ -45,6 +45,7 @@ namespace Taxi.NPC
                 unlock.UnlockObject();
                 PlayerPrefs.SetInt(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE, 1);
             }
+            yield break;
         }
     }
 }

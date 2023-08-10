@@ -12,6 +12,13 @@ namespace Taxi.NPC
         private NPCActionScheduler _npc;
 
         [Inject]
+        private void Create(Vector3 spawnPos, Quaternion rotation)
+        {
+            transform.position = spawnPos;
+            transform.rotation = rotation;
+        }
+
+        [Inject]
         private void Init(NavMeshAgent agent, NPCActionScheduler npc)
         {
             _agent = agent;
@@ -42,6 +49,10 @@ namespace Taxi.NPC
                 if (Vector3.Distance(posxz, tarxz) <= _agent.stoppingDistance)
                     break;
             }
+        }
+
+        public class Factory : PlaceholderFactory<Vector3, Quaternion, NavMeshMover>
+        {
         }
     }
 }

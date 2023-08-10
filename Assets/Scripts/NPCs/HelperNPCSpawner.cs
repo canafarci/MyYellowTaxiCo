@@ -10,10 +10,10 @@ namespace Taxi.NPC
     {
         [SerializeField] private Transform _spawnPoint;
         private int _npcMaxCount, _currentNPCCount;
-        private NPCActionScheduler.Factory _npcFactory;
+        private HatHelperNPC.Factory _npcFactory;
 
         [Inject]
-        private void Init([Inject(Id = NPCType.Helper)] NPCActionScheduler.Factory npcFactory)
+        private void Init([Inject(Id = NPCType.Helper)] HatHelperNPC.Factory npcFactory)
         {
             _npcFactory = npcFactory;
         }

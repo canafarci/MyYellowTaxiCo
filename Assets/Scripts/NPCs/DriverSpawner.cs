@@ -10,16 +10,15 @@ namespace Taxi.NPC
 {
     public class DriverSpawner : MonoBehaviour
     {
-        [SerializeField] protected GameObject _follower;
         [SerializeField] private Transform _spawnTransform;
 
         public Enums.StackableItemType HatType;
         private INPCQueue _queue;
 
-        private NPCActionScheduler.Factory _driverFactory;
+        private NavMeshMover.Factory _driverFactory;
 
         [Inject]
-        private void Init([Inject(Id = NPCType.Driver)] NPCActionScheduler.Factory driverFactory,
+        private void Init([Inject(Id = NPCType.Driver)] NavMeshMover.Factory driverFactory,
                         [Inject(Id = NPCType.Driver)] INPCQueue queue)
         {
             _queue = queue;
