@@ -57,3 +57,17 @@ public class Car : MonoBehaviour
         CarInPlaceHandler?.Invoke(this, IsBrokenCar, _hatType);
     }
 }
+
+public struct CarConfig
+{
+    public Animator ParkAnimator;
+    public Transform EnterParkNode;
+
+    public CarConfig(Animator parkAnimator, Transform enterParkNode)
+    {
+        EnterParkNode = enterParkNode;
+        ParkAnimator = parkAnimator;
+    }
+
+
+}

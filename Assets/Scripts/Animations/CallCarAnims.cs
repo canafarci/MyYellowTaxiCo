@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Taxi.Vehicle;
 using UnityEngine;
 
 public class CallCarAnims : MonoBehaviour

@@ -4,172 +4,191 @@ using System.Collections.Generic;
 using System.Linq;
 using Taxi.NPC;
 using UnityEngine;
+using Zenject;
 
-public class CarSpawner : MonoBehaviour
+namespace Taxi.Vehicle
 {
-    public bool CarIsReady { get { return _currentCar != null; } }
-    public bool DriverIsComing = false;
-    public Enums.StackableItemType HatType;
-    //public Action OnMovedAway;
-    public GameObject[] BrokenCars { set { _brokenCars = value; } }
-    [SerializeField] private bool _spawnAlternate;
-    [SerializeField] private Transform _enterNode, _exitNode;
-    [SerializeField] private GameObject _item;
-    [SerializeField] private GameObject[] _brokenCars;
-    [SerializeField] private Animator _parkAnimator;
-    [SerializeField] private int _everyNthIsBroken = 2;
-    [SerializeField] private MoneyStacker _stacker;
-    [SerializeField] private bool _specialChargerSpawn, _specialBrokenSpawn, _specialTireSpawn;
-    private Car _currentCar = null;
-    private RoadNode _nodes;
-    private SpawnerUI _ui;
-    private int _spawnIndex = 0;
-
-    public static event EventHandler<OnNewSpawnerActivatedEventArgs> OnNewSpawnerActivated;
-    public static event EventHandler<OnCarReturned> OnCarReturned;
-
-    private void Awake()
+    public class CarSpawner : MonoBehaviour
     {
-        _nodes = FindObjectOfType<RoadNode>();
-        _ui = GetComponent<SpawnerUI>();
-        OnNewSpawnerActivated?.Invoke(this, new OnNewSpawnerActivatedEventArgs { HatType = HatType });
-    }
-    private void Start() => InitialSpawn();
+        public bool CarIsReady { get { return _currentCar != null; } }
+        public bool DriverIsComing = false;
+        public Enums.StackableItemType HatType;
+        //public Action OnMovedAway;
+        public GameObject[] BrokenCars { set { _brokenCars = value; } }
+        [SerializeField] private bool _spawnAlternate;
+        [SerializeField] private Transform _enterNode, _exitNode;
+        [SerializeField] private GameObject _item;
+        [SerializeField] private GameObject[] _brokenCars;
+        [SerializeField] private Animator _parkAnimator;
+        [SerializeField] private int _everyNthIsBroken = 2;
+        [SerializeField] private MoneyStacker _stacker;
+        [SerializeField] private bool _specialChargerSpawn, _specialBrokenSpawn, _specialTireSpawn;
+        private Car _currentCar = null;
+        private RoadNode _nodes;
+        private SpawnerUI _ui;
+        private int _spawnIndex = 0;
 
-    void OnCarInPlace(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
-    {
-        if (!IsBrokenCar)
-            _currentCar = car;
-        if (_spawnIndex > 0)
+
+        //* NEWWW
+
+        private CarMover.Factory _factory;
+
+        public static event EventHandler<OnNewSpawnerActivatedEventArgs> OnNewSpawnerActivated;
+        public static event EventHandler<OnCarReturned> OnCarReturned;
+
+        [Inject]
+        private void Init(CarMover.Factory factory)
         {
-            OnCarReturned?.Invoke(this, new OnCarReturned
+            _factory = factory;
+        }
+
+        private void Awake()
+        {
+            _nodes = FindObjectOfType<RoadNode>();
+            _ui = GetComponent<SpawnerUI>();
+            OnNewSpawnerActivated?.Invoke(this, new OnNewSpawnerActivatedEventArgs { HatType = HatType });
+        }
+
+        private void Start()
+        {
+            CarConfig config = new CarConfig(_parkAnimator, _enterNode);
+            _factory.Create(_item, config);
+        }
+        void OnCarInPlace(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
+        {
+            if (!IsBrokenCar)
+                _currentCar = car;
+            if (_spawnIndex > 0)
             {
-                HatType = HatType,
-                SpawnerTransform = transform
-            });
+                OnCarReturned?.Invoke(this, new OnCarReturned
+                {
+                    HatType = HatType,
+                    SpawnerTransform = transform
+                });
+            }
         }
-    }
 
-    void OnCarRepaired(Car car) => _currentCar = car;
+        void OnCarRepaired(Car car) => _currentCar = car;
 
-    void OnCarExited(Car car)
-    {
-        car.CarInPlaceHandler -= OnCarInPlace;
-        car.CarExitedHandler -= OnCarExited;
-        car.CarExitedHandler -= OnCarRepaired;
-        SpawnCar();
-    }
-
-    public void StartMove()
-    {
-        StartCoroutine(_ui.WaitLoop(false));
-        _currentCar.TakeOffFX();
-        _parkAnimator.Play("ParkOut");
-        _spawnIndex += 1;
-    }
-
-    public void CallMove()
-    {
-        _currentCar.MoveAway();
-        _currentCar = null;
-        DriverIsComing = false;
-        //OnMovedAway();
-        _parkAnimator.enabled = false;
-    }
-    public void SpawnCar()
-    {
-        Car car;
-
-        if (_specialChargerSpawn && !PlayerPrefs.HasKey(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE))
+        void OnCarExited(Car car)
         {
-            car = GameObject.Instantiate(_brokenCars[0],
-                                 _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
-                                 GetComponent<Car>();
-
-            car.CarInPlaceHandler += FirstChargerReturn;
-
+            car.CarInPlaceHandler -= OnCarInPlace;
+            car.CarExitedHandler -= OnCarExited;
+            car.CarExitedHandler -= OnCarRepaired;
+            SpawnCar();
         }
-        else if (_specialBrokenSpawn && !PlayerPrefs.HasKey(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE))
+
+        public void StartMove()
         {
-            car = GameObject.Instantiate(_brokenCars[0],
-                                 _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
-                                 GetComponent<Car>();
-
-            car.CarInPlaceHandler += FirstBrokenReturn;
-
+            StartCoroutine(_ui.WaitLoop(false));
+            _currentCar.TakeOffFX();
+            _parkAnimator.Play("ParkOut");
+            _spawnIndex += 1;
         }
-        else if (_specialTireSpawn && !PlayerPrefs.HasKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE))
+
+        public void CallMove()
         {
-            car = GameObject.Instantiate(_brokenCars[0],
-                                 _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
-                                 GetComponent<Car>();
-
-            car.CarInPlaceHandler += FirstTireReturn;
+            _currentCar.MoveAway();
+            _currentCar = null;
+            DriverIsComing = false;
+            //OnMovedAway();
+            _parkAnimator.enabled = false;
         }
-        else
+        public void SpawnCar()
         {
-            car = GameObject.Instantiate(_spawnIndex % _everyNthIsBroken == 0 || _spawnIndex == 0 ?
-                                 _brokenCars[UnityEngine.Random.Range(0, _brokenCars.Length)] :
-                                 _item,
-                                 _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
-                                 GetComponent<Car>();
-            car.CarInPlaceHandler += OnCarInPlace;
+            Car car;
+
+            if (_specialChargerSpawn && !PlayerPrefs.HasKey(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE))
+            {
+                car = GameObject.Instantiate(_brokenCars[0],
+                                     _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
+                                     GetComponent<Car>();
+
+                car.CarInPlaceHandler += FirstChargerReturn;
+
+            }
+            else if (_specialBrokenSpawn && !PlayerPrefs.HasKey(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE))
+            {
+                car = GameObject.Instantiate(_brokenCars[0],
+                                     _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
+                                     GetComponent<Car>();
+
+                car.CarInPlaceHandler += FirstBrokenReturn;
+
+            }
+            else if (_specialTireSpawn && !PlayerPrefs.HasKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE))
+            {
+                car = GameObject.Instantiate(_brokenCars[0],
+                                     _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
+                                     GetComponent<Car>();
+
+                car.CarInPlaceHandler += FirstTireReturn;
+            }
+            else
+            {
+                car = GameObject.Instantiate(_spawnIndex % _everyNthIsBroken == 0 || _spawnIndex == 0 ?
+                                     _brokenCars[UnityEngine.Random.Range(0, _brokenCars.Length)] :
+                                     _item,
+                                     _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
+                                     GetComponent<Car>();
+                car.CarInPlaceHandler += OnCarInPlace;
+            }
+
+            //Start
+            car.EnterNode = _enterNode;
+            car.ExitNode = _nodes.EndNode;
+            car.parkAnimator = _parkAnimator;
+            car.Stacker = _stacker;
+
+            //sub to actions
+            car.CarRepairedHandler += OnCarRepaired;
+            car.CarExitedHandler += OnCarExited;
         }
 
-        //Start
-        car.EnterNode = _enterNode;
-        car.ExitNode = _nodes.EndNode;
-        car.parkAnimator = _parkAnimator;
-        car.Stacker = _stacker;
+        void InitialSpawn()
+        {
+            // Car car = GameObject.Instantiate(_item, _nodes.StartNode.position, _nodes.StartNode.rotation).GetComponent<Car>();
 
-        //sub to actions
-        car.CarRepairedHandler += OnCarRepaired;
-        car.CarExitedHandler += OnCarExited;
+            // car.EnterNode = _enterNode;
+            // car.ExitNode = _nodes.EndNode;
+            // car.parkAnimator = _parkAnimator;
+            // car.Stacker = _stacker;
+
+            // car.GetComponent<Animator>().enabled = false;
+
+            // car.CarInPlaceHandler += OnCarInPlace;
+            // car.CarExitedHandler += OnCarExited;
+
+            // car.GetToParkPosition();
+        }
+
+        void FirstChargerReturn(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
+        {
+            OnCarInPlace(car, IsBrokenCar, hatType);
+            FindObjectOfType<ConditionalTutorial>().FirstReturnCarWithoutCharger();
+        }
+        void FirstBrokenReturn(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
+        {
+            OnCarInPlace(car, IsBrokenCar, hatType);
+            FindObjectOfType<ConditionalTutorial>().SecondReturnBroken();
+        }
+        void FirstTireReturn(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
+        {
+            OnCarInPlace(car, IsBrokenCar, hatType);
+            FindObjectOfType<ConditionalTutorial>().ThirdReturnBroken();
+        }
     }
 
-    void InitialSpawn()
+
+
+
+    public class OnNewSpawnerActivatedEventArgs : EventArgs
     {
-        Car car = GameObject.Instantiate(_item, _nodes.StartNode.position, _nodes.StartNode.rotation).GetComponent<Car>();
-
-        car.EnterNode = _enterNode;
-        car.ExitNode = _nodes.EndNode;
-        car.parkAnimator = _parkAnimator;
-        car.Stacker = _stacker;
-
-        car.GetComponent<Animator>().enabled = false;
-
-        car.CarInPlaceHandler += OnCarInPlace;
-        car.CarExitedHandler += OnCarExited;
-
-        car.GetToParkPosition();
+        public Enums.StackableItemType HatType;
     }
-
-    void FirstChargerReturn(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
+    public class OnCarReturned : EventArgs
     {
-        OnCarInPlace(car, IsBrokenCar, hatType);
-        FindObjectOfType<ConditionalTutorial>().FirstReturnCarWithoutCharger();
+        public Enums.StackableItemType HatType;
+        public Transform SpawnerTransform;
     }
-    void FirstBrokenReturn(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
-    {
-        OnCarInPlace(car, IsBrokenCar, hatType);
-        FindObjectOfType<ConditionalTutorial>().SecondReturnBroken();
-    }
-    void FirstTireReturn(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
-    {
-        OnCarInPlace(car, IsBrokenCar, hatType);
-        FindObjectOfType<ConditionalTutorial>().ThirdReturnBroken();
-    }
-}
-
-
-
-
-public class OnNewSpawnerActivatedEventArgs : EventArgs
-{
-    public Enums.StackableItemType HatType;
-}
-public class OnCarReturned : EventArgs
-{
-    public Enums.StackableItemType HatType;
-    public Transform SpawnerTransform;
 }
