@@ -8,8 +8,8 @@ namespace Taxi.NPC
 {
     public class NavMeshMover : MonoBehaviour
     {
+        protected NPCActionScheduler _npc;
         private NavMeshAgent _agent;
-        private NPCActionScheduler _npc;
 
         [Inject]
         private void Create(Vector3 spawnPos, Quaternion rotation)
@@ -29,12 +29,8 @@ namespace Taxi.NPC
         {
             _npc.AddToActionQueue(MoveToPosition(pos));
         }
-        public IEnumerator GetMoveAction(Vector3 pos)
-        {
-            return MoveToPosition(pos);
-        }
 
-        private IEnumerator MoveToPosition(Vector3 pos)
+        protected IEnumerator MoveToPosition(Vector3 pos)
         {
             yield return new WaitForSeconds(0.2f); //time for navmesh agent to clean up and initialize
             Vector3 tarxz = new Vector3(pos.x, 0f, pos.z);
@@ -51,7 +47,7 @@ namespace Taxi.NPC
             }
         }
 
-        public class Factory : PlaceholderFactory<Vector3, Quaternion, NavMeshMover>
+        public class Factory : PlaceholderFactory<Object, Vector3, Quaternion, NavMeshMover>
         {
         }
     }

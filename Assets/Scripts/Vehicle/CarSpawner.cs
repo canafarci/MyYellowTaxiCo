@@ -160,6 +160,10 @@ public class CarSpawner : MonoBehaviour
         FindObjectOfType<ConditionalTutorial>().ThirdReturnBroken();
     }
 }
+
+
+
+
 public class OnNewSpawnerActivatedEventArgs : EventArgs
 {
     public Enums.StackableItemType HatType;

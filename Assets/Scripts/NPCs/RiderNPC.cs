@@ -8,21 +8,12 @@ using Zenject;
 
 namespace Taxi.NPC
 {
-    public class RiderNPC : MonoBehaviour
+    public class RiderNPC : NavMeshMover
     {
-        private NavMeshMover _mover;
-        private NPCActionScheduler _npc;
-
-        [Inject]
-        private void Init(NPCActionScheduler npc, NavMeshMover mover)
-        {
-            _mover = mover;
-            _npc = npc;
-        }
         public void Move(Transform destination)
         {
             _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
-            _mover.Move(destination.position);
+            Move(destination.position);
         }
 
         public void MoveAndSit(Transform destination)
@@ -37,7 +28,7 @@ namespace Taxi.NPC
         private IEnumerator GoAndSit(Transform trans)
         {
             _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
-            yield return StartCoroutine(_mover.GetMoveAction(trans.position));
+            yield return StartCoroutine(MoveToPosition(trans.position));
             Tween move = GetToExactPosition(trans);
             yield return move.WaitForCompletion();
 
@@ -54,7 +45,7 @@ namespace Taxi.NPC
         private IEnumerator MoveToCar(Transform destination, Action onNPCReachedCar)
         {
             _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
-            yield return StartCoroutine(_mover.GetMoveAction(destination.position));
+            yield return StartCoroutine(MoveToPosition(destination.position));
             _npc.InvokeAnimationStateChangedEvent(AnimationValues.ENTERING_CAR, true);
 
             yield return new WaitForSeconds(.5f);

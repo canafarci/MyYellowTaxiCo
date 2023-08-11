@@ -2121,7 +2121,6 @@ GameObject:
   - component: {fileID: 3372718807835599535}
   - component: {fileID: 3900945411442792462}
   - component: {fileID: 8965201849904363864}
-  - component: {fileID: 1544663829503803799}
   - component: {fileID: 3518747796992851390}
   m_Layer: 11
   m_Name: DurakNPC A
@@ -2242,18 +2241,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hat: 0
---- !u!114 &1544663829503803799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4909763518887318041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef0d5cccab53c214da33c6c565557379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3518747796992851390
 MonoBehaviour:
   m_ObjectHideFlags: 0
