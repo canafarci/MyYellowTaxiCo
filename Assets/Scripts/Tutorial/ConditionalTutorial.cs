@@ -16,7 +16,7 @@ public class ConditionalTutorial : MonoBehaviour
                 _onFirstWandererSpawn, _wandererTriggered, _afterWandererDeliveredLoad;
 
     [SerializeField] GameObject[] _secondStageBrokenCars, _thirdStageBrokenCars;
-    [SerializeField] Spawner[] _firstSpawners, _secondSpawners;
+    [SerializeField] CarSpawner[] _firstSpawners, _secondSpawners;
     ObjectiveArrow _objectiveArrow;
     [SerializeField] GameObject[] _tutorialTexts;
     private void Awake()
@@ -40,7 +40,7 @@ public class ConditionalTutorial : MonoBehaviour
         {
             _afterRepairLoad.Invoke();
 
-            foreach (Spawner sp in _firstSpawners)
+            foreach (CarSpawner sp in _firstSpawners)
             {
                 sp.BrokenCars = _secondStageBrokenCars;
             }
@@ -49,7 +49,7 @@ public class ConditionalTutorial : MonoBehaviour
         {
             _afterTireReload.Invoke();
 
-            foreach (Spawner sp in _secondSpawners)
+            foreach (CarSpawner sp in _secondSpawners)
             {
                 sp.BrokenCars = _thirdStageBrokenCars;
             }
@@ -89,7 +89,7 @@ public class ConditionalTutorial : MonoBehaviour
     {
         _onFirstRepair.Invoke();
 
-        foreach (Spawner sp in _firstSpawners)
+        foreach (CarSpawner sp in _firstSpawners)
         {
             sp.BrokenCars = _secondStageBrokenCars;
         }
@@ -98,7 +98,7 @@ public class ConditionalTutorial : MonoBehaviour
     {
         _onFirstTireChange.Invoke();
 
-        foreach (Spawner sp in _secondSpawners)
+        foreach (CarSpawner sp in _secondSpawners)
         {
             sp.BrokenCars = _thirdStageBrokenCars;
         }

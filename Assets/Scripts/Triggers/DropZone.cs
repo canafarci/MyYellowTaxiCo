@@ -62,7 +62,7 @@ public class DropZone : MonoBehaviour
     //     yield return new WaitForSeconds(1f);
     //     _spawner.StartMove();
     // }
-    //TODO case when followers dropped to the car zone
+    // TODO case when followers dropped to the car zone
     // IEnumerator Unload(NavMeshNPC[] followers, Car car)
     // {
     //     if (!PlayerPrefs.HasKey(Globals.FOURTH_CUSTOMER_TUTORIAL_COMPLETE))

@@ -10,14 +10,14 @@ namespace Taxi.NPC
     {
         public Enums.StackableItemType HatType;
         private DriverQueue _driverQueue;
-        private List<Spawner> _spawners = new List<Spawner>();
+        private List<CarSpawner> _spawners = new List<CarSpawner>();
         private void Awake()
         {
             _driverQueue = GetComponent<DriverQueue>();
         }
         private void Start()
         {
-            Spawner.OnNewSpawnerActivated += NewSpawnerActivatedHandler;
+            CarSpawner.OnNewSpawnerActivated += NewSpawnerActivatedHandler;
             StartCoroutine(CheckSpawners());
         }
         private IEnumerator CheckSpawners()
@@ -30,7 +30,7 @@ namespace Taxi.NPC
 
                 if (drivers.Count == 0) { continue; }
 
-                foreach (Spawner spawner in _spawners)
+                foreach (CarSpawner spawner in _spawners)
                 {
                     if (spawner.CarIsReady)
                     {
@@ -48,14 +48,14 @@ namespace Taxi.NPC
         {
             if (HatType == e.HatType)
             {
-                Spawner spawner = sender as Spawner;
+                CarSpawner spawner = sender as CarSpawner;
                 Assert.IsNotNull(spawner);
                 _spawners.Add(spawner);
             }
         }
         private void OnDisable()
         {
-            Spawner.OnNewSpawnerActivated -= NewSpawnerActivatedHandler;
+            CarSpawner.OnNewSpawnerActivated -= NewSpawnerActivatedHandler;
         }
     }
 }

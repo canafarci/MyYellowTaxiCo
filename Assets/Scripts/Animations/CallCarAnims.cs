@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CallCarAnims : MonoBehaviour
 {
-    [SerializeField] Spawner _spawner;
+    [SerializeField] CarSpawner _spawner;
     public void OnCarInPlace()
     {
         GetComponentInChildren<Car>().OnInPlace();

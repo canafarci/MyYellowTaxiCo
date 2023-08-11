@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,8 @@ namespace Taxi.NPC
 {
     public class DriverSpawner : MonoBehaviour
     {
-        [SerializeField] private Transform _spawnTransform;
-
         public Enums.StackableItemType HatType;
         private INPCQueue _queue;
-
         private NavMeshMover.Factory _driverFactory;
 
         [Inject]
@@ -24,14 +22,37 @@ namespace Taxi.NPC
             _queue = queue;
             _driverFactory = driverFactory;
         }
-        private void Start() => SpawnDriver(_spawnTransform);
-        public void SpawnDriver(Transform spawnTransform)
+        private void Start()
+        {
+            CarSpawner.OnCarReturned += CarSpawner_CarReturnedHandler;
+            DriverQueueSpot.OnNewDriverQueueSpotActivated += DriverQueueSpot_NewDriverQueueSpotActivatedHandler;
+        }
+
+        private void DriverQueueSpot_NewDriverQueueSpotActivatedHandler(object sender, OnNewQueueSpotActivatedEventArgs e)
+        {
+            if (e.HatType == HatType)
+            {
+                StartCoroutine(AddDriverWhenQueueHasAvaliableSpot(transform));
+            }
+        }
+        private void CarSpawner_CarReturnedHandler(object sender, OnCarReturned e)
+        {
+            if (e.HatType == HatType)
+            {
+                StartCoroutine(AddDriverWhenQueueHasAvaliableSpot(e.SpawnerTransform));
+            }
+        }
+        private IEnumerator AddDriverWhenQueueHasAvaliableSpot(Transform spot)
+        {
+            yield return new WaitUntil(() => !_queue.QueueIsFull());
+            SpawnDriver(spot);
+        }
+        private void SpawnDriver(Transform spawnTransform)
         {
             //spawn driver and downsize scale
             RiderNPC driver = _driverFactory.Create(spawnTransform.position, spawnTransform.rotation).GetComponent<RiderNPC>();
             //add driver to the queue
-            if (!_queue.QueueIsFull())
-                _queue.AddToQueue(driver);
+            _queue.AddToQueue(driver);
         }
     }
 }
