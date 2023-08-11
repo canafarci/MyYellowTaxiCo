@@ -12,11 +12,12 @@ namespace Taxi.NPC
     {
         [SerializeField] private float _spawnRate;
         [SerializeField] private Transform _spawnTransform;
+        [SerializeField] private GameObject[] _followerPrefabs;
         private INPCQueue _queue;
         private NavMeshMover.Factory _followerFactory;
 
         [Inject]
-        private void Init([Inject(Id = NPCType.Follower)] NavMeshMover.Factory factory)
+        private void Init(NavMeshMover.Factory factory)
         {
             _followerFactory = factory;
         }
@@ -44,7 +45,13 @@ namespace Taxi.NPC
 
         private void CreateFollower()
         {
-            RiderNPC npc = _followerFactory.Create(_spawnTransform.position, _spawnTransform.rotation).GetComponent<RiderNPC>();
+            int randInt = UnityEngine.Random.Range(0, _followerPrefabs.Length);
+            GameObject prefab = _followerPrefabs[randInt];
+
+            RiderNPC npc = _followerFactory.Create(prefab,
+                                                _spawnTransform.position,
+                                                _spawnTransform.rotation)
+                                                .GetComponent<RiderNPC>();
 
             _queue.AddToQueue(npc);
         }
