@@ -12,10 +12,10 @@ namespace TaxiGame.Vehicle
         [SerializeField] private Animator _wobbleAnimator;
         [SerializeField] GameObject _driver;
         private Animator _animator;
-        private Taxi _taxi;
+        private Vehicle _taxi;
 
         [Inject]
-        private void Init(Taxi taxi, Animator animator)
+        private void Init(Vehicle taxi, Animator animator)
         {
             _taxi = taxi;
             _animator = animator;
@@ -40,7 +40,7 @@ namespace TaxiGame.Vehicle
 
         public void OnCarParked()
         {
-            _taxi.GetConfig().TaxiSpot.SetTaxi(_taxi);
+            _taxi.GetConfig().TaxiSpot.SetVehicle(_taxi);
 
             Tween scale = _driver.transform.DOScale(0.00001f, .5f);
             TweenCallback callback = () => _driver.SetActive(false);

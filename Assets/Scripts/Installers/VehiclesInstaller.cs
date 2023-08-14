@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Taxi.Vehicle;
 using UnityEngine;
 using Zenject;
 
@@ -9,17 +10,20 @@ namespace TaxiGame.Vehicle
     {
         public override void InstallBindings()
         {
-            Container.Bind<Taxi>()
+            Container.Bind<VehicleStateManager>()
+                    .AsSingle();
+
+            Container.Bind<Vehicle>()
                     .FromComponentInChildren()
                     .AsTransient();
-            Container.Bind<TaxiSpot>()
+            Container.Bind<VehicleSpot>()
                     .FromComponentInChildren()
                     .AsTransient();
 
 
 
-            Container.BindFactory<Object, CarConfig, Taxi, Taxi.Factory>()
-                .FromFactory<PrefabFactory<CarConfig, Taxi>>();
+            Container.BindFactory<Object, CarConfig, Vehicle, Vehicle.Factory>()
+                .FromFactory<PrefabFactory<CarConfig, Vehicle>>();
 
 
         }

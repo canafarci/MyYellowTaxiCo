@@ -31,13 +31,13 @@ namespace TaxiGame.Vehicle
 
         //* NEWWW
 
-        private Taxi.Factory _factory;
-        private TaxiSpot _spot;
+        private Vehicle.Factory _factory;
+        private VehicleSpot _spot;
 
         public static event EventHandler<OnNewSpawnerActivatedEventArgs> OnNewSpawnerActivated;
 
         [Inject]
-        private void Init(Taxi.Factory factory, TaxiSpot spot)
+        private void Init(Vehicle.Factory factory, VehicleSpot spot)
         {
             _factory = factory;
             _spot = spot;

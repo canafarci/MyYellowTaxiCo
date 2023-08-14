@@ -64,12 +64,12 @@ public struct CarConfig
     public Animator ParkAnimator;
     public Transform EnterParkNode;
     public Transform ExitParkNode;
-    public TaxiSpot TaxiSpot;
+    public VehicleSpot TaxiSpot;
 
     public CarConfig(Animator parkAnimator,
             Transform enterParkNode,
             Transform exitNode,
-            TaxiSpot spot)
+            VehicleSpot spot)
     {
         EnterParkNode = enterParkNode;
         ExitParkNode = exitNode;

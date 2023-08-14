@@ -11,7 +11,7 @@ namespace TaxiGame.NPC
     public class QueueChecker : MonoBehaviour
     {
         [SerializeField] private Enums.StackableItemType _hatType;
-        private List<TaxiSpot> _spots = new List<TaxiSpot>();
+        private List<VehicleSpot> _spots = new List<VehicleSpot>();
         private List<Driver> _driversWithHat = new List<Driver>();
         private Coroutine _checkSpotsCoroutine;
         private DriverQueue _driverQueue;
@@ -27,7 +27,7 @@ namespace TaxiGame.NPC
         }
         private void Start()
         {
-            TaxiSpot.OnTaxiReturned += TaxiSpot_TaxiReturnedHandler;
+            VehicleSpot.OnVehicleReturned += TaxiSpot_TaxiReturnedHandler;
             _hatDistributor.OnHatDistributed += HatDistributor_HatDistributedHandler;
         }
 
@@ -36,11 +36,11 @@ namespace TaxiGame.NPC
             _driversWithHat.Add(e.Driver);
         }
 
-        private void TaxiSpot_TaxiReturnedHandler(object sender, OnTaxiReturned e)
+        private void TaxiSpot_TaxiReturnedHandler(object sender, OnVehicleReturned e)
         {
             if (_hatType != e.HatType) return;
 
-            TaxiSpot spot = sender as TaxiSpot;
+            VehicleSpot spot = sender as VehicleSpot;
             Assert.IsNotNull(spot);
             _spots.Add(spot);
 
@@ -55,7 +55,7 @@ namespace TaxiGame.NPC
                 if (_driversWithHat.Count > 0)
                 {
                     Driver driver = _driversWithHat[^1];
-                    TaxiSpot spot = _spots[^1];
+                    VehicleSpot spot = _spots[^1];
 
                     driver.GetView().GoToCar(spot.transform, () => { });
 
@@ -73,7 +73,7 @@ namespace TaxiGame.NPC
         //Cleanup
         private void OnDisable()
         {
-            TaxiSpot.OnTaxiReturned -= TaxiSpot_TaxiReturnedHandler;
+            VehicleSpot.OnVehicleReturned -= TaxiSpot_TaxiReturnedHandler;
         }
     }
 }

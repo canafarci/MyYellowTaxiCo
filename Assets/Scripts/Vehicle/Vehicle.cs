@@ -5,7 +5,7 @@ using Zenject;
 
 namespace TaxiGame.Vehicle
 {
-    public class Taxi : MonoBehaviour
+    public class Vehicle : MonoBehaviour
     {
         private CarConfig _config;
         public CarConfig GetConfig() => _config;
@@ -15,7 +15,7 @@ namespace TaxiGame.Vehicle
             _config = config;
         }
 
-        public class Factory : PlaceholderFactory<Object, CarConfig, Taxi>
+        public class Factory : PlaceholderFactory<Object, CarConfig, Vehicle>
         {
 
         }
