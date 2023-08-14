@@ -26,7 +26,7 @@ namespace TaxiGame.NPC
         }
         private void Start()
         {
-            CarSpawner.OnCarReturned += CarSpawner_CarReturnedHandler;
+            TaxiSpot.OnTaxiReturned += CarSpawner_CarReturnedHandler;
             DriverQueueSpot.OnNewDriverQueueSpotActivated += DriverQueueSpot_NewDriverQueueSpotActivatedHandler;
         }
 
@@ -37,7 +37,7 @@ namespace TaxiGame.NPC
                 StartCoroutine(AddDriverWhenQueueHasAvaliableSpot(transform));
             }
         }
-        private void CarSpawner_CarReturnedHandler(object sender, OnCarReturned e)
+        private void CarSpawner_CarReturnedHandler(object sender, OnTaxiReturned e)
         {
             if (e.HatType == HatType)
             {
@@ -57,6 +57,13 @@ namespace TaxiGame.NPC
                                                     spawnTransform.rotation);
             //add driver to the queue
             _queue.AddToQueue(driver);
+        }
+
+        //Cleanup
+        private void OnDisable()
+        {
+            TaxiSpot.OnTaxiReturned -= CarSpawner_CarReturnedHandler;
+            DriverQueueSpot.OnNewDriverQueueSpotActivated -= DriverQueueSpot_NewDriverQueueSpotActivatedHandler;
         }
     }
 }

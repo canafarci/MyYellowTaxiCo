@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using System.Linq;
+using TaxiGame.Vehicle;
 
 public class Car : MonoBehaviour
 {
@@ -62,11 +63,18 @@ public struct CarConfig
 {
     public Animator ParkAnimator;
     public Transform EnterParkNode;
+    public Transform ExitParkNode;
+    public TaxiSpot TaxiSpot;
 
-    public CarConfig(Animator parkAnimator, Transform enterParkNode)
+    public CarConfig(Animator parkAnimator,
+            Transform enterParkNode,
+            Transform exitNode,
+            TaxiSpot spot)
     {
         EnterParkNode = enterParkNode;
+        ExitParkNode = exitNode;
         ParkAnimator = parkAnimator;
+        TaxiSpot = spot;
     }
 
 

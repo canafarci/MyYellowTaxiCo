@@ -2548,6 +2548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _wobbleAnimator: {fileID: 8540804995203897044}
+  _driver: {fileID: 2556511585538821943}
 --- !u!114 &616308754158210963
 MonoBehaviour:
   m_ObjectHideFlags: 0

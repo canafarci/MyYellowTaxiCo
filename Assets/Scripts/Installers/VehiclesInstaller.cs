@@ -9,8 +9,18 @@ namespace TaxiGame.Vehicle
     {
         public override void InstallBindings()
         {
-            Container.BindFactory<Object, CarConfig, CarView, CarView.Factory>()
-                .FromFactory<PrefabFactory<CarConfig, CarView>>();
+            Container.Bind<Taxi>()
+                    .FromComponentInChildren()
+                    .AsTransient();
+            Container.Bind<TaxiSpot>()
+                    .FromComponentInChildren()
+                    .AsTransient();
+
+
+
+            Container.BindFactory<Object, CarConfig, Taxi, Taxi.Factory>()
+                .FromFactory<PrefabFactory<CarConfig, Taxi>>();
+
 
         }
     }

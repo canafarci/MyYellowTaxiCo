@@ -14,5 +14,6 @@ namespace TaxiGame.Animations
         //VEHICLE
         public static readonly int WOBBLE_IN = Animator.StringToHash("WobbleParkIn");
         public static readonly int PARK_IN = Animator.StringToHash("ParkIn");
+        public const float PARK_IN_ANIM_LENGTH = 1.9f;
     }
 }

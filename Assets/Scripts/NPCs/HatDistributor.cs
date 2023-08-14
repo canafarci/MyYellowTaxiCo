@@ -11,6 +11,9 @@ namespace TaxiGame.NPC
     {
         private Stacker _stacker;
         private DriverQueue _driverQueue;
+        private List<Driver> _drivers = new List<Driver>();
+        private Coroutine _distributeHatCoroutine;
+
         public event EventHandler<HatDistributedEventArgs> OnHatDistributed;
 
         [Inject]
@@ -22,45 +25,44 @@ namespace TaxiGame.NPC
         }
         private void Start()
         {
-            StartCoroutine(TryGiveHatLoop());
+            _driverQueue.OnDriverAddedToQueue += DriverQueue_DriverAddedToQueueHandler;
         }
+
+        private void DriverQueue_DriverAddedToQueueHandler(object sender, OnDriverAddedToQueueArgs e)
+        {
+            _drivers.Add(e.Driver);
+
+            if (_distributeHatCoroutine == null)
+                _distributeHatCoroutine = StartCoroutine(TryGiveHatLoop());
+        }
+
         private IEnumerator TryGiveHatLoop()
         {
-            while (true)
+            while (_drivers.Count > 0)
             {
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(1f);
 
-                List<Driver> drivers = _driverQueue.GetDrivers();
-                if (_stacker.ItemStack.Count > 0 && drivers.Count > 0)
+                if (_stacker.ItemStack.Count > 0)
                 {
-                    TryDistributeHatToDrivers(drivers);
-                }
-            }
-        }
-        private void TryDistributeHatToDrivers(List<Driver> drivers)
-        {
-            foreach (Driver driver in drivers)
-            {
-                if (driver.HasHat()) { continue; }
+                    Driver driver = _drivers[^1];
+                    StackableItem hat = _stacker.ItemStack.Pop();
 
-                if (_stacker.ItemStack.TryPop(out StackableItem hat))
-                {
                     driver.SetHasHat(true);
+                    _drivers.Remove(driver);
+
                     InvokeHatDistributedEvent(driver, hat);
                 }
-                else
-                {
-                    break;
-                }
             }
+
+            _distributeHatCoroutine = null;
         }
 
         private void InvokeHatDistributedEvent(Driver driver, StackableItem hat)
         {
             OnHatDistributed?.Invoke(this, new HatDistributedEventArgs
             {
+                Driver = driver,
                 Item = hat.transform,
-                Target = driver.GetHatTransform()
             });
         }
     }
@@ -69,6 +71,6 @@ namespace TaxiGame.NPC
     {
         public Transform Item;
 
-        public Transform Target;
+        public Driver Driver;
     }
 }

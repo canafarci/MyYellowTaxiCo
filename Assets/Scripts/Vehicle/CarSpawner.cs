@@ -31,15 +31,16 @@ namespace TaxiGame.Vehicle
 
         //* NEWWW
 
-        private CarView.Factory _factory;
+        private Taxi.Factory _factory;
+        private TaxiSpot _spot;
 
         public static event EventHandler<OnNewSpawnerActivatedEventArgs> OnNewSpawnerActivated;
-        public static event EventHandler<OnCarReturned> OnCarReturned;
 
         [Inject]
-        private void Init(CarView.Factory factory)
+        private void Init(Taxi.Factory factory, TaxiSpot spot)
         {
             _factory = factory;
+            _spot = spot;
         }
 
         private void Awake()
@@ -51,7 +52,7 @@ namespace TaxiGame.Vehicle
 
         private void Start()
         {
-            CarConfig config = new CarConfig(_parkAnimator, _enterNode);
+            CarConfig config = new CarConfig(_parkAnimator, _enterNode, _exitNode, _spot);
             _factory.Create(_item, config);
         }
         void OnCarInPlace(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
@@ -60,11 +61,7 @@ namespace TaxiGame.Vehicle
                 _currentCar = car;
             if (_spawnIndex > 0)
             {
-                OnCarReturned?.Invoke(this, new OnCarReturned
-                {
-                    HatType = HatType,
-                    SpawnerTransform = transform
-                });
+
             }
         }
 
@@ -179,16 +176,9 @@ namespace TaxiGame.Vehicle
         }
     }
 
-
-
-
     public class OnNewSpawnerActivatedEventArgs : EventArgs
     {
         public Enums.StackableItemType HatType;
     }
-    public class OnCarReturned : EventArgs
-    {
-        public Enums.StackableItemType HatType;
-        public Transform SpawnerTransform;
-    }
+
 }

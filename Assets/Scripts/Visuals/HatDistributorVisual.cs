@@ -25,7 +25,7 @@ namespace TaxiGame.Visuals
 
         private void HatDistributor_HatDistributedHandler(object sender, HatDistributedEventArgs e)
         {
-            MoveObjectInArc(e.Item, e.Target);
+            MoveObjectInArc(e.Item, e.Driver.GetHatTransform());
         }
 
         private void MoveObjectInArc(Transform item, Transform target)

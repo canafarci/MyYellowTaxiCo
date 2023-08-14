@@ -4,59 +4,76 @@ using System.Collections.Generic;
 using TaxiGame.Vehicle;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Zenject;
 
 namespace TaxiGame.NPC
 {
     public class QueueChecker : MonoBehaviour
     {
-        public Enums.StackableItemType HatType;
+        [SerializeField] private Enums.StackableItemType _hatType;
+        private List<TaxiSpot> _spots = new List<TaxiSpot>();
+        private List<Driver> _driversWithHat = new List<Driver>();
+        private Coroutine _checkSpotsCoroutine;
         private DriverQueue _driverQueue;
-        private List<CarSpawner> _spawners = new List<CarSpawner>();
-        private void Awake()
+        private HatDistributor _hatDistributor;
+
+        [Inject]
+        private void Init(
+                        [Inject(Id = ModelType.Distributor)] DriverQueue driverQueue,
+                        HatDistributor hatDistributor)
         {
-            _driverQueue = GetComponent<DriverQueue>();
+            _hatDistributor = hatDistributor;
+            _driverQueue = driverQueue;
         }
         private void Start()
         {
-            CarSpawner.OnNewSpawnerActivated += NewSpawnerActivatedHandler;
-            StartCoroutine(CheckSpawners());
+            TaxiSpot.OnTaxiReturned += TaxiSpot_TaxiReturnedHandler;
+            _hatDistributor.OnHatDistributed += HatDistributor_HatDistributedHandler;
         }
-        private IEnumerator CheckSpawners()
+
+        private void HatDistributor_HatDistributedHandler(object sender, HatDistributedEventArgs e)
         {
-            while (true)
+            _driversWithHat.Add(e.Driver);
+        }
+
+        private void TaxiSpot_TaxiReturnedHandler(object sender, OnTaxiReturned e)
+        {
+            if (_hatType != e.HatType) return;
+
+            TaxiSpot spot = sender as TaxiSpot;
+            Assert.IsNotNull(spot);
+            _spots.Add(spot);
+
+            if (_checkSpotsCoroutine == null)
+                _checkSpotsCoroutine = StartCoroutine(CheckTaxiSpots());
+        }
+
+        private IEnumerator CheckTaxiSpots()
+        {
+            while (_spots.Count > 0)
             {
-                yield return new WaitForSeconds(0.5f);
-                //if there are drivers with hats, check if there are avaliable cars
-                List<Driver> drivers = _driverQueue.GetDriversWithHat();
-
-                if (drivers.Count == 0) { continue; }
-
-                foreach (CarSpawner spawner in _spawners)
+                if (_driversWithHat.Count > 0)
                 {
-                    if (spawner.CarIsReady)
-                    {
-                        spawner.DriverIsComing = true;
-                        Driver driver = drivers[^1];
-                        driver.GetView().GoToCar(spawner.transform, () => spawner.StartMove());
-                        drivers.RemoveAt(drivers.Count - 1);
-                        _driverQueue.Remove(driver);
-                    }
+                    Driver driver = _driversWithHat[^1];
+                    TaxiSpot spot = _spots[^1];
+
+                    driver.GetView().GoToCar(spot.transform, () => { });
+
+                    _driversWithHat.Remove(driver);
+                    _spots.Remove(spot);
+                    _driverQueue.Remove(driver);
                 }
-                //make drivers move to the cars
+                yield return new WaitForSeconds(.75f);
             }
+
+            _checkSpotsCoroutine = null;
         }
-        private void NewSpawnerActivatedHandler(object sender, OnNewSpawnerActivatedEventArgs e)
-        {
-            if (HatType == e.HatType)
-            {
-                CarSpawner spawner = sender as CarSpawner;
-                Assert.IsNotNull(spawner);
-                _spawners.Add(spawner);
-            }
-        }
+        //Getters-Setters
+        public Enums.StackableItemType GetHatType() => _hatType;
+        //Cleanup
         private void OnDisable()
         {
-            CarSpawner.OnNewSpawnerActivated -= NewSpawnerActivatedHandler;
+            TaxiSpot.OnTaxiReturned -= TaxiSpot_TaxiReturnedHandler;
         }
     }
 }

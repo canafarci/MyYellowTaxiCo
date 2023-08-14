@@ -10,33 +10,41 @@ namespace TaxiGame.Vehicle
     public class CarView : MonoBehaviour
     {
         [SerializeField] private Animator _wobbleAnimator;
+        [SerializeField] GameObject _driver;
         private Animator _animator;
-        private CarConfig _config;
+        private Taxi _taxi;
 
         [Inject]
-        private void Init(Animator animator, CarConfig config)
+        private void Init(Taxi taxi, Animator animator)
         {
-            _config = config;
+            _taxi = taxi;
             _animator = animator;
         }
         public void OnCarEnterAnimationFinished()
         {
             _animator.enabled = false;
-            Tween move = transform.DOMove(_config.EnterParkNode.position, 0.6f).SetEase(Ease.Linear);
+            Tween move = transform.DOMove(_taxi.GetConfig().EnterParkNode.position, 0.6f)
+                                    .SetEase(Ease.Linear);
             move.onComplete = () => GetToParkSpot();
         }
         private void GetToParkSpot()
         {
-            _config.ParkAnimator.Play(AnimationValues.PARK_IN);
+            _taxi.GetConfig().ParkAnimator.Play(AnimationValues.PARK_IN);
             _wobbleAnimator.Play(AnimationValues.WOBBLE_IN);
 
-            transform.parent = _config.ParkAnimator.transform;
+            transform.parent = _taxi.GetConfig().ParkAnimator.transform;
             transform.localPosition = Vector3.zero;
+
+            Invoke(nameof(OnCarParked), AnimationValues.PARK_IN_ANIM_LENGTH);
         }
 
-        public class Factory : PlaceholderFactory<Object, CarConfig, CarView>
+        public void OnCarParked()
         {
+            _taxi.GetConfig().TaxiSpot.SetTaxi(_taxi);
 
+            Tween scale = _driver.transform.DOScale(0.00001f, .5f);
+            TweenCallback callback = () => _driver.SetActive(false);
+            scale.onComplete = callback;
         }
     }
 }

@@ -75,7 +75,7 @@ namespace TaxiGame.Installers
                 private DriverQueue GetDriverQueue(InjectContext context)
                 {
                         DriverSpawner spawner = context.ObjectInstance as DriverSpawner;
-                        return _queues.FirstOrDefault(x => x.HatType == spawner.HatType);
+                        return _queues.FirstOrDefault(x => x.GetHatType() == spawner.HatType);
                 }
         }
 }

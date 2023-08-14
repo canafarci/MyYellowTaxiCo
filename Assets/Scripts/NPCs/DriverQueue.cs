@@ -9,8 +9,10 @@ namespace TaxiGame.NPC
 {
     public class DriverQueue : MonoBehaviour, INPCQueue
     {
-        public Enums.StackableItemType HatType;
+        [SerializeField] private Enums.StackableItemType _hatType;
         private List<DriverQueueSpot> _queueSpots = new List<DriverQueueSpot>();
+
+        public event EventHandler<OnDriverAddedToQueueArgs> OnDriverAddedToQueue;
 
         private void Start()
         {
@@ -23,17 +25,10 @@ namespace TaxiGame.NPC
             Assert.IsNotNull(spot);
             npc.GetView().MoveAndSit(spot.transform);
             spot.SetNPC(npc);
+
+            OnDriverAddedToQueue?.Invoke(this, new OnDriverAddedToQueueArgs { Driver = npc as Driver });
         }
 
-        public List<Driver> GetDrivers()
-        {
-            return GetDriversByCondition(driver => true);
-        }
-
-        public List<Driver> GetDriversWithHat()
-        {
-            return GetDriversByCondition(driver => driver.HasHat());
-        }
 
         public void Remove(RiderNPC driverToRemove)
         {
@@ -51,32 +46,14 @@ namespace TaxiGame.NPC
             return _queueSpots.FirstOrDefault(spot => spot.IsEmpty());
         }
 
-        private List<Driver> GetDriversByCondition(Func<Driver, bool> condition)
-        {
-            List<Driver> drivers = new List<Driver>();
-            foreach (DriverQueueSpot spot in _queueSpots)
-            {
-                if (spot.GetNPC() != null && condition(spot.GetNPC() as Driver))
-                {
-                    drivers.Add(spot.GetNPC() as Driver);
-                }
-            }
-            return drivers;
-        }
-
         private void QueueSpot_NewQueueSpotActivatedHandler(object sender, OnNewQueueSpotActivatedEventArgs e)
         {
-            if (e.HatType == HatType)
+            if (e.HatType == _hatType)
             {
                 DriverQueueSpot spot = sender as DriverQueueSpot;
                 Assert.IsNotNull(spot);
                 _queueSpots.Add(spot);
             }
-        }
-
-        private void OnDisable()
-        {
-            DriverQueueSpot.OnNewDriverQueueSpotActivated -= QueueSpot_NewQueueSpotActivatedHandler;
         }
 
         public bool QueueIsFull()
@@ -91,5 +68,18 @@ namespace TaxiGame.NPC
             }
             return isFull;
         }
+        //Getters-Setters
+        public Enums.StackableItemType GetHatType() => _hatType;
+
+        //cleanup
+        private void OnDisable()
+        {
+            DriverQueueSpot.OnNewDriverQueueSpotActivated -= QueueSpot_NewQueueSpotActivatedHandler;
+        }
+    }
+
+    public class OnDriverAddedToQueueArgs : EventArgs
+    {
+        public Driver Driver;
     }
 }
