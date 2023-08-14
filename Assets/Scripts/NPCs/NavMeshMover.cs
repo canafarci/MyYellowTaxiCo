@@ -11,12 +11,7 @@ namespace Taxi.NPC
         protected NPCActionScheduler _npc;
         private NavMeshAgent _agent;
 
-        [Inject]
-        private void Create(Vector3 spawnPos, Quaternion rotation)
-        {
-            transform.position = spawnPos;
-            transform.rotation = rotation;
-        }
+
 
         [Inject]
         private void Init(NavMeshAgent agent, NPCActionScheduler npc)
@@ -47,8 +42,6 @@ namespace Taxi.NPC
             }
         }
 
-        public class Factory : PlaceholderFactory<Object, Vector3, Quaternion, NavMeshMover>
-        {
-        }
+
     }
 }

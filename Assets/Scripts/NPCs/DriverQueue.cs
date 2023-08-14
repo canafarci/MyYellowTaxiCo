@@ -21,7 +21,7 @@ namespace Taxi.NPC
         {
             DriverQueueSpot spot = FindAvailableSpot();
             Assert.IsNotNull(spot);
-            npc.MoveAndSit(spot.transform);
+            npc.GetView().MoveAndSit(spot.transform);
             spot.SetNPC(npc);
         }
 
@@ -32,7 +32,7 @@ namespace Taxi.NPC
 
         public List<Driver> GetDriversWithHat()
         {
-            return GetDriversByCondition(driver => driver.DriverHasHat());
+            return GetDriversByCondition(driver => driver.HasHat());
         }
 
         public void Remove(RiderNPC driverToRemove)

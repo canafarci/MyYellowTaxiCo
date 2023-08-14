@@ -19,7 +19,7 @@ namespace Taxi.NPC
             if (_driver == null)
                 return false;
             else
-                return _driver.DriverHasHat();
+                return _driver.HasHat();
         }
     }
     public class OnNewQueueSpotActivatedEventArgs : EventArgs

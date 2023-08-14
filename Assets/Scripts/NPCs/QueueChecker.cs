@@ -37,7 +37,7 @@ namespace Taxi.NPC
                     {
                         spawner.DriverIsComing = true;
                         Driver driver = drivers[^1];
-                        driver.GoToCar(spawner.transform, () => spawner.StartMove());
+                        driver.GetView().GoToCar(spawner.transform, () => spawner.StartMove());
                         drivers.RemoveAt(drivers.Count - 1);
                         _driverQueue.Remove(driver);
                     }

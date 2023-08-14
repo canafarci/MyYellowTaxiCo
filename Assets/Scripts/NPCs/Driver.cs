@@ -14,12 +14,9 @@ namespace Taxi.NPC
     {
         [SerializeField] private Transform _hatTransform;
         private bool _hasHat = false;
-        public void SetHasHat(bool hasHat)
-        {
-            _hasHat = hasHat;
-        }
         //Getter-Setters
         public Transform GetHatTransform() => _hatTransform;
-        public bool DriverHasHat() => _hasHat;
+        public void SetHasHat(bool hasHat) => _hasHat = hasHat;
+        public bool HasHat() => _hasHat;
     }
 }

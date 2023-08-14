@@ -14,10 +14,10 @@ namespace Taxi.NPC
         [SerializeField] private Transform _spawnTransform;
         [SerializeField] private GameObject[] _followerPrefabs;
         private INPCQueue _queue;
-        private NavMeshMover.Factory _followerFactory;
+        private RiderNPC.Factory _followerFactory;
 
         [Inject]
-        private void Init(NavMeshMover.Factory factory)
+        private void Init(RiderNPC.Factory factory)
         {
             _followerFactory = factory;
         }
@@ -50,8 +50,7 @@ namespace Taxi.NPC
 
             RiderNPC npc = _followerFactory.Create(prefab,
                                                 _spawnTransform.position,
-                                                _spawnTransform.rotation)
-                                                .GetComponent<RiderNPC>();
+                                                _spawnTransform.rotation);
 
             _queue.AddToQueue(npc);
         }

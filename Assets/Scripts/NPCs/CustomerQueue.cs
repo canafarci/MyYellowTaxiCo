@@ -23,16 +23,16 @@ namespace Taxi.NPC
 
         public bool TryGetFollower(out Follower follower)
         {
-            RiderNPC npc = _endNode.GetNPC();
+            Customer customer = _endNode.GetNPC() as Customer;
 
-            if (npc == null)
+            if (customer == null)
             {
                 follower = null;
                 return false;
             }
             else
             {
-                follower = npc.GetComponent<Follower>();
+                follower = customer.GetFollower();
                 _endNode.Clear();
                 _endNode.ShiftQueue();
                 return true;

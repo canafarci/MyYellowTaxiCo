@@ -19,11 +19,11 @@ namespace Taxi.NPC
             {
                 if (_isSitSpot)
                 {
-                    npc.MoveAndSit(transform);
+                    npc.GetView().MoveAndSit(transform);
                 }
                 else
                 {
-                    npc.Move(transform);
+                    npc.GetView().Move(transform);
                 }
                 SetNPC(npc);
             }

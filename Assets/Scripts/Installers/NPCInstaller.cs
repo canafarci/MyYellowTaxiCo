@@ -31,6 +31,13 @@ namespace Taxi.Installers
                                 .FromComponentInChildren()
                                 .AsTransient();
 
+                        Container.Bind<RiderNPCView>()
+                                .FromComponentInChildren()
+                                .AsTransient();
+                        Container.Bind<Follower>()
+                                .FromComponentInChildren()
+                                .AsTransient();
+
 
 
                         BindDriverModel();
@@ -57,8 +64,8 @@ namespace Taxi.Installers
 
                 private void BindFactories()
                 {
-                        Container.BindFactory<UnityEngine.Object, Vector3, Quaternion, NavMeshMover, NavMeshMover.Factory>()
-                                .FromFactory<PrefabFactory<Vector3, Quaternion, NavMeshMover>>();
+                        Container.BindFactory<UnityEngine.Object, Vector3, Quaternion, RiderNPC, RiderNPC.Factory>()
+                                .FromFactory<PrefabFactory<Vector3, Quaternion, RiderNPC>>();
 
                         Container.BindFactory<Vector3, Quaternion, HatHelperNPC, HatHelperNPC.Factory>()
                                 .WithId(NPCType.Helper)

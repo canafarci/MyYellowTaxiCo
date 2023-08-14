@@ -14,11 +14,11 @@ namespace Taxi.NPC
     {
         public Enums.StackableItemType HatType;
         private INPCQueue _queue;
-        private NavMeshMover.Factory _driverFactory;
+        private RiderNPC.Factory _driverFactory;
         [SerializeField] private GameObject _driverPrefab;
 
         [Inject]
-        private void Init(NavMeshMover.Factory driverFactory,
+        private void Init(RiderNPC.Factory driverFactory,
                         [Inject(Id = NPCType.Driver)] INPCQueue queue)
         {
             _queue = queue;
@@ -54,8 +54,7 @@ namespace Taxi.NPC
             //spawn driver and downsize scale
             RiderNPC driver = _driverFactory.Create(_driverPrefab,
                                                     spawnTransform.position,
-                                                    spawnTransform.rotation)
-                                                    .GetComponent<RiderNPC>();
+                                                    spawnTransform.rotation);
             //add driver to the queue
             _queue.AddToQueue(driver);
         }

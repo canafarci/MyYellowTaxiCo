@@ -41,7 +41,7 @@ namespace Taxi.NPC
         {
             foreach (Driver driver in drivers)
             {
-                if (driver.DriverHasHat()) { continue; }
+                if (driver.HasHat()) { continue; }
 
                 if (_stacker.ItemStack.TryPop(out StackableItem hat))
                 {
