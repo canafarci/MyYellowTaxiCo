@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.Vehicle
+namespace TaxiGame.Vehicle
 {
     public class VehiclesInstaller : MonoInstaller<VehiclesInstaller>
     {
         public override void InstallBindings()
         {
-            Container.BindFactory<Object, CarConfig, CarMover, CarMover.Factory>()
-                .FromFactory<PrefabFactory<CarConfig, CarMover>>();
+            Container.BindFactory<Object, CarConfig, CarView, CarView.Factory>()
+                .FromFactory<PrefabFactory<CarConfig, CarView>>();
+
         }
     }
 }

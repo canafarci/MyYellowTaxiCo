@@ -1,14 +1,14 @@
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Taxi.WaitZones;
-using Taxi.Upgrades;
+using TaxiGame.WaitZones;
+using TaxiGame.Upgrades;
 using UnityEditor;
 using System;
 using System.Collections;
-using Taxi.UI;
+using TaxiGame.UI;
 
-namespace Taxi.WaitZones.Tests
+namespace TaxiGame.WaitZones.Tests
 {
     public class RepeatableBuyingWaitingZoneTests
     {

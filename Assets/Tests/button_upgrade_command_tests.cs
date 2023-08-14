@@ -1,8 +1,8 @@
 using Moq;
 using NUnit.Framework;
-using Taxi.Upgrades;
+using TaxiGame.Upgrades;
 
-namespace Taxi.Tests
+namespace TaxiGame.Tests
 {
     public class button_upgrade_command_tests
     {

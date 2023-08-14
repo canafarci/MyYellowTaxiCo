@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Taxi.Vehicle;
+using TaxiGame.Vehicle;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Taxi.NPC
+namespace TaxiGame.NPC
 {
     public class QueueChecker : MonoBehaviour
     {

@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Taxi.Upgrades;
+using TaxiGame.Upgrades;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.NPC
+namespace TaxiGame.NPC
 {
     public class HelperNPCSpawner : MonoBehaviour, IUpgradeReceiver
     {

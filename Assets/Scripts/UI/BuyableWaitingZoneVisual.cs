@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
-using Taxi.WaitZones;
+using TaxiGame.WaitZones;
 using UnityEngine.Assertions;
 using System;
 
-namespace Taxi.UI
+namespace TaxiGame.UI
 {
     public class BuyableWaitingZoneVisual : MonoBehaviour
     {

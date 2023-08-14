@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
 
-namespace Taxi.NPC
+namespace TaxiGame.NPC
 {
     public class HatDistributor : MonoBehaviour
     {

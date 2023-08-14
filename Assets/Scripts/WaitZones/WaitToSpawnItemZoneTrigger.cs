@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
 
-namespace Taxi.WaitZones
+namespace TaxiGame.WaitZones
 {
     public class WaitToSpawnItemZoneTrigger : WaitZoneTrigger
     {

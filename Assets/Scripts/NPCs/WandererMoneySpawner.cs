@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-namespace Taxi.NPC
+namespace TaxiGame.NPC
 {
     public class WandererMoneySpawner : MonoBehaviour
     {

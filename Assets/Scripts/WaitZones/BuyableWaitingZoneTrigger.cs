@@ -3,7 +3,7 @@ using UnityEngine;
 using System;
 using Zenject;
 
-namespace Taxi.WaitZones
+namespace TaxiGame.WaitZones
 {
     public class BuyableWaitingZoneTrigger : WaitZoneTrigger
     {

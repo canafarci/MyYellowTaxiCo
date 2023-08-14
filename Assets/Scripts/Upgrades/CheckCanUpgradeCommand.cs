@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.Upgrades
+namespace TaxiGame.Upgrades
 {
     public class CheckCanUpgradeCommand : IUpgradeCommand
     {

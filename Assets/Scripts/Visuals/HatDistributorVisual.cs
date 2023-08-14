@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Taxi.NPC;
+using TaxiGame.NPC;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.Visuals
+namespace TaxiGame.Visuals
 {
     public class HatDistributorVisual : MonoBehaviour
     {

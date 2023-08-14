@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Taxi.WaitZones;
-using Taxi.Upgrades;
+using TaxiGame.WaitZones;
+using TaxiGame.Upgrades;
 using Zenject;
 
 public class ResourceTracker : MonoBehaviour

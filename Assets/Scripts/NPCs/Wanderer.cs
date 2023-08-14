@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Taxi.NPC
+namespace TaxiGame.NPC
 {
     public class Wanderer : Follower
     {
@@ -16,23 +16,23 @@ namespace Taxi.NPC
 
             _wanderCoroutine = StartCoroutine(WandererLoop());
         }
-        public void FollowPlayer(Inventory inventory, bool isInQueue = false)
-        {
-            StopCoroutine(_wanderCoroutine);
-            StopCoroutine(_moveCoroutine);
+        // public void FollowPlayer(Inventory inventory, bool isInQueue = false)
+        // {
+        //     StopCoroutine(_wanderCoroutine);
+        //     StopCoroutine(_moveCoroutine);
 
-            inventory.AddFollowerToList(this);
-            Target = inventory.transform;
-            _followLoop = StartCoroutine(FollowLoop());
+        //     inventory.AddFollowerToList(this);
+        //     Target = inventory.transform;
+        //     _followLoop = StartCoroutine(FollowLoop());
 
-            if (!PlayerPrefs.HasKey(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE))
-            {
-                FindObjectOfType<ConditionalTutorial>().WandererTriggered();
-            }
+        //     if (!PlayerPrefs.HasKey(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE))
+        //     {
+        //         FindObjectOfType<ConditionalTutorial>().WandererTriggered();
+        //     }
 
-            if (_followerCanvas != null)
-                _followerCanvas.Remove();
-        }
+        //     if (_followerCanvas != null)
+        //         _followerCanvas.Remove();
+        // }
         private IEnumerator WandererLoop()
         {
             while (true)

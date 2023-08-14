@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Taxi.Upgrades
+namespace TaxiGame.Upgrades
 {
     public interface IUpgradeReceiver
     {

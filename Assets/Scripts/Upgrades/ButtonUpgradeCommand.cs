@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Taxi.Upgrades;
+using TaxiGame.Upgrades;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.Upgrades
+namespace TaxiGame.Upgrades
 {
     public class ButtonUpgradeCommand : IUpgradeCommand
     {

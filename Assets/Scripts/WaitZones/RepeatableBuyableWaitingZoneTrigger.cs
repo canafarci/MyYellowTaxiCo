@@ -1,10 +1,10 @@
 
 using UnityEngine;
 using System;
-using Taxi.Upgrades;
+using TaxiGame.Upgrades;
 using Zenject;
 
-namespace Taxi.WaitZones
+namespace TaxiGame.WaitZones
 {
     public class RepeatableBuyableWaitingZoneTrigger : WaitZoneTrigger
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-namespace Taxi.Upgrades
+namespace TaxiGame.Upgrades
 {
     //TODO move tu UI subsystem
     public class UpgradeUIHolder : MonoBehaviour

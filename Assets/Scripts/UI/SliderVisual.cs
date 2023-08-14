@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Taxi.WaitZones;
+using TaxiGame.WaitZones;
 using UnityEngine;
-namespace Taxi.UI
+namespace TaxiGame.UI
 {
     public class SliderVisual : MonoBehaviour
     {

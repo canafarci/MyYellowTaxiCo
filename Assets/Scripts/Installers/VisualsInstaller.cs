@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Taxi.NPC;
+using TaxiGame.NPC;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.Installers
+namespace TaxiGame.Installers
 {
     public class VisualsInstaller : MonoInstaller<VisualsInstaller>
     {

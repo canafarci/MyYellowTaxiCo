@@ -5,7 +5,7 @@ using DG.Tweening;
 using ModestTree;
 using UnityEngine;
 
-namespace Taxi.NPC
+namespace TaxiGame.NPC
 {
     public class DriverQueue : MonoBehaviour, INPCQueue
     {

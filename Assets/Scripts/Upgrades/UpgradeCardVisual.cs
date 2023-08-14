@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 
-namespace Taxi.Upgrades
+namespace TaxiGame.Upgrades
 {
     public class UpgradeCardVisual : MonoBehaviour
     {

@@ -1,5 +1,5 @@
 using UnityEngine;
-namespace Taxi.Upgrades
+namespace TaxiGame.Upgrades
 {
     [CreateAssetMenu(fileName = "UpgradeData", menuName = "Config/Upgrade Data", order = 0)]
     public class UpgradeDataSO : ScriptableObject

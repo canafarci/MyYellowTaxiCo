@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using Ketchapp.MayoSDK;
-using Taxi.NPC;
+using TaxiGame.NPC;
 using UnityEngine;
-namespace Taxi.Upgrades
+namespace TaxiGame.Upgrades
 {
     public class UpgradesFacade
     {

@@ -2415,6 +2415,7 @@ GameObject:
   - component: {fileID: 8110298349010450340}
   - component: {fileID: 3475709227871282988}
   - component: {fileID: 4942327193358468906}
+  - component: {fileID: 616308754158210963}
   m_Layer: 0
   m_Name: Car Yellow
   m_TagString: Untagged
@@ -2544,6 +2545,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3039b068be60506449eb8e1f84c17c03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wobbleAnimator: {fileID: 8540804995203897044}
+--- !u!114 &616308754158210963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5150420696274731681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e8d5a58b0b57024ab29a1d4185b8b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5150420696897773683

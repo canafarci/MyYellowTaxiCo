@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-namespace Taxi.NPC
+namespace TaxiGame.NPC
 {
     public class CustomerQueue : MonoBehaviour, INPCQueue
     {

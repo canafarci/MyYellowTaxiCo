@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Taxi.Upgrades;
+using TaxiGame.Upgrades;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.WaitZones
+namespace TaxiGame.WaitZones
 {
     public class RepeatableBuyingWaitingZone : WaitingEngine
     {

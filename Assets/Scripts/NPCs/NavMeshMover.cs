@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 
-namespace Taxi.NPC
+namespace TaxiGame.NPC
 {
     public class NavMeshMover : MonoBehaviour
     {

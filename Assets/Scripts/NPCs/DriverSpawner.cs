@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using Taxi.Vehicle;
+using TaxiGame.Vehicle;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.NPC
+namespace TaxiGame.NPC
 {
     public class DriverSpawner : MonoBehaviour
     {

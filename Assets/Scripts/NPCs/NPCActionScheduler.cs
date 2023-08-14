@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 
-namespace Taxi.NPC
+namespace TaxiGame.NPC
 {
     public class NPCActionScheduler : MonoBehaviour
     {
@@ -35,11 +35,11 @@ namespace Taxi.NPC
             _performedActions = null;
         }
 
-        public void InvokeAnimationStateChangedEvent(string animationStateString, bool state)
+        public void InvokeAnimationStateChangedEvent(int animationStateHash, bool state)
         {
             OnNPCAnimationStateChanged?.Invoke(this, new OnNPCAnimationStateChangedArgs
             {
-                AnimationStateString = animationStateString,
+                AnimationStateHash = animationStateHash,
                 State = state
             });
         }
@@ -51,7 +51,7 @@ namespace Taxi.NPC
     }
     public class OnNPCAnimationStateChangedArgs : EventArgs
     {
-        public string AnimationStateString;
+        public int AnimationStateHash;
         public bool State;
     }
 }

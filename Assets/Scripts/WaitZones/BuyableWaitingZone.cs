@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.WaitZones
+namespace TaxiGame.WaitZones
 {
     public class BuyableWaitingZone : WaitingEngine
     {

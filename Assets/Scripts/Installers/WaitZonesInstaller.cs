@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Taxi.WaitZones;
+using TaxiGame.WaitZones;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.Installers
+namespace TaxiGame.Installers
 {
     public class WaitZonesInstaller : MonoInstaller<WaitZonesInstaller>
     {

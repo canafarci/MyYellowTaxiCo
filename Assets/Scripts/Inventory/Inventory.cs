@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
-using Taxi.NPC;
+using TaxiGame.NPC;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour

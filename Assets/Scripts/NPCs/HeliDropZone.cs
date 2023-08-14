@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using System.Linq;
 
-namespace Taxi.NPC
+namespace TaxiGame.NPC
 {
     public class HeliDropZone : MonoBehaviour
     {

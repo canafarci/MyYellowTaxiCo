@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace Taxi.WaitZones
+namespace TaxiGame.WaitZones
 {
     public interface IWaitingEngine
     {

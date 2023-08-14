@@ -2,12 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Taxi.Animations;
+using TaxiGame.Animations;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 
-namespace Taxi.NPC
+namespace TaxiGame.NPC
 {
     public class Follower : MonoBehaviour
     {

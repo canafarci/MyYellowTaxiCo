@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Taxi.Upgrades
+namespace TaxiGame.Upgrades
 {
     public class UpgradeCardButton : MonoBehaviour
     {

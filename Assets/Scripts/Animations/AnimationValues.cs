@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Taxi.Animations
+namespace TaxiGame.Animations
 {
     public class AnimationValues
     {
-        public readonly int MoveEmptyHash = Animator.StringToHash("MoveEmptyHands");
-        public readonly int IdleHash = Animator.StringToHash("Idle");
-        public const string IS_SITTING = "IsSitting";
-        public const string ENTERING_CAR = "EnteringCar";
+        // CHARACTERS
+        public static readonly int MoveEmptyHash = Animator.StringToHash("MoveEmptyHands");
+        public static readonly int IdleHash = Animator.StringToHash("Idle");
+        public static readonly int IS_SITTING = Animator.StringToHash("IsSitting");
+        public static readonly int ENTERING_CAR = Animator.StringToHash("EnteringCar");
+        //VEHICLE
+        public static readonly int WOBBLE_IN = Animator.StringToHash("WobbleParkIn");
+        public static readonly int PARK_IN = Animator.StringToHash("ParkIn");
     }
 }

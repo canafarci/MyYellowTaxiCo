@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Taxi.NPC;
+using TaxiGame.NPC;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.Vehicle
+namespace TaxiGame.Vehicle
 {
     public class CarSpawner : MonoBehaviour
     {
@@ -31,13 +31,13 @@ namespace Taxi.Vehicle
 
         //* NEWWW
 
-        private CarMover.Factory _factory;
+        private CarView.Factory _factory;
 
         public static event EventHandler<OnNewSpawnerActivatedEventArgs> OnNewSpawnerActivated;
         public static event EventHandler<OnCarReturned> OnCarReturned;
 
         [Inject]
-        private void Init(CarMover.Factory factory)
+        private void Init(CarView.Factory factory)
         {
             _factory = factory;
         }

@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Taxi.WaitZones;
+using TaxiGame.WaitZones;
 using TMPro;
 using UnityEngine;
 
-namespace Taxi.UI
+namespace TaxiGame.UI
 {
     public class RepeatableBuyableWaitingZoneVisual : BuyableWaitingZoneVisual
     {

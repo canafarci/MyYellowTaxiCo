@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Taxi.NPC;
+using TaxiGame.NPC;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 
-namespace Taxi.Installers
+namespace TaxiGame.Installers
 {
         public class NPCInstaller : MonoInstaller<NPCInstaller>
         {

@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Taxi.WaitZones
+namespace TaxiGame.WaitZones
 {
     public abstract class WaitingEngine : MonoBehaviour, IWaitingEngine
     {

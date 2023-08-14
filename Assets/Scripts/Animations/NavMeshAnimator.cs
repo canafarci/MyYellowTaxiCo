@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Taxi.NPC;
+using TaxiGame.NPC;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 
-namespace Taxi.Animations
+namespace TaxiGame.Animations
 {
     public class NavMeshAnimator : MonoBehaviour
     {
@@ -30,7 +30,7 @@ namespace Taxi.Animations
 
         private void NavMeshNPC_NPCAnimationStateChangedHandler(object sender, OnNPCAnimationStateChangedArgs e)
         {
-            _animator.SetBool(e.AnimationStateString, e.State);
+            _animator.SetBool(e.AnimationStateHash, e.State);
         }
 
         private void FixedUpdate()

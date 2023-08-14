@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Taxi.NPC;
-using Taxi.UI;
-using Taxi.Upgrades;
-using Taxi.WaitZones;
+using TaxiGame.NPC;
+using TaxiGame.UI;
+using TaxiGame.Upgrades;
+using TaxiGame.WaitZones;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.Installers
+namespace TaxiGame.Installers
 {
     public class UpgradesInstaller : MonoInstaller<UpgradesInstaller>
     {

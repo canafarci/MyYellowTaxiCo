@@ -652,6 +652,7 @@ GameObject:
   - component: {fileID: 5203300209828729820}
   - component: {fileID: 5203300209828729823}
   - component: {fileID: 7517478811502373622}
+  - component: {fileID: 8811604384334479019}
   m_Layer: 0
   m_Name: DropZone
   m_TagString: Untagged
@@ -689,7 +690,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b67b4d575dd1843b48e2bf21f29108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hatType: 0
 --- !u!65 &5203300209828729820
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -715,12 +715,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd82d35658c881646a3552a7564df0e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DriverIsComing: 0
+  HatType: 0
   _spawnAlternate: 0
   _enterNode: {fileID: 8226646738767340668}
   _exitNode: {fileID: 3825852529812633309}
   _item: {fileID: 5150420696274731681, guid: ba62ffb24c1ea664092502ab0ef38d4a, type: 3}
-  _secondItem: {fileID: 8889169347316545288, guid: fc5f4c4f6a5e5cd46bf319dff1c99fae,
-    type: 3}
+  _brokenCars: []
+  _parkAnimator: {fileID: 0}
+  _everyNthIsBroken: 2
+  _stacker: {fileID: 0}
+  _specialChargerSpawn: 0
+  _specialBrokenSpawn: 0
+  _specialTireSpawn: 0
 --- !u!114 &7517478811502373622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,11 +740,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50e7ecfa934001429146dc829b2a158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _image: {fileID: 0}
-  _slider: {fileID: 4434652312361974382}
   _spawnRate: 9.8
   _initialSpawnTime: 1.5
   _object: {fileID: 4416706704518194720}
+--- !u!114 &8811604384334479019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5203300209828729819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d369b1626a98a741a76207ab401ef1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5443496838141918556
 GameObject:
   m_ObjectHideFlags: 0

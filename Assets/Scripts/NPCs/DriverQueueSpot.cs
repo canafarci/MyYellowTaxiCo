@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Taxi.NPC
+namespace TaxiGame.NPC
 {
     public class DriverQueueSpot : RiderNPCSpot
     {

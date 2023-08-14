@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.Installer
+namespace TaxiGame.Installer
 {
     public class GameInstaller : MonoInstaller<GameInstaller>
     {

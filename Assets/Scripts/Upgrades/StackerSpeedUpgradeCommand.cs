@@ -1,10 +1,10 @@
 using System;
-using Taxi.UI;
-using Taxi.WaitZones;
+using TaxiGame.UI;
+using TaxiGame.WaitZones;
 using UnityEngine;
 using Zenject;
 
-namespace Taxi.Upgrades
+namespace TaxiGame.Upgrades
 {
     public class StackerSpeedUpgradeCommand : IUpgradeCommand
     {

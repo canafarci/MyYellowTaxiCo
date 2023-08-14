@@ -2,7 +2,7 @@ using UnityEngine;
 using NUnit.Framework;
 using UnityEngine.UI;
 
-namespace Taxi.Upgrades.Tests
+namespace TaxiGame.Upgrades.Tests
 {
     public class UpgradeCardButtonTests
     {

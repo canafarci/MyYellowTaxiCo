@@ -1,4 +1,4 @@
-namespace Taxi.NPC
+namespace TaxiGame.NPC
 {
     public enum NPCType
     {
