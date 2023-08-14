@@ -15,7 +15,6 @@ namespace TaxiGame.Vehicle
         public Enums.StackableItemType HatType;
         //public Action OnMovedAway;
         public GameObject[] BrokenCars { set { _brokenCars = value; } }
-        [SerializeField] private bool _spawnAlternate;
         [SerializeField] private Transform _enterNode, _exitNode;
         [SerializeField] private GameObject _item;
         [SerializeField] private GameObject[] _brokenCars;
@@ -45,16 +44,26 @@ namespace TaxiGame.Vehicle
 
         private void Awake()
         {
-            _nodes = FindObjectOfType<RoadNode>();
             _ui = GetComponent<SpawnerUI>();
             OnNewSpawnerActivated?.Invoke(this, new OnNewSpawnerActivatedEventArgs { HatType = HatType });
         }
 
         private void Start()
         {
-            CarConfig config = new CarConfig(_parkAnimator, _enterNode, _exitNode, _spot);
+            SpawnCar();
+        }
+
+        public void SpawnCar()
+        {
+            CarConfig config = new CarConfig(_parkAnimator,
+                                            _enterNode,
+                                            _exitNode,
+                                            _spot,
+                                            _stacker,
+                                            this);
             _factory.Create(_item, config);
         }
+
         void OnCarInPlace(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
         {
             if (!IsBrokenCar)
@@ -91,56 +100,57 @@ namespace TaxiGame.Vehicle
             //OnMovedAway();
             _parkAnimator.enabled = false;
         }
-        public void SpawnCar()
-        {
-            Car car;
 
-            if (_specialChargerSpawn && !PlayerPrefs.HasKey(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE))
-            {
-                car = GameObject.Instantiate(_brokenCars[0],
-                                     _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
-                                     GetComponent<Car>();
+        // public void SpawnCar()
+        // {
+        //     Car car;
 
-                car.CarInPlaceHandler += FirstChargerReturn;
+        //     if (_specialChargerSpawn && !PlayerPrefs.HasKey(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE))
+        //     {
+        //         car = GameObject.Instantiate(_brokenCars[0],
+        //                              _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
+        //                              GetComponent<Car>();
 
-            }
-            else if (_specialBrokenSpawn && !PlayerPrefs.HasKey(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE))
-            {
-                car = GameObject.Instantiate(_brokenCars[0],
-                                     _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
-                                     GetComponent<Car>();
+        //         car.CarInPlaceHandler += FirstChargerReturn;
 
-                car.CarInPlaceHandler += FirstBrokenReturn;
+        //     }
+        //     else if (_specialBrokenSpawn && !PlayerPrefs.HasKey(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE))
+        //     {
+        //         car = GameObject.Instantiate(_brokenCars[0],
+        //                              _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
+        //                              GetComponent<Car>();
 
-            }
-            else if (_specialTireSpawn && !PlayerPrefs.HasKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE))
-            {
-                car = GameObject.Instantiate(_brokenCars[0],
-                                     _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
-                                     GetComponent<Car>();
+        //         car.CarInPlaceHandler += FirstBrokenReturn;
 
-                car.CarInPlaceHandler += FirstTireReturn;
-            }
-            else
-            {
-                car = GameObject.Instantiate(_spawnIndex % _everyNthIsBroken == 0 || _spawnIndex == 0 ?
-                                     _brokenCars[UnityEngine.Random.Range(0, _brokenCars.Length)] :
-                                     _item,
-                                     _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
-                                     GetComponent<Car>();
-                car.CarInPlaceHandler += OnCarInPlace;
-            }
+        //     }
+        //     else if (_specialTireSpawn && !PlayerPrefs.HasKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE))
+        //     {
+        //         car = GameObject.Instantiate(_brokenCars[0],
+        //                              _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
+        //                              GetComponent<Car>();
 
-            //Start
-            car.EnterNode = _enterNode;
-            car.ExitNode = _nodes.EndNode;
-            car.parkAnimator = _parkAnimator;
-            car.Stacker = _stacker;
+        //         car.CarInPlaceHandler += FirstTireReturn;
+        //     }
+        //     else
+        //     {
+        //         car = GameObject.Instantiate(_spawnIndex % _everyNthIsBroken == 0 || _spawnIndex == 0 ?
+        //                              _brokenCars[UnityEngine.Random.Range(0, _brokenCars.Length)] :
+        //                              _item,
+        //                              _nodes.SpawnNode.position, _nodes.SpawnNode.rotation).
+        //                              GetComponent<Car>();
+        //         car.CarInPlaceHandler += OnCarInPlace;
+        //     }
 
-            //sub to actions
-            car.CarRepairedHandler += OnCarRepaired;
-            car.CarExitedHandler += OnCarExited;
-        }
+        //     //Start
+        //     car.EnterNode = _enterNode;
+        //     car.ExitNode = _nodes.EndNode;
+        //     car.parkAnimator = _parkAnimator;
+        //     car.Stacker = _stacker;
+
+        //     //sub to actions
+        //     car.CarRepairedHandler += OnCarRepaired;
+        //     car.CarExitedHandler += OnCarExited;
+        // }
 
         void InitialSpawn()
         {

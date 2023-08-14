@@ -13,7 +13,7 @@ public class MoneyStackerEditor : Editor
 
         if (GUILayout.Button("Spawn"))
         {
-            myTarget.StackItem(3);
+            myTarget.StackItems(3);
         }
 
         if (GUILayout.Button("Empty"))

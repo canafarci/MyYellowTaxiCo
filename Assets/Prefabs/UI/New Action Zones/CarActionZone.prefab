@@ -1429,7 +1429,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1147044994293432697}
   - component: {fileID: 6396651414380700534}
-  - component: {fileID: 4700860836654209409}
   m_Layer: 0
   m_Name: Holder
   m_TagString: Untagged
@@ -1473,19 +1472,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4700860836654209409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7110344193616920146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c425256bfb0ed549a0ccf7f0653ad54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spawner: {fileID: 6390357806538583133}
 --- !u!1 &7404056752708548318
 GameObject:
   m_ObjectHideFlags: 0
@@ -2311,18 +2297,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slider: {fileID: 3247594105758139884}
---- !u!114 &6390357806538583133 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5203300209828729823, guid: f6797c7ff5bbae444a306286e0bdfb75,
-    type: 3}
-  m_PrefabInstance: {fileID: 1196490106998816642}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6390357806538583129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd82d35658c881646a3552a7564df0e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &7111222255605292030 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8226646738767340668, guid: f6797c7ff5bbae444a306286e0bdfb75,

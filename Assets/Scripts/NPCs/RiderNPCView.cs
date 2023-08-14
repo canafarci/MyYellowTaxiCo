@@ -46,7 +46,7 @@ namespace TaxiGame.NPC
         {
             _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
             yield return StartCoroutine(MoveToPosition(destination.position));
-            _npc.InvokeAnimationStateChangedEvent(AnimationValues.ENTERING_CAR, true);
+            _npc.InvokeAnimationStateChangedEvent(AnimationValues.CAR_ENTER, true);
 
             yield return new WaitForSeconds(.5f);
 

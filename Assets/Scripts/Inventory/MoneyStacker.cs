@@ -24,10 +24,10 @@ public class MoneyStacker : MonoBehaviour
 
         if (String.IsNullOrEmpty(_identifier)) return;
         if (PlayerPrefs.HasKey(_identifier)) return;
-        StackItem(48);
+        StackItems(48);
     }
 
-    public void StackItem(int count) => StartCoroutine(StackItemRoutine(count));
+    public void StackItems(int count) => StartCoroutine(StackItemRoutine(count));
     public void StartEmptyStack() => StartCoroutine(EmptyStack());
     IEnumerator StackItemRoutine(int count)
     {
@@ -46,7 +46,7 @@ public class MoneyStacker : MonoBehaviour
         IncreaseStackDimensions();
 
         yield return new WaitForSeconds(.05f);
-        StackItem(count - 1);
+        StackItems(count - 1);
     }
     IEnumerator EmptyStack()
     {

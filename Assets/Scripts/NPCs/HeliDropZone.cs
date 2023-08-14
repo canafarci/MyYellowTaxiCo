@@ -32,7 +32,7 @@ namespace TaxiGame.NPC
             //if (followers.Length < 1) { yield break; }
             //yield return StartCoroutine(followers[0].OpenDoorAndGetIn(_getInLocation.position)); //TODO refactor
             _animator.Play("HeliAnim", 0, 0f);
-            _stacker.StackItem(_money);
+            _stacker.StackItems(_money);
 
             _npc.SetActive(true);
             Vector3 baseScale = _npc.transform.localScale;

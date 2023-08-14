@@ -16,7 +16,15 @@ namespace TaxiGame.Vehicle
             Container.Bind<Vehicle>()
                     .FromComponentInChildren()
                     .AsTransient();
+
             Container.Bind<VehicleSpot>()
+                    .FromComponentInChildren()
+                    .AsTransient();
+
+            Container.Bind<CarView>()
+                    .FromComponentInChildren()
+                    .AsTransient();
+            Container.Bind<CarFX>()
                     .FromComponentInChildren()
                     .AsTransient();
 

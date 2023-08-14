@@ -57,7 +57,7 @@ namespace TaxiGame.NPC
                     Driver driver = _driversWithHat[^1];
                     VehicleSpot spot = _spots[^1];
 
-                    driver.GetView().GoToCar(spot.transform, () => { });
+                    driver.GetView().GoToCar(spot.transform, () => spot.DepartVehicle());
 
                     _driversWithHat.Remove(driver);
                     _spots.Remove(spot);

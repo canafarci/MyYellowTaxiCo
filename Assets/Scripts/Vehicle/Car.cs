@@ -29,7 +29,7 @@ public class Car : MonoBehaviour
         _baseDriverScale = _driver.transform.localScale;
     }
     public void GetToParkPosition() => _moveTween.ParkTween(_animator, EnterNode, parkAnimator, _driver);
-    public void MoveAway() => _moveTween.MoveAwayTween(_animator, ExitNode, () => Stacker.StackItem(_moneyToGain), this);
+    public void MoveAway() => _moveTween.MoveAwayTween(_animator, ExitNode, () => Stacker.StackItems(_moneyToGain), this);
     public void TakeOffFX() => _moveTween.TakeOffFX();
     public void OnCarRepaired() => CarRepairedHandler?.Invoke(this);
     public void PreMoveFX(bool withPassengers)
@@ -65,16 +65,22 @@ public struct CarConfig
     public Transform EnterParkNode;
     public Transform ExitParkNode;
     public VehicleSpot TaxiSpot;
+    public MoneyStacker Stacker;
+    public CarSpawner Spawner;
 
     public CarConfig(Animator parkAnimator,
             Transform enterParkNode,
             Transform exitNode,
-            VehicleSpot spot)
+            VehicleSpot spot,
+            MoneyStacker stacker,
+            CarSpawner carSpawner)
     {
         EnterParkNode = enterParkNode;
         ExitParkNode = exitNode;
         ParkAnimator = parkAnimator;
         TaxiSpot = spot;
+        Stacker = stacker;
+        Spawner = carSpawner;
     }
 
 

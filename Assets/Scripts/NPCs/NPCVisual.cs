@@ -26,7 +26,7 @@ namespace TaxiGame.NPC
 
         private void NavMeshNPC_NPCAnimationStateChangedHandler(object sender, OnNPCAnimationStateChangedArgs e)
         {
-            if (e.AnimationStateHash == AnimationValues.ENTERING_CAR)
+            if (e.AnimationStateHash == AnimationValues.CAR_ENTER)
             {
                 transform.DOScale(Vector3.one * 0.0001f, .5f);
             }

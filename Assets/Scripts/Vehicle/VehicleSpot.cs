@@ -19,7 +19,11 @@ namespace TaxiGame.Vehicle
         {
             _vehicleManager = manager;
         }
-
+        public void DepartVehicle()
+        {
+            _vehicle.Depart();
+            Clear();
+        }
         private void InvokeVehicleReturnedEvent()
         {
             OnVehicleReturned?.Invoke(this, new OnVehicleReturned
@@ -38,7 +42,7 @@ namespace TaxiGame.Vehicle
             _vehicle = vehicle;
             InvokeVehicleReturnedEvent();
         }
-        public void Clear() => _vehicle = null;
+        private void Clear() => _vehicle = null;
     }
 
     public class OnVehicleReturned : EventArgs
