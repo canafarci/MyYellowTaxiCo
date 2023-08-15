@@ -10,7 +10,6 @@ namespace TaxiGame.Vehicle
 {
     public class CarSpawner : MonoBehaviour
     {
-        public bool CarIsReady { get { return _currentCar != null; } }
         public bool DriverIsComing = false;
         public Enums.StackableItemType HatType;
         //public Action OnMovedAway;
@@ -19,11 +18,8 @@ namespace TaxiGame.Vehicle
         [SerializeField] private GameObject _item;
         [SerializeField] private GameObject[] _brokenCars;
         [SerializeField] private Animator _parkAnimator;
-        [SerializeField] private int _everyNthIsBroken = 2;
-        [SerializeField] private MoneyStacker _stacker;
+        private MoneyStacker _stacker;
         [SerializeField] private bool _specialChargerSpawn, _specialBrokenSpawn, _specialTireSpawn;
-        private Car _currentCar = null;
-        private RoadNode _nodes;
         private SpawnerUI _ui;
         private int _spawnIndex = 0;
 
@@ -36,10 +32,11 @@ namespace TaxiGame.Vehicle
         public static event EventHandler<OnNewSpawnerActivatedEventArgs> OnNewSpawnerActivated;
 
         [Inject]
-        private void Init(Vehicle.Factory factory, VehicleSpot spot)
+        private void Init(Vehicle.Factory factory, VehicleSpot spot, MoneyStacker stacker)
         {
             _factory = factory;
             _spot = spot;
+            _stacker = stacker;
         }
 
         private void Awake()
@@ -66,15 +63,10 @@ namespace TaxiGame.Vehicle
 
         void OnCarInPlace(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
         {
-            if (!IsBrokenCar)
-                _currentCar = car;
-            if (_spawnIndex > 0)
-            {
 
-            }
         }
 
-        void OnCarRepaired(Car car) => _currentCar = car;
+        void OnCarRepaired(Car car) { }
 
         void OnCarExited(Car car)
         {
@@ -87,15 +79,12 @@ namespace TaxiGame.Vehicle
         public void StartMove()
         {
             StartCoroutine(_ui.WaitLoop(false));
-            _currentCar.TakeOffFX();
             _parkAnimator.Play("ParkOut");
             _spawnIndex += 1;
         }
 
         public void CallMove()
         {
-            _currentCar.MoveAway();
-            _currentCar = null;
             DriverIsComing = false;
             //OnMovedAway();
             _parkAnimator.enabled = false;

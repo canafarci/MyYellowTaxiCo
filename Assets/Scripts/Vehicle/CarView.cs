@@ -9,87 +9,64 @@ namespace TaxiGame.Vehicle
 {
     public class CarView : MonoBehaviour
     {
-        [SerializeField] private Animator _wobbleAnimator;
-        [SerializeField] GameObject _driver;
-        private Animator _animator;
+        private VehicleAnimator _vehicleAnimator;
         private CarFX _carFX;
+        private VehicleTweener _vehicleTweener;
+        private VehicleManager _manager;
         private Vehicle _taxi;
-        private Vector3 _driverBaseScale;
-        private void Awake()
-        {
-            _driverBaseScale = _driver.transform.lossyScale;
-        }
+
         [Inject]
-        private void Init(Vehicle taxi, Animator animator, CarFX carFX)
+        private void Init(Vehicle taxi,
+                        VehicleTweener tweener,
+                        CarFX carFX,
+                        VehicleAnimator animator)
         {
             _taxi = taxi;
-            _animator = animator;
+            _vehicleAnimator = animator;
             _carFX = carFX;
+            _vehicleTweener = tweener;
         }
+        private void Start()
+        {
+            _taxi.OnDepart += () => PlayDepartVisual();
+        }
+        //Accessed from an animation event (CarEnter - End frame)
         public void OnCarEnterAnimationFinished()
         {
-            _animator.enabled = false;
-            Transform enterNode = _taxi.GetConfig().EnterParkNode;
+            _vehicleAnimator.DisableAnimator();
 
-            Tween move = transform
-                            .DOMove(enterNode.position, 0.6f)
-                            .SetEase(Ease.Linear);
-
-            move.onComplete = () => GetToParkSpot();
+            Tween enterTween = _vehicleTweener.CreateEnterTween(_taxi.GetConfig().EnterParkNode);
+            enterTween.onComplete = () => GetToParkSpot();
         }
-        public void PlayDepartAnimation()
+        private void GetToParkSpot()
         {
-            _driver.SetActive(true);
-            _driver.transform.DOScale(_driverBaseScale, .4f);
+            _vehicleAnimator.PlayParkingAnimation(_taxi.GetConfig().ParkAnimator);
+            Invoke(nameof(OnCarParked), AnimationValues.PARK_ANIM_LENGTH);
+        }
+        private void OnCarParked()
+        {
+            _vehicleTweener.ShrinkDriver();
+            _taxi.OnTaxiReachedParkSpot();
+        }
 
-            Animator parkAnimator = _taxi.GetConfig().ParkAnimator;
-            parkAnimator.Play(AnimationValues.PARK_OUT);
-            _wobbleAnimator.Play(AnimationValues.WOBBLE_OUT);
-            _carFX.TakeOffFX();
+        private void PlayDepartVisual()
+        {
+            _vehicleTweener.EnlargeDriver();
+            _carFX.PlayTakeOffFX();
+            _vehicleAnimator.PlayDepartAnimation(_taxi.GetConfig().ParkAnimator);
 
             Invoke(nameof(Exit), AnimationValues.PARK_ANIM_LENGTH);
         }
         private void Exit()
         {
-            transform.SetParent(null);
+            Tween exitTween = _vehicleTweener.CreateExitTween(_taxi.GetConfig().ExitParkNode);
 
-            Transform exitNode = _taxi.GetConfig().ExitParkNode;
-            float time = GetMovementTime(exitNode);
-            Tween move = transform.DOMove(exitNode.position, time).SetEase(Ease.Linear);
-
-            move.onComplete = () => ExitParkingLane();
-        }
-        private float GetMovementTime(Transform exitNode)
-        {
-            float referenceVelocity = 50f / 3f;
-            float distance = Vector3.Distance(transform.position, exitNode.position);
-            return distance / referenceVelocity;
-        }
-        private void GetToParkSpot()
-        {
-            Animator parkAnimator = _taxi.GetConfig().ParkAnimator;
-
-            parkAnimator.Play(AnimationValues.PARK_IN);
-            _wobbleAnimator.Play(AnimationValues.WOBBLE_IN);
-
-            transform.SetParent(parkAnimator.transform);
-            transform.localPosition = Vector3.zero;
-
-            Invoke(nameof(OnCarParked), AnimationValues.PARK_ANIM_LENGTH);
+            exitTween.onComplete = () => ExitParkingLane();
         }
         private void ExitParkingLane()
         {
-            _animator.enabled = true;
-            _animator.Play(AnimationValues.CAR_EXIT);
-            FindObjectOfType<LevelProgress>().OnLevelProgress();
+            _vehicleAnimator.PlayExitAnimation();
         }
-        private void OnCarParked()
-        {
-            _taxi.GetConfig().TaxiSpot.SetVehicle(_taxi);
 
-            Tween scale = _driver.transform.DOScale(0.00001f, .5f);
-            TweenCallback callback = () => _driver.SetActive(false);
-            scale.onComplete = callback;
-        }
     }
 }

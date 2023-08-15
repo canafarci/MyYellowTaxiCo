@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Taxi.Vehicle;
 using UnityEngine;
 using Zenject;
 
@@ -11,17 +10,20 @@ namespace TaxiGame.Vehicle
     {
         [SerializeField] private Enums.StackableItemType _hatType;
         private Vehicle _vehicle;
-        private VehicleStateManager _vehicleManager;
+        private VehicleManager _vehicleManager;
         public static event EventHandler<OnVehicleReturned> OnVehicleReturned;
+        public event Action<int> OnVehicleDeparted;
 
         [Inject]
-        private void Init(VehicleStateManager manager)
+        private void Init(VehicleManager manager)
         {
             _vehicleManager = manager;
         }
         public void DepartVehicle()
         {
             _vehicle.Depart();
+            OnVehicleDeparted?.Invoke(_vehicle.GetMoneyStackCount());
+            _vehicleManager.OnVehicleDeparted();
             Clear();
         }
         private void InvokeVehicleReturnedEvent()

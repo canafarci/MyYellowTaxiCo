@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,30 +10,24 @@ namespace TaxiGame.Vehicle
     {
         [SerializeField] private int _moneyToGain;
         private CarConfig _config;
-        private CarView _view;
-
+        public event Action OnDepart;
         [Inject]
         private void Create(CarConfig config)
         {
             _config = config;
         }
-        [Inject]
-        private void Init(CarView view)
+
+        public void OnTaxiReachedParkSpot()
         {
-            _view = view;
+            VehicleSpot spot = _config.TaxiSpot;
+            spot.SetVehicle(this);
         }
 
         public void Depart()
         {
-            GainMoneyOnVehicleDeparture();
-            _view.PlayDepartAnimation();
+            OnDepart?.Invoke();
         }
-        private void GainMoneyOnVehicleDeparture()
-        {
-            MoneyStacker moneyStacker = _config.Stacker;
-            moneyStacker.StackItems(_moneyToGain);
-        }
-
+        //Accessed from an animation event (CarExit - End frame)
         public void OnCarMovedAway()
         {
             _config.Spawner.SpawnCar();
@@ -41,9 +36,8 @@ namespace TaxiGame.Vehicle
 
         //Getters-Setters
         public CarConfig GetConfig() => _config;
-        public CarView GetView() => _view;
-
-        public class Factory : PlaceholderFactory<Object, CarConfig, Vehicle>
+        public int GetMoneyStackCount() => _moneyToGain;
+        public class Factory : PlaceholderFactory<UnityEngine.Object, CarConfig, Vehicle>
         {
 
         }

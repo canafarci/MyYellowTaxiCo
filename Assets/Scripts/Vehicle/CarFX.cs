@@ -7,7 +7,7 @@ public class CarFX : MonoBehaviour
     [SerializeField] Renderer _renderer1, _renderer2, _renderer3, _renderer4;
     [SerializeField] Material _hasPassengerMaterial1, _hasPassengerMaterial2, _hasPassengerMaterial3;
     [SerializeField] GameObject _takeOffFX;
-    public void TakeOffFX()
+    public void PlayTakeOffFX()
     {
         _takeOffFX.SetActive(!_takeOffFX.activeSelf);
         ChangeMaterials();

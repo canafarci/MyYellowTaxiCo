@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class MoveAnimation : MonoBehaviour
 {
-    [SerializeField] Animator _animator;
-    CarFX _carFX;
+    [SerializeField] private Animator _animator;
+    private CarFX _carFX;
     private void Awake()
     {
         _carFX = GetComponent<CarFX>();
@@ -15,7 +15,7 @@ public class MoveAnimation : MonoBehaviour
 
     public void TakeOffFX()
     {
-        _carFX.TakeOffFX();
+        _carFX.PlayTakeOffFX();
         _animator.Play("WobbleParkOut");
     }
     public void ParkTween(Animator animator, Transform enterNode, Animator parkAnimator, GameObject _driver)

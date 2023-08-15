@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TaxiGame.Vehicle;
 using UnityEngine;
+using Zenject;
 
 public class MoneyStacker : MonoBehaviour
 {
@@ -15,7 +17,15 @@ public class MoneyStacker : MonoBehaviour
     [SerializeField] Transform _spawnPos;
     [SerializeField] string _identifier;
     int _currentRow, _currentColumn, _currentAisle = 0;
+    private VehicleSpot _spot;
+
     public static event Action MoneyPickupHandler;
+
+    [Inject]
+    private void Init([InjectOptional(Id = "MoneyStacker")] VehicleSpot spot)
+    {
+        _spot = spot;
+    }
 
     private void Awake()
     {
@@ -25,6 +35,12 @@ public class MoneyStacker : MonoBehaviour
         if (String.IsNullOrEmpty(_identifier)) return;
         if (PlayerPrefs.HasKey(_identifier)) return;
         StackItems(48);
+    }
+
+    private void Start()
+    {
+        if (_spot != null)
+            _spot.OnVehicleDeparted += (val) => StackItems(val);
     }
 
     public void StackItems(int count) => StartCoroutine(StackItemRoutine(count));
