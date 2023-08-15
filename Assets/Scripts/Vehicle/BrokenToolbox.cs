@@ -61,7 +61,7 @@ public class BrokenToolbox : MonoBehaviour
             PlayerPrefs.SetInt(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE, 1);
         }
 
-        GetComponent<Car>().OnCarRepaired();
+        //GetComponent<Car>().OnCarRepaired();
         _hasRepaired = true;
         _reader.Enable();
         mover.IsActive = true;

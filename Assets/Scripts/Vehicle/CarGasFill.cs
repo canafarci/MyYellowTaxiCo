@@ -70,7 +70,7 @@ public class CarGasFill : MonoBehaviour
 
 
 
-        GetComponent<Car>().OnCarRepaired();
+        //GetComponent<Car>().OnCarRepaired();
         CarIsRepaired = true;
     }
 }

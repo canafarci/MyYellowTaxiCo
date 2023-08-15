@@ -42,4 +42,30 @@ namespace TaxiGame.Vehicle
 
         }
     }
+
+    public struct CarConfig
+    {
+        public Animator ParkAnimator;
+        public Transform EnterParkNode;
+        public Transform ExitParkNode;
+        public VehicleSpot TaxiSpot;
+        public MoneyStacker Stacker;
+        public CarSpawner Spawner;
+
+        public CarConfig(Animator parkAnimator,
+                Transform enterParkNode,
+                Transform exitNode,
+                VehicleSpot spot,
+                MoneyStacker stacker,
+                CarSpawner carSpawner)
+        {
+            EnterParkNode = enterParkNode;
+            ExitParkNode = exitNode;
+            ParkAnimator = parkAnimator;
+            TaxiSpot = spot;
+            Stacker = stacker;
+            Spawner = carSpawner;
+        }
+
+    }
 }

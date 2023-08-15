@@ -53,7 +53,7 @@ public class BrokenTire : MonoBehaviour
             PlayerPrefs.SetInt(Globals.THIRD_TIRE_TUTORIAL_COMPLETE, 1);
         }
 
-        GetComponent<Car>().OnCarRepaired();
+        //GetComponent<Car>().OnCarRepaired();
         _hasRepaired = true;
         mover.IsActive = true;
         _reader.Enable();

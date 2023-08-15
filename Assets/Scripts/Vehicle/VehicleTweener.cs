@@ -9,6 +9,7 @@ namespace TaxiGame.Vehicle
     public class VehicleTweener : MonoBehaviour
     {
         [SerializeField] GameObject _driver;
+        [SerializeField] Transform[] _passengers;
         private Vector3 _driverBaseScale;
 
         private void Awake()
@@ -40,6 +41,16 @@ namespace TaxiGame.Vehicle
             Tween scale = _driver.transform.DOScale(0.00001f, .5f);
             TweenCallback callback = () => _driver.SetActive(false);
             scale.onComplete = callback;
+        }
+        public void EnlargePassengers()
+        {
+            foreach (Transform tr in _passengers)
+            {
+                tr.gameObject.SetActive(true);
+                Vector3 baseScale = tr.localScale;
+                tr.localScale = Vector3.one * 0.00001f;
+                tr.DOScale(baseScale, .4f);
+            }
         }
         public void EnlargeDriver()
         {

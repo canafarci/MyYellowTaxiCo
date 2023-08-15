@@ -61,28 +61,6 @@ namespace TaxiGame.Vehicle
             _factory.Create(_item, config);
         }
 
-        void OnCarInPlace(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
-        {
-
-        }
-
-        void OnCarRepaired(Car car) { }
-
-        void OnCarExited(Car car)
-        {
-            car.CarInPlaceHandler -= OnCarInPlace;
-            car.CarExitedHandler -= OnCarExited;
-            car.CarExitedHandler -= OnCarRepaired;
-            SpawnCar();
-        }
-
-        public void StartMove()
-        {
-            StartCoroutine(_ui.WaitLoop(false));
-            _parkAnimator.Play("ParkOut");
-            _spawnIndex += 1;
-        }
-
         public void CallMove()
         {
             DriverIsComing = false;
@@ -158,21 +136,21 @@ namespace TaxiGame.Vehicle
             // car.GetToParkPosition();
         }
 
-        void FirstChargerReturn(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
-        {
-            OnCarInPlace(car, IsBrokenCar, hatType);
-            FindObjectOfType<ConditionalTutorial>().FirstReturnCarWithoutCharger();
-        }
-        void FirstBrokenReturn(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
-        {
-            OnCarInPlace(car, IsBrokenCar, hatType);
-            FindObjectOfType<ConditionalTutorial>().SecondReturnBroken();
-        }
-        void FirstTireReturn(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
-        {
-            OnCarInPlace(car, IsBrokenCar, hatType);
-            FindObjectOfType<ConditionalTutorial>().ThirdReturnBroken();
-        }
+        // void FirstChargerReturn(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
+        // {
+        //     // OnCarInPlace(car, IsBrokenCar, hatType);
+        //     // FindObjectOfType<ConditionalTutorial>().FirstReturnCarWithoutCharger();
+        // }
+        // void FirstBrokenReturn(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
+        // {
+        //     // OnCarInPlace(car, IsBrokenCar, hatType);
+        //     // FindObjectOfType<ConditionalTutorial>().SecondReturnBroken();
+        // }
+        // void FirstTireReturn(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
+        // {
+        //     // OnCarInPlace(car, IsBrokenCar, hatType);
+        //     // FindObjectOfType<ConditionalTutorial>().ThirdReturnBroken();
+        // }
     }
 
     public class OnNewSpawnerActivatedEventArgs : EventArgs
