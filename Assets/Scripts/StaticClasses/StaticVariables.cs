@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class Globals
 {
-    public const float WAIT_ZONES_TIME_STEP = 0.05f;
+    public const float TIME_STEP = 0.05f;
     public const string PLAYER_INCOME_KEY = "INCOMEUPGRADE";
     public const string PLAYER_SPEED_KEY = "SPEEDUPGRADE";
     public const string PLAYER_INVENTORY_KEY = "INVENTORYUPGRADE";

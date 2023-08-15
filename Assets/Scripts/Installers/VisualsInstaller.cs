@@ -10,9 +10,10 @@ namespace TaxiGame.Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<HatDistributor>().
-                FromComponentInChildren().
-                AsTransient();
+            Container.Bind<IFeedbackVisual>()
+                        .FromComponentInChildren()
+                        .AsTransient();
+
         }
     }
 }

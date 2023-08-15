@@ -11,7 +11,7 @@ namespace TaxiGame.WaitZones
         public bool ProcessPay(ref float remainingTime, ref float remainingMoney)
         {
             float playerMoney = ResourceTracker.Instance.PlayerMoney;
-            float moneyStep = remainingMoney / remainingTime * Globals.WAIT_ZONES_TIME_STEP;
+            float moneyStep = remainingMoney / remainingTime * Globals.TIME_STEP;
 
             float precalculatedPlayerMoneyAfterStep = playerMoney - moneyStep;
             float preCalculatedRemainingPayMoney = remainingMoney - moneyStep;
@@ -28,7 +28,7 @@ namespace TaxiGame.WaitZones
                 return false;
             }
 
-            remainingTime -= Globals.WAIT_ZONES_TIME_STEP;
+            remainingTime -= Globals.TIME_STEP;
             remainingMoney -= moneyStep;
             MoneyPayHandler?.Invoke(moneyStep);
             return true;

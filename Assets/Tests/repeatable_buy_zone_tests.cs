@@ -92,7 +92,7 @@ namespace TaxiGame.WaitZones.Tests
 
             //Act
             waitingZone.Begin(() => { }, instigator);
-            yield return new WaitForSeconds(Globals.WAIT_ZONES_TIME_STEP * 2f);
+            yield return new WaitForSeconds(Globals.TIME_STEP * 2f);
             float remainingMoneyAfterIteration = waitingZone.GetRemainingMoney();
             TestContext.WriteLine($"remainingTime : {remainingTime}, remainingMoney: {remainingMoneyAfterIteration}");            //Assert
 

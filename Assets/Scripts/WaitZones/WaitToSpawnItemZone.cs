@@ -19,7 +19,7 @@ namespace TaxiGame.WaitZones
         }
         protected override void Iterate(ref float remainingTime, GameObject instigator)
         {
-            remainingTime -= Globals.WAIT_ZONES_TIME_STEP;
+            remainingTime -= Globals.TIME_STEP;
 
             RaiseIterationEvent(instigator, remainingTime, _timeToUnlock);
         }

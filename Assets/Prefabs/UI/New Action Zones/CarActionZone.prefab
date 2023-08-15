@@ -3069,12 +3069,12 @@ PrefabInstance:
     - target: {fileID: 7517478811502373622, guid: f6797c7ff5bbae444a306286e0bdfb75,
         type: 3}
       propertyPath: _spawnRate
-      value: 5.8
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7517478811502373622, guid: f6797c7ff5bbae444a306286e0bdfb75,
         type: 3}
       propertyPath: _initialSpawnTime
-      value: 1.2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7786834012894759314, guid: f6797c7ff5bbae444a306286e0bdfb75,
         type: 3}

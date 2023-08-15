@@ -20,6 +20,7 @@ namespace TaxiGame.Vehicle
                         Container.Bind<VehicleSpot>()
                                 .FromComponentInChildren()
                                 .AsTransient();
+
                         Container.Bind<VehicleSpot>()
                                 .WithId("MoneyStacker")
                                 .FromComponentInParents()
@@ -44,6 +45,7 @@ namespace TaxiGame.Vehicle
                         Container.Bind<LevelProgress>()
                                 .FromComponentInHierarchy()
                                 .AsSingle();
+
                         Container.Bind<MoneyStacker>()
                                 .FromComponentInChildren()
                                 .AsSingle();

@@ -10,19 +10,14 @@ namespace TaxiGame.Vehicle
 {
     public class CarSpawner : MonoBehaviour
     {
-        public bool DriverIsComing = false;
         public Enums.StackableItemType HatType;
-        //public Action OnMovedAway;
         public GameObject[] BrokenCars { set { _brokenCars = value; } }
         [SerializeField] private Transform _enterNode, _exitNode;
         [SerializeField] private GameObject _item;
         [SerializeField] private GameObject[] _brokenCars;
         [SerializeField] private Animator _parkAnimator;
-        private MoneyStacker _stacker;
         [SerializeField] private bool _specialChargerSpawn, _specialBrokenSpawn, _specialTireSpawn;
-        private SpawnerUI _ui;
-        private int _spawnIndex = 0;
-
+        private MoneyStacker _stacker;
 
         //* NEWWW
 
@@ -30,6 +25,7 @@ namespace TaxiGame.Vehicle
         private VehicleSpot _spot;
 
         public static event EventHandler<OnNewSpawnerActivatedEventArgs> OnNewSpawnerActivated;
+        public event Action OnCarSpawned;
 
         [Inject]
         private void Init(Vehicle.Factory factory, VehicleSpot spot, MoneyStacker stacker)
@@ -41,7 +37,6 @@ namespace TaxiGame.Vehicle
 
         private void Awake()
         {
-            _ui = GetComponent<SpawnerUI>();
             OnNewSpawnerActivated?.Invoke(this, new OnNewSpawnerActivatedEventArgs { HatType = HatType });
         }
 
@@ -59,15 +54,9 @@ namespace TaxiGame.Vehicle
                                             _stacker,
                                             this);
             _factory.Create(_item, config);
-        }
 
-        public void CallMove()
-        {
-            DriverIsComing = false;
-            //OnMovedAway();
-            _parkAnimator.enabled = false;
+            OnCarSpawned?.Invoke();
         }
-
         // public void SpawnCar()
         // {
         //     Car car;

@@ -34,9 +34,14 @@ namespace TaxiGame.Installers
                         Container.Bind<RiderNPCView>()
                                 .FromComponentInChildren()
                                 .AsTransient();
+
                         Container.Bind<Follower>()
                                 .FromComponentInChildren()
                                 .AsTransient();
+
+                        Container.Bind<HatDistributor>().
+                                FromComponentInChildren().
+                                AsTransient();
 
 
 

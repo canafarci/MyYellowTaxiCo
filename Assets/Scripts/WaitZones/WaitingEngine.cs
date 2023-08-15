@@ -33,7 +33,7 @@ namespace TaxiGame.WaitZones
             while (CheckCanContinue(remainingTime))
             {
                 Iterate(ref remainingTime, instigator);
-                yield return new WaitForSeconds(Globals.WAIT_ZONES_TIME_STEP);
+                yield return new WaitForSeconds(Globals.TIME_STEP);
             }
             OnSuccess(instigator);
         }
