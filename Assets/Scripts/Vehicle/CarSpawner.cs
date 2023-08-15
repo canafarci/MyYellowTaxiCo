@@ -47,11 +47,10 @@ namespace TaxiGame.Vehicle
 
         public void SpawnCar()
         {
-            CarConfig config = new CarConfig(_parkAnimator,
+            VehicleData config = new VehicleData(_parkAnimator,
                                             _enterNode,
                                             _exitNode,
                                             _spot,
-                                            _stacker,
                                             this);
             _factory.Create(_item, config);
 

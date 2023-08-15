@@ -36,7 +36,7 @@ namespace TaxiGame.NPC
             _driversWithHat.Add(e.Driver);
         }
 
-        private void TaxiSpot_TaxiReturnedHandler(object sender, OnVehicleReturned e)
+        private void TaxiSpot_TaxiReturnedHandler(object sender, OnVehicleReturnedArgs e)
         {
             if (_hatType != e.HatType) return;
 

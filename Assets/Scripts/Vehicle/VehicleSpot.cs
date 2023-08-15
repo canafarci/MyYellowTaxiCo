@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -11,24 +9,18 @@ namespace TaxiGame.Vehicle
         [SerializeField] private Enums.StackableItemType _hatType;
         private Vehicle _vehicle;
         private VehicleManager _vehicleManager;
-        public static event EventHandler<OnVehicleReturned> OnVehicleReturned;
+        public static event EventHandler<OnVehicleReturnedArgs> OnVehicleReturned;
         public event Action<int> OnVehicleDeparted;
-
-        [Inject]
-        private void Init(VehicleManager manager)
-        {
-            _vehicleManager = manager;
-        }
         public void DepartVehicle()
         {
-            _vehicle.Depart();
-            OnVehicleDeparted?.Invoke(_vehicle.GetMoneyStackCount());
+            _vehicle.GetController().InitiateDeparture();
             _vehicleManager.OnVehicleDeparted();
+            OnVehicleDeparted?.Invoke(_vehicle.GetModel().GetMoneyStackCount());
             Clear();
         }
         private void InvokeVehicleReturnedEvent()
         {
-            OnVehicleReturned?.Invoke(this, new OnVehicleReturned
+            OnVehicleReturned?.Invoke(this, new OnVehicleReturnedArgs
             {
                 HatType = _hatType,
                 SpawnerTransform = transform,
@@ -45,9 +37,15 @@ namespace TaxiGame.Vehicle
             InvokeVehicleReturnedEvent();
         }
         private void Clear() => _vehicle = null;
+        //initialization
+        [Inject]
+        private void Init(VehicleManager manager)
+        {
+            _vehicleManager = manager;
+        }
     }
 
-    public class OnVehicleReturned : EventArgs
+    public class OnVehicleReturnedArgs : EventArgs
     {
         public Enums.StackableItemType HatType;
         public Transform SpawnerTransform;

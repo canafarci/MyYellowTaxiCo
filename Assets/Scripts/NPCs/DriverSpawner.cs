@@ -37,7 +37,7 @@ namespace TaxiGame.NPC
                 StartCoroutine(AddDriverWhenQueueHasAvaliableSpot(transform));
             }
         }
-        private void VehicleSpot_VehicleReturnedHandler(object sender, OnVehicleReturned e)
+        private void VehicleSpot_VehicleReturnedHandler(object sender, OnVehicleReturnedArgs e)
         {
             if (e.CanSpawnDriver && e.HatType == HatType)
             {

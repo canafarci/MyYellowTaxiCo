@@ -26,7 +26,11 @@ namespace TaxiGame.Vehicle
                                 .FromComponentInParents()
                                 .AsTransient();
 
-                        Container.Bind<CarView>()
+                        Container.Bind<VehicleController>()
+                                .FromComponentInChildren()
+                                .AsTransient();
+
+                        Container.Bind<VehicleModel>()
                                 .FromComponentInChildren()
                                 .AsTransient();
 
@@ -50,8 +54,8 @@ namespace TaxiGame.Vehicle
                                 .FromComponentInChildren()
                                 .AsSingle();
 
-                        Container.BindFactory<Object, CarConfig, Vehicle, Vehicle.Factory>()
-                                .FromFactory<PrefabFactory<CarConfig, Vehicle>>();
+                        Container.BindFactory<Object, VehicleData, Vehicle, Vehicle.Factory>()
+                                .FromFactory<PrefabFactory<VehicleData, Vehicle>>();
                 }
         }
 }

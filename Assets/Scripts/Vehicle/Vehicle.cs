@@ -8,62 +8,48 @@ namespace TaxiGame.Vehicle
 {
     public class Vehicle : MonoBehaviour
     {
-        [SerializeField] private int _moneyToGain;
-        private CarConfig _config;
-        public event Action OnDepart;
+        private VehicleController _controller;
+        private VehicleModel _model;
+
         [Inject]
-        private void Create(CarConfig config)
+        private void Create(VehicleController controller,
+                            VehicleModel model,
+                            VehicleData config)
         {
-            _config = config;
-        }
-
-        public void OnTaxiReachedParkSpot()
-        {
-            VehicleSpot spot = _config.TaxiSpot;
-            spot.SetVehicle(this);
-        }
-
-        public void Depart()
-        {
-            OnDepart?.Invoke();
-        }
-        //Accessed from an animation event (CarExit - End frame)
-        public void OnCarMovedAway()
-        {
-            _config.Spawner.SpawnCar();
-            Destroy(gameObject);
+            _controller = controller;
+            _model = model;
+            _controller.SetData(config);
+            _controller.SetVehicleInPlaceCallback(() => config.VehicleSpot.SetVehicle(this));
         }
 
         //Getters-Setters
-        public CarConfig GetConfig() => _config;
-        public int GetMoneyStackCount() => _moneyToGain;
-        public class Factory : PlaceholderFactory<UnityEngine.Object, CarConfig, Vehicle>
+        public VehicleController GetController() => _controller;
+        public VehicleModel GetModel() => _model;
+
+        public class Factory : PlaceholderFactory<UnityEngine.Object, VehicleData, Vehicle>
         {
 
         }
     }
-
-    public struct CarConfig
+    [Serializable]
+    public struct VehicleData
     {
         public Animator ParkAnimator;
         public Transform EnterParkNode;
         public Transform ExitParkNode;
-        public VehicleSpot TaxiSpot;
-        public MoneyStacker Stacker;
+        public VehicleSpot VehicleSpot;
         public CarSpawner Spawner;
 
-        public CarConfig(Animator parkAnimator,
+        public VehicleData(Animator parkAnimator,
                 Transform enterParkNode,
                 Transform exitNode,
                 VehicleSpot spot,
-                MoneyStacker stacker,
                 CarSpawner carSpawner)
         {
             EnterParkNode = enterParkNode;
             ExitParkNode = exitNode;
             ParkAnimator = parkAnimator;
-            TaxiSpot = spot;
-            Stacker = stacker;
+            VehicleSpot = spot;
             Spawner = carSpawner;
         }
 
