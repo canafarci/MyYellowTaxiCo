@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class StackPickup : MonoBehaviour
 {
-    public bool SecondHatTutorialStarted = false;
+    private bool _secondGiveHatTutorialStarted = false;
     public bool IsHatStacker = false;
     [SerializeField] float _clearStackRate;
     [SerializeField] UnityEvent _onSecondHatTutorialUnlock;
@@ -49,10 +49,10 @@ public class StackPickup : MonoBehaviour
                     unlock.UnlockObject();
                 }
 
-                if (SecondHatTutorialStarted)
+                if (_secondGiveHatTutorialStarted)
                 {
                     _onSecondHatTutorialUnlock.Invoke();
-                    SecondHatTutorialStarted = false;
+                    _secondGiveHatTutorialStarted = false;
                     FindObjectOfType<SecondHatTutorialTrigger>().SecondHatTutorialStarted = true;
                     FindObjectOfType<SecondHatTutorialTrigger>().GetComponent<Collider>().enabled = true;
 
@@ -69,4 +69,7 @@ public class StackPickup : MonoBehaviour
             }
         }
     }
+
+    //Getters-Setters
+    public void SetSecondGiveHatTutorialStarted() => _secondGiveHatTutorialStarted = true;
 }

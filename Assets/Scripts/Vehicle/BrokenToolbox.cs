@@ -55,7 +55,7 @@ public class BrokenToolbox : MonoBehaviour
 
         if (!PlayerPrefs.HasKey(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE))
         {
-            ConditionalTutorial tuto = FindObjectOfType<ConditionalTutorial>();
+            GameProgressModel tuto = FindObjectOfType<GameProgressModel>();
             tuto.OnSecondRepair();
 
             PlayerPrefs.SetInt(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE, 1);

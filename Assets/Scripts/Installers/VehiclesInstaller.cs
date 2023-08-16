@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TaxiGame.Vehicle;
@@ -12,6 +13,14 @@ namespace TaxiGame.Vehicle
                 {
                         Container.Bind<VehicleManager>()
                                 .AsSingle();
+
+                        Container.Bind<VehicleProgressModel>()
+                                .FromComponentInHierarchy().
+                                AsSingle();
+
+                        Container.Bind<GameProgressModel>()
+                                .FromComponentInHierarchy().
+                                AsSingle();
 
                         Container.Bind<Vehicle>()
                                 .FromComponentInChildren()
@@ -54,8 +63,8 @@ namespace TaxiGame.Vehicle
                                 .FromComponentInChildren()
                                 .AsSingle();
 
-                        Container.BindFactory<Object, VehicleData, Vehicle, Vehicle.Factory>()
-                                .FromFactory<PrefabFactory<VehicleData, Vehicle>>();
+                        Container.BindFactory<UnityEngine.Object, VehicleConfig, Action, Vehicle, Vehicle.Factory>()
+                                .FromFactory<PrefabFactory<VehicleConfig, Action, Vehicle>>();
                 }
         }
 }

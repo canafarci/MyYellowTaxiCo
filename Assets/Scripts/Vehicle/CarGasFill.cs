@@ -62,7 +62,7 @@ public class CarGasFill : MonoBehaviour
 
         if (!PlayerPrefs.HasKey(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE))
         {
-            ConditionalTutorial tuto = FindObjectOfType<ConditionalTutorial>();
+            GameProgressModel tuto = FindObjectOfType<GameProgressModel>();
             tuto.OnFirstCharge();
 
             PlayerPrefs.SetInt(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE, 1);

@@ -14,34 +14,35 @@ namespace TaxiGame.Vehicle
         private VehicleAnimator _vehicleAnimator;
         private CarFX _carFX;
         private VehicleTweener _vehicleTweener;
-        private VehicleData _data;
+        private VehicleModel _model;
 
-        // Callback for notifying Vehicle spot when the vehicle is in place
-        private Action _vehicleInPlaceCallback;
+
 
         [Inject]
         private void Init(
             VehicleTweener tweener,
             CarFX carFX,
-            VehicleAnimator animator)
+            VehicleAnimator animator,
+            VehicleModel model)
         {
             _vehicleAnimator = animator;
             _carFX = carFX;
             _vehicleTweener = tweener;
+            _model = model;
         }
 
         // Called when the vehicle enter animation finishes
         public void HandleCarEnterAnimationCompleted()
         {
             _vehicleAnimator.DisableAnimator();
-            Tween enterTween = _vehicleTweener.CreateEnterTween(_data.EnterParkNode);
+            Tween enterTween = _vehicleTweener.CreateEnterTween(_model.GetConfig().EnterParkNode);
             enterTween.onComplete = () => MoveToParkingSpot();
         }
 
         // Animates the vehicle to the parking spot
         private void MoveToParkingSpot()
         {
-            _vehicleAnimator.PlayParkingAnimation(_data.ParkAnimator);
+            _vehicleAnimator.PlayParkingAnimation(_model.GetConfig().ParkAnimator);
             Invoke(nameof(HandleCarParked), AnimationValues.PARK_ANIM_LENGTH);
         }
 
@@ -51,7 +52,7 @@ namespace TaxiGame.Vehicle
             _vehicleTweener.ShrinkDriver();
 
             // Invoke the callback to notify the vehicle spot
-            _vehicleInPlaceCallback?.Invoke();
+            _model.GetVehicleInPlaceCallback()?.Invoke();
         }
 
         // Initiates the departure sequence
@@ -59,7 +60,7 @@ namespace TaxiGame.Vehicle
         {
             _vehicleTweener.EnlargeDriver();
             _carFX.PlayTakeOffFX();
-            _vehicleAnimator.PlayDepartAnimation(_data.ParkAnimator);
+            _vehicleAnimator.PlayDepartAnimation(_model.GetConfig().ParkAnimator);
 
             Invoke(nameof(CompleteDeparture), AnimationValues.PARK_ANIM_LENGTH);
         }
@@ -67,7 +68,7 @@ namespace TaxiGame.Vehicle
         // Initiates the exit sequence after departure
         private void CompleteDeparture()
         {
-            Tween exitTween = _vehicleTweener.CreateExitTween(_data.ExitParkNode);
+            Tween exitTween = _vehicleTweener.CreateExitTween(_model.GetConfig().ExitParkNode);
 
             exitTween.onComplete = () => HandleExitFromParkingLane();
         }
@@ -81,13 +82,11 @@ namespace TaxiGame.Vehicle
         // Called from an animation event (CarExit - End frame)
         public void HandleCarMovedAway()
         {
-            CarSpawner spawner = _data.Spawner;
+            CarSpawner spawner = _model.GetConfig().Spawner;
             spawner.SpawnCar();
             Destroy(gameObject);
         }
 
         // Set the data and callback for notifying vehicle spot
-        public void SetData(VehicleData data) => _data = data;
-        public void SetVehicleInPlaceCallback(Action callback) => _vehicleInPlaceCallback = callback;
     }
 }

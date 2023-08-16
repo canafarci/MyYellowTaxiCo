@@ -1,8 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using TaxiGame.NPC;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +6,6 @@ namespace TaxiGame.Vehicle
 {
     public class CarSpawner : MonoBehaviour
     {
-        public Enums.StackableItemType HatType;
         public GameObject[] BrokenCars { set { _brokenCars = value; } }
         [SerializeField] private Transform _enterNode, _exitNode;
         [SerializeField] private GameObject _item;
@@ -20,42 +15,59 @@ namespace TaxiGame.Vehicle
         private MoneyStacker _stacker;
 
         //* NEWWW
-
+        [SerializeField] private Enums.StackableItemType _hatType;
+        [SerializeField] private CarSpawnerID _carSpawnerID;
         private Vehicle.Factory _factory;
         private VehicleSpot _spot;
+        private VehicleManager _manager;
 
         public static event EventHandler<OnNewSpawnerActivatedEventArgs> OnNewSpawnerActivated;
         public event Action OnCarSpawned;
 
         [Inject]
-        private void Init(Vehicle.Factory factory, VehicleSpot spot, MoneyStacker stacker)
+        private void Init(Vehicle.Factory factory, VehicleSpot spot, MoneyStacker stacker, VehicleManager manager)
         {
             _factory = factory;
             _spot = spot;
             _stacker = stacker;
+            _manager = manager;
         }
 
         private void Awake()
         {
-            OnNewSpawnerActivated?.Invoke(this, new OnNewSpawnerActivatedEventArgs { HatType = HatType });
+            OnNewSpawnerActivated?.Invoke(this, new OnNewSpawnerActivatedEventArgs { HatType = _hatType });
         }
 
         private void Start()
         {
-            SpawnCar();
+            SpawnCar(true);
         }
 
-        public void SpawnCar()
+        public void SpawnCar(bool isInitialSpawn = false)
         {
-            VehicleData config = new VehicleData(_parkAnimator,
+            CarSpawnData spawnData = GetSpawnData(isInitialSpawn);
+
+
+            VehicleConfig config = new VehicleConfig(_parkAnimator,
                                             _enterNode,
                                             _exitNode,
                                             _spot,
                                             this);
-            _factory.Create(_item, config);
+
+            _factory.Create(spawnData.Prefab, config, spawnData.VehicleInPlaceCallback);
 
             OnCarSpawned?.Invoke();
         }
+        private CarSpawnData GetSpawnData(bool isInitialSpawn)
+        {
+            if (isInitialSpawn)
+                return _manager.GetInitialCarSpawnData(_hatType);
+            else
+                return _manager.GetCarSpawnData(_carSpawnerID, _hatType);
+        }
+
+        //Getters-Setters
+        ////////////////////////////public Enums.StackableItemType GetHatType() => _hatType;
         // public void SpawnCar()
         // {
         //     Car car;
@@ -107,22 +119,7 @@ namespace TaxiGame.Vehicle
         //     car.CarExitedHandler += OnCarExited;
         // }
 
-        void InitialSpawn()
-        {
-            // Car car = GameObject.Instantiate(_item, _nodes.StartNode.position, _nodes.StartNode.rotation).GetComponent<Car>();
 
-            // car.EnterNode = _enterNode;
-            // car.ExitNode = _nodes.EndNode;
-            // car.parkAnimator = _parkAnimator;
-            // car.Stacker = _stacker;
-
-            // car.GetComponent<Animator>().enabled = false;
-
-            // car.CarInPlaceHandler += OnCarInPlace;
-            // car.CarExitedHandler += OnCarExited;
-
-            // car.GetToParkPosition();
-        }
 
         // void FirstChargerReturn(Car car, bool IsBrokenCar, Enums.StackableItemType hatType)
         // {

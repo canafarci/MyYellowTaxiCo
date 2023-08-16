@@ -39,7 +39,7 @@ namespace TaxiGame.NPC
             Wanderer wanderer = GameObject.Instantiate(_prefab, _spawnTransform.position, _prefab.transform.rotation).GetComponent<Wanderer>();
             wanderer.Initialize(_waypoints);
             if (!PlayerPrefs.HasKey(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE))
-                FindObjectOfType<ConditionalTutorial>().OnFirstWandererSpawned(wanderer);
+                FindObjectOfType<GameProgressModel>().OnFirstWandererSpawned(wanderer);
         }
     }
 }

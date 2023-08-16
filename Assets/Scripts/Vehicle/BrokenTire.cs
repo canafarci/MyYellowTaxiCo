@@ -47,7 +47,7 @@ public class BrokenTire : MonoBehaviour
 
         if (!PlayerPrefs.HasKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE))
         {
-            ConditionalTutorial tuto = FindObjectOfType<ConditionalTutorial>();
+            GameProgressModel tuto = FindObjectOfType<GameProgressModel>();
             tuto.OnThirdRepair();
 
             PlayerPrefs.SetInt(Globals.THIRD_TIRE_TUTORIAL_COMPLETE, 1);
