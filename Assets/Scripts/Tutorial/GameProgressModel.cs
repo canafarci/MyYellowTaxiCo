@@ -18,16 +18,11 @@ public class GameProgressModel : MonoBehaviour
 
     [SerializeField] GameObject[] _secondStageBrokenCars, _thirdStageBrokenCars;
     [SerializeField] CarSpawner[] _firstSpawners, _secondSpawners;
-    ObjectiveArrow _objectiveArrow;
     [SerializeField] GameObject[] _tutorialTexts;
-    private void Awake()
-    {
-        _objectiveArrow = FindObjectOfType<ObjectiveArrow>();
-    }
 
     private void Start()
     {
-        Invoke("Load", .3f);
+        Invoke(nameof(Load), .3f);
     }
 
     private void Load()
@@ -36,24 +31,13 @@ public class GameProgressModel : MonoBehaviour
         {
             _afterFirstChargeReload.Invoke();
         }
-
         if (PlayerPrefs.HasKey(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE))
         {
             _afterRepairLoad.Invoke();
-
-            foreach (CarSpawner sp in _firstSpawners)
-            {
-                sp.BrokenCars = _secondStageBrokenCars;
-            }
         }
         if (PlayerPrefs.HasKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE))
         {
             _afterTireReload.Invoke();
-
-            foreach (CarSpawner sp in _secondSpawners)
-            {
-                sp.BrokenCars = _thirdStageBrokenCars;
-            }
         }
 
         if (PlayerPrefs.HasKey(Globals.FOURTH_CUSTOMER_TUTORIAL_COMPLETE))
@@ -88,20 +72,10 @@ public class GameProgressModel : MonoBehaviour
     public void OnSecondRepair()
     {
         _onFirstRepair.Invoke();
-
-        foreach (CarSpawner sp in _firstSpawners)
-        {
-            sp.BrokenCars = _secondStageBrokenCars;
-        }
     }
     public void OnThirdRepair()
     {
         _onFirstTireChange.Invoke();
-
-        foreach (CarSpawner sp in _secondSpawners)
-        {
-            sp.BrokenCars = _thirdStageBrokenCars;
-        }
     }
     public void DisableAllChildren()
     {

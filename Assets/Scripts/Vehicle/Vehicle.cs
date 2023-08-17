@@ -14,30 +14,28 @@ namespace TaxiGame.Vehicle
         [Inject]
         private void Create(VehicleController controller,
                             VehicleModel model,
-                            VehicleConfig config,
-                            Action vehicleInPlaceCallback)
+                            VehicleConfiguration config,
+                            List<Action> vehicleInPlaceCallbacks)
         {
             _controller = controller;
             _model = model;
             _model.SetConfig(config);
-            _model.SetVehicleInPlaceCallback(() =>
-            {
-                config.VehicleSpot.SetVehicle(this);
-                vehicleInPlaceCallback();
-            });
+            vehicleInPlaceCallbacks.Add(() => config.VehicleSpot.SetVehicle(this));
+
+            _model.SetVehicleInPlaceCallbacks(vehicleInPlaceCallbacks);
         }
 
         //Getters-Setters
         public VehicleController GetController() => _controller;
         public VehicleModel GetModel() => _model;
 
-        public class Factory : PlaceholderFactory<UnityEngine.Object, VehicleConfig, Action, Vehicle>
+        public class Factory : PlaceholderFactory<UnityEngine.Object, VehicleConfiguration, List<Action>, Vehicle>
         {
 
         }
     }
     [Serializable]
-    public struct VehicleConfig
+    public struct VehicleConfiguration
     {
         public Animator ParkAnimator;
         public Transform EnterParkNode;
@@ -45,7 +43,7 @@ namespace TaxiGame.Vehicle
         public VehicleSpot VehicleSpot;
         public CarSpawner Spawner;
 
-        public VehicleConfig(Animator parkAnimator,
+        public VehicleConfiguration(Animator parkAnimator,
                 Transform enterParkNode,
                 Transform exitNode,
                 VehicleSpot spot,

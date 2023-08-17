@@ -9,15 +9,15 @@ namespace TaxiGame.Vehicle
     {
         [SerializeField] private bool _isBroken;
         [SerializeField] private int _moneyToGain;
-        private VehicleConfig _config;
+        private VehicleConfiguration _config;
         // Callback for notifying Vehicle spot when the vehicle is in place
-        private Action _vehicleInPlaceCallback;
+        private List<Action> _vehicleInPlaceCallbacks;
 
         public int GetMoneyStackCount() => _moneyToGain;
         public bool IsCarBroken() => _isBroken;
-        public void SetConfig(VehicleConfig config) => _config = config;
-        public VehicleConfig GetConfig() => _config;
-        public void SetVehicleInPlaceCallback(Action callback) => _vehicleInPlaceCallback = callback;
-        public Action GetVehicleInPlaceCallback() => _vehicleInPlaceCallback;
+        public void SetConfig(VehicleConfiguration config) => _config = config;
+        public VehicleConfiguration GetConfig() => _config;
+        public void SetVehicleInPlaceCallbacks(List<Action> callback) => _vehicleInPlaceCallbacks = callback;
+        public List<Action> GetVehicleInPlaceCallbacks() => _vehicleInPlaceCallbacks;
     }
 }

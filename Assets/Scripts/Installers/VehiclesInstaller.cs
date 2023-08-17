@@ -14,7 +14,21 @@ namespace TaxiGame.Vehicle
                         Container.Bind<VehicleManager>()
                                 .AsSingle();
 
-                        Container.Bind<VehicleProgressModel>()
+                        Container.Bind<CarSpawnDataProvider>()
+                                .AsSingle();
+
+                        Container.Bind<VehicleProgressionModel>()
+                                .AsSingle();
+
+                        Container.Bind<RegularCarFactory>()
+                                .FromComponentInHierarchy().
+                                AsSingle();
+
+                        Container.Bind<BrokenCarFactory>()
+                                .FromComponentInHierarchy().
+                                AsSingle();
+
+                        Container.Bind<SpecialProgressionEventCarFactory>()
                                 .FromComponentInHierarchy().
                                 AsSingle();
 
@@ -63,8 +77,8 @@ namespace TaxiGame.Vehicle
                                 .FromComponentInChildren()
                                 .AsSingle();
 
-                        Container.BindFactory<UnityEngine.Object, VehicleConfig, Action, Vehicle, Vehicle.Factory>()
-                                .FromFactory<PrefabFactory<VehicleConfig, Action, Vehicle>>();
+                        Container.BindFactory<UnityEngine.Object, VehicleConfiguration, List<Action>, Vehicle, Vehicle.Factory>()
+                                .FromFactory<PrefabFactory<VehicleConfiguration, List<Action>, Vehicle>>();
                 }
         }
 }

@@ -51,8 +51,11 @@ namespace TaxiGame.Vehicle
         {
             _vehicleTweener.ShrinkDriver();
 
-            // Invoke the callback to notify the vehicle spot
-            _model.GetVehicleInPlaceCallback()?.Invoke();
+            // Invoke the callbacks to notify the vehicle spot and change the game state
+            foreach (Action callback in _model.GetVehicleInPlaceCallbacks())
+            {
+                callback?.Invoke();
+            }
         }
 
         // Initiates the departure sequence
