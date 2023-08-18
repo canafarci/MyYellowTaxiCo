@@ -33,7 +33,7 @@ namespace TaxiGame.Vehicle
         public SpawnedCarData GetCarSpawnData(CarSpawnerID carSpawnerID, Enums.StackableItemType spawnerType)
         {
             // Check for special progression events
-            if (ShouldSpawnSpecialProgressionCar(carSpawnerID))
+            if (CheckShouldSpawnSpecialProgressionCar(carSpawnerID))
             {
                 return _specialCarFactory.CreateSpecialProgressionCarSpawnData(carSpawnerID);
             }
@@ -49,10 +49,9 @@ namespace TaxiGame.Vehicle
             }
         }
 
-        private bool ShouldSpawnSpecialProgressionCar(CarSpawnerID carSpawner)
+        private bool CheckShouldSpawnSpecialProgressionCar(CarSpawnerID carSpawnerID)
         {
-            string progressionKey = _model.SpawnerToProgressionKeyMap[carSpawner];
-            return !PlayerPrefs.HasKey(progressionKey);
+            return _model.ShouldSpawnSpecialProgressionCar(carSpawnerID);
         }
 
         private bool ShouldSpawnRandomBrokenCar(float chance)

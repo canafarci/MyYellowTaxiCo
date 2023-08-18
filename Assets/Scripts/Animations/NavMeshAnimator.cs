@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TaxiGame.NPC;
 using UnityEngine;
 using UnityEngine.AI;

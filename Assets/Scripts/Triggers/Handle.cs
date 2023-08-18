@@ -11,13 +11,13 @@ public class Handle : MonoBehaviour
     public bool IsActive = false;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("CarNoGas"))
-        {
-            CarGasFill gasFill = other.GetComponent<CarGasFill>();
-            if (gasFill.CarIsRepaired) { return; }
-            gasFill.AttachHandle(this, _hose, _station);
-            GameManager.Instance.References.PlayerAnimator.ResetWalking();
-        }
+        // if (other.CompareTag("CarNoGas"))
+        // {
+        //     CarGasFill gasFill = other.GetComponent<CarGasFill>();
+        //     if (gasFill.CarIsRepaired) { return; }
+        //     gasFill.AttachHandle(this, _hose, _station);
+        //     GameManager.Instance.References.PlayerAnimator.ResetWalking();
+        // }
     }
     private void FixedUpdate()
     {

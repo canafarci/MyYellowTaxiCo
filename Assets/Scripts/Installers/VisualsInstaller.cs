@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TaxiGame.NPC;
-using UnityEngine;
 using Zenject;
 
 namespace TaxiGame.Installers

@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace TaxiGame.Vehicle
 {
-    public class VehicleProgressionModel : MonoBehaviour
+    public class VehicleProgressionModel
     {
-        public Dictionary<CarSpawnerID, string> SpawnerToProgressionKeyMap { get { return _spawnerToProgressionKeyMap; } }
         private Dictionary<CarSpawnerID, string> _spawnerToProgressionKeyMap;
 
         private VehicleProgressionModel()
@@ -17,6 +16,12 @@ namespace TaxiGame.Vehicle
                 { CarSpawnerID.SecondYellowSpawner, Globals.SECOND_BROKEN_TUTORIAL_COMPLETE },
                 { CarSpawnerID.ThirdYellowSpawner, Globals.THIRD_TIRE_TUTORIAL_COMPLETE }
             };
+        }
+
+        public bool ShouldSpawnSpecialProgressionCar(CarSpawnerID carSpawner)
+        {
+            string progressionKey = _spawnerToProgressionKeyMap[carSpawner];
+            return !PlayerPrefs.HasKey(progressionKey);
         }
     }
 }

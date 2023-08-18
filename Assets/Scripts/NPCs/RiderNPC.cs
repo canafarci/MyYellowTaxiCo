@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -7,11 +5,11 @@ namespace TaxiGame.NPC
 {
     public class RiderNPC : MonoBehaviour
     {
-        private RiderNPCView _view;
-        public RiderNPCView GetView() => _view;
+        private RiderNPCController _view;
+        public RiderNPCController GetView() => _view;
 
         [Inject]
-        private void Init(RiderNPCView view)
+        private void Init(RiderNPCController view)
         {
             _view = view;
         }

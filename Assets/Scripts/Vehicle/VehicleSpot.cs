@@ -18,13 +18,14 @@ namespace TaxiGame.Vehicle
             OnVehicleDeparted?.Invoke(_vehicle.GetModel().GetMoneyStackCount());
             Clear();
         }
-        private void InvokeVehicleReturnedEvent()
+        private void InvokeVehicleReturnedEvent(Vehicle vehicle)
         {
             OnVehicleReturned?.Invoke(this, new OnVehicleReturnedArgs
             {
                 HatType = _hatType,
                 SpawnerTransform = transform,
-                CanSpawnDriver = _vehicleManager.CanSpawnDriver(this)
+                CanSpawnDriver = _vehicleManager.CanSpawnDriver(this),
+                IsBrokenCar = vehicle.GetModel().IsCarBroken()
             });
 
         }
@@ -34,7 +35,7 @@ namespace TaxiGame.Vehicle
         public void SetVehicle(Vehicle vehicle)
         {
             _vehicle = vehicle;
-            InvokeVehicleReturnedEvent();
+            InvokeVehicleReturnedEvent(vehicle);
         }
         private void Clear() => _vehicle = null;
         //initialization
@@ -50,5 +51,6 @@ namespace TaxiGame.Vehicle
         public Enums.StackableItemType HatType;
         public Transform SpawnerTransform;
         public bool CanSpawnDriver;
+        public bool IsBrokenCar;
     }
 }

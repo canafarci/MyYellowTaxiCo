@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using TaxiGame.NPC;
 using UnityEngine;
@@ -31,7 +29,7 @@ namespace TaxiGame.Installers
                                 .FromComponentInChildren()
                                 .AsTransient();
 
-                        Container.Bind<RiderNPCView>()
+                        Container.Bind<RiderNPCController>()
                                 .FromComponentInChildren()
                                 .AsTransient();
 

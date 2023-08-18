@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TaxiGame.NPC
+namespace TaxiGame.Characters
 {
     public class QueueNPCBehaviour : MonoBehaviour
     {

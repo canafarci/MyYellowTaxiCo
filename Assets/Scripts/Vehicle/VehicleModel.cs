@@ -7,6 +7,7 @@ namespace TaxiGame.Vehicle
 {
     public class VehicleModel : MonoBehaviour
     {
+        [SerializeField] private Enums.StackableItemType _hatType;
         [SerializeField] private bool _isBroken;
         [SerializeField] private int _moneyToGain;
         private VehicleConfiguration _config;
@@ -19,5 +20,6 @@ namespace TaxiGame.Vehicle
         public VehicleConfiguration GetConfig() => _config;
         public void SetVehicleInPlaceCallbacks(List<Action> callback) => _vehicleInPlaceCallbacks = callback;
         public List<Action> GetVehicleInPlaceCallbacks() => _vehicleInPlaceCallbacks;
+        public Enums.StackableItemType GetHatType() => _hatType;
     }
 }

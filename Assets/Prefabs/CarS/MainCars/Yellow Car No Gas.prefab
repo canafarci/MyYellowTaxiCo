@@ -975,6 +975,11 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 6037058272849572350, guid: ba62ffb24c1ea664092502ab0ef38d4a,
+        type: 3}
+      propertyPath: _isBroken
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6092554359609625797, guid: ba62ffb24c1ea664092502ab0ef38d4a,
         type: 3}
       propertyPath: m_RootOrder
@@ -1049,6 +1054,18 @@ MonoBehaviour:
   _chargeFX: {fileID: 8505306813027346542}
   _carSlider: {fileID: 2246894038340779071}
   CarIsRepaired: 0
+--- !u!114 &3716941550752676323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8889169347316545288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 430964bde26a45545b10fb293082809a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8889169347316545335 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5150420696274731678, guid: ba62ffb24c1ea664092502ab0ef38d4a,

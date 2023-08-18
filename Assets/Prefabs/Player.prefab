@@ -590,6 +590,7 @@ GameObject:
   - component: {fileID: 2096639158}
   - component: {fileID: 660251905378042637}
   - component: {fileID: 1330082905135987502}
+  - component: {fileID: 6389083606739199528}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -711,7 +712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12796fd858eedce49aa31268a9d404c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsMoving: 0
   _idle: {fileID: -203655887218126122, guid: 791f03dbbce2e80499d9e4c1034063d9, type: 3}
   _holdingIdle: {fileID: -203655887218126122, guid: 14237e501be0cb441b73be9cf40d5770,
     type: 3}
@@ -761,6 +761,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Slider: {fileID: 6783455745728240174}
+--- !u!114 &6389083606739199528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6783455744980478104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 457f9a6abf798454c9b190e8977238de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6783455745478723519
 GameObject:
   m_ObjectHideFlags: 0

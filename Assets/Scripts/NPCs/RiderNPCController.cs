@@ -8,7 +8,7 @@ using Zenject;
 
 namespace TaxiGame.NPC
 {
-    public class RiderNPCView : NavMeshMover
+    public class RiderNPCController : NavMeshMover
     {
         public void Move(Transform destination)
         {

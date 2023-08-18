@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using TaxiGame.Characters;
 using TaxiGame.NPC;
 using UnityEngine;
 
@@ -40,6 +41,10 @@ public class Inventory : MonoBehaviour
     }
     public void RemoveFollower(Follower follower) => _followers.Remove(follower);
     public StackableItem GetItem(Enums.StackableItemType hat) => _linkedList.Where(x => x.Hat == hat).LastOrDefault();
-    //public Follower[] GetFollowers(Enums.StackableItemType hat) => _followers.Where(x => x.Hat == hat).ToArray();
     private void RecalculatePositions() => _positionCalculator.RecalculatePositions(_linkedList);
+
+    //***NEW
+    private Handle _handle;
+    public Handle GetHandle() => _handle;
+    public void SetHandle(Handle handle) => _handle = handle;
 }

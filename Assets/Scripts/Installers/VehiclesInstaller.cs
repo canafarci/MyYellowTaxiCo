@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using TaxiGame.Vehicle;
-using UnityEngine;
 using Zenject;
 
 namespace TaxiGame.Vehicle
