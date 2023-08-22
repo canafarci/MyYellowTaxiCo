@@ -2,12 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using TaxiGame.Vehicle;
+using TaxiGame.Vehicles.Repair;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace TaxiGame.Visual
+namespace TaxiGame.Visuals
 {
     public class GasStationVisual : MonoBehaviour
     {
@@ -43,8 +43,18 @@ namespace TaxiGame.Visual
         private IEnumerator GasFillVisual()
         {
             GasFillStartVisual();
-            yield return new WaitForSeconds(3f); //tween duration for slider fill
+            yield return new WaitForSeconds(Globals.LOW_GAS_CAR_REPAIR_DURATION);
             GasFillEndVisual();
+        }
+        private void GasFillStartVisual()
+        {
+            _stationFX.SetActive(true);
+            _hosePump.enabled = true;
+            _animator.enabled = true;
+            _renderer.material = _thunderWithEmission;
+            DOTween.To(() => _gasStationSlider.value, x => _gasStationSlider.value = x,
+                                                                                    1,
+                                                                                    Globals.LOW_GAS_CAR_REPAIR_DURATION);
         }
 
         private void GasFillEndVisual()
@@ -57,14 +67,7 @@ namespace TaxiGame.Visual
             _hosePump.bulgeThickness = 0.075f;
         }
 
-        private void GasFillStartVisual()
-        {
-            _stationFX.SetActive(true);
-            _hosePump.enabled = true;
-            _animator.enabled = true;
-            _renderer.material = _thunderWithEmission;
-            DOTween.To(() => _gasStationSlider.value, x => _gasStationSlider.value = x, 1, 3);
-        }
+
 
         private void GasStation_GasHandleOwnerChangedHandler(object sender, OnGasHandleOwnerChangedArgs e)
         {

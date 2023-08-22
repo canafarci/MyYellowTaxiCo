@@ -22,4 +22,6 @@ public static class Globals
 
 
     public const float LOW_GAS_CAR_REPAIR_DURATION = 3f;
+    public const float LOW_GAS_CAR_ATTACH_HANDLE_DURATION = 0.5f;
+    public const float HANDLE_MAX_DISTANCE_FROM_STATION = 10f;
 }

@@ -6,7 +6,7 @@ using TaxiGame.Animations;
 using UnityEngine;
 using Zenject;
 
-namespace TaxiGame.Vehicle
+namespace TaxiGame.Vehicles
 {
     public class VehicleController : MonoBehaviour
     {

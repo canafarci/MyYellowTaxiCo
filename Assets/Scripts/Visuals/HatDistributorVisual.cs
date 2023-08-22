@@ -6,7 +6,7 @@ using TaxiGame.NPC;
 using UnityEngine;
 using Zenject;
 
-namespace TaxiGame.Visual
+namespace TaxiGame.Visuals
 {
     public class HatDistributorVisual : MonoBehaviour
     {

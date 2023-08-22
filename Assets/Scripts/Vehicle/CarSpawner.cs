@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-namespace TaxiGame.Vehicle
+namespace TaxiGame.Vehicles
 {
     public class CarSpawner : MonoBehaviour
     {

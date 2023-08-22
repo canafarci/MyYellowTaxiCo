@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using TaxiGame.Scripts;
 using UnityEngine;
 
-namespace TaxiGame.Vehicle
+namespace TaxiGame.Vehicles
 {
     public class CarSpawnDataProvider
     {

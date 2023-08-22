@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TaxiGame.Vehicles.Repair;
 using UnityEngine;
 using Zenject;
 
-namespace TaxiGame.Visual
+namespace TaxiGame.Visuals
 {
     public class HandleVisual : MonoBehaviour
     {
@@ -25,8 +26,8 @@ namespace TaxiGame.Visual
         private void Handle_HandleOwnerChangedHandler(object sender, HandleOwnerChangedArgs e)
         {
             transform.SetParent(e.Parent);
-            transform.DOLocalMove(Vector3.zero, 1f);
-            transform.DOLocalRotate(Vector3.zero, 1f);
+            transform.DOLocalMove(Vector3.zero, Globals.LOW_GAS_CAR_ATTACH_HANDLE_DURATION);
+            transform.DOLocalRotate(Vector3.zero, Globals.LOW_GAS_CAR_ATTACH_HANDLE_DURATION);
         }
     }
 }

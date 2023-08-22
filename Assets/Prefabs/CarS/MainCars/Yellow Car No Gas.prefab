@@ -968,6 +968,9 @@ MonoBehaviour:
   - {fileID: 1732239887}
   - {fileID: 6479584530916014614}
   - {fileID: 2246894038340779071}
+  _gasFilledColor:
+    serializedVersion: 2
+    rgba: 4278238231
   _carSlider: {fileID: 2246894038340779071}
 --- !u!114 &3716941550752676323
 MonoBehaviour:

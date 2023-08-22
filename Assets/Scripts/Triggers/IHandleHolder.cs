@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TaxiGame.Vehicle
+namespace TaxiGame.Vehicles.Repair
 {
     public interface IHandleHolder
     {

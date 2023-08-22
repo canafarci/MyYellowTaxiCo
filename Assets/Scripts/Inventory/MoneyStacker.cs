@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using TaxiGame.Vehicle;
+using TaxiGame.Vehicles;
 using UnityEngine;
 using Zenject;
 

@@ -5,7 +5,7 @@ using System.Linq;
 using DG.Tweening;
 using TaxiGame.Characters;
 using TaxiGame.NPC;
-using TaxiGame.Vehicle;
+using TaxiGame.Vehicles.Repair;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
