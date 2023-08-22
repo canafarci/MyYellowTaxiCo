@@ -25,6 +25,15 @@ public class Animations : MonoBehaviour
         _animatorOverrideController = new AnimatorOverrideController(_animator.runtimeAnimatorController);
         _animator.runtimeAnimatorController = _animatorOverrideController;
         _inventory.InventorySizeChangeHandler += OnStackSizeChange;
+        _inventory.OnGasHandleInventoryChange += GasHandleInventoryChangeHandler;
+    }
+
+    private void GasHandleInventoryChangeHandler(bool addedToInventory)
+    {
+        if (addedToInventory)
+            SetWalkingWithHandle();
+        else
+            ResetWalking();
     }
 
     private void OnStackSizeChange(int size)
@@ -49,7 +58,7 @@ public class Animations : MonoBehaviour
     {
         _animatorOverrideController["IDLE"] = _idle;
     }
-    public void SetWalking()
+    private void SetWalkingWithHandle()
     {
         _animatorOverrideController["Running"] = _walking;
         _animatorOverrideController["IDLE"] = _idle;

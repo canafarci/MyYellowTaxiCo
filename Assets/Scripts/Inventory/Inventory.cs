@@ -5,6 +5,7 @@ using System.Linq;
 using DG.Tweening;
 using TaxiGame.Characters;
 using TaxiGame.NPC;
+using TaxiGame.Vehicle;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -44,7 +45,19 @@ public class Inventory : MonoBehaviour
     private void RecalculatePositions() => _positionCalculator.RecalculatePositions(_linkedList);
 
     //***NEW
+    public event Action<bool> OnGasHandleInventoryChange;
     private Handle _handle;
+    public void Clear()
+    {
+        OnGasHandleInventoryChange?.Invoke(false);
+        _handle = null;
+    }
+
+    public void SetHandle(Handle handle)
+    {
+        OnGasHandleInventoryChange?.Invoke(true);
+        _handle = handle;
+    }
+    public bool HasHandle() => _handle != null;
     public Handle GetHandle() => _handle;
-    public void SetHandle(Handle handle) => _handle = handle;
 }

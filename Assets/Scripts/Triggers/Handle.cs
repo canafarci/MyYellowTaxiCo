@@ -1,14 +1,45 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using TaxiGame.Vehicle;
+using Zenject;
 
 public class Handle : MonoBehaviour
 {
-    [SerializeField] Transform _originalPos;
     [SerializeField] HosePump _hose;
-    [SerializeField] GasStation _station;
-    public bool IsActive = false;
+    private IHandleHolder _gasStationHolder;
+    private IHandleHolder _previousHolder;
+
+    [Inject]
+    private void Init(IHandleHolder holder)
+    {
+        _gasStationHolder = holder;
+    }
+    private void Start()
+    {
+        ChangeOwner(_gasStationHolder);
+    }
+
+    private bool _isActive = false;
+    public event EventHandler<HandleOwnerChangedArgs> OnHandleOwnerChanged;
+
+    public void ChangeOwner(IHandleHolder handleHolder)
+    {
+        handleHolder.SetHandle(this);
+        Transform parent = handleHolder.GetTransform();
+
+        OnHandleOwnerChanged?.Invoke(this, new HandleOwnerChangedArgs { Parent = parent });
+
+        if (_previousHolder != null)
+            _previousHolder.Clear();
+
+        _previousHolder = handleHolder;
+
+        _isActive = handleHolder == _gasStationHolder ? false : true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // if (other.CompareTag("CarNoGas"))
@@ -21,26 +52,21 @@ public class Handle : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!IsActive) { return; }
+        if (!_isActive) { return; }
 
-        float distance = Vector3.Distance(transform.position, _originalPos.position);
+        float distance = Vector3.Distance(transform.position, _gasStationHolder.GetTransform().position);
 
         if (distance > 10f)
         {
-            GameManager.Instance.References.PlayerAnimator.ResetWalking();
             Return();
         }
     }
     public void Return()
     {
-        transform.parent = null;
-
-        transform.DORotate(_originalPos.rotation.eulerAngles, 1f);
-        transform.DOMove(_originalPos.position, 1f).onComplete = () =>
-        {
-            IsActive = false;
-            _station.IsActive = false;
-            _station.Thunder.SetActive(false);
-        };
+        ChangeOwner(_gasStationHolder);
     }
+}
+public class HandleOwnerChangedArgs : EventArgs
+{
+    public Transform Parent;
 }
