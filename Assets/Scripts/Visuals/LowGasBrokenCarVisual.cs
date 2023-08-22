@@ -7,14 +7,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace TaxiGame.Visuals
+namespace TaxiGame.Visual
 {
     public class LowGasBrokenCarVisual : MonoBehaviour
     {
-        [SerializeField] private GameObject _noGasIcon;
-        [SerializeField] private GameObject _fullIcon;
-        [SerializeField] private GameObject _chargeIcon;
-        [SerializeField] private GameObject _emptyIcon;
+        [SerializeField] private GameObject _lowGasIndicator;
+        [SerializeField] private GameObject _chargeCompletedIndicator;
+
         [SerializeField] Image _carSlider;
 
         private LowGasBrokenCar _brokenCar;
@@ -33,21 +32,21 @@ namespace TaxiGame.Visuals
         private void LowGasBrokenCar_GasHandleAttachedToCarHandler(object sender, GasHandleAttachToCarEventArgs e)
         {
             if (sender as LowGasBrokenCar != _brokenCar) { return; }
+            StartCoroutine(GasHandleAttached());
         }
 
         private IEnumerator GasHandleAttached()
         {
-            Tween tween = DOTween.To(() => _carSlider.fillAmount, x => _carSlider.fillAmount = x, 1, 3);
+            Tween sliderTween = DOTween.To(() => _carSlider.fillAmount, x => _carSlider.fillAmount = x, 1, 3);
 
-            yield return tween.WaitForCompletion();
+            yield return sliderTween.WaitForCompletion();
 
-            _fullIcon.SetActive(false);
-            _chargeIcon.SetActive(false);
-            _emptyIcon.SetActive(false);
+            _lowGasIndicator.SetActive(false);
+            _chargeCompletedIndicator.SetActive(true);
 
-            //yield return new WaitForSeconds(0.5f);
-            _noGasIcon.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
 
+            _chargeCompletedIndicator.SetActive(false);
         }
     }
 }

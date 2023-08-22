@@ -3,7 +3,7 @@ using TaxiGame.Vehicle;
 using UnityEngine;
 using Zenject;
 
-namespace TaxiGame.Visuals
+namespace TaxiGame.Visual
 {
     public class CarSpawnerVisual : MonoBehaviour
     {

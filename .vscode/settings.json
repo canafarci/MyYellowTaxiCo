@@ -52,5 +52,5 @@
     "Temp/": true
   },
   "omnisharp.enableRoslynAnalyzers": false,
-  "dotnet.defaultSolution": "Taxi.sln"
+  "dotnet.defaultSolution": "NewYork Taxi.sln"
 }

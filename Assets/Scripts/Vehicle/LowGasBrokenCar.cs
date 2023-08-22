@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TaxiGame.Vehicle;
 using UnityEngine;
+using Zenject;
 
 namespace TaxiGame.Vehicle
 {
@@ -10,8 +11,15 @@ namespace TaxiGame.Vehicle
     {
         [SerializeField] private Transform _handleAttachTransform;
         private Handle _handle;
+        private VehicleProgressionModel _progressionModel;
+
         public static EventHandler<GasHandleAttachToCarEventArgs> OnGasHandleAttachedToCar;
 
+        [Inject]
+        private void Init(VehicleProgressionModel progressionModel)
+        {
+            _progressionModel = progressionModel;
+        }
 
         public void Clear()
         {
@@ -43,12 +51,12 @@ namespace TaxiGame.Vehicle
         private IEnumerator LowGasCarRepair(Inventory inventory)
         {
             inventory.GetHandle().ChangeOwner(this);
-            yield return new WaitForSeconds(1f); //tween duration
+            yield return new WaitForSeconds(1f); //TODO remove magic var //move tween duration
             OnGasHandleAttachedToCar?.Invoke(this, new GasHandleAttachToCarEventArgs { GasHandle = inventory.GetHandle() });
-
+            yield return new WaitForSeconds(3.5f);
             InvokeVehicleRepairedEvent();
-            inventory.GetHandle().Return();
-
+            _progressionModel.HandleLowGasCarRepaired();
+            _handle.Return();
         }
 
     }

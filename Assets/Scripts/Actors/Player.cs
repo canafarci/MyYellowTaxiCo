@@ -6,7 +6,7 @@ using Zenject;
 
 namespace TaxiGame.Characters
 {
-    public class Player : MonoBehaviour, IHandleHolder
+    public class Player : MonoBehaviour, IHandleHolder, IInventoryHolder
     {
         [SerializeField] private Transform _handTransform;
         private Inventory _inventory;
