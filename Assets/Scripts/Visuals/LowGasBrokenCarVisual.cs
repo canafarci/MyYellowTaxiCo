@@ -12,7 +12,7 @@ namespace TaxiGame.Visual
     public class LowGasBrokenCarVisual : MonoBehaviour
     {
         [SerializeField] private GameObject _lowGasIndicator;
-        [SerializeField] private GameObject _chargeCompletedIndicator;
+        [SerializeField] private Image[] _lowGasImages;
 
         [SerializeField] Image _carSlider;
 
@@ -37,16 +37,19 @@ namespace TaxiGame.Visual
 
         private IEnumerator GasHandleAttached()
         {
-            Tween sliderTween = DOTween.To(() => _carSlider.fillAmount, x => _carSlider.fillAmount = x, 1, 3);
+            Tween sliderTween = DOTween.To(() => _carSlider.fillAmount, x => _carSlider.fillAmount = x,
+                                         1,
+                                         Globals.LOW_GAS_CAR_REPAIR_DURATION);
+
+            foreach (Image image in _lowGasImages)
+            {
+                image.DOColor(Color.green, Globals.LOW_GAS_CAR_REPAIR_DURATION);
+            }
 
             yield return sliderTween.WaitForCompletion();
 
             _lowGasIndicator.SetActive(false);
-            _chargeCompletedIndicator.SetActive(true);
 
-            yield return new WaitForSeconds(0.5f);
-
-            _chargeCompletedIndicator.SetActive(false);
         }
     }
 }

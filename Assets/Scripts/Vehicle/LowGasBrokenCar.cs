@@ -53,7 +53,7 @@ namespace TaxiGame.Vehicle
             inventory.GetHandle().ChangeOwner(this);
             yield return new WaitForSeconds(1f); //TODO remove magic var //move tween duration
             OnGasHandleAttachedToCar?.Invoke(this, new GasHandleAttachToCarEventArgs { GasHandle = inventory.GetHandle() });
-            yield return new WaitForSeconds(3.5f);
+            yield return new WaitForSeconds(3f);
             InvokeVehicleRepairedEvent();
             _progressionModel.HandleLowGasCarRepaired();
             _handle.Return();

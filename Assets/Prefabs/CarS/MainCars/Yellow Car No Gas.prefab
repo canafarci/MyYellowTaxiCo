@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 175231217}
   - component: {fileID: 175231216}
   - component: {fileID: 175231215}
+  - component: {fileID: 8354853471759086567}
   m_Layer: 0
   m_Name: World Canvas
   m_TagString: Untagged
@@ -26,7 +27,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175231213}
-  m_LocalRotation: {x: -0, y: 0.7210133, z: -0, w: 0.6929212}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.40836}
   m_LocalScale: {x: 0.58458, y: 0.58458, z: 0.58458}
   m_ConstrainProportionsScale: 0
@@ -105,6 +106,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8354853471759086567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175231213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb3e12a24916edf4fa0e1b8258fc7c2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1147974151
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +207,7 @@ GameObject:
   - component: {fileID: 1732239887}
   - component: {fileID: 464144969712183109}
   m_Layer: 0
-  m_Name: Indicator Low Charge
+  m_Name: Indicator Low Charge Battery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,8 +255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 1d0724201aa202b43991f6edfb6afdda, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.84313726, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -540,7 +553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 1d0724201aa202b43991f6edfb6afdda, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -672,7 +685,7 @@ GameObject:
   - component: {fileID: 6479584530916014614}
   - component: {fileID: 1303335767095936260}
   m_Layer: 0
-  m_Name: Indicator (3)
+  m_Name: Indicator Outer Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -718,8 +731,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 342347908adbfc44cb4dcfa9619a60b1, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8396226, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -938,19 +951,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4333962821853345193}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3716941550752676323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8889169347316545288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 430964bde26a45545b10fb293082809a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _handleAttachTransform: {fileID: 7110699173432572341}
 --- !u!114 &1334155198700112530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -964,8 +964,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lowGasIndicator: {fileID: 1732239885}
-  _chargeCompletedIndicator: {fileID: 7723714069532877595}
+  _lowGasImages:
+  - {fileID: 1732239887}
+  - {fileID: 6479584530916014614}
+  - {fileID: 2246894038340779071}
   _carSlider: {fileID: 2246894038340779071}
+--- !u!114 &3716941550752676323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8889169347316545288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 430964bde26a45545b10fb293082809a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _handleAttachTransform: {fileID: 7110699173432572341}
 --- !u!4 &8889169347316545335 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5150420696274731678, guid: ba62ffb24c1ea664092502ab0ef38d4a,

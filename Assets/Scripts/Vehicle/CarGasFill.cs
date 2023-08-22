@@ -7,10 +7,10 @@ using UnityEngine.UI;
 
 public class CarGasFill : MonoBehaviour
 {
-    [SerializeField] Transform _handlePos;
-    [SerializeField] GameObject _noGasIcon, _fullIcon, _chargeIcon, _emptyIcon, _chargeFX;
-    [SerializeField] Image _carSlider;
-    public bool CarIsRepaired = false;
+    // [SerializeField] Transform _handlePos;
+    // [SerializeField] GameObject _noGasIcon, _fullIcon, _chargeIcon, _emptyIcon, _chargeFX;
+    // [SerializeField] Image _carSlider;
+    // public bool CarIsRepaired = false;
 
     //public void AttachHandle(Handle handle, HosePump hose, GasStation station)
     //{
@@ -60,13 +60,7 @@ public class CarGasFill : MonoBehaviour
     //    //hose.bulgeThickness = 0.075f;
     //    handle.Return();
 
-    //    if (!PlayerPrefs.HasKey(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE))
-    //    {
-    //        GameProgressModel tuto = FindObjectOfType<GameProgressModel>();
-    //        tuto.OnFirstCharge();
 
-    //        PlayerPrefs.SetInt(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE, 1);
-    //    }
 
 
 

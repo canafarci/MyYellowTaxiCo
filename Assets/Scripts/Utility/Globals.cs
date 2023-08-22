@@ -19,4 +19,7 @@ public static class Globals
     public const string STACKER_UPGRADE_KEY = "STACKERUPGRADE";
     public const float HAT_SCALE = 1.257031f;
     public const float HAT_WORN_SCALE = 0.9465261f;
+
+
+    public const float LOW_GAS_CAR_REPAIR_DURATION = 3f;
 }
