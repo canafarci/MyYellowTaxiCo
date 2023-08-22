@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using System.Linq;
+using TaxiGame.Items;
 
 namespace TaxiGame.NPC
 {
     public class HeliDropZone : MonoBehaviour
     {
-        public Enums.StackableItemType HatType;
+        public InventoryObjectType HatType; //TODO conver to getter - setter
         [SerializeField] Transform _getInLocation;
         [SerializeField] Animator _animator;
         Coroutine _heliCoroutine;

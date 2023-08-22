@@ -1,5 +1,6 @@
 using System.Linq;
 using TaxiGame.NPC;
+using TaxiGame.Items;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;

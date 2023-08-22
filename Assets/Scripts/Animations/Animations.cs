@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Items;
+using TaxiGame.NPC;
 using UnityEngine;
 using Zenject;
 
@@ -24,39 +26,31 @@ public class Animations : MonoBehaviour
 
         _animatorOverrideController = new AnimatorOverrideController(_animator.runtimeAnimatorController);
         _animator.runtimeAnimatorController = _animatorOverrideController;
-        _inventory.InventorySizeChangeHandler += OnStackSizeChange;
-        _inventory.OnGasHandleInventoryChange += GasHandleInventoryChangeHandler;
+        _inventory.OnInventoryModified += Inventory_InventoryModifiedHandler;
     }
 
-    private void GasHandleInventoryChangeHandler(bool addedToInventory)
+    private void Inventory_InventoryModifiedHandler(object sender, InventoryModifiedArgs e)
     {
-        if (addedToInventory)
-            SetWalkingWithHandle();
-        else
-            ResetWalking();
+        if (e.InventoryObject.GetObjectType() == InventoryObjectType.GasHandle)
+        {
+            if (e.ItemCountIsZero)
+                ResetWalkingAnimations();
+            else
+                SetWalkingWithHandle();
+        }
+        else if (e.InventoryObject.GetObjectType() != InventoryObjectType.Follower)
+        {
+            if (e.ItemCountIsZero)
+                ResetWalkingAnimations();
+            else
+                SetHoldingAnimations();
+        }
     }
 
-    private void OnStackSizeChange(int size)
+    private void SetHoldingAnimations()
     {
-        if (size != 0)
-        {
-            _animatorOverrideController["Running"] = _holdingRunning;
-            _animatorOverrideController["IDLE"] = _holdingIdle;
-        }
-        else
-        {
-            _animatorOverrideController["Running"] = _running;
-            _animatorOverrideController["IDLE"] = _idle;
-        }
-    }
-    public void SetHoldingIdle()
-    {
+        _animatorOverrideController["Running"] = _holdingRunning;
         _animatorOverrideController["IDLE"] = _holdingIdle;
-
-    }
-    public void ResetIdle()
-    {
-        _animatorOverrideController["IDLE"] = _idle;
     }
     private void SetWalkingWithHandle()
     {
@@ -64,7 +58,7 @@ public class Animations : MonoBehaviour
         _animatorOverrideController["IDLE"] = _idle;
 
     }
-    public void ResetWalking()
+    public void ResetWalkingAnimations()
     {
         _animatorOverrideController["Running"] = _running;
         _animatorOverrideController["IDLE"] = _idle;

@@ -2,6 +2,7 @@ using TaxiGame.NPC;
 using TaxiGame.UI;
 using TaxiGame.Upgrades;
 using TaxiGame.WaitZones;
+using TaxiGame.Items;
 using UnityEngine;
 using Zenject;
 

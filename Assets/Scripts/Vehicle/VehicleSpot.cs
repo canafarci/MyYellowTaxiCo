@@ -1,4 +1,5 @@
 using System;
+using TaxiGame.Items;
 using UnityEngine;
 using Zenject;
 
@@ -6,7 +7,7 @@ namespace TaxiGame.Vehicles
 {
     public class VehicleSpot : MonoBehaviour
     {
-        [SerializeField] private Enums.StackableItemType _hatType;
+        [SerializeField] private InventoryObjectType _hatType;
         private Vehicle _vehicle;
         private VehicleManager _vehicleManager;
         public static event EventHandler<OnVehicleReturnedArgs> OnVehicleReturned;
@@ -30,7 +31,7 @@ namespace TaxiGame.Vehicles
 
         }
         //Getters-Setters
-        public Enums.StackableItemType GetHatType() => _hatType;
+        public InventoryObjectType GetHatType() => _hatType;
         public bool HasVehicle() => _vehicle != null;
         public void SetVehicle(Vehicle vehicle)
         {
@@ -48,7 +49,7 @@ namespace TaxiGame.Vehicles
 
     public class OnVehicleReturnedArgs : EventArgs
     {
-        public Enums.StackableItemType HatType;
+        public InventoryObjectType HatType;
         public Transform SpawnerTransform;
         public bool CanSpawnDriver;
         public bool IsBrokenCar;

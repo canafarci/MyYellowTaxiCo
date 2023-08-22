@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TaxiGame.Animations;
+using TaxiGame.Items;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 
 namespace TaxiGame.NPC
 {
-    public class Follower : MonoBehaviour
+    public class Follower : MonoBehaviour, IInventoryObject
     {
         public Transform Target;
         protected Coroutine _followLoop;
@@ -34,7 +35,7 @@ namespace TaxiGame.NPC
         public IEnumerator OpenDoorAndGetIn(Vector3 pos)
         {
             StopCoroutine(_followLoop);
-            GameManager.Instance.References.PlayerInventory.RemoveFollower(this);
+            GameManager.Instance.References.PlayerInventory.RemoveObjectFromInventory(this);
             yield return null;
             //return base.OpenDoorAndGetIn(pos);
         }
@@ -59,10 +60,13 @@ namespace TaxiGame.NPC
             // }
             if (_followerCanvas != null)
                 _followerCanvas.Remove();
-            inventory.AddFollowerToList(this);
+            inventory.AddObjectToInventory(this);
             Target = inventory.transform;
             _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
             _followLoop = StartCoroutine(FollowLoop());
         }
+
+        public InventoryObjectType GetObjectType() => InventoryObjectType.Follower;
+
     }
 }

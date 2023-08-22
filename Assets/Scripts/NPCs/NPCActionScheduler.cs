@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TaxiGame.Items;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -10,7 +11,7 @@ namespace TaxiGame.NPC
 {
     public class NPCActionScheduler : MonoBehaviour
     {
-        public Enums.StackableItemType Hat;
+        public InventoryObjectType Hat;
         private Coroutine _performedActions = null;
         private Queue<IEnumerator> _actionsToPerform = new();
 

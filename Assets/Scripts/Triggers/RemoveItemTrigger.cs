@@ -3,33 +3,35 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-[RequireComponent(typeof(RemoveItem))]
-public class RemoveItemTrigger : MonoBehaviour
+namespace TaxiGame.Items
 {
-    [SerializeField] Transform[] _targets;
-    [SerializeField] Enums.StackableItemType[] _itemTypes;
-    [SerializeField] Enums.StackableItemType _thisItemType;
-    RemoveItem _remover;
-    private void Awake() => _remover = GetComponent<RemoveItem>();
-    private void OnTriggerEnter(Collider other)
+    [RequireComponent(typeof(RemoveItem))]
+    public class RemoveItemTrigger : MonoBehaviour
     {
-        if (other.CompareTag("Player"))
-        {
-            Inventory inventory = GameManager.Instance.References.PlayerInventory;
+        [SerializeField] Transform[] _targets;
+        [SerializeField] InventoryObjectType[] _itemTypes;
+        [SerializeField] InventoryObjectType _thisItemType;
+        RemoveItem _remover;
+        // private void Awake() => _remover = GetComponent<RemoveItem>();
+        // private void OnTriggerEnter(Collider other)
+        // {
+        //     if (other.CompareTag("Player"))
+        //     {
+        //         Inventory inventory = GameManager.Instance.References.PlayerInventory;
 
-            if (inventory.ItemCount == 0) { return; }
+        //         if (inventory.GetStackableItemCountInInventory() == 0) { return; }
 
-            for (int i = 0; i < _itemTypes.Length; i++)
-            {
-                Enums.StackableItemType itemType = _itemTypes[i];
-                StackableItem item = inventory.GetItem(itemType);
+        //         for (int i = 0; i < _itemTypes.Length; i++)
+        //         {
+        //             InventoryObjectType itemType = _itemTypes[i];
+        //             StackableItem item = inventory.PopInventoryObject(itemType);
 
-                if (item == null || item.Hat == _thisItemType) { continue; }
-                Transform target = _targets[i];
-                _remover.RemoveRecursive(inventory, itemType, target);
-                break;
-            }
-        }
+        //             if (item == null || item.GetObjectType() == _thisItemType) { continue; }
+        //             Transform target = _targets[i];
+        //             _remover.RemoveRecursive(inventory, itemType, target);
+        //             break;
+        //         }
+        //     }
+        // }
     }
-
 }

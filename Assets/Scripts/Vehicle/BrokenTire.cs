@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TaxiGame.Items;
 using UnityEngine;
 using Zenject;
 
@@ -27,9 +28,8 @@ public class BrokenTire : MonoBehaviour
     IEnumerator Repair()
     {
         Inventory inventory = GameManager.Instance.References.PlayerInventory;
-        StackableItem item = inventory.GetItem(Enums.StackableItemType.Tire);
+        StackableItem item = inventory.PopInventoryObject(InventoryObjectType.Tire) as StackableItem;
         if (item == null) { yield break; }
-        inventory.RemoveItem(item);
 
         Animator animator = inventory.transform.GetComponentInChildren<Animator>();
         Mover mover = FindObjectOfType<Mover>();

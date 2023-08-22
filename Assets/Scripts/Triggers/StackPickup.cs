@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using Ketchapp.MayoSDK;
+using TaxiGame.Characters;
+using TaxiGame.Items;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -32,16 +34,16 @@ public class StackPickup : MonoBehaviour
 
     IEnumerator UnloadLoop(Collider other)
     {
-        Inventory inventory = other.GetComponent<Inventory>();
+        Inventory inventory = other.GetComponent<IInventoryHolder>().GetInventory();
 
         while (true)
         {
             yield return new WaitForSeconds(_clearStackRate);
 
-            StackableItem item;
-            if (inventory.MaxStackSize > inventory.ItemCount && _stacker.ItemStack.TryPop(out item))
+            if (inventory.StackableItemCapacity > inventory.GetStackableItemCountInInventory()
+                                            && _stacker.ItemStack.TryPop(out StackableItem item))
             {
-                inventory.StackItem(item);
+                inventory.AddObjectToInventory(item);
 
                 IUnlockable unlock = GetComponent<IUnlockable>();
                 if (unlock != null && !unlock.HasUnlockedBefore())

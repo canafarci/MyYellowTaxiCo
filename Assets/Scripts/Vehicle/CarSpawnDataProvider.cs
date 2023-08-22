@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TaxiGame.Items;
 using UnityEngine;
 
 namespace TaxiGame.Vehicles
@@ -24,12 +25,12 @@ namespace TaxiGame.Vehicles
             _model = model;
         }
 
-        public SpawnedCarData GetInitialCarSpawnData(Enums.StackableItemType spawnerType)
+        public SpawnedCarData GetInitialCarSpawnData(InventoryObjectType spawnerType)
         {
             return _regularCarFactory.CreateRegularCarSpawnData(spawnerType);
         }
 
-        public SpawnedCarData GetCarSpawnData(CarSpawnerID carSpawnerID, Enums.StackableItemType spawnerType)
+        public SpawnedCarData GetCarSpawnData(CarSpawnerID carSpawnerID, InventoryObjectType spawnerType)
         {
             // Check for special progression events
             if (CheckShouldSpawnSpecialProgressionCar(carSpawnerID))

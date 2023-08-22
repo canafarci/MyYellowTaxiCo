@@ -32,7 +32,7 @@ namespace TaxiGame.Vehicles.Repair
                 _handle.ChangeOwner(handleHolder);
             }
         }
-        public void Clear()
+        public void ClearHandle()
         {
             _handle = null;
             OnGasHandleOwnerChanged?.Invoke(this, new OnGasHandleOwnerChangedArgs { OwnerIsGasStation = false });

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Items;
 using UnityEngine;
 using Zenject;
 
@@ -18,6 +19,8 @@ namespace TaxiGame.Installers
 
             Container.Bind<Inventory>().FromComponentInChildren().AsTransient();
             Container.Bind<Mover>().FromComponentInHierarchy().AsSingle();
+
+            Container.Bind<ItemUtility>().AsSingle();
         }
     }
 }

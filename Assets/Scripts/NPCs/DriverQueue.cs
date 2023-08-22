@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using ModestTree;
+using TaxiGame.Items;
 using UnityEngine;
 
 namespace TaxiGame.NPC
 {
     public class DriverQueue : MonoBehaviour, INPCQueue
     {
-        [SerializeField] private Enums.StackableItemType _hatType;
+        [SerializeField] private InventoryObjectType _hatType;
         private List<DriverQueueSpot> _queueSpots = new List<DriverQueueSpot>();
 
         public event EventHandler<OnDriverAddedToQueueArgs> OnDriverAddedToQueue;
@@ -69,7 +70,7 @@ namespace TaxiGame.NPC
             return isFull;
         }
         //Getters-Setters
-        public Enums.StackableItemType GetHatType() => _hatType;
+        public InventoryObjectType GetHatType() => _hatType;
 
         //cleanup
         private void OnDisable()

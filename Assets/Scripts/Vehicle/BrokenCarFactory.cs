@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TaxiGame.Items;
 using UnityEngine;
 
 namespace TaxiGame.Vehicles
@@ -9,7 +10,7 @@ namespace TaxiGame.Vehicles
         [SerializeField] private BrokenCarPrefabs _brokenCarPrefabs;
         private const int DEFAULT_CAR_MAX_RANGE = 3;
 
-        public SpawnedCarData CreateRandomBrokenCarSpawnData(Enums.StackableItemType spawnerType)
+        public SpawnedCarData CreateRandomBrokenCarSpawnData(InventoryObjectType spawnerType)
         {
             int maxRange = GetMaxRangeForColoredCars(spawnerType);
             int randomIndex = GetRandomInt(maxRange);
@@ -18,9 +19,9 @@ namespace TaxiGame.Vehicles
 
             return new SpawnedCarData(prefab);
         }
-        private int GetMaxRangeForColoredCars(Enums.StackableItemType spawnerType)
+        private int GetMaxRangeForColoredCars(InventoryObjectType spawnerType)
         {
-            if (spawnerType == Enums.StackableItemType.YellowHat)
+            if (spawnerType == InventoryObjectType.YellowHat)
             {
                 return GetYellowCarMaxRange();
             }
@@ -44,12 +45,12 @@ namespace TaxiGame.Vehicles
                 return 1;
             }
         }
-        private GameObject GetRandomBrokenCarPrefab(Enums.StackableItemType spawnerType, int index)
+        private GameObject GetRandomBrokenCarPrefab(InventoryObjectType spawnerType, int index)
         {
             return spawnerType switch
             {
-                Enums.StackableItemType.YellowHat => _brokenCarPrefabs.BrokenYellowCars[index],
-                Enums.StackableItemType.PurpleHat => _brokenCarPrefabs.BrokenPurpleCars[index],
+                InventoryObjectType.YellowHat => _brokenCarPrefabs.BrokenYellowCars[index],
+                InventoryObjectType.PurpleHat => _brokenCarPrefabs.BrokenPurpleCars[index],
                 _ => _brokenCarPrefabs.BrokenBlackCars[index]
             };
         }

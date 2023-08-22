@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Characters;
+using TaxiGame.Items;
 using TaxiGame.Vehicles;
 using UnityEngine;
 using Zenject;
@@ -24,7 +26,7 @@ namespace TaxiGame.Vehicles.Repair
         protected override bool ActorMeetsRepairConditions(Collider other, out Inventory inventory)
         {
             inventory = other.GetComponent<IInventoryHolder>().GetInventory();
-            return inventory.HasHandle();
+            return inventory.HasInventoryObjectType(InventoryObjectType.GasHandle);
         }
 
         protected override void Repair(Inventory inventory)
@@ -35,7 +37,8 @@ namespace TaxiGame.Vehicles.Repair
 
         private IEnumerator LowGasCarRepair(Inventory inventory)
         {
-            inventory.GetHandle().ChangeOwner(this);
+            Handle handle = inventory.PopInventoryObject(InventoryObjectType.GasHandle) as Handle;
+            handle.ChangeOwner(this);
             yield return new WaitForSeconds(Globals.LOW_GAS_CAR_ATTACH_HANDLE_DURATION);
             OnGasHandleAttachedToCar?.Invoke(this, new GasHandleAttachToCarEventArgs { GasHandle = _handle });
             yield return new WaitForSeconds(Globals.LOW_GAS_CAR_REPAIR_DURATION);
@@ -45,7 +48,7 @@ namespace TaxiGame.Vehicles.Repair
         }
 
         //HandleHolder contract
-        public void Clear()
+        public void ClearHandle()
         {
             _handle = null;
         }

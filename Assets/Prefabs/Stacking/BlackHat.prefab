@@ -67,6 +67,11 @@ PrefabInstance:
       propertyPath: Hat
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2313885161458636574, guid: 3c8abd9853b0d9449b41cde339b92952,
+        type: 3}
+      propertyPath: _hatType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2313885161458636575, guid: 3c8abd9853b0d9449b41cde339b92952,
         type: 3}
       propertyPath: m_Name

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using TaxiGame.Items;
+using TaxiGame.NPC;
 
 public class MaxText : MonoBehaviour
 {
@@ -19,13 +21,15 @@ public class MaxText : MonoBehaviour
     {
         _baseOffset = _player.position - transform.position;
     }
-    private void OnEnable() => GameManager.Instance.References.PlayerInventory.InventorySizeChangeHandler += OnStackSizeChange;
+    private void OnEnable() => GameManager.Instance.References.PlayerInventory.OnInventoryModified += OnStackSizeChange; //TODO inject player inventory
 
-    private void OnStackSizeChange(int size)
+    private void OnStackSizeChange(object sender, InventoryModifiedArgs e)
     {
-        Inventory inventory = GameManager.Instance.References.PlayerInventory;
+        if (IsNotStackableItem(e.InventoryObject.GetObjectType())) return;
 
-        if (size == inventory.MaxStackSize)
+        Inventory inventory = sender as Inventory;
+
+        if (inventory.GetStackableItemCountInInventory() == inventory.StackableItemCapacity)
         {
             _text.enabled = true;
         }
@@ -33,6 +37,11 @@ public class MaxText : MonoBehaviour
         {
             _text.enabled = false;
         }
+    }
+
+    private bool IsNotStackableItem(InventoryObjectType objectType)
+    {
+        return objectType == InventoryObjectType.Follower || objectType == InventoryObjectType.GasHandle;
     }
 
     private void LateUpdate()

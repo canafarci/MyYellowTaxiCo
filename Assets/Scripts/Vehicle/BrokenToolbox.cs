@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TaxiGame.Items;
 using UnityEngine;
 using Zenject;
 
@@ -29,9 +30,8 @@ public class BrokenToolbox : MonoBehaviour
     IEnumerator Repair()
     {
         Inventory inventory = GameManager.Instance.References.PlayerInventory;
-        StackableItem toolbox = inventory.GetItem(Enums.StackableItemType.RepairBox);
+        StackableItem toolbox = inventory.PopInventoryObject(InventoryObjectType.RepairBox) as StackableItem;
         if (toolbox == null) { yield break; }
-        inventory.RemoveItem(toolbox);
 
         Mover mover = FindObjectOfType<Mover>();
 

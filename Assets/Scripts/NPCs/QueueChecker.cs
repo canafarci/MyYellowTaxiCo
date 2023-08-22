@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TaxiGame.Items;
 using TaxiGame.Vehicles;
 using TaxiGame.Vehicles.Repair;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace TaxiGame.NPC
 {
     public class QueueChecker : MonoBehaviour
     {
-        [SerializeField] private Enums.StackableItemType _hatType;
+        [SerializeField] private InventoryObjectType _hatType;
         private HashSet<VehicleSpot> _spots = new HashSet<VehicleSpot>();
         private HashSet<Driver> _driversWithHat = new HashSet<Driver>();
         private Coroutine _checkSpotsCoroutine;
@@ -84,7 +85,7 @@ namespace TaxiGame.NPC
             _checkSpotsCoroutine = null;
         }
         //Getters-Setters
-        public Enums.StackableItemType GetHatType() => _hatType;
+        public InventoryObjectType GetHatType() => _hatType;
         //Cleanup
         private void OnDisable()
         {

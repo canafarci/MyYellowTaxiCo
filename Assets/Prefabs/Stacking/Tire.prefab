@@ -103,6 +103,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4436461012355988211, guid: 218b79f89f781e946832d87619954d2c,
         type: 3}
+      propertyPath: _hatType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436461012355988211, guid: 218b79f89f781e946832d87619954d2c,
+        type: 3}
       propertyPath: ItemHeight
       value: 1
       objectReference: {fileID: 0}

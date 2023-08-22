@@ -1,7 +1,11 @@
+using TaxiGame.Items;
 using UnityEngine;
 
-public interface IInventoryHolder
+namespace TaxiGame.Characters
 {
-    public Inventory GetInventory();
-    public Transform GetHandTransform();
+    public interface IInventoryHolder
+    {
+        public Inventory GetInventory();
+        public Transform GetHandTransform();
+    }
 }

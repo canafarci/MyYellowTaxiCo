@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Items;
 using UnityEngine;
 using Zenject;
 
@@ -42,7 +43,7 @@ namespace TaxiGame.Vehicles.Repair
 
     public class OnVehicleRepairedArgs : EventArgs
     {
-        public Enums.StackableItemType HatType;
+        public InventoryObjectType HatType;
         public VehicleSpot VehicleSpot;
     }
 }

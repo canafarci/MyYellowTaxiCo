@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Characters;
+using TaxiGame.Items;
 using UnityEngine;
 using Zenject;
 
@@ -22,7 +24,7 @@ namespace TaxiGame.NPC
         {
             if (other.CompareTag("Player"))
             {
-                _unloadCoroutine = StartCoroutine(UnloadLoop());
+                _unloadCoroutine = StartCoroutine(UnloadLoop(other));
             }
         }
 
@@ -34,11 +36,11 @@ namespace TaxiGame.NPC
             }
         }
 
-        private IEnumerator UnloadLoop()
+        private IEnumerator UnloadLoop(Collider other)
         {
-            Inventory inventory = GameManager.Instance.References.PlayerInventory;
+            Inventory inventory = other.GetComponent<IInventoryHolder>().GetInventory();
 
-            while (inventory.FollowerCount < inventory.MaxFollowerSize)
+            while (inventory.GetObjectTypeCountInInventory(InventoryObjectType.Follower) < inventory.FollowerCapacity)
             {
                 yield return new WaitForSeconds(.25f);
 

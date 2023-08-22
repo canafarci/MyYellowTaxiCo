@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Items;
 using UnityEngine;
 
 namespace TaxiGame.NPC
@@ -33,14 +34,22 @@ namespace TaxiGame.NPC
         }
         private IEnumerator DropLoop(Collider other)
         {
-            while (_stacker.ItemStack.Count < _stacker.MaxStackSize &&
-                    _inventories[other].GetItem(_queue.GetHatType()))
+            while (CanDropHat(other))
             {
-                StackableItem item = _inventories[other].GetItem(_queue.GetHatType());
-                _inventories[other].RemoveItem(item);
+                InventoryObjectType hatType = _queue.GetHatType();
+                StackableItem item = _inventories[other].PopInventoryObject(hatType) as StackableItem;
                 _stacker.StackItem(item);
                 yield return new WaitForSeconds(.25f);
             }
+        }
+        private bool CanDropHat(Collider other)
+        {
+            bool stackerHasSpace = _stacker.ItemStack.Count < _stacker.MaxStackSize;
+
+            InventoryObjectType hatType = _queue.GetHatType();
+            bool inventoryHasItemType = _inventories[other].HasInventoryObjectType(hatType);
+
+            return stackerHasSpace && inventoryHasItemType;
         }
     }
 }

@@ -1,3 +1,4 @@
+using TaxiGame.Items;
 using Zenject;
 
 namespace TaxiGame.Installers
@@ -7,6 +8,10 @@ namespace TaxiGame.Installers
         public override void InstallBindings()
         {
             Container.Bind<IFeedbackVisual>()
+                        .FromComponentInChildren()
+                        .AsTransient();
+
+            Container.Bind<StackPositionCalculator>()
                         .FromComponentInChildren()
                         .AsTransient();
 

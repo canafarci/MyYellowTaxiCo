@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Items;
 using TaxiGame.WaitZones;
 using UnityEngine;
 using Zenject;

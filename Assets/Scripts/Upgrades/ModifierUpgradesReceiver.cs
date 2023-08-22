@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Items;
 using UnityEngine;
 using Zenject;
 
@@ -47,8 +48,8 @@ namespace TaxiGame.Upgrades
         }
         private void UpgradePlayerInventorySize(int index)
         {
-            Inventory playerInventory = _references.PlayerInventory;
-            playerInventory.MaxStackSize = _upgradeData.PlayerInventorySizes[index].Size;
+            Inventory playerInventory = _references.PlayerInventory; //TODO move reference -> WithID("PlayerInventory")
+            playerInventory.StackableItemCapacity = _upgradeData.PlayerInventorySizes[index].Size;
         }
         private void UpgradePlayerIncome(int index)
         {

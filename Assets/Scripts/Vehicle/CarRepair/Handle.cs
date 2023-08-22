@@ -5,10 +5,11 @@ using DG.Tweening;
 using UnityEngine;
 using TaxiGame.Vehicles;
 using Zenject;
+using TaxiGame.Items;
 
 namespace TaxiGame.Vehicles.Repair
 {
-    public class Handle : MonoBehaviour
+    public class Handle : MonoBehaviour, IInventoryObject
     {
         private IHandleHolder _gasStationHolder;
         private IHandleHolder _previousHolder;
@@ -23,7 +24,7 @@ namespace TaxiGame.Vehicles.Repair
 
         private void Start()
         {
-            ReturnHandleToGasStation();
+            Invoke(nameof(ReturnHandleToGasStation), 0.1f);
         }
 
         public void ChangeOwner(IHandleHolder newHolder)
@@ -36,7 +37,7 @@ namespace TaxiGame.Vehicles.Repair
         private void TransferHandleOwnership(IHandleHolder newHolder)
         {
             newHolder.SetHandle(this);
-            _previousHolder?.Clear();
+            _previousHolder?.ClearHandle();
             _previousHolder = newHolder;
         }
 
@@ -67,6 +68,8 @@ namespace TaxiGame.Vehicles.Repair
         {
             _isActive = newHolder != _gasStationHolder;
         }
+
+        public InventoryObjectType GetObjectType() => InventoryObjectType.GasHandle;
     }
 
     public class HandleOwnerChangedArgs : EventArgs

@@ -1,4 +1,5 @@
 using System;
+using TaxiGame.Items;
 using UnityEngine;
 using Zenject;
 
@@ -8,7 +9,7 @@ namespace TaxiGame.Vehicles
     {
         [SerializeField] private Transform _enterNode, _exitNode;
         [SerializeField] private Animator _parkAnimator;
-        [SerializeField] private Enums.StackableItemType _hatType;
+        [SerializeField] private InventoryObjectType _hatType;
         [SerializeField] private CarSpawnerID _carSpawnerID;
 
         private Vehicle.Factory _factory;
@@ -65,6 +66,6 @@ namespace TaxiGame.Vehicles
 
     public class OnNewSpawnerActivatedEventArgs : EventArgs
     {
-        public Enums.StackableItemType HatType;
+        public InventoryObjectType HatType;
     }
 }

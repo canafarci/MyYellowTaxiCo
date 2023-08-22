@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using TaxiGame.Items;
 using TaxiGame.Vehicles;
 using TMPro;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace TaxiGame.NPC
 {
     public class DriverSpawner : MonoBehaviour
     {
-        public Enums.StackableItemType HatType;
+        public InventoryObjectType HatType; //TODO convert to getter - setter
         private INPCQueue _queue;
         private RiderNPC.Factory _driverFactory;
         [SerializeField] private GameObject _driverPrefab;

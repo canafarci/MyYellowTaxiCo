@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Items;
 using UnityEngine;
 
 namespace TaxiGame.Vehicles
@@ -9,23 +10,23 @@ namespace TaxiGame.Vehicles
     {
         [SerializeField] RegularCarPrefabs _carPrefabs;
 
-        public SpawnedCarData CreateRegularCarSpawnData(Enums.StackableItemType spawnerType)
+        public SpawnedCarData CreateRegularCarSpawnData(InventoryObjectType spawnerType)
         {
             return GetRegularCarSpawnData(spawnerType);
         }
 
-        public SpawnedCarData GetRegularCarSpawnData(Enums.StackableItemType spawnerType)
+        public SpawnedCarData GetRegularCarSpawnData(InventoryObjectType spawnerType)
         {
             GameObject prefab = GetRegularCarPrefab(spawnerType);
             return new SpawnedCarData(prefab);
         }
-        private GameObject GetRegularCarPrefab(Enums.StackableItemType spawnerType)
+        private GameObject GetRegularCarPrefab(InventoryObjectType spawnerType)
         {
             return spawnerType switch
             {
-                Enums.StackableItemType.YellowHat => _carPrefabs.RegularYellowCar,
-                Enums.StackableItemType.PurpleHat => _carPrefabs.RegularPurpleCar,
-                Enums.StackableItemType.BlackHat => _carPrefabs.RegularBlackCar,
+                InventoryObjectType.YellowHat => _carPrefabs.RegularYellowCar,
+                InventoryObjectType.PurpleHat => _carPrefabs.RegularPurpleCar,
+                InventoryObjectType.BlackHat => _carPrefabs.RegularBlackCar,
                 _ => null
             };
         }
