@@ -10,7 +10,7 @@ namespace TaxiGame.Visuals
     public class FlatTireRepairableVehicleVisual : MonoBehaviour
     {
         [SerializeField] private GameObject _image;
-
+        [SerializeField] private Transform _target;
 
         private IEnumerator RepairTireSequence(StackableItem item, Transform target)
         {

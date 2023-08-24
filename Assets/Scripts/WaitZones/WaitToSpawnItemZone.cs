@@ -7,6 +7,10 @@ namespace TaxiGame.WaitZones
     public class WaitToSpawnItemZone : WaitingEngine
     {
         public event EventHandler<OnChangeSliderActivationEventArgs> OnChangeSliderActivation;
+        private void Start()
+        {
+            _activationDelay = 0f;
+        }
         public override void Begin(Action successAction, GameObject instigator)
         {
             base.Begin(successAction, instigator);

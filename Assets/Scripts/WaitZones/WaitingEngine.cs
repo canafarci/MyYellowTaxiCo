@@ -13,6 +13,7 @@ namespace TaxiGame.WaitZones
         [SerializeField] protected float _timeToUnlock;
         private Dictionary<GameObject, Coroutine> _runs = new Dictionary<GameObject, Coroutine>();
         private Dictionary<GameObject, Action> _configs = new Dictionary<GameObject, Action>();
+        protected float _activationDelay = 0.5f;
         public event EventHandler<WaitEngineIterationEventArgs> OnWaitEngineIteration;
         public virtual void Begin(Action onSuccess, GameObject other)
         {
@@ -27,7 +28,7 @@ namespace TaxiGame.WaitZones
         private IEnumerator Run(GameObject instigator)
         {
             //prevent accidental buys
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(_activationDelay);
 
             float remainingTime = _timeToUnlock;
             while (CheckCanContinue(remainingTime))
