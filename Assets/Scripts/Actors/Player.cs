@@ -23,7 +23,7 @@ namespace TaxiGame.Characters
         public Transform GetHandTransform() => _handTransform;
         public void ClearHandle()
         {
-            IInventoryObject gasHandle = _inventory.PopInventoryObject(InventoryObjectType.GasHandle);
+            _inventory.PopInventoryObject(InventoryObjectType.GasHandle);
         }
 
         public void SetHandle(Handle handle) => _inventory.AddObjectToInventory(handle);

@@ -41,5 +41,15 @@ namespace TaxiGame.Vehicles
                 PlayerPrefs.SetInt(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE, 1);
             }
         }
+
+        public void HandleBrokenEngineRepaired()
+        {
+            if (!PlayerPrefs.HasKey(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE))
+            {
+                _gameProgressionModel.OnSecondRepair();
+
+                PlayerPrefs.SetInt(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE, 1);
+            }
+        }
     }
 }

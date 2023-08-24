@@ -30,23 +30,24 @@ public class BrokenToolbox : MonoBehaviour
     IEnumerator Repair()
     {
         Inventory inventory = GameManager.Instance.References.PlayerInventory;
-        StackableItem toolbox = inventory.PopInventoryObject(InventoryObjectType.RepairBox) as StackableItem;
+        StackableItem toolbox = inventory.PopInventoryObject(InventoryObjectType.ToolBox) as StackableItem;
         if (toolbox == null) { yield break; }
 
         Mover mover = FindObjectOfType<Mover>();
 
         Animator animator = inventory.transform.GetComponentInChildren<Animator>();
-        mover.IsActive = false;
         _reader.Disable();
 
         yield return new WaitForSeconds(.25f);
 
 
         yield return DotweenFX(toolbox, inventory, _toolboxTarget);
+
         animator.Play("Crouch");
         _fx.SetActive(true);
 
         yield return new WaitForSeconds(1f);
+
         _fx.SetActive(false);
         _image.SetActive(false);
         animator.SetTrigger("Idle");
@@ -64,7 +65,6 @@ public class BrokenToolbox : MonoBehaviour
         //GetComponent<Car>().OnCarRepaired();
         _hasRepaired = true;
         _reader.Enable();
-        mover.IsActive = true;
     }
 
 

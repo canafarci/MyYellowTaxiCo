@@ -1,58 +1,62 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Upgrades;
 using UnityEngine;
 using Zenject;
 
 public class Mover : MonoBehaviour
 {
-    public bool IsActive = true;
-    [SerializeField] protected float _speed, _rotateSpeed;
-    private float _baseSpeed;
+    [SerializeField] private float _rotateSpeed;
+    private float _speed;
     public Vector3 RotationOffset;
-    private bool _disabledMovement = false;
     private IInputReader _reader;
     private Rigidbody _rigidbody;
-    private Animator _animator;
-    public void DisableMovement() => _disabledMovement = true;
-    public void EnableMovement() => _disabledMovement = false;
+    private ModifierUpgradesReceiver _upgradeReceiver;
+
+    public event Action<float> OnMoveDistanceCalculated;
+
     [Inject]
-    private void Init(IInputReader reader)
+    private void Init(Rigidbody rb, IInputReader reader, ModifierUpgradesReceiver upgradeReceiver)
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = rb;
         _reader = reader;
-        _animator = GetComponentInChildren<Animator>();
-        _baseSpeed = _speed;
-        _animator.speed = _speed / 7f;
+        _upgradeReceiver = upgradeReceiver;
+
+        _upgradeReceiver.OnPlayerSpeedUpgrade += ModifierUpgradesReceiver_PlayerSpeedUpgradeHandler;
+    }
+    public void ModifierUpgradesReceiver_PlayerSpeedUpgradeHandler(float speed)
+    {
+        _speed = speed;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (!IsActive) return;
         Move(_reader.ReadInput());
-    }
-
-    public void IncreaseSpeed(float modifier)
-    {
-        _speed = _baseSpeed * modifier;
-        _animator.speed = _speed / 7f;
     }
 
     private void Move(Vector2 input)
     {
-        if (input == Vector2.zero) return;
+        if (input == Vector2.zero)
+        {
+            OnMoveDistanceCalculated?.Invoke(0f);
+        }
+        else
+        {
+            OnMoveDistanceCalculated?.Invoke(1f);
 
-        Vector3 moveVector = RotateTowardsUp(new Vector3(input.x, 0, input.y));
+            Vector3 moveVector = RotateMoveVector(new Vector3(input.x, 0, input.y));
+            transform.rotation = Quaternion.LookRotation(moveVector);
 
-        transform.rotation = Quaternion.LookRotation(moveVector);
-        if (!_disabledMovement)
-            _rigidbody.MovePosition(transform.position + (moveVector.normalized * Time.deltaTime * _speed));
+            Vector3 distance = moveVector.normalized * moveVector.magnitude * Time.deltaTime * _speed;
+
+            _rigidbody.MovePosition(transform.position + distance);
+        }
     }
 
-    private Vector3 RotateTowardsUp(Vector3 start)
+    private Vector3 RotateMoveVector(Vector3 start)
     {
-        // if you know start will always be normalized, can skip this step
         start.Normalize();
-
         return Quaternion.AngleAxis(RotationOffset.y, Vector3.up) * start;
     }
 

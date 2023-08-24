@@ -10,32 +10,31 @@ namespace TaxiGame.Vehicles.Repair
     public abstract class RepairableVehicle : MonoBehaviour
     {
         public static event EventHandler<OnVehicleRepairedArgs> OnVehicleRepaired;
-
-        private VehicleModel _model;
+        protected VehicleModel _vehicleModel;
 
         [Inject]
         private void Init(VehicleModel model)
         {
-            _model = model;
+            _vehicleModel = model;
         }
 
 
         private void OnTriggerEnter(Collider other)
         {
-            if ((other.CompareTag("Player") || other.CompareTag("HatHelperNPC")) && ActorMeetsRepairConditions(other, out Inventory inventory))
+            if ((other.CompareTag("Player") || other.CompareTag("HatHelperNPC")) && VehicleCanBeRepaired(other, out Inventory inventory))
             {
                 Repair(inventory);
             }
         }
 
-        protected abstract bool ActorMeetsRepairConditions(Collider other, out Inventory inventory);
+        protected abstract bool VehicleCanBeRepaired(Collider other, out Inventory inventory);
         protected abstract void Repair(Inventory inventory);
         protected void InvokeVehicleRepairedEvent()
         {
             OnVehicleRepaired?.Invoke(this, new OnVehicleRepairedArgs
             {
-                HatType = _model.GetHatType(),
-                VehicleSpot = _model.GetConfig().VehicleSpot
+                HatType = _vehicleModel.GetHatType(),
+                VehicleSpot = _vehicleModel.GetConfig().VehicleSpot
             });
         }
 

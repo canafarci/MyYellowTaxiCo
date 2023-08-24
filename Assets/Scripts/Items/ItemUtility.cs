@@ -12,7 +12,7 @@ namespace TaxiGame.Items
                                                             InventoryObjectType.YellowHat,
                                                             InventoryObjectType.PurpleHat,
                                                             InventoryObjectType.BlackHat,
-                                                            InventoryObjectType.RepairBox,
+                                                            InventoryObjectType.ToolBox,
                                                             InventoryObjectType.Tire
                                                         };
 
@@ -21,7 +21,7 @@ namespace TaxiGame.Items
                                                             InventoryObjectType.YellowHat,
                                                             InventoryObjectType.PurpleHat,
                                                             InventoryObjectType.BlackHat,
-                                                            InventoryObjectType.RepairBox,
+                                                            InventoryObjectType.ToolBox,
                                                             InventoryObjectType.Tire,
                                                             InventoryObjectType.GasHandle,
                                                             InventoryObjectType.Follower

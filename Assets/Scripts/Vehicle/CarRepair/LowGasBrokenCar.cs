@@ -23,10 +23,14 @@ namespace TaxiGame.Vehicles.Repair
             _progressionModel = progressionModel;
         }
 
-        protected override bool ActorMeetsRepairConditions(Collider other, out Inventory inventory)
+        protected override bool VehicleCanBeRepaired(Collider other, out Inventory inventory)
         {
+            bool carIsNotRepaired = _vehicleModel.IsCarBroken();
+
             inventory = other.GetComponent<IInventoryHolder>().GetInventory();
-            return inventory.HasInventoryObjectType(InventoryObjectType.GasHandle);
+            bool inventoryHasObject = inventory.HasInventoryObjectType(InventoryObjectType.GasHandle);
+
+            return carIsNotRepaired && inventoryHasObject;
         }
 
         protected override void Repair(Inventory inventory)
@@ -42,9 +46,12 @@ namespace TaxiGame.Vehicles.Repair
             yield return new WaitForSeconds(Globals.LOW_GAS_CAR_ATTACH_HANDLE_DURATION);
             OnGasHandleAttachedToCar?.Invoke(this, new GasHandleAttachToCarEventArgs { GasHandle = _handle });
             yield return new WaitForSeconds(Globals.LOW_GAS_CAR_REPAIR_DURATION);
+
             InvokeVehicleRepairedEvent();
-            _progressionModel.HandleLowGasCarRepaired();
+            _vehicleModel.SetCarNotBroken();
             _handle.ReturnHandleToGasStation();
+
+            _progressionModel.HandleLowGasCarRepaired();
         }
 
         //HandleHolder contract

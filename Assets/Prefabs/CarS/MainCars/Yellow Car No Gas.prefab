@@ -903,6 +903,11 @@ PrefabInstance:
       propertyPath: _isBroken
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6037058272849572350, guid: ba62ffb24c1ea664092502ab0ef38d4a,
+        type: 3}
+      propertyPath: _moneyToGain
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 6092554359609625797, guid: ba62ffb24c1ea664092502ab0ef38d4a,
         type: 3}
       propertyPath: m_RootOrder

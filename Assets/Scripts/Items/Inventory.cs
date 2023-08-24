@@ -1,11 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using DG.Tweening;
-using TaxiGame.Characters;
-using TaxiGame.NPC;
-using TaxiGame.Vehicles.Repair;
 using UnityEngine;
 using Zenject;
 
@@ -13,14 +7,19 @@ namespace TaxiGame.Items
 {
     public class Inventory : MonoBehaviour
     {
-        public int StackableItemCapacity { get { return _maxStackSize; } set { _maxStackSize = value; } }
-        public int FollowerCapacity { get { return _maxFollowerSize; } }
+        public int StackableItemCapacity
+        {
+            get => _maxStackSize;
+            set => _maxStackSize = value;
+        }
+
+        public int FollowerCapacity => _maxFollowerSize;
 
         [SerializeField] private int _maxStackSize;
         [SerializeField] private int _maxFollowerSize;
         private ItemUtility _itemUtility;
-
         private Dictionary<InventoryObjectType, Stack<IInventoryObject>> _inventoryLookup = new();
+
         public EventHandler<InventoryModifiedArgs> OnInventoryModified;
 
         [Inject]
@@ -33,6 +32,7 @@ namespace TaxiGame.Items
         {
             InitializeInventoryLookup();
         }
+
         public void AddObjectToInventory(IInventoryObject inventoryObject)
         {
             ModifyInventory(inventoryObject, true);
@@ -43,79 +43,18 @@ namespace TaxiGame.Items
             ModifyInventory(inventoryObject, false);
         }
 
-        private void ModifyInventory(IInventoryObject inventoryObject, bool isAdding)
-        {
-            InventoryObjectType objectType = inventoryObject.GetObjectType();
-            if (_inventoryLookup.TryGetValue(objectType, out Stack<IInventoryObject> stack))
-            {
-                if (isAdding)
-                {
-                    stack.Push(inventoryObject);
-                }
-                else
-                {
-                    stack.Pop();
-                }
-                _inventoryLookup[objectType] = stack;
-                InvokeInventoryModifiedEvent(inventoryObject, stack, isAdding);
-            }
-        }
-
         public IInventoryObject PopInventoryObject(InventoryObjectType objectType)
         {
-            return AccessInventoryObject(objectType, false); // For getting and removing
+            return AccessInventoryObject(objectType, false);
         }
 
-        public IInventoryObject PeekInventoryObject(InventoryObjectType objectType)
-        {
-            return AccessInventoryObject(objectType, true); // For peeking without removing
-        }
         public bool HasInventoryObjectType(InventoryObjectType objectType)
         {
-            return PeekInventoryObject(objectType) != null;
-        }
-
-        private IInventoryObject AccessInventoryObject(InventoryObjectType objectType, bool isPeeking)
-        {
-            if (_inventoryLookup.TryGetValue(objectType, out Stack<IInventoryObject> stack) && stack.Count > 0)
-            {
-                IInventoryObject inventoryObject = isPeeking ? stack.Peek() : stack.Pop();
-
-                if (!isPeeking)
-                {
-                    InvokeInventoryModifiedEvent(inventoryObject, stack, true);
-                }
-
-                return inventoryObject;
-            }
-            return null;
-        }
-
-        private void InvokeInventoryModifiedEvent(IInventoryObject inventoryObject, Stack<IInventoryObject> stack, bool itemIsAdded)
-        {
-            bool itemIsStackableItem = _itemUtility.IsStackableObject(inventoryObject.GetObjectType());
-            bool itemCountIsZero;
-
-            if (itemIsStackableItem)
-            {
-                itemCountIsZero = GetStackableItemCountInInventory() == 0;
-            }
-            else
-            {
-                itemCountIsZero = stack.Count == 0;
-            }
-
-            OnInventoryModified?.Invoke(this, new InventoryModifiedArgs
-            {
-                InventoryObject = inventoryObject,
-                ItemCountIsZero = itemCountIsZero,
-                ItemAddedToInventory = itemIsAdded
-            });
+            return AccessInventoryObject(objectType, true) != null;
         }
 
         public int GetStackableItemCountInInventory()
         {
-
             InventoryObjectType[] stackableItemTypes = _itemUtility.GetStackableItemTypes();
             int count = 0;
 
@@ -123,6 +62,7 @@ namespace TaxiGame.Items
             {
                 count += GetObjectTypeCountInInventory(objType);
             }
+
             return count;
         }
 
@@ -141,6 +81,56 @@ namespace TaxiGame.Items
                 _inventoryLookup[objType] = new Stack<IInventoryObject>();
             }
         }
+
+        private void ModifyInventory(IInventoryObject inventoryObject, bool isAdding)
+        {
+            InventoryObjectType objectType = inventoryObject.GetObjectType();
+
+            if (_inventoryLookup.TryGetValue(objectType, out Stack<IInventoryObject> stack))
+            {
+                if (isAdding)
+                {
+                    stack.Push(inventoryObject);
+                }
+                else
+                {
+                    stack.Pop();
+                }
+
+                _inventoryLookup[objectType] = stack;
+                InvokeInventoryModifiedEvent(inventoryObject, stack, isAdding);
+            }
+        }
+
+        private IInventoryObject AccessInventoryObject(InventoryObjectType objectType, bool isPeeking)
+        {
+            if (_inventoryLookup.TryGetValue(objectType, out Stack<IInventoryObject> stack) && stack.Count > 0)
+            {
+                IInventoryObject inventoryObject = isPeeking ? stack.Peek() : stack.Pop();
+
+                if (!isPeeking)
+                {
+                    InvokeInventoryModifiedEvent(inventoryObject, stack, false);
+                }
+
+                return inventoryObject;
+            }
+
+            return null;
+        }
+
+        private void InvokeInventoryModifiedEvent(IInventoryObject inventoryObject, Stack<IInventoryObject> stack, bool itemIsAdded)
+        {
+            bool itemIsStackableItem = _itemUtility.IsStackableObject(inventoryObject.GetObjectType());
+            bool itemCountIsZero = itemIsStackableItem ? GetStackableItemCountInInventory() == 0 : stack.Count == 0;
+
+            OnInventoryModified?.Invoke(this, new InventoryModifiedArgs
+            {
+                InventoryObject = inventoryObject,
+                ItemCountIsZero = itemCountIsZero,
+                ItemAddedToInventory = itemIsAdded
+            });
+        }
     }
 
     public class InventoryModifiedArgs : EventArgs
@@ -148,8 +138,5 @@ namespace TaxiGame.Items
         public IInventoryObject InventoryObject;
         public bool ItemCountIsZero;
         public bool ItemAddedToInventory;
-
     }
-
 }
-

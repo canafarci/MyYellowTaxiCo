@@ -12,13 +12,16 @@ namespace TaxiGame.Installers
         [SerializeField] private Joystick _joystick;
         public override void InstallBindings()
         {
-            Container.Bind<IInputReader>().To<InputReader>().AsSingle();
+            Container.Bind<Rigidbody>().FromComponentInChildren().AsTransient();
+
             Container.Bind<Joystick>().FromInstance(_joystick).AsSingle();
+            Container.Bind<IInputReader>().To<InputReader>().AsSingle();
+
             Container.Bind<References>().FromInstance(_references).AsSingle();
 
 
             Container.Bind<Inventory>().FromComponentInChildren().AsTransient();
-            Container.Bind<Mover>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<Mover>().FromComponentInChildren().AsSingle();
 
             Container.Bind<ItemUtility>().AsSingle();
         }

@@ -11,6 +11,8 @@ namespace TaxiGame.Animations
         public static readonly int IdleHash = Animator.StringToHash("Idle");
         public static readonly int IS_SITTING = Animator.StringToHash("IsSitting");
         public static readonly int CAR_ENTER = Animator.StringToHash("EnteringCar");
+        public static readonly int REPAIR_CAR_ENGINE = Animator.StringToHash("RepairingEngine");
+        public static readonly string MOVE_FLOAT = "MoveSpeed";
         //VEHICLE
         public static readonly int WOBBLE_IN = Animator.StringToHash("WobbleParkIn");
         public static readonly int WOBBLE_OUT = Animator.StringToHash("WobbleParkOut");

@@ -11,6 +11,7 @@ namespace TaxiGame.Upgrades
         public HelperNPCSpeed[] HelperNPCSpeeds;
         public HelperNPCInventorySize[] HelperNPCInventorySizes;
         public StackSpeed[] StackSpeeds;
+        public int BaseMoveSpeed = 5;
     }
 
     [System.Serializable]

@@ -41,7 +41,9 @@ namespace TaxiGame.Visuals
             else
             {
                 _playerItems.Remove(item);
+                _positionCalculator.RecalculatePositions(_playerItems);
             }
+
         }
 
 

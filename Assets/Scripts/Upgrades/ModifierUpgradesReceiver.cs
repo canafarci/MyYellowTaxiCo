@@ -10,17 +10,17 @@ namespace TaxiGame.Upgrades
     public class ModifierUpgradesReceiver : MonoBehaviour, IUpgradeReceiver
     {
         [SerializeField] private UpgradeDataSO _upgradeData;
-
         private UpgradesFacade _upgradesFacade;
         private References _references;
-        private Mover _mover;
+        public event Action<int> OnNPCInventorySizeUpgrade;
+        public event Action<float> OnNPCSpeedUpgrade;
+        public event Action<float> OnPlayerSpeedUpgrade;
 
         [Inject]
-        private void Init(UpgradesFacade upgradesFacade, References references, Mover mover)
+        private void Init(UpgradesFacade upgradesFacade, References references)
         {
             _upgradesFacade = upgradesFacade;
             _references = references;
-            _mover = mover;
         }
         public void ReceiveUpgradeCommand(UpgradeType upgradeType, int index)
         {
@@ -60,16 +60,20 @@ namespace TaxiGame.Upgrades
         {
             float npcSpeed = _upgradeData.HelperNPCSpeeds[index].Speed;
             _upgradesFacade.SetNPCSpeed(npcSpeed);
+            OnNPCSpeedUpgrade?.Invoke(npcSpeed);
         }
         private void UpgradeNPCInventorySize(int index)
         {
             int inventorySize = _upgradeData.HelperNPCInventorySizes[index].Size;
             _upgradesFacade.SetNPCInventorySize(inventorySize);
+            OnNPCInventorySizeUpgrade?.Invoke(inventorySize);
+
         }
         private void UpgradePlayerSpeed(int index)
         {
             float speedModifier = _upgradeData.SpeedModifiers[index].SpeedMultiplier;
-            _mover.IncreaseSpeed(speedModifier);
+            float speed = _upgradeData.BaseMoveSpeed * speedModifier;
+            OnPlayerSpeedUpgrade?.Invoke(speed);
         }
 
     }

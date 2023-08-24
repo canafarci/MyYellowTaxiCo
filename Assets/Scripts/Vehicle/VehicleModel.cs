@@ -17,6 +17,7 @@ namespace TaxiGame.Vehicles
 
         public int GetMoneyStackCount() => _moneyToGain;
         public bool IsCarBroken() => _isBroken;
+        public void SetCarNotBroken() => _isBroken = false;
         public void SetConfig(VehicleConfiguration config) => _config = config;
         public VehicleConfiguration GetConfig() => _config;
         public void SetVehicleInPlaceCallbacks(List<Action> callback) => _vehicleInPlaceCallbacks = callback;

@@ -15,7 +15,7 @@ namespace TaxiGame.Items
         PurpleHat,
         BlackHat,
         Tire,
-        RepairBox,
+        ToolBox,
         GasHandle,
         Follower
     }

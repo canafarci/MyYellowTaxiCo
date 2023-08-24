@@ -33,12 +33,11 @@ public class BrokenTire : MonoBehaviour
 
         Animator animator = inventory.transform.GetComponentInChildren<Animator>();
         Mover mover = FindObjectOfType<Mover>();
-        mover.IsActive = false;
         _reader.Disable();
 
         item.transform.parent = transform;
 
-        yield return StartCoroutine(DotweenFX.RepairTireTween(item, _target));
+        //yield return StartCoroutine(DotweenFX.RepairTireTween(item, _target));
 
 
         yield return new WaitForSeconds(1f);
@@ -55,7 +54,6 @@ public class BrokenTire : MonoBehaviour
 
         //GetComponent<Car>().OnCarRepaired();
         _hasRepaired = true;
-        mover.IsActive = true;
         _reader.Enable();
     }
 
