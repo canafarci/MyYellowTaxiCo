@@ -22,24 +22,7 @@ namespace TaxiGame.Vehicles.Repair
         {
             _progressionModel = progressionModel;
         }
-
-        protected override bool VehicleCanBeRepaired(Collider other, out Inventory inventory)
-        {
-            bool carIsNotRepaired = _vehicleModel.IsCarBroken();
-
-            inventory = other.GetComponent<IInventoryHolder>().GetInventory();
-            bool inventoryHasObject = inventory.HasInventoryObjectType(InventoryObjectType.GasHandle);
-
-            return carIsNotRepaired && inventoryHasObject;
-        }
-
-        protected override void Repair(Inventory inventory)
-        {
-            StartCoroutine(LowGasCarRepair(inventory));
-
-        }
-
-        private IEnumerator LowGasCarRepair(Inventory inventory)
+        protected override IEnumerator Repair(Inventory inventory)
         {
             Handle handle = inventory.PopInventoryObject(InventoryObjectType.GasHandle) as Handle;
             handle.ChangeOwner(this);

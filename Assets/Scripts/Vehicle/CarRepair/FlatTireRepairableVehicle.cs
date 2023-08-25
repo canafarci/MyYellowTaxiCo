@@ -1,21 +1,38 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Characters;
 using TaxiGame.Items;
 using UnityEngine;
+using Zenject;
+
 
 namespace TaxiGame.Vehicles.Repair
 {
     public class FlatTireRepairableVehicle : RepairableVehicle
     {
-        protected override bool VehicleCanBeRepaired(Collider other, out Inventory inventory)
+        private IInputReader _reader;
+        private VehicleProgressionModel _progressionModel;
+
+        public event EventHandler<OnPlayerEnteredWithTireArgs> OnPlayerEnteredWithTire;
+
+        [Inject]
+        private void Init(VehicleProgressionModel progressionModel)
         {
-            throw new System.NotImplementedException();
+            _progressionModel = progressionModel;
         }
 
-        protected override void Repair(Inventory inventory)
+        protected override IEnumerator Repair(Inventory inventory)
         {
-            throw new System.NotImplementedException();
+            StackableItem item = inventory.PopInventoryObject(InventoryObjectType.Tire) as StackableItem;
+
+            OnPlayerEnteredWithTire?.Invoke(this, new OnPlayerEnteredWithTireArgs { Item = item });
+            yield return new WaitForSeconds(Globals.TIRE_DROP_TWEEN_DURATION);
+
+            InvokeVehicleRepairedEvent();
+            _vehicleModel.SetCarNotBroken();
+
+            _progressionModel.HandleFlatTireRepaired();
         }
     }
 

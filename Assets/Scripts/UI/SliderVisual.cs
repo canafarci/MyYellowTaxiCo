@@ -17,41 +17,18 @@ namespace TaxiGame.UI
 
         private void OnEnable()
         {
-            _waitZone.OnWaitEngineIteration += HandleWaitEngineIteration;
-            _waitZone.OnChangeSliderActivation += HandleChangeActivation;
+            _waitZone.OnWaitEngineIteration += WaitEngine_WaitEngineIterationHandler;
+            _waitZone.OnChangeSliderActivation += WaitToSpawnItemZone_ChangeActivationHandler;
         }
 
-        private void HandleChangeActivation(object sender, OnChangeSliderActivationEventArgs e)
+        private void WaitToSpawnItemZone_ChangeActivationHandler(object sender, OnChangeSliderActivationEventArgs e)
         {
             SetSliderActivation(e.Instigator, e.Active);
         }
 
-        private void HandleWaitEngineIteration(object sender, WaitEngineIterationEventArgs e)
+        private void WaitEngine_WaitEngineIterationHandler(object sender, WaitEngineIterationEventArgs e)
         {
             SetSliderValue(e.Instigator, e.CurrentValue, e.MaxValue);
-        }
-
-        private void SetSliderActivation(GameObject parent, bool active)
-        {
-            GameObject slider = GetOrCreateSlider(parent);
-            slider.SetActive(false);
-            ResetSliderValue(parent);
-        }
-
-        private void SetSliderValue(GameObject parent, float remainingTime, float totalTime)
-        {
-            Material mat = GetOrCreateMaterial(parent);
-            mat.SetFloat("_ClipUvUp", remainingTime / totalTime);
-        }
-
-        private Material GetOrCreateMaterial(GameObject parent)
-        {
-            if (!_materialLookup.TryGetValue(parent, out Material mat))
-            {
-                mat = parent.GetComponent<ComponentReference>().Slider.transform.GetChild(1).GetComponent<Renderer>().material;
-                _materialLookup[parent] = mat;
-            }
-            return mat;
         }
 
         private GameObject GetOrCreateSlider(GameObject parent)
@@ -64,16 +41,42 @@ namespace TaxiGame.UI
             return slider;
         }
 
+        private Material GetOrCreateMaterial(GameObject parent)
+        {
+            if (!_materialLookup.TryGetValue(parent, out Material mat))
+            {
+                mat = parent.GetComponent<ComponentReference>().Slider.transform.GetChild(1).GetComponent<Renderer>().material;
+                _materialLookup[parent] = mat;
+            }
+            return mat;
+        }
+
+        private void SetSliderActivation(GameObject parent, bool active)
+        {
+            GameObject slider = GetOrCreateSlider(parent);
+            slider.SetActive(active);
+            ResetSliderValue(parent);
+        }
+
         private void ResetSliderValue(GameObject parent)
         {
             Material mat = GetOrCreateMaterial(parent);
             mat.SetFloat("_ClipUvUp", 0f);
         }
 
+        private void SetSliderValue(GameObject parent, float remainingTime, float totalTime)
+        {
+            GameObject slider = GetOrCreateSlider(parent);
+            slider.SetActive(true);
+
+            Material mat = GetOrCreateMaterial(parent);
+            mat.SetFloat("_ClipUvUp", remainingTime / totalTime);
+        }
+
         private void OnDisable()
         {
-            _waitZone.OnWaitEngineIteration -= HandleWaitEngineIteration;
-            _waitZone.OnChangeSliderActivation -= HandleChangeActivation;
+            _waitZone.OnWaitEngineIteration -= WaitEngine_WaitEngineIterationHandler;
+            _waitZone.OnChangeSliderActivation -= WaitToSpawnItemZone_ChangeActivationHandler;
         }
     }
 }

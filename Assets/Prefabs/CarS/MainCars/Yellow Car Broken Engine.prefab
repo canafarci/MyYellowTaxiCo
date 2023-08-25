@@ -792,7 +792,7 @@ PrefabInstance:
     - target: {fileID: 5150420696274731681, guid: ba62ffb24c1ea664092502ab0ef38d4a,
         type: 3}
       propertyPath: m_Name
-      value: Yellow Car Broken Toolbox
+      value: Yellow Car Broken Engine
       objectReference: {fileID: 0}
     - target: {fileID: 5150420696274731681, guid: ba62ffb24c1ea664092502ab0ef38d4a,
         type: 3}
@@ -869,6 +869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150dfdd67f64549eaa800e2305a8686e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _repairObjectType: 4
 --- !u!114 &7359291838028798986
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -317,7 +317,7 @@ PrefabInstance:
     - target: {fileID: 8889169347316545288, guid: 7041c7fdc7fd5184c898fe4d23ff760a,
         type: 3}
       propertyPath: m_Name
-      value: Yellow Car Broken Tire
+      value: Yellow Car Flat Tire
       objectReference: {fileID: 0}
     - target: {fileID: 8889169347316545335, guid: 7041c7fdc7fd5184c898fe4d23ff760a,
         type: 3}
@@ -413,6 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 531d06306bb834aa2ad3fe7a69478bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _repairObjectType: 3
 --- !u!114 &4769038400825143108
 MonoBehaviour:
   m_ObjectHideFlags: 0

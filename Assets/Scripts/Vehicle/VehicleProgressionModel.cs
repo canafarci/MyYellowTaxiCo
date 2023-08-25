@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,6 +50,16 @@ namespace TaxiGame.Vehicles
                 _gameProgressionModel.OnSecondRepair();
 
                 PlayerPrefs.SetInt(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE, 1);
+            }
+        }
+
+        public void HandleFlatTireRepaired()
+        {
+            if (!PlayerPrefs.HasKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE))
+            {
+                _gameProgressionModel.OnThirdRepair();
+
+                PlayerPrefs.SetInt(Globals.THIRD_TIRE_TUTORIAL_COMPLETE, 1);
             }
         }
     }

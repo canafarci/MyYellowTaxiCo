@@ -20,6 +20,10 @@ namespace TaxiGame.Installers
                         FromComponentInChildren().
                         AsTransient();
 
+            Container.Bind<FlatTireRepairableVehicle>().
+                        FromComponentInChildren().
+                        AsTransient();
+
             Container.BindFactory<UnityEngine.Object, VehicleConfiguration, List<Action>, Vehicle, Vehicle.Factory>()
             .FromFactory<PrefabFactory<VehicleConfiguration, List<Action>, Vehicle>>();
         }

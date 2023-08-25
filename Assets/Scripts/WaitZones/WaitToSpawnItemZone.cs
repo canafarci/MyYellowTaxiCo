@@ -33,6 +33,14 @@ namespace TaxiGame.WaitZones
             OnChangeSliderActivationEventArgs args = new OnChangeSliderActivationEventArgs { Instigator = instigator, Active = false };
             OnChangeSliderActivation?.Invoke(this, args);
         }
+
+        protected override void OnSuccess(GameObject instigator)
+        {
+            base.OnSuccess(instigator);
+            OnChangeSliderActivationEventArgs args = new OnChangeSliderActivationEventArgs { Instigator = instigator, Active = false };
+            OnChangeSliderActivation?.Invoke(this, args);
+        }
+
     }
 
     public class OnChangeSliderActivationEventArgs : EventArgs

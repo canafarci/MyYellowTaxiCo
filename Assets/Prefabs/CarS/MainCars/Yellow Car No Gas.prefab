@@ -989,6 +989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430964bde26a45545b10fb293082809a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _repairObjectType: 5
   _handleAttachTransform: {fileID: 7110699173432572341}
 --- !u!4 &8889169347316545335 stripped
 Transform:

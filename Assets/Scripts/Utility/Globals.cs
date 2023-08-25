@@ -30,4 +30,6 @@ public static class Globals
     public const float TIRE_DROP_TWEEN_DURATION = 1f;
     public const float TOOLBOX_DROP_TWEEN_DURATION = .35f;
     public const float TOOLBOX_DROP_REPAIR_ANIMATION_DURATION = 2f;
+
+    public static readonly Vector3 CAMERA_ROTATION_OFFSET = new Vector3(0f, -45f, 0f);
 }

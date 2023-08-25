@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Characters;
 using TaxiGame.Items;
 using UnityEngine;
 using Zenject;
@@ -9,6 +10,7 @@ namespace TaxiGame.Vehicles.Repair
 {
     public abstract class RepairableVehicle : MonoBehaviour
     {
+        [SerializeField] private InventoryObjectType _repairObjectType;
         public static event EventHandler<OnVehicleRepairedArgs> OnVehicleRepaired;
         protected VehicleModel _vehicleModel;
 
@@ -21,14 +23,26 @@ namespace TaxiGame.Vehicles.Repair
 
         private void OnTriggerEnter(Collider other)
         {
-            if ((other.CompareTag("Player") || other.CompareTag("HatHelperNPC")) && VehicleCanBeRepaired(other, out Inventory inventory))
-            {
-                Repair(inventory);
-            }
-        }
+            if (!(other.CompareTag("Player") || other.CompareTag("HatHelperNPC"))) return;
 
-        protected abstract bool VehicleCanBeRepaired(Collider other, out Inventory inventory);
-        protected abstract void Repair(Inventory inventory);
+            Inventory inventory = other.GetComponent<IInventoryHolder>().GetInventory();
+
+            if (VehicleCanBeRepaired(inventory, _repairObjectType))
+            {
+                StartCoroutine(Repair(inventory));
+            }
+
+        }
+        protected bool VehicleCanBeRepaired(Inventory inventory, InventoryObjectType repairObjectType)
+        {
+            bool carIsNotRepaired = _vehicleModel.IsCarBroken();
+
+
+            bool inventoryHasObject = inventory.HasInventoryObjectType(repairObjectType);
+
+            return carIsNotRepaired && inventoryHasObject;
+        }
+        protected abstract IEnumerator Repair(Inventory inventory);
         protected void InvokeVehicleRepairedEvent()
         {
             OnVehicleRepaired?.Invoke(this, new OnVehicleRepairedArgs

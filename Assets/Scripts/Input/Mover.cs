@@ -9,7 +9,6 @@ public class Mover : MonoBehaviour
 {
     [SerializeField] private float _rotateSpeed;
     private float _speed;
-    public Vector3 RotationOffset;
     private IInputReader _reader;
     private Rigidbody _rigidbody;
     private ModifierUpgradesReceiver _upgradeReceiver;
@@ -57,7 +56,7 @@ public class Mover : MonoBehaviour
     private Vector3 RotateMoveVector(Vector3 start)
     {
         start.Normalize();
-        return Quaternion.AngleAxis(RotationOffset.y, Vector3.up) * start;
+        return Quaternion.AngleAxis(Globals.CAMERA_ROTATION_OFFSET.y, Vector3.up) * start;
     }
 
 }
