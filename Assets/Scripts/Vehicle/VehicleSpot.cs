@@ -10,6 +10,7 @@ namespace TaxiGame.Vehicles
         [SerializeField] private InventoryObjectType _hatType;
         private Vehicle _vehicle;
         private VehicleManager _vehicleManager;
+        private bool _isCustomerWaiting;
         public static event EventHandler<OnVehicleReturnedArgs> OnVehicleReturned;
         public event Action<int> OnVehicleDeparted;
         public void DepartVehicle()
@@ -38,6 +39,8 @@ namespace TaxiGame.Vehicles
             _vehicle = vehicle;
             InvokeVehicleReturnedEvent(vehicle);
         }
+        public bool IsCustomerWaiting() => _isCustomerWaiting;
+        public void SetCustomerWaiting(bool value) => _isCustomerWaiting = value;
         private void Clear() => _vehicle = null;
         //initialization
         [Inject]

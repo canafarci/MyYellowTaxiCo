@@ -41,7 +41,7 @@ public class MaxText : MonoBehaviour
 
     private bool IsNotStackableItem(InventoryObjectType objectType)
     {
-        return objectType == InventoryObjectType.Follower || objectType == InventoryObjectType.GasHandle;
+        return objectType == InventoryObjectType.Customer || objectType == InventoryObjectType.GasHandle;
     }
 
     private void LateUpdate()

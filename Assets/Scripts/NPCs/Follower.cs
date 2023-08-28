@@ -10,20 +10,20 @@ using Zenject;
 
 namespace TaxiGame.NPC
 {
-    public class Follower : MonoBehaviour, IInventoryObject
+    public class Follower : MonoBehaviour
     {
-        public Transform Target;
+        public Transform _target;
         protected Coroutine _followLoop;
         [SerializeField] protected FollowerCanvas _followerCanvas;
         private NavMeshAgent _agent;
         private NPCActionScheduler _npc;
+        private RiderNPCController _controller;
 
         [Inject]
         private void Init(NPCActionScheduler npc, NavMeshAgent agent)
         {
             _agent = agent;
             _npc = npc;
-
         }
 
         private void Awake()
@@ -31,42 +31,31 @@ namespace TaxiGame.NPC
             _followerCanvas.Initialize();
         }
 
-        //TODO REFACTOR
-        public IEnumerator OpenDoorAndGetIn(Vector3 pos)
+        public void StopFollowing()
         {
             StopCoroutine(_followLoop);
-            GameManager.Instance.References.PlayerInventory.RemoveObjectFromInventory(this);
-            yield return null;
-            //return base.OpenDoorAndGetIn(pos);
         }
 
         protected IEnumerator FollowLoop()
         {
             while (_agent != null)
             {
-                _agent.destination = Target.position;
+                _agent.destination = _target.position;
                 yield return new WaitForSeconds(.25f);
             }
         }
 
-        public void FollowPlayer(Inventory inventory, bool isInQueue = false)
+        public void FollowPlayer(Transform target)
         {
-            // if (isInQueue)
-            // {
-            //     _agent.stoppingDistance = 3f;
-            //     _agent.radius = 0.5f;
-            //     GetComponentInChildren<Animator>().SetBool("IsSitting", false);
-
-            // }
             if (_followerCanvas != null)
                 _followerCanvas.Remove();
-            inventory.AddObjectToInventory(this);
-            Target = inventory.transform;
-            _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
+
+            _target = target;
             _followLoop = StartCoroutine(FollowLoop());
+
+            _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
         }
 
-        public InventoryObjectType GetObjectType() => InventoryObjectType.Follower;
 
     }
 }

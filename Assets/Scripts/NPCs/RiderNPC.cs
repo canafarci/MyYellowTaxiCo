@@ -5,20 +5,19 @@ namespace TaxiGame.NPC
 {
     public class RiderNPC : MonoBehaviour
     {
-        private RiderNPCController _view;
-        public RiderNPCController GetView() => _view;
+        private RiderNPCController _controller;
+        public RiderNPCController GetController() => _controller;
 
         [Inject]
-        private void Init(RiderNPCController view)
+        private void Init(RiderNPCController controller)
         {
-            _view = view;
+            _controller = controller;
         }
 
         [Inject]
         private void Create(Vector3 spawnPos, Quaternion rotation)
         {
-            transform.position = spawnPos;
-            transform.rotation = rotation;
+            transform.SetPositionAndRotation(spawnPos, rotation);
         }
 
         public class Factory : PlaceholderFactory<Object, Vector3, Quaternion, RiderNPC>

@@ -25,7 +25,6 @@ public class TutorialUnlock : UnlockBase
         if (HasUnlockedBefore())
             StartCoroutine(UnlockCoroutine());
     }
-
     IEnumerator UnlockCoroutine()
     {
         yield return new WaitForEndOfFrame();
@@ -35,6 +34,8 @@ public class TutorialUnlock : UnlockBase
             _nextUnlocker.gameObject.SetActive(true);
             _nextUnlocker.SequentialUnlock();
         }
+        if (_isFirst)
+            gameObject.SetActive(false);
     }
 
 }

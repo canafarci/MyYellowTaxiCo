@@ -13,10 +13,8 @@ namespace TaxiGame.Items
             set => _maxStackSize = value;
         }
 
-        public int FollowerCapacity => _maxFollowerSize;
 
         [SerializeField] private int _maxStackSize;
-        [SerializeField] private int _maxFollowerSize;
         private ItemUtility _itemUtility;
         private Dictionary<InventoryObjectType, Stack<IInventoryObject>> _inventoryLookup = new();
 

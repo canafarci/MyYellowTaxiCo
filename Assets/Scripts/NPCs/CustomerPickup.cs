@@ -24,7 +24,7 @@ namespace TaxiGame.NPC
         {
             if (other.CompareTag("Player"))
             {
-                _unloadCoroutine = StartCoroutine(UnloadLoop(other));
+                _unloadCoroutine = StartCoroutine(TryUnload(other));
             }
         }
 
@@ -32,23 +32,27 @@ namespace TaxiGame.NPC
         {
             if (other.CompareTag("Player"))
             {
-                StopCoroutine(_unloadCoroutine);
+                if (_unloadCoroutine != null)
+                    StopCoroutine(_unloadCoroutine);
             }
         }
 
-        private IEnumerator UnloadLoop(Collider other)
+        private IEnumerator TryUnload(Collider other)
         {
             Inventory inventory = other.GetComponent<IInventoryHolder>().GetInventory();
 
-            while (inventory.GetObjectTypeCountInInventory(InventoryObjectType.Follower) < inventory.FollowerCapacity)
+            while (true)
             {
-                yield return new WaitForSeconds(.25f);
-
-                if (_queue.TryGetFollower(out Follower follower))
+                if (!inventory.HasInventoryObjectType(InventoryObjectType.Customer))
                 {
-                    follower.FollowPlayer(inventory, true);
-                    Unlock();
+                    if (_queue.TryGetCustomer(out Customer customer))
+                    {
+                        customer.FollowPlayer(inventory);
+                        Unlock();
+                    }
                 }
+
+                yield return new WaitForSeconds(0.5f);
             }
         }
 

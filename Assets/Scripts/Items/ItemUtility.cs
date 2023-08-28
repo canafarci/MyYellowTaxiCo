@@ -24,7 +24,7 @@ namespace TaxiGame.Items
                                                             InventoryObjectType.ToolBox,
                                                             InventoryObjectType.Tire,
                                                             InventoryObjectType.GasHandle,
-                                                            InventoryObjectType.Follower
+                                                            InventoryObjectType.Customer
                                                         };
 
         public bool IsStackableObject(InventoryObjectType objectType)

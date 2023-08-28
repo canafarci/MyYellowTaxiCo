@@ -2225,6 +2225,7 @@ GameObject:
   - component: {fileID: 8965201849904363864}
   - component: {fileID: 1957588813764623510}
   - component: {fileID: 3529015691540649696}
+  - component: {fileID: 850988281923716908}
   m_Layer: 11
   m_Name: DurakNPC B
   m_TagString: Untagged
@@ -2261,12 +2262,12 @@ NavMeshAgent:
   m_GameObject: {fileID: 4909763518887318041}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.1
+  m_Radius: 0.2
   m_Speed: 4
   m_Acceleration: 90
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.001
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -2300,7 +2301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56646eac689faf946aa1e753d29a0084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
+  _target: {fileID: 0}
   _followerCanvas: {fileID: 8266765368461336444}
 --- !u!114 &3372718807835599535
 MonoBehaviour:
@@ -2353,7 +2354,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4909763518887318041}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8a6a026370d6e04ea0b8eb50320602c, type: 3}
+  m_Script: {fileID: 11500000, guid: 6160a12aac2909e46bf588b2f9819924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &3529015691540649696
@@ -2368,6 +2369,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8eb9b96e06cab45972cf181c357e1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &850988281923716908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4909763518887318041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da6336799afc85428c9906a86032d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _visual: {fileID: 1911519827668240380}
 --- !u!1 &5146123173744927323
 GameObject:
   m_ObjectHideFlags: 0

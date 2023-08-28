@@ -15,12 +15,27 @@ namespace TaxiGame.Upgrades
             _rect = GetComponent<RectTransform>();
             _rect.anchoredPosition = new Vector2(_rect.anchoredPosition.x, -1200f);
         }
-        private void OnEnable()
+
+        //called from inspector unityevent
+        public void EnableCanvas()
         {
+            gameObject.SetActive(true);
+
             _rect.DOLocalMoveY(-480.82f, 0.5f).SetEase(Ease.OutBack);
 
             SetTutorial();
         }
+
+        //called from inspector unityevent
+        public void DisableCanvas()
+        {
+            _rect.DOLocalMoveY(-1200f, 0.5f).SetEase(Ease.OutBack).onComplete = () =>
+            {
+                gameObject.SetActive(false);
+            };
+        }
+
+
 
         private void SetTutorial()
         {
@@ -42,12 +57,5 @@ namespace TaxiGame.Upgrades
             }
         }
 
-        public void DisableCanvas()
-        {
-            _rect.DOLocalMoveY(-1200f, 0.5f).SetEase(Ease.OutBack).onComplete = () =>
-            {
-                gameObject.SetActive(false);
-            };
-        }
     }
 }

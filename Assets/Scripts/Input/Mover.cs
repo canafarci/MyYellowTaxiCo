@@ -29,16 +29,20 @@ public class Mover : MonoBehaviour
         _speed = speed;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        Move(_reader.ReadInput());
+        Vector3 distance = CalculateDistance(_reader.ReadInput());
+        _rigidbody.MovePosition(transform.position + distance);
     }
 
-    private void Move(Vector2 input)
+    private Vector3 CalculateDistance(Vector2 input)
     {
+        Vector3 distance;
+
         if (input == Vector2.zero)
         {
             OnMoveDistanceCalculated?.Invoke(0f);
+            distance = Vector3.zero;
         }
         else
         {
@@ -47,10 +51,10 @@ public class Mover : MonoBehaviour
             Vector3 moveVector = RotateMoveVector(new Vector3(input.x, 0, input.y));
             transform.rotation = Quaternion.LookRotation(moveVector);
 
-            Vector3 distance = moveVector.normalized * moveVector.magnitude * Time.deltaTime * _speed;
-
-            _rigidbody.MovePosition(transform.position + distance);
+            distance = moveVector.normalized * _speed * Time.fixedDeltaTime;
         }
+
+        return distance;
     }
 
     private Vector3 RotateMoveVector(Vector3 start)

@@ -59,7 +59,7 @@ namespace TaxiGame.Visuals
 
         private bool IsNotStackableItem(InventoryObjectType objectType)
         {
-            return objectType == InventoryObjectType.Follower || objectType == InventoryObjectType.GasHandle;
+            return objectType == InventoryObjectType.Customer || objectType == InventoryObjectType.GasHandle;
         }
     }
 }

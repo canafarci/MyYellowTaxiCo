@@ -90,4 +90,4 @@ MonoBehaviour:
     Cost: 3000
   - SpawnRate: 3
     Cost: 4500
-  BaseMoveSpeed: 7
+  BaseMoveSpeed: 5

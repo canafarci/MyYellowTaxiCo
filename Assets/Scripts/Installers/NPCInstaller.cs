@@ -10,7 +10,7 @@ namespace TaxiGame.Installers
         public class NPCInstaller : MonoInstaller<NPCInstaller>
         {
                 [SerializeField] private GameObject _helperPrefab;
-                [SerializeField] private DriverQueue[] _queues;
+                [SerializeField] private DriverQueueCoordinator[] _queues;
 
                 public override void InstallBindings()
                 {
@@ -60,7 +60,11 @@ namespace TaxiGame.Installers
                                 .FromComponentInChildren()
                                 .AsTransient();
 
-                        Container.Bind<DriverQueue>()
+                        Container.Bind<DriverDispatcher>()
+                                .FromComponentInChildren()
+                                .AsTransient();
+
+                        Container.Bind<DriverQueueCoordinator>()
                                 .WithId(ModelType.Distributor)
                                 .FromComponentInParents()
                                 .AsTransient();
@@ -76,7 +80,7 @@ namespace TaxiGame.Installers
                                 .FromComponentInNewPrefab(_helperPrefab);
                 }
 
-                private DriverQueue GetDriverQueue(InjectContext context)
+                private DriverQueueCoordinator GetDriverQueue(InjectContext context)
                 {
                         DriverSpawner spawner = context.ObjectInstance as DriverSpawner;
                         return _queues.FirstOrDefault(x => x.GetHatType() == spawner.HatType);

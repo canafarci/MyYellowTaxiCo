@@ -55,7 +55,7 @@ namespace TaxiGame.UI
             else
                 _text.text = value.ToString("F0");
         }
-        public void Reset(float moneyToUnlock)
+        public void ResetVisual(float moneyToUnlock)
         {
             if (_text != null)
                 FormatText(moneyToUnlock);

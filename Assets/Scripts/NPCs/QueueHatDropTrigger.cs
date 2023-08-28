@@ -8,12 +8,12 @@ namespace TaxiGame.NPC
     public class QueueHatDropTrigger : MonoBehaviour
     {
         private Stacker _stacker;
-        private DriverQueue _queue;
+        private DriverQueueCoordinator _queue;
         private Dictionary<Collider, Coroutine> _coroutines = new Dictionary<Collider, Coroutine>();
         private Dictionary<Collider, Inventory> _inventories = new Dictionary<Collider, Inventory>();
         private void Awake()
         {
-            _queue = GetComponent<DriverQueue>();
+            _queue = GetComponent<DriverQueueCoordinator>();
             _stacker = GetComponentInChildren<Stacker>();
         }
         private void OnTriggerEnter(Collider other)
