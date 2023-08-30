@@ -16,6 +16,15 @@ namespace TaxiGame.NPC
         private Queue<IEnumerator> _actionsToPerform = new();
 
         public event EventHandler<OnNPCAnimationStateChangedArgs> OnNPCAnimationStateChanged;
+        public void ClearAllActions()
+        {
+            if (_performedActions == null)
+            {
+                StopCoroutine(_performedActions);
+            }
+            _performedActions = null;
+            _actionsToPerform.Clear();
+        }
         public void AddToActionQueue(IEnumerator actionToPerform)
         {
             _actionsToPerform.Enqueue(actionToPerform);

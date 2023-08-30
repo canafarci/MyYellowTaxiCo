@@ -10,10 +10,10 @@ namespace TaxiGame.Visuals
 {
     public class HatDistributorVisual : MonoBehaviour
     {
-        private HatDistributor _hatDistributor;
+        private DriverHatDistributor _hatDistributor;
 
         [Inject]
-        private void Init(HatDistributor hatDistributor)
+        private void Init(DriverHatDistributor hatDistributor)
         {
             _hatDistributor = hatDistributor;
         }

@@ -12,30 +12,28 @@ namespace TaxiGame.NPC
 {
     public class DriverDispatcher : MonoBehaviour
     {
+        /// <summary>
+        /// Dispatches drivers to VehicleSpots in certain states
+        /// </summary>
         [SerializeField] private InventoryObjectType _hatType;
         private HashSet<VehicleSpot> _spots = new HashSet<VehicleSpot>();
         private Coroutine _checkSpotsCoroutine;
-        private HatDistributor _hatDistributor;
+        private DriverLookup _driverLookup;
+
         public event EventHandler<OnDriverDispatchedArgs> OnDriverDispatched;
 
         [Inject]
-        private void Init(HatDistributor hatDistributor)
+        private void Init(DriverLookup driverLookup)
         {
-            _hatDistributor = hatDistributor;
+            _driverLookup = driverLookup;
         }
-
         private void Start()
         {
             VehicleSpot.OnVehicleReturned += VehicleSpot_VehicleReturnedHandler;
             RepairableVehicle.OnVehicleRepaired += RepairableVehicle_VehicleRepairedHandler;
-            _hatDistributor.OnHatDistributed += HatDistributor_HatDistributedHandler;
-        }
 
-        private void HatDistributor_HatDistributedHandler(object sender, HatDistributedEventArgs e)
-        {
-            StartChecking();
+            InvokeRepeating(nameof(CheckTaxiSpots), 0f, 0.5f);
         }
-
         private void RepairableVehicle_VehicleRepairedHandler(object sender, OnVehicleRepairedArgs e)
         {
             if (_hatType != e.HatType) return;
@@ -53,39 +51,26 @@ namespace TaxiGame.NPC
         private void AddVehicleSpotToList(VehicleSpot spot)
         {
             _spots.Add(spot);
-            StartChecking();
         }
 
-        private void StartChecking()
+        //Invoked repeatedly every 0.5 seconds
+        private void CheckTaxiSpots()
         {
-            if (_checkSpotsCoroutine == null)
-                _checkSpotsCoroutine = StartCoroutine(CheckTaxiSpots());
-        }
-
-        private IEnumerator CheckTaxiSpots()
-        {
-            while (_spots.Count > 0)
+            // Create a copy of the spots to avoid modification while iterating
+            foreach (VehicleSpot spot in _spots.ToList())
             {
-                // Create a copy of the spots to avoid modification while iterating
-                foreach (VehicleSpot spot in _spots.ToList())
+                HashSet<Driver> driversWithoutHat = _driverLookup.GetDriversWithoutHat();
+                HashSet<Driver> driversWithHat = _driverLookup.GetDriversWithHat();
+
+                if (spot.IsCustomerWaiting())
                 {
-                    HashSet<Driver> driversWithoutHat = _hatDistributor.GetDriversWithoutHat();
-                    HashSet<Driver> driversWithHat = _hatDistributor.GetDriversWithHat();
-
-                    if (spot.IsCustomerWaiting())
-                    {
-                        DispatchDriverWithoutHat(spot, driversWithoutHat);
-                    }
-                    else
-                    {
-                        DispatchDriverWithHat(spot, driversWithHat);
-                    }
+                    DispatchDriverWithoutHat(spot, driversWithoutHat);
                 }
-
-                yield return new WaitForSeconds(.75f);
+                else
+                {
+                    DispatchDriverWithHat(spot, driversWithHat);
+                }
             }
-
-            _checkSpotsCoroutine = null;
         }
 
         private void DispatchDriverWithoutHat(VehicleSpot spot, HashSet<Driver> driversWithoutHat)
@@ -109,7 +94,7 @@ namespace TaxiGame.NPC
 
         private void DispatchDriverToSpot(Driver driver, VehicleSpot spot, HashSet<Driver> drivers)
         {
-            driver.GetController().GoToCar(spot.transform, () => spot.DepartVehicle());
+            driver.GetController().GoToCar(spot.transform, () => spot.HandleDriverArrival());
 
             drivers.Remove(driver);
             _spots.Remove(spot);

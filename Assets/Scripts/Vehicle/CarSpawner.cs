@@ -15,19 +15,17 @@ namespace TaxiGame.Vehicles
         private Vehicle.Factory _factory;
         private VehicleSpot _spot;
         private CarSpawnDataProvider _provider;
-        private MoneyStacker _stacker;
 
         public static event EventHandler<OnNewSpawnerActivatedEventArgs> OnNewSpawnerActivated;
         public event Action OnCarSpawned;
 
         [Inject]
         private void Init(Vehicle.Factory factory,
-                            VehicleSpot spot, MoneyStacker stacker,
+                            VehicleSpot spot,
                             CarSpawnDataProvider provider)
         {
             _factory = factory;
             _spot = spot;
-            _stacker = stacker;
             _provider = provider;
         }
 

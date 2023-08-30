@@ -1,6 +1,7 @@
 using System;
 using TaxiGame.Items;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Zenject;
 
 namespace TaxiGame.Vehicles
@@ -12,12 +13,25 @@ namespace TaxiGame.Vehicles
         private VehicleManager _vehicleManager;
         private bool _isCustomerWaiting;
         public static event EventHandler<OnVehicleReturnedArgs> OnVehicleReturned;
-        public event Action<int> OnVehicleDeparted;
-        public void DepartVehicle()
+        public event Action OnVehicleDeparted;
+        public event Action<int> OnVehicleMoneyEarned;
+        public void HandleDriverArrival()
         {
             _vehicle.GetController().InitiateDeparture();
+
+            UpdateGameState();
+        }
+        public void HandleCustomerArrival()
+        {
+            Assert.IsNotNull(_vehicle);
+            _vehicle.GetController().HandleCustomerArrival();
+            OnVehicleMoneyEarned?.Invoke(_vehicle.GetModel().GetMoneyStackCount());
+        }
+        private void UpdateGameState()
+        {
             _vehicleManager.OnVehicleDeparted();
-            OnVehicleDeparted?.Invoke(_vehicle.GetModel().GetMoneyStackCount());
+            OnVehicleDeparted?.Invoke();
+            OnVehicleMoneyEarned?.Invoke(_vehicle.GetModel().GetMoneyStackCount());
             Clear();
         }
         private void InvokeVehicleReturnedEvent(Vehicle vehicle)

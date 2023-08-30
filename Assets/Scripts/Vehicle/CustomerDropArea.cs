@@ -20,14 +20,15 @@ namespace TaxiGame.Vehicles
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player") || other.CompareTag("HatHelperNPC"))
+            if (_vehicleSpot.HasVehicle() && (other.CompareTag("Player") || other.CompareTag("HatHelperNPC")))
             {
                 Inventory inventory = other.GetComponent<Inventory>();
+
                 if (inventory.HasInventoryObjectType(InventoryObjectType.Customer))
                 {
                     Customer customer = inventory.PopInventoryObject(InventoryObjectType.Customer) as Customer;
                     customer.GetFollower().StopFollowing();
-                    customer.GetController().GoToCar(transform);
+                    customer.GetController().GoToCar(transform, () => _vehicleSpot.HandleCustomerArrival());
                     _vehicleSpot.SetCustomerWaiting(true);
                 }
             }

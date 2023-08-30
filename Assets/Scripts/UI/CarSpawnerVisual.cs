@@ -18,7 +18,7 @@ namespace TaxiGame.Visuals
 
             StartCoroutine(WaitLoop(_initialSpawnTime));
         }
-        private void VehicleSpot_VehicleDepartedHandler(int val)
+        private void VehicleSpot_VehicleDepartedHandler()
         {
             StartCoroutine(WaitLoop(_spawnRate));
         }

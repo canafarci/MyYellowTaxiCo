@@ -47,6 +47,8 @@ namespace TaxiGame.NPC
 
         public void FollowPlayer(Transform target)
         {
+            _npc.ClearAllActions();
+
             if (_followerCanvas != null)
                 _followerCanvas.Remove();
 

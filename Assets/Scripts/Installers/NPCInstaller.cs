@@ -38,7 +38,7 @@ namespace TaxiGame.Installers
                                 .FromComponentInChildren()
                                 .AsTransient();
 
-                        Container.Bind<HatDistributor>().
+                        Container.Bind<DriverHatDistributor>().
                                 FromComponentInChildren().
                                 AsTransient();
 
@@ -62,6 +62,10 @@ namespace TaxiGame.Installers
 
                         Container.Bind<DriverDispatcher>()
                                 .FromComponentInChildren()
+                                .AsTransient();
+
+                        Container.Bind<DriverLookup>()
+                                .FromComponentInParents()
                                 .AsTransient();
 
                         Container.Bind<DriverQueueCoordinator>()

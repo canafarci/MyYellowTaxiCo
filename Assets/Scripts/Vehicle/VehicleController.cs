@@ -16,8 +16,6 @@ namespace TaxiGame.Vehicles
         private VehicleTweener _vehicleTweener;
         private VehicleModel _model;
 
-
-
         [Inject]
         private void Init(
             VehicleTweener tweener,
@@ -90,6 +88,9 @@ namespace TaxiGame.Vehicles
             Destroy(gameObject);
         }
 
-        // Set the data and callback for notifying vehicle spot
+        public void HandleCustomerArrival()
+        {
+            _vehicleTweener.EnlargePassenger();
+        }
     }
 }

@@ -2549,10 +2549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _driver: {fileID: 2556511585538821943}
-  _passengers:
-  - {fileID: 5248714636034867759}
-  - {fileID: 1843245390069680352}
-  - {fileID: 9088611489197647204}
+  _passenger: {fileID: 1843245390069680352}
 --- !u!114 &6037058272849572350
 MonoBehaviour:
   m_ObjectHideFlags: 0

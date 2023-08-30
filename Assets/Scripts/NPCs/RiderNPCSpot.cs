@@ -6,6 +6,9 @@ namespace TaxiGame.NPC
 {
     public class RiderNPCSpot : MonoBehaviour
     {
+        /// <summary>
+        /// Container for NPCs in waiting state
+        /// </summary>
         private RiderNPC _npc;
         public void SetNPC(RiderNPC npc) => _npc = npc;
         public RiderNPC GetNPC() => _npc;

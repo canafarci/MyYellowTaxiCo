@@ -20,7 +20,7 @@ namespace TaxiGame.NPC
         {
             _npc.AddToActionQueue(GoAndSit(destination));
         }
-        public void GoToCar(Transform destination, Action onNPCReachedCar = null)
+        public void GoToCar(Transform destination, Action onNPCReachedCar)
         {
             _npc.AddToActionQueue(MoveToCar(destination, onNPCReachedCar));
         }
@@ -29,6 +29,7 @@ namespace TaxiGame.NPC
         {
             _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
             yield return StartCoroutine(MoveToPosition(trans.position));
+
             Tween move = GetToExactPosition(trans);
             yield return move.WaitForCompletion();
 
@@ -52,7 +53,7 @@ namespace TaxiGame.NPC
 
             onNPCReachedCar?.Invoke();
 
-            Destroy(gameObject, 0.6f);
+            Destroy(gameObject, 0.1f);
         }
     }
 }

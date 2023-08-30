@@ -40,7 +40,7 @@ public class MoneyStacker : MonoBehaviour
     private void Start()
     {
         if (_spot != null)
-            _spot.OnVehicleDeparted += (val) => StackItems(val);
+            _spot.OnVehicleMoneyEarned += (val) => StackItems(val);
     }
 
     public void StackItems(int count) => StartCoroutine(StackItemRoutine(count));

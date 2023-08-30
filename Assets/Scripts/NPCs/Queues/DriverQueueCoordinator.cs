@@ -11,6 +11,9 @@ namespace TaxiGame.NPC
 {
     public class DriverQueueCoordinator : MonoBehaviour, INPCQueue
     {
+        /// <summary>
+        /// Adds and removes Driver objects to DriverQueueSpot containers
+        /// </summary>
         [SerializeField] private InventoryObjectType _hatType;
         private List<DriverQueueSpot> _queueSpots = new List<DriverQueueSpot>();
         private List<Driver> _drivers = new List<Driver>();

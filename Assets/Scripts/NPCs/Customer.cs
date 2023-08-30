@@ -9,7 +9,6 @@ namespace TaxiGame.NPC
     public class Customer : RiderNPC, IInventoryObject
     {
         private Follower _follower;
-        public Follower GetFollower() => _follower;
 
         [Inject]
         private void Init(Follower follower)
@@ -22,8 +21,7 @@ namespace TaxiGame.NPC
             inventory.AddObjectToInventory(this);
             _follower.FollowPlayer(inventory.transform);
         }
-
-
+        public Follower GetFollower() => _follower;
         public InventoryObjectType GetObjectType() => InventoryObjectType.Customer;
 
     }
