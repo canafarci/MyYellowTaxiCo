@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TaxiGame.Items;
 using TaxiGame.NPC;
 using TaxiGame.Upgrades;
+using TaxiGame.Vehicles.Repair;
 using UnityEngine;
 using Zenject;
 
@@ -39,6 +40,16 @@ namespace TaxiGame.Animations
             _upgradeReceiver.OnPlayerSpeedUpgrade += ModifierUpgradesReceiver_PlayerSpeedUpgradeHandler;
             _inventory.OnInventoryModified += Inventory_InventoryModifiedHandler;
             _mover.OnMoveDistanceCalculated += Mover_MoveDistanceCalculatedHandler;
+            BrokenEngineRepairableVehicle.OnPlayerEnteredWithToolbox += BrokenEngineRepairableVehicle_PlayerEnteredWithToolboxHandler;
+
+        }
+
+        private void BrokenEngineRepairableVehicle_PlayerEnteredWithToolboxHandler(object sender, OnPlayerEnteredWithToolboxArgs e)
+        {
+            if (e.Inventory == _inventory)
+            {
+                TriggerRepairAnimation();
+            }
         }
 
         private void Mover_MoveDistanceCalculatedHandler(float distance)
@@ -59,25 +70,12 @@ namespace TaxiGame.Animations
             {
                 HandleGasHandleAnimations(e.ItemCountIsZero);
             }
-            else if (e.InventoryObject.GetObjectType() == InventoryObjectType.ToolBox)
-            {
-                HandleToolboxAnimations(e.ItemCountIsZero);
-            }
-            else if (e.InventoryObject.GetObjectType() != InventoryObjectType.Customer) // remaining types are all StackableItem types
+            // remaining types are all StackableItem types
+            else if (e.InventoryObject.GetObjectType() != InventoryObjectType.Customer)
             {
                 HandleStackableItemAnimations(e.ItemCountIsZero);
             }
         }
-
-        private void HandleToolboxAnimations(bool itemCountIsZero)
-        {
-            if (itemCountIsZero)
-                TriggerRepairAnimation();
-            else
-                SetHoldingAnimations();
-        }
-
-
         private void HandleStackableItemAnimations(bool itemCountIsZero)
         {
             if (itemCountIsZero)

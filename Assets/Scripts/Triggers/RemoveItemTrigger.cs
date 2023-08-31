@@ -1,37 +1,48 @@
+
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 namespace TaxiGame.Items
 {
-    [RequireComponent(typeof(RemoveItem))]
     public class RemoveItemTrigger : MonoBehaviour
     {
-        [SerializeField] Transform[] _targets;
-        [SerializeField] InventoryObjectType[] _itemTypes;
-        [SerializeField] InventoryObjectType _thisItemType;
-        RemoveItem _remover;
+        [SerializeField] private InventoryObjectType[] _skippedItems;
+        private ItemRemover _remover;
+        private ItemUtility _itemUtility;
+
+        [Inject]
+        private void Init(ItemRemover remover, ItemUtility itemUtility)
+        {
+            _remover = remover;
+            _itemUtility = itemUtility;
+        }
+
+
         // private void Awake() => _remover = GetComponent<RemoveItem>();
-        // private void OnTriggerEnter(Collider other)
-        // {
-        //     if (other.CompareTag("Player"))
-        //     {
-        //         Inventory inventory = GameManager.Instance.References.PlayerInventory;
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player") || other.CompareTag("HatHelperNPC"))
+            {
+                Inventory inventory = other.GetComponent<Inventory>();
 
-        //         if (inventory.GetStackableItemCountInInventory() == 0) { return; }
+                if (inventory.GetStackableItemCountInInventory() == 0) { return; }
 
-        //         for (int i = 0; i < _itemTypes.Length; i++)
-        //         {
-        //             InventoryObjectType itemType = _itemTypes[i];
-        //             StackableItem item = inventory.PopInventoryObject(itemType);
+                InventoryObjectType[] stackableItemTypes = _itemUtility.GetStackableItemTypes();
 
-        //             if (item == null || item.GetObjectType() == _thisItemType) { continue; }
-        //             Transform target = _targets[i];
-        //             _remover.RemoveRecursive(inventory, itemType, target);
-        //             break;
-        //         }
-        //     }
-        // }
+                foreach (InventoryObjectType objectType in stackableItemTypes)
+                {
+                    if (_skippedItems.Contains(objectType)) continue;
+
+                    if (inventory.HasInventoryObjectType(objectType))
+                    {
+                        _remover.RemoveItem(inventory, objectType);
+                    }
+                }
+            }
+        }
     }
 }

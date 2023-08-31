@@ -19,7 +19,7 @@ namespace TaxiGame.NPC
         private HashSet<VehicleSpot> _spots = new HashSet<VehicleSpot>();
         private Coroutine _checkSpotsCoroutine;
         private DriverLookup _driverLookup;
-
+        //subbed from DriverQueueCoordinator to remove dispatched driver from driverSpot
         public event EventHandler<OnDriverDispatchedArgs> OnDriverDispatched;
 
         [Inject]
@@ -29,11 +29,17 @@ namespace TaxiGame.NPC
         }
         private void Start()
         {
-            VehicleSpot.OnVehicleReturned += VehicleSpot_VehicleReturnedHandler;
-            RepairableVehicle.OnVehicleRepaired += RepairableVehicle_VehicleRepairedHandler;
+            SubscribeToEvents();
 
             InvokeRepeating(nameof(CheckTaxiSpots), 0f, 0.5f);
         }
+
+        private void SubscribeToEvents()
+        {
+            VehicleSpot.OnVehicleReturned += VehicleSpot_VehicleReturnedHandler;
+            RepairableVehicle.OnVehicleRepaired += RepairableVehicle_VehicleRepairedHandler;
+        }
+
         private void RepairableVehicle_VehicleRepairedHandler(object sender, OnVehicleRepairedArgs e)
         {
             if (_hatType != e.HatType) return;
@@ -109,6 +115,7 @@ namespace TaxiGame.NPC
         private void OnDisable()
         {
             VehicleSpot.OnVehicleReturned -= VehicleSpot_VehicleReturnedHandler;
+            RepairableVehicle.OnVehicleRepaired -= RepairableVehicle_VehicleRepairedHandler;
         }
     }
 

@@ -12,6 +12,7 @@ namespace TaxiGame.Vehicles
         private Vehicle _vehicle;
         private VehicleManager _vehicleManager;
         private bool _isCustomerWaiting;
+        //events
         public static event EventHandler<OnVehicleReturnedArgs> OnVehicleReturned;
         public event Action OnVehicleDeparted;
         public event Action<int> OnVehicleMoneyEarned;

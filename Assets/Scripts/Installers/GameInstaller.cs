@@ -24,6 +24,7 @@ namespace TaxiGame.Installers
             Container.Bind<Mover>().FromComponentInChildren().AsSingle();
 
             Container.Bind<ItemUtility>().AsSingle();
+            Container.Bind<ItemRemover>().FromComponentInHierarchy().AsSingle();
         }
     }
 }

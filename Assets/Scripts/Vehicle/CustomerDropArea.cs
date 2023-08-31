@@ -11,12 +11,14 @@ namespace TaxiGame.Vehicles
     public class CustomerDropArea : MonoBehaviour
     {
         [Inject]
-        private void Init(VehicleSpot spot)
+        private void Init(VehicleSpot spot, VehicleProgressionModel progressionModel)
         {
             _vehicleSpot = spot;
+            _vehicleProgressionMpdel = progressionModel;
         }
 
         private VehicleSpot _vehicleSpot;
+        private VehicleProgressionModel _vehicleProgressionMpdel;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -26,12 +28,20 @@ namespace TaxiGame.Vehicles
 
                 if (inventory.HasInventoryObjectType(InventoryObjectType.Customer))
                 {
-                    Customer customer = inventory.PopInventoryObject(InventoryObjectType.Customer) as Customer;
-                    customer.GetFollower().StopFollowing();
-                    customer.GetController().GoToCar(transform, () => _vehicleSpot.HandleCustomerArrival());
+                    SendCustomerToVehicleSpot(inventory);
+
                     _vehicleSpot.SetCustomerWaiting(true);
+                    //Update persistent game state
+                    _vehicleProgressionMpdel.HandleCustomerDropped();
                 }
             }
+        }
+
+        private void SendCustomerToVehicleSpot(Inventory inventory)
+        {
+            Customer customer = inventory.PopInventoryObject(InventoryObjectType.Customer) as Customer;
+            customer.GetFollower().StopFollowing();
+            customer.GetController().GoToCar(transform, () => _vehicleSpot.HandleCustomerArrival());
         }
     }
 

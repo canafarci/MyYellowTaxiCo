@@ -16,7 +16,6 @@ namespace TaxiGame.NPC
     {
         private Stacker _stacker;
         private DriverLookup _driverLookup;
-        private DriverQueueCoordinator _driverQueue;
         public event EventHandler<HatDistributedEventArgs> OnHatDistributed;
 
         [Inject]

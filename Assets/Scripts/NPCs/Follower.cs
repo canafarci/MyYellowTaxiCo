@@ -12,12 +12,11 @@ namespace TaxiGame.NPC
 {
     public class Follower : MonoBehaviour
     {
-        public Transform _target;
-        protected Coroutine _followLoop;
         [SerializeField] protected FollowerCanvas _followerCanvas;
+        private Transform _target;
         private NavMeshAgent _agent;
         private NPCActionScheduler _npc;
-        private RiderNPCController _controller;
+        protected Coroutine _followLoop;
 
         [Inject]
         private void Init(NPCActionScheduler npc, NavMeshAgent agent)
@@ -57,7 +56,5 @@ namespace TaxiGame.NPC
 
             _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
         }
-
-
     }
 }

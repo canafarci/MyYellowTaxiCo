@@ -14,8 +14,11 @@ namespace TaxiGame.WaitZones
         public override void Begin(Action successAction, GameObject instigator)
         {
             base.Begin(successAction, instigator);
-            OnChangeSliderActivationEventArgs args = new OnChangeSliderActivationEventArgs { Instigator = instigator, Active = true };
-            OnChangeSliderActivation?.Invoke(this, args);
+            OnChangeSliderActivation?.Invoke(this, new OnChangeSliderActivationEventArgs
+            {
+                Instigator = instigator,
+                Active = true
+            });
         }
         protected override bool CheckCanContinue(float remainingTime)
         {

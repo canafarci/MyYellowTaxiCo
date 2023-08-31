@@ -24,12 +24,15 @@ namespace TaxiGame.Visuals
 
         private void Start()
         {
-            _repairableVehicle.OnPlayerEnteredWithToolbox += BrokenEngineRepairableVehicle_PlayerEnteredWithToolboxHandler;
+            BrokenEngineRepairableVehicle.OnPlayerEnteredWithToolbox += BrokenEngineRepairableVehicle_PlayerEnteredWithToolboxHandler;
         }
 
         private void BrokenEngineRepairableVehicle_PlayerEnteredWithToolboxHandler(object sender, OnPlayerEnteredWithToolboxArgs e)
         {
-            StartCoroutine(RepairEngineSequence(e.Item, _target));
+            if (sender as BrokenEngineRepairableVehicle == _repairableVehicle)
+            {
+                StartCoroutine(RepairEngineSequence(e.Item, _target));
+            }
         }
 
         private IEnumerator RepairEngineSequence(StackableItem item, Transform target)

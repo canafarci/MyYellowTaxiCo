@@ -18,13 +18,13 @@ namespace TaxiGame.NPC
         private List<DriverQueueSpot> _queueSpots = new List<DriverQueueSpot>();
         private List<Driver> _drivers = new List<Driver>();
         private DriverDispatcher _driverDispatcher;
-
-        public EventHandler<OnDriverAddedToQueueArgs> OnDriverAddedToQueue;
+        private DriverLookup _driverLookup;
 
         [Inject]
-        private void Init(DriverDispatcher dispatcher)
+        private void Init(DriverDispatcher dispatcher, DriverLookup lookup)
         {
             _driverDispatcher = dispatcher;
+            _driverLookup = lookup;
         }
 
         private void Start()
@@ -40,14 +40,17 @@ namespace TaxiGame.NPC
 
         public void AddToQueue(RiderNPC npc)
         {
-            DriverQueueSpot spot = FindAvailableSpot();
-            Assert.IsNotNull(spot);
-            npc.GetController().MoveAndSit(spot.transform);
-            spot.SetNPC(npc);
+            AssignSpotToNPC(npc);
 
-            OnDriverAddedToQueue?.Invoke(this, new OnDriverAddedToQueueArgs { Driver = npc as Driver });
+            _driverLookup.AddDriverToLookup(npc as Driver);
         }
 
+        private void AssignSpotToNPC(RiderNPC npc)
+        {
+            DriverQueueSpot spot = FindAvailableSpot();
+            npc.GetController().MoveAndSit(spot.transform);
+            spot.SetNPC(npc);
+        }
 
         private void RemoveDriverFromSpot(RiderNPC driverToRemove)
         {

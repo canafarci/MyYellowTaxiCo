@@ -16,8 +16,6 @@ public class GameProgressModel : MonoBehaviour
                 _onFirstCustomerDelivered, _afterCustomerDeliveredLoad,
                 _onFirstWandererSpawn, _wandererTriggered, _afterWandererDeliveredLoad;
 
-    [SerializeField] GameObject[] _secondStageBrokenCars, _thirdStageBrokenCars;
-    [SerializeField] CarSpawner[] _firstSpawners, _secondSpawners;
     [SerializeField] GameObject[] _tutorialTexts;
 
     private void Start()

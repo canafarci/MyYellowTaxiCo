@@ -29,10 +29,11 @@ namespace TaxiGame.WaitZones
         {
             //prevent accidental buys
             yield return new WaitForSeconds(_activationDelay);
+            float remainingTime = _timeToUnlock;
 
-            while (CheckCanContinue(_timeToUnlock))
+            while (CheckCanContinue(remainingTime))
             {
-                Iterate(ref _timeToUnlock, instigator);
+                Iterate(ref remainingTime, instigator);
                 yield return new WaitForSeconds(Globals.TIME_STEP);
             }
             OnSuccess(instigator);

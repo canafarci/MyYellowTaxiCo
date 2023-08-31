@@ -13,7 +13,7 @@ namespace TaxiGame.Vehicles.Repair
         private IInputReader _reader;
         private VehicleProgressionModel _progressionModel;
 
-        public EventHandler<OnPlayerEnteredWithToolboxArgs> OnPlayerEnteredWithToolbox;
+        public static event EventHandler<OnPlayerEnteredWithToolboxArgs> OnPlayerEnteredWithToolbox;
 
         [Inject]
         private void Init(IInputReader reader, VehicleProgressionModel progressionModel)
@@ -28,7 +28,12 @@ namespace TaxiGame.Vehicles.Repair
             StackableItem item = inventory.PopInventoryObject(InventoryObjectType.ToolBox) as StackableItem;
             _reader.Disable();
 
-            OnPlayerEnteredWithToolbox?.Invoke(this, new OnPlayerEnteredWithToolboxArgs { Item = item });
+            OnPlayerEnteredWithToolbox?.Invoke(this, new OnPlayerEnteredWithToolboxArgs
+            {
+                Item = item,
+                Inventory = inventory
+            });
+
             yield return new WaitForSeconds(Globals.TOOLBOX_DROP_TWEEN_DURATION + Globals.TOOLBOX_DROP_REPAIR_ANIMATION_DURATION);
             _reader.Enable();
 
@@ -43,6 +48,7 @@ namespace TaxiGame.Vehicles.Repair
     public class OnPlayerEnteredWithToolboxArgs : EventArgs
     {
         public StackableItem Item;
+        public Inventory Inventory;
     }
 
 }
