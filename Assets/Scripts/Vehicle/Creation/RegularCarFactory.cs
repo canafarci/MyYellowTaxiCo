@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TaxiGame.Items;
 using UnityEngine;
 
-namespace TaxiGame.Vehicles
+namespace TaxiGame.Vehicles.Creation
 {
     public class RegularCarFactory : MonoBehaviour
     {

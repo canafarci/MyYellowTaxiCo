@@ -52,9 +52,10 @@ namespace TaxiGame.Animations
             }
         }
 
-        private void Mover_MoveDistanceCalculatedHandler(float distance)
+        private void Mover_MoveDistanceCalculatedHandler(bool isMoving)
         {
-            _moveAnimationSpeed = Mathf.Lerp(_moveAnimationSpeed, distance, 10f * Time.deltaTime);
+            float target = isMoving ? 1f : 0f;
+            _moveAnimationSpeed = Mathf.Lerp(_moveAnimationSpeed, target, 10f * Time.deltaTime);
         }
 
 
@@ -62,7 +63,6 @@ namespace TaxiGame.Animations
         {
             _animator.speed = speed / 7f;
         }
-
 
         private void Inventory_InventoryModifiedHandler(object sender, InventoryModifiedArgs e)
         {

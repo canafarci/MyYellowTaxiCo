@@ -13,7 +13,7 @@ public class Mover : MonoBehaviour
     private Rigidbody _rigidbody;
     private ModifierUpgradesReceiver _upgradeReceiver;
 
-    public event Action<float> OnMoveDistanceCalculated;
+    public event Action<bool> OnMoveDistanceCalculated;
 
     [Inject]
     private void Init(Rigidbody rb, IInputReader reader, ModifierUpgradesReceiver upgradeReceiver)
@@ -23,16 +23,18 @@ public class Mover : MonoBehaviour
         _upgradeReceiver = upgradeReceiver;
 
         _upgradeReceiver.OnPlayerSpeedUpgrade += ModifierUpgradesReceiver_PlayerSpeedUpgradeHandler;
+        _reader.OnInputRead += InputReader_ReadInputHandler;
     }
+    //this event is published every FixedTick (Rigidbody moves in fixedupdate)
+    private void InputReader_ReadInputHandler(Vector2 input)
+    {
+        Vector3 distance = CalculateDistance(input);
+        _rigidbody.MovePosition(transform.position + distance);
+    }
+
     public void ModifierUpgradesReceiver_PlayerSpeedUpgradeHandler(float speed)
     {
         _speed = speed;
-    }
-
-    private void FixedUpdate()
-    {
-        Vector3 distance = CalculateDistance(_reader.ReadInput());
-        _rigidbody.MovePosition(transform.position + distance);
     }
 
     private Vector3 CalculateDistance(Vector2 input)
@@ -41,17 +43,17 @@ public class Mover : MonoBehaviour
 
         if (input == Vector2.zero)
         {
-            OnMoveDistanceCalculated?.Invoke(0f);
+            OnMoveDistanceCalculated?.Invoke(false);
             distance = Vector3.zero;
         }
         else
         {
-            OnMoveDistanceCalculated?.Invoke(1f);
+            OnMoveDistanceCalculated?.Invoke(true);
 
             Vector3 moveVector = RotateMoveVector(new Vector3(input.x, 0, input.y));
             transform.rotation = Quaternion.LookRotation(moveVector);
 
-            distance = moveVector.normalized * _speed * Time.fixedDeltaTime;
+            distance = _speed * Time.fixedDeltaTime * moveVector;
         }
 
         return distance;

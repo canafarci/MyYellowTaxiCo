@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Zenject;
 using TaxiGame.Vehicles.Repair;
 using TaxiGame.Vehicles;
+using TaxiGame.Vehicles.Creation;
+using TaxiGame.Vehicles.Visuals;
 
 namespace TaxiGame.Installers
 {
@@ -91,7 +93,7 @@ namespace TaxiGame.Installers
             .FromComponentInChildren()
             .AsTransient();
 
-            Container.Bind<CarFX>()
+            Container.Bind<VehicleMaterialChange>()
             .FromComponentInChildren()
             .AsTransient();
 

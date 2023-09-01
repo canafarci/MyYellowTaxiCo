@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TaxiGame.Animations;
+using TaxiGame.Vehicles.Creation;
+using TaxiGame.Vehicles.Visuals;
 using UnityEngine;
 using Zenject;
 
@@ -12,14 +14,14 @@ namespace TaxiGame.Vehicles
     {
         // Dependencies
         private VehicleAnimator _vehicleAnimator;
-        private CarFX _carFX;
+        private VehicleMaterialChange _carFX;
         private VehicleTweener _vehicleTweener;
         private VehicleModel _model;
 
         [Inject]
         private void Init(
             VehicleTweener tweener,
-            CarFX carFX,
+            VehicleMaterialChange carFX,
             VehicleAnimator animator,
             VehicleModel model)
         {

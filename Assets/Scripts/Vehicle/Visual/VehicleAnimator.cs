@@ -4,7 +4,7 @@ using TaxiGame.Animations;
 using UnityEngine;
 using Zenject;
 
-namespace TaxiGame.Vehicles
+namespace TaxiGame.Vehicles.Visuals
 {
     public class VehicleAnimator : MonoBehaviour
     {

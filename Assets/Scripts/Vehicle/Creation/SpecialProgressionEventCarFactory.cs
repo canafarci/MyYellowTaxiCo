@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-namespace TaxiGame.Vehicles
+namespace TaxiGame.Vehicles.Creation
 {
     public class SpecialProgressionEventCarFactory : MonoBehaviour
     {

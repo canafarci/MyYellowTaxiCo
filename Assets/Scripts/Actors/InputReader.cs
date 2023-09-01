@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class InputReader : IInputReader
+public class InputReader : IInputReader, IFixedTickable
 {
     private Joystick _joystick;
     private bool _disabled = false;
+    public event Action<Vector2> OnInputRead;
 
     public InputReader(Joystick joystick)
     {
@@ -16,7 +17,12 @@ public class InputReader : IInputReader
     public void Disable() => _disabled = true;
     public void Enable() => _disabled = false;
 
-    public Vector2 ReadInput()
+    public void FixedTick()
+    {
+        OnInputRead?.Invoke(ReadInput());
+    }
+
+    private Vector2 ReadInput()
     {
         if (_disabled)
             return Vector2.zero;
@@ -28,7 +34,7 @@ public class InputReader : IInputReader
 
 public interface IInputReader
 {
-    public Vector2 ReadInput();
+    public event Action<Vector2> OnInputRead;
     public void Disable();
     public void Enable();
 }

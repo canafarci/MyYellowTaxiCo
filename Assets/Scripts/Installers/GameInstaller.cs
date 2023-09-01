@@ -15,7 +15,8 @@ namespace TaxiGame.Installers
             Container.Bind<Rigidbody>().FromComponentInChildren().AsTransient();
 
             Container.Bind<Joystick>().FromInstance(_joystick).AsSingle();
-            Container.Bind<IInputReader>().To<InputReader>().AsSingle();
+            Container.BindInterfacesAndSelfTo<InputReader>().AsSingle();
+
 
             Container.Bind<References>().FromInstance(_references).AsSingle();
 
