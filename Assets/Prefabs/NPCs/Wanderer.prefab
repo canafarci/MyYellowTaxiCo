@@ -697,6 +697,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6619854902784369619, guid: 74c5ad2bc72ef1342a7420f94131f340,
+        type: 3}
+      propertyPath: Hat
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7212271068042443868, guid: 74c5ad2bc72ef1342a7420f94131f340,
         type: 3}
       propertyPath: m_IsActive
@@ -842,9 +847,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c823f924840e48e19321b0b8e677d3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hat: 3
-  Target: {fileID: 0}
   _followerCanvas: {fileID: 249051690574056646}
+--- !u!114 &7950848552586604157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6669281425983385321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b8eb9b96e06cab45972cf181c357e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _npcType: 7
 --- !u!4 &6669281425983385326 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8916914267340174017, guid: 74c5ad2bc72ef1342a7420f94131f340,

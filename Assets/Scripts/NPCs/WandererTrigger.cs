@@ -11,7 +11,8 @@ namespace TaxiGame.NPC
             if (!other.CompareTag("Player")) { return; }
 
             Wanderer wanderer = GetComponent<Wanderer>();
-            //wanderer.FollowPlayer(GameManager.Instance.References.PlayerInventory);
+            wanderer.FollowPlayer(other.transform);
+
             GetComponent<Collider>().enabled = false;
         }
     }

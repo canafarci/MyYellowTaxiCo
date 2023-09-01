@@ -6,7 +6,7 @@ using Zenject;
 
 namespace TaxiGame.Vehicles
 {
-    public class VehicleSpot : MonoBehaviour
+    public class VehicleSpot : MonoBehaviour, IVehicleEvents
     {
         [SerializeField] private InventoryObjectType _hatType;
         private Vehicle _vehicle;
@@ -16,6 +16,13 @@ namespace TaxiGame.Vehicles
         public static event EventHandler<OnVehicleReturnedArgs> OnVehicleReturned;
         public event Action OnVehicleDeparted;
         public event Action<int> OnVehicleMoneyEarned;
+        //initialization
+        [Inject]
+        private void Init(VehicleManager manager)
+        {
+            _vehicleManager = manager;
+        }
+
         public void HandleDriverArrival()
         {
             _vehicle.GetController().InitiateDeparture();
@@ -44,7 +51,6 @@ namespace TaxiGame.Vehicles
                 CanSpawnDriver = _vehicleManager.CanSpawnDriver(this),
                 IsBrokenCar = vehicle.GetModel().IsCarBroken()
             });
-
         }
         //Getters-Setters
         public InventoryObjectType GetHatType() => _hatType;
@@ -57,12 +63,7 @@ namespace TaxiGame.Vehicles
         public bool IsCustomerWaiting() => _isCustomerWaiting;
         public void SetCustomerWaiting(bool value) => _isCustomerWaiting = value;
         private void Clear() => _vehicle = null;
-        //initialization
-        [Inject]
-        private void Init(VehicleManager manager)
-        {
-            _vehicleManager = manager;
-        }
+
     }
 
     public class OnVehicleReturnedArgs : EventArgs

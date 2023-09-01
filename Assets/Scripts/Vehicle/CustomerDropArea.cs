@@ -39,9 +39,9 @@ namespace TaxiGame.Vehicles
 
         private void SendCustomerToVehicleSpot(Inventory inventory)
         {
-            Customer customer = inventory.PopInventoryObject(InventoryObjectType.Customer) as Customer;
+            FollowingNPC customer = inventory.PopInventoryObject(InventoryObjectType.Customer) as FollowingNPC;
             customer.GetFollower().StopFollowing();
-            customer.GetController().GoToCar(transform, () => _vehicleSpot.HandleCustomerArrival());
+            customer.GetController().GoToVehicleSpot(transform, () => _vehicleSpot.HandleCustomerArrival());
         }
     }
 

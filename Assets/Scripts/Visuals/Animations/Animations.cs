@@ -71,7 +71,7 @@ namespace TaxiGame.Animations
                 HandleGasHandleAnimations(e.ItemCountIsZero);
             }
             // remaining types are all StackableItem types
-            else if (e.InventoryObject.GetObjectType() != InventoryObjectType.Customer)
+            else if (e.InventoryObject.GetObjectType() != InventoryObjectType.Customer || e.InventoryObject.GetObjectType() != InventoryObjectType.VIP)
             {
                 HandleStackableItemAnimations(e.ItemCountIsZero);
             }

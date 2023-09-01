@@ -17,14 +17,14 @@ public class MoneyStacker : MonoBehaviour
     [SerializeField] Transform _spawnPos;
     [SerializeField] string _identifier;
     int _currentRow, _currentColumn, _currentAisle = 0;
-    private VehicleSpot _spot;
+    private IVehicleEvents _vehicleEvents;
 
     public static event Action MoneyPickupHandler;
 
     [Inject]
-    private void Init([InjectOptional(Id = "MoneyStacker")] VehicleSpot spot)
+    private void Init([InjectOptional] IVehicleEvents spot)
     {
-        _spot = spot;
+        _vehicleEvents = spot;
     }
 
     private void Awake()
@@ -39,8 +39,8 @@ public class MoneyStacker : MonoBehaviour
 
     private void Start()
     {
-        if (_spot != null)
-            _spot.OnVehicleMoneyEarned += (val) => StackItems(val);
+        if (_vehicleEvents != null)
+            _vehicleEvents.OnVehicleMoneyEarned += (val) => StackItems(val);
     }
 
     public void StackItems(int count) => StartCoroutine(StackItemRoutine(count));

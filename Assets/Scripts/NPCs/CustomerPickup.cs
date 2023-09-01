@@ -45,7 +45,7 @@ namespace TaxiGame.NPC
             {
                 if (!inventory.HasInventoryObjectType(InventoryObjectType.Customer))
                 {
-                    if (_queue.TryGetCustomer(out Customer customer))
+                    if (_queue.TryGetCustomer(out FollowingNPC customer))
                     {
                         customer.FollowPlayer(inventory);
                         Unlock();

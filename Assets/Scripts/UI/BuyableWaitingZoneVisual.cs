@@ -6,6 +6,7 @@ using DG.Tweening;
 using TaxiGame.WaitZones;
 using UnityEngine.Assertions;
 using System;
+using Zenject;
 
 namespace TaxiGame.UI
 {
@@ -14,6 +15,12 @@ namespace TaxiGame.UI
         [SerializeField] private TextMeshProUGUI _text;
         protected WaitingEngine _waitZone;
         private IFeedbackVisual _fillable;
+
+        [Inject]
+        private void Init([InjectOptional] IFeedbackVisual visual)
+        {
+            _fillable = visual;
+        }
         private void Awake()
         {
             _waitZone = GetComponent<WaitingEngine>();
@@ -38,8 +45,6 @@ namespace TaxiGame.UI
         //can be called from upgrade command as well
         public void Initialize(float moneyToUnlock)
         {
-            _fillable = GetComponent<IFeedbackVisual>();
-
             if (_text != null)
                 FormatText(moneyToUnlock);
         }
@@ -60,8 +65,7 @@ namespace TaxiGame.UI
             if (_text != null)
                 FormatText(moneyToUnlock);
 
-            if (_fillable != null)
-                _fillable.SetValue(0, 1);
+            _fillable?.SetValue(0, 1);
         }
         //Cleanup
         private void OnDisable()

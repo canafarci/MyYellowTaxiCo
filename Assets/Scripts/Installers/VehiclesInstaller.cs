@@ -67,6 +67,10 @@ namespace TaxiGame.Installers
             Container.Bind<MoneyStacker>()
             .FromComponentInChildren()
             .AsSingle();
+
+            Container.Bind<HeliSpot>()
+            .FromComponentInChildren()
+            .AsTransient();
         }
 
 
@@ -80,8 +84,7 @@ namespace TaxiGame.Installers
             .FromComponentInChildren()
             .AsTransient();
 
-            Container.Bind<VehicleSpot>()
-            .WithId("MoneyStacker")
+            Container.Bind<IVehicleEvents>()
             .FromComponentInParents()
             .AsTransient();
 

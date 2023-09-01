@@ -17,6 +17,7 @@ namespace TaxiGame.Items
         Tire,
         ToolBox,
         GasHandle,
-        Customer
+        Customer,
+        VIP
     }
 }

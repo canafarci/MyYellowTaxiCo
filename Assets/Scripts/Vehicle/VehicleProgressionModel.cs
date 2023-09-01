@@ -72,5 +72,13 @@ namespace TaxiGame.Vehicles
                 PlayerPrefs.SetInt(Globals.FOURTH_CUSTOMER_TUTORIAL_COMPLETE, 1);
             }
         }
+
+        public void HandleHeliDeparted()
+        {
+            if (!PlayerPrefs.HasKey(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE))
+            {
+                PlayerPrefs.SetInt(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE, 1);
+            }
+        }
     }
 }

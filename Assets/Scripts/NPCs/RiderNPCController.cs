@@ -20,7 +20,7 @@ namespace TaxiGame.NPC
         {
             _npc.AddToActionQueue(GoAndSit(destination));
         }
-        public void GoToCar(Transform destination, Action onNPCReachedCar)
+        public void GoToVehicleSpot(Transform destination, Action onNPCReachedCar = null)
         {
             _npc.AddToActionQueue(MoveToCar(destination, onNPCReachedCar));
         }
