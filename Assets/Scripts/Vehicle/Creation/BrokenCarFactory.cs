@@ -21,7 +21,7 @@ namespace TaxiGame.Vehicles.Creation
         }
         private int GetMaxRangeForColoredCars(InventoryObjectType spawnerType)
         {
-            if (spawnerType == InventoryObjectType.YellowHat)
+            if (spawnerType == InventoryObjectType.TaxiHat)
             {
                 return GetYellowCarMaxRange();
             }
@@ -49,8 +49,8 @@ namespace TaxiGame.Vehicles.Creation
         {
             return spawnerType switch
             {
-                InventoryObjectType.YellowHat => _brokenCarPrefabs.BrokenYellowCars[index],
-                InventoryObjectType.PurpleHat => _brokenCarPrefabs.BrokenPurpleCars[index],
+                InventoryObjectType.TaxiHat => _brokenCarPrefabs.BrokenYellowCars[index],
+                InventoryObjectType.SuberHat => _brokenCarPrefabs.BrokenPurpleCars[index],
                 _ => _brokenCarPrefabs.BrokenBlackCars[index]
             };
         }

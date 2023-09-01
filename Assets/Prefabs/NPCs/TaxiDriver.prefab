@@ -165,7 +165,7 @@ PrefabInstance:
     - target: {fileID: 6089749160972410559, guid: b81f24906b9e9dc41b4e3568b22fc63b,
         type: 3}
       propertyPath: m_Name
-      value: YellowDriver
+      value: TaxiDriver
       objectReference: {fileID: 0}
     - target: {fileID: 6204430323983515485, guid: b81f24906b9e9dc41b4e3568b22fc63b,
         type: 3}
@@ -205,6 +205,11 @@ PrefabInstance:
     - target: {fileID: 8046728658546565562, guid: b81f24906b9e9dc41b4e3568b22fc63b,
         type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8577727605429649335, guid: b81f24906b9e9dc41b4e3568b22fc63b,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:

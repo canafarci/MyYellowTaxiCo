@@ -9,18 +9,18 @@ namespace TaxiGame.Items
     {
         private readonly InventoryObjectType[] _stackableItemTypes = new InventoryObjectType[]
                                                         {
-                                                            InventoryObjectType.YellowHat,
-                                                            InventoryObjectType.PurpleHat,
-                                                            InventoryObjectType.BlackHat,
+                                                            InventoryObjectType.TaxiHat,
+                                                            InventoryObjectType.SuberHat,
+                                                            InventoryObjectType.LimoHat,
                                                             InventoryObjectType.ToolBox,
                                                             InventoryObjectType.Tire
                                                         };
 
         private readonly InventoryObjectType[] _allItemTypes = new InventoryObjectType[]
                                                         {
-                                                            InventoryObjectType.YellowHat,
-                                                            InventoryObjectType.PurpleHat,
-                                                            InventoryObjectType.BlackHat,
+                                                            InventoryObjectType.TaxiHat,
+                                                            InventoryObjectType.SuberHat,
+                                                            InventoryObjectType.LimoHat,
                                                             InventoryObjectType.ToolBox,
                                                             InventoryObjectType.Tire,
                                                             InventoryObjectType.GasHandle,

@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
-namespace TaxiGame.Vehicles
+namespace TaxiGame.Vehicles.Visuals
 {
     public class VehicleTweener : MonoBehaviour
     {

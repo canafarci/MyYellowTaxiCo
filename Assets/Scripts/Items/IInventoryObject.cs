@@ -11,9 +11,9 @@ namespace TaxiGame.Items
 
     public enum InventoryObjectType
     {
-        YellowHat,
-        PurpleHat,
-        BlackHat,
+        TaxiHat,
+        SuberHat,
+        LimoHat,
         Tire,
         ToolBox,
         GasHandle,

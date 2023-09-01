@@ -24,9 +24,9 @@ namespace TaxiGame.Vehicles.Creation
         {
             return spawnerType switch
             {
-                InventoryObjectType.YellowHat => _carPrefabs.RegularYellowCar,
-                InventoryObjectType.PurpleHat => _carPrefabs.RegularPurpleCar,
-                InventoryObjectType.BlackHat => _carPrefabs.RegularBlackCar,
+                InventoryObjectType.TaxiHat => _carPrefabs.RegularYellowCar,
+                InventoryObjectType.SuberHat => _carPrefabs.RegularPurpleCar,
+                InventoryObjectType.LimoHat => _carPrefabs.RegularBlackCar,
                 _ => null
             };
         }
