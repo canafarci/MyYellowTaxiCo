@@ -38,11 +38,13 @@ namespace TaxiGame.Installers
                                 .FromComponentInChildren()
                                 .AsTransient();
 
+                        Container.Bind<Wanderer>()
+                                .FromComponentInChildren()
+                                .AsTransient();
+
                         Container.Bind<DriverHatDistributor>().
                                 FromComponentInChildren().
                                 AsTransient();
-
-
 
                         BindDriverModel();
                         BindFactories();
@@ -78,6 +80,9 @@ namespace TaxiGame.Installers
                 {
                         Container.BindFactory<UnityEngine.Object, Vector3, Quaternion, RiderNPC, RiderNPC.Factory>()
                                 .FromFactory<PrefabFactory<Vector3, Quaternion, RiderNPC>>();
+
+                        Container.BindFactory<UnityEngine.Object, Transform, Waypoint[], Wanderer, Wanderer.Factory>()
+                                .FromFactory<PrefabFactory<Transform, Waypoint[], Wanderer>>();
 
                         Container.BindFactory<Vector3, Quaternion, HatHelperNPC, HatHelperNPC.Factory>()
                                 .WithId(NPCType.Helper)

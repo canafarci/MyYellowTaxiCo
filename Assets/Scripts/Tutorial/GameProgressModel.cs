@@ -41,7 +41,7 @@ public class GameProgressModel : MonoBehaviour
         if (PlayerPrefs.HasKey(Globals.FOURTH_CUSTOMER_TUTORIAL_COMPLETE))
             _afterCustomerDeliveredLoad.Invoke();
 
-        if (PlayerPrefs.HasKey(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE))
+        if (PlayerPrefs.HasKey(Globals.FIFTH_VIP_TUTORIAL_COMPLETE))
             _afterWandererDeliveredLoad.Invoke();
     }
 
@@ -84,7 +84,7 @@ public class GameProgressModel : MonoBehaviour
         _onFirstCustomerDelivered.Invoke();
     }
 
-    public void WandererTriggered()
+    public void VIPTriggered()
     {
         _wandererTriggered.Invoke();
     }
@@ -92,6 +92,6 @@ public class GameProgressModel : MonoBehaviour
     public void OnFirstWandererSpawned(Wanderer wanderer)
     {
         _onFirstWandererSpawn.Invoke();
-        FindObjectOfType<ObjectiveArrow>().ChangeObjective(wanderer.transform);
+        FindObjectOfType<ObjectiveArrow>().ChangeObjective(wanderer.transform); //TODO DI
     }
 }

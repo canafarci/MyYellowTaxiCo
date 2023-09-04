@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.NPC;
 using TaxiGame.Vehicles.Creation;
 using UnityEngine;
 using Zenject;
@@ -72,13 +73,31 @@ namespace TaxiGame.Vehicles
                 PlayerPrefs.SetInt(Globals.FOURTH_CUSTOMER_TUTORIAL_COMPLETE, 1);
             }
         }
+        public void HandleVIPTriggered()
+        {
+            if (!IsVIPTutorialComplete())
+            {
+                _gameProgressionModel.VIPTriggered();
+            }
+        }
+
+        public void HandleVIPSpawned(Wanderer wanderer)
+        {
+            if (!IsVIPTutorialComplete())
+                _gameProgressionModel.OnFirstWandererSpawned(wanderer);
+        }
 
         public void HandleHeliDeparted()
         {
-            if (!PlayerPrefs.HasKey(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE))
+            if (!PlayerPrefs.HasKey(Globals.FIFTH_VIP_TUTORIAL_COMPLETE))
             {
-                PlayerPrefs.SetInt(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE, 1);
+                PlayerPrefs.SetInt(Globals.FIFTH_VIP_TUTORIAL_COMPLETE, 1);
             }
+        }
+
+        public bool IsVIPTutorialComplete()
+        {
+            return PlayerPrefs.HasKey(Globals.FIFTH_VIP_TUTORIAL_COMPLETE);
         }
     }
 }

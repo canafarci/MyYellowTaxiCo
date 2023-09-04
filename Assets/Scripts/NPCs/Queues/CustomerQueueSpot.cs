@@ -19,7 +19,7 @@ namespace TaxiGame.NPC
             {
                 if (_isSitSpot)
                 {
-                    FollowingNPC customer = npc as FollowingNPC;
+                    Customer customer = npc as Customer;
                     npc.GetController().MoveAndSit(transform);
                 }
                 else

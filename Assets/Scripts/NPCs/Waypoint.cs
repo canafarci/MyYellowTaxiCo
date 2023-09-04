@@ -7,6 +7,5 @@ namespace TaxiGame.NPC
     public class Waypoint : MonoBehaviour
     {
         public bool StopWaypoint = false;
-        public bool EndWaypoint = false;
     }
 }

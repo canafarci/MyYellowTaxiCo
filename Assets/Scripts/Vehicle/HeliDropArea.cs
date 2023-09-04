@@ -33,7 +33,7 @@ namespace TaxiGame.Vehicles
         {
             if (inventory.HasInventoryObjectType(InventoryObjectType.VIP))
             {
-                FollowingNPC vip = inventory.PopInventoryObject(InventoryObjectType.VIP) as FollowingNPC;
+                Wanderer vip = inventory.PopInventoryObject(InventoryObjectType.VIP) as Wanderer;
                 vip.GetFollower().StopFollowing();
                 vip.GetController().GoToVehicleSpot(_getInLocation, () => _heliSpot.HandleVIPArrival());
             }

@@ -1,57 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Zenject;
+using TaxiGame.Items;
 
 namespace TaxiGame.NPC
 {
-    public class Wanderer : Follower
+    public class Wanderer : MonoBehaviour, IInventoryObject
     {
         private List<Waypoint> _waypoints = new List<Waypoint>();
-        private int _currentWaypointIndex = 0;
-        private Coroutine _wanderCoroutine, _moveCoroutine;
-        public void Initialize(Waypoint[] waypoints)
-        {
-            foreach (Waypoint wp in waypoints)
-                _waypoints.Add(wp);
+        private RiderNPCController _controller;
+        private Follower _follower;
 
-            _wanderCoroutine = StartCoroutine(WandererLoop());
+        [Inject]
+        private void Create(Transform spawnTransform,
+                            Waypoint[] waypoints,
+                            RiderNPCController controller,
+                            Follower follower)
+        {
+            transform.SetPositionAndRotation(spawnTransform.position, spawnTransform.rotation);
+            _waypoints = waypoints.ToList();
+            _controller = controller;
+            _follower = follower;
         }
-        // public void FollowPlayer(Inventory inventory, bool isInQueue = false)
-        // {
-        //     StopCoroutine(_wanderCoroutine);
-        //     StopCoroutine(_moveCoroutine);
 
-        //     inventory.AddFollowerToList(this);
-        //     Target = inventory.transform;
-        //     _followLoop = StartCoroutine(FollowLoop());
-
-        //     if (!PlayerPrefs.HasKey(Globals.FIFTH_WANDERER_TUTORIAL_COMPLETE))
-        //     {
-        //         FindObjectOfType<ConditionalTutorial>().WandererTriggered();
-        //     }
-
-        //     if (_followerCanvas != null)
-        //         _followerCanvas.Remove();
-        // }
-        private IEnumerator WandererLoop()
+        private void Start()
         {
-            while (true)
+            CreateWanderingBehaviour();
+
+            Destroy(gameObject, 180f);
+        }
+
+        private void CreateWanderingBehaviour()
+        {
+            foreach (Waypoint waypoint in _waypoints)
             {
-                // Waypoint wp = _waypoints[_currentWaypointIndex];
-                // _moveCoroutine = StartCoroutine(MoveToPosition(wp.transform.position));
-                // yield return _moveCoroutine;
+                _controller.Move(waypoint.transform.position);
 
-                // if (wp.StopWaypoint)
-                //     yield return new WaitForSeconds(10f);
-
-                // else if (wp.EndWaypoint)
-                // {
-                //     Destroy(gameObject, 0.3f);
-                //     yield break;
-                // }
-
-                _currentWaypointIndex++;
+                if (waypoint.StopWaypoint)
+                {
+                    _controller.Wait(10f);
+                }
             }
+        }
+
+        public InventoryObjectType GetObjectType() => InventoryObjectType.VIP;
+        public Follower GetFollower() => _follower;
+        public RiderNPCController GetController() => _controller;
+        public class Factory : PlaceholderFactory<Object, Transform, Waypoint[], Wanderer>
+        {
         }
     }
 }

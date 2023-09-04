@@ -21,9 +21,9 @@ namespace TaxiGame.NPC
             return !_headNode.IsEmpty();
         }
 
-        public bool TryGetCustomer(out FollowingNPC customer)
+        public bool TryGetCustomer(out Customer customer)
         {
-            customer = _endNode.GetNPC() as FollowingNPC;
+            customer = _endNode.GetNPC() as Customer;
 
             if (customer == null)
             {

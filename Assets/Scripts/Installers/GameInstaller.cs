@@ -26,6 +26,10 @@ namespace TaxiGame.Installers
 
             Container.Bind<ItemUtility>().AsSingle();
             Container.Bind<ItemRemover>().FromComponentInHierarchy().AsSingle();
+
+            Container.Bind<Collider>()
+                .FromComponentInChildren()
+                .AsTransient();
         }
     }
 }

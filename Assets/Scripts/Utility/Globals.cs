@@ -16,7 +16,7 @@ public static class Globals
     public const string SECOND_BROKEN_TUTORIAL_COMPLETE = "SECONDTUTORIAL";
     public const string THIRD_TIRE_TUTORIAL_COMPLETE = "THIRDTUTORIAL";
     public const string FOURTH_CUSTOMER_TUTORIAL_COMPLETE = "FOURTHTUTORIAL";
-    public const string FIFTH_WANDERER_TUTORIAL_COMPLETE = "FIFTHTUTORIAL";
+    public const string FIFTH_VIP_TUTORIAL_COMPLETE = "FIFTHTUTORIAL";
 
     public const string STACKER_UPGRADE_KEY = "STACKERUPGRADE";
     public const float HAT_SCALE = 1.257031f;

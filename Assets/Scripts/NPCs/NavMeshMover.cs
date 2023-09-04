@@ -11,8 +11,6 @@ namespace TaxiGame.NPC
         protected NPCActionScheduler _npc;
         private NavMeshAgent _agent;
 
-
-
         [Inject]
         private void Init(NavMeshAgent agent, NPCActionScheduler npc)
         {
@@ -24,7 +22,15 @@ namespace TaxiGame.NPC
         {
             _npc.AddToActionQueue(MoveToPosition(pos));
         }
+        public void Wait(float duration)
+        {
+            _npc.AddToActionQueue(WaitForDuration(duration));
+        }
 
+        protected IEnumerator WaitForDuration(float duration)
+        {
+            yield return new WaitForSeconds(duration);
+        }
         protected IEnumerator MoveToPosition(Vector3 pos)
         {
             yield return new WaitForSeconds(0.2f); //time for navmesh agent to clean up and initialize

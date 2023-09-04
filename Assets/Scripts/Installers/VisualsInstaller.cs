@@ -1,4 +1,5 @@
 using TaxiGame.Items;
+using UnityEngine;
 using Zenject;
 
 namespace TaxiGame.Installers
@@ -12,6 +13,10 @@ namespace TaxiGame.Installers
                         .AsTransient();
 
             Container.Bind<StackPositionCalculator>()
+                        .FromComponentInChildren()
+                        .AsTransient();
+
+            Container.Bind<ParticleSystem>()
                         .FromComponentInChildren()
                         .AsTransient();
 
