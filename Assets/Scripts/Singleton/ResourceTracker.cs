@@ -5,6 +5,7 @@ using UnityEngine;
 using TaxiGame.WaitZones;
 using TaxiGame.Upgrades;
 using Zenject;
+using TaxiGame.Items;
 
 public class ResourceTracker : MonoBehaviour
 {
@@ -33,14 +34,14 @@ public class ResourceTracker : MonoBehaviour
     private void OnEnable()
     {
         MoneyStacker.MoneyPickupHandler += OnMoneyPickup;
-        WandererMoney.WandererMoneyPickupHandler += OnMoneyPickup;
+        WandererMoney.MoneyPickupHandler += OnMoneyPickup;
         PayMoneyProcessor.MoneyPayHandler += OnPayMoney;
     }
 
     private void OnDisable()
     {
         MoneyStacker.MoneyPickupHandler -= OnMoneyPickup;
-        WandererMoney.WandererMoneyPickupHandler -= OnMoneyPickup;
+        WandererMoney.MoneyPickupHandler -= OnMoneyPickup;
         PayMoneyProcessor.MoneyPayHandler -= OnPayMoney;
     }
     public void ZeroMoney()

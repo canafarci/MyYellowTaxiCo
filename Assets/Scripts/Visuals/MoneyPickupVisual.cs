@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Items;
 using UnityEngine;
 using Zenject;
 
@@ -18,13 +19,13 @@ namespace TaxiGame.Visuals
         private void OnEnable()
         {
             MoneyStacker.MoneyPickupHandler += OnMoneyPickup;
-            WandererMoney.WandererMoneyPickupHandler += OnMoneyPickup;
+            WandererMoney.MoneyPickupHandler += OnMoneyPickup;
         }
 
         private void OnDisable()
         {
             MoneyStacker.MoneyPickupHandler -= OnMoneyPickup;
-            WandererMoney.WandererMoneyPickupHandler -= OnMoneyPickup;
+            WandererMoney.MoneyPickupHandler -= OnMoneyPickup;
         }
         private void OnMoneyPickup()
         {

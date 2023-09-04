@@ -17,19 +17,24 @@ namespace TaxiGame.Installers
             Container.Bind<Joystick>().FromInstance(_joystick).AsSingle();
             Container.BindInterfacesAndSelfTo<InputReader>().AsSingle();
 
-
             Container.Bind<References>().FromInstance(_references).AsSingle();
 
-
-            Container.Bind<Inventory>().FromComponentInChildren().AsTransient();
             Container.Bind<Mover>().FromComponentInChildren().AsSingle();
 
+            Container.Bind<Inventory>().FromComponentInChildren().AsTransient();
             Container.Bind<ItemUtility>().AsSingle();
             Container.Bind<ItemRemover>().FromComponentInHierarchy().AsSingle();
 
             Container.Bind<Collider>()
                 .FromComponentInChildren()
                 .AsTransient();
+
+            Container.Bind<WandererMoney>()
+                .FromComponentInChildren()
+                .AsTransient();
+
+            Container.BindFactory<UnityEngine.Object, Transform, WandererMoney, WandererMoney.Factory>()
+                    .FromFactory<PrefabFactory<Transform, WandererMoney>>();
         }
     }
 }

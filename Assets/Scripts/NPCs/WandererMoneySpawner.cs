@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Zenject;
+using TaxiGame.Items;
 
 namespace TaxiGame.NPC
 {
@@ -9,6 +11,13 @@ namespace TaxiGame.NPC
     {
         [SerializeField] GameObject _collectableMoney;
         [SerializeField] float _moneySpawnTime;
+        private WandererMoney.Factory _factory;
+
+        [Inject]
+        private void Init(WandererMoney.Factory factory)
+        {
+            _factory = factory;
+        }
 
         private void Start() => StartCoroutine(SpawnMoneyLoop());
 
@@ -17,27 +26,10 @@ namespace TaxiGame.NPC
             while (true)
             {
                 yield return new WaitForSeconds(_moneySpawnTime);
-                Transform spawnedItem = GameObject.Instantiate(_collectableMoney, transform).transform;
-                Tween(spawnedItem);
-
+                _factory.Create(_collectableMoney, transform);
             }
         }
 
-        void Tween(Transform trans)
-        {
-            trans.parent = null;
-            Vector3[] path = {  transform.position,
-                            new Vector3(transform.position.x, 2f, transform.position.z),
-                            new Vector3(transform.position.x + GetNoise(), 0f, transform.position.z + GetNoise())
-                        };
 
-            trans.DOPath(path, 1f, PathType.CatmullRom);
-            trans.DORotate(new Vector3(0f, Random.Range(0f, 360f), 0f), 1f);
-        }
-
-        float GetNoise()
-        {
-            return Random.Range(0f, 1f);
-        }
     }
 }
