@@ -4,6 +4,7 @@ using TaxiGame.Items;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
+using TaxiGame.NPC.Command;
 
 namespace TaxiGame.Installers
 {
@@ -18,7 +19,7 @@ namespace TaxiGame.Installers
                                 .FromComponentInChildren(false)
                                 .AsTransient();
 
-                        Container.Bind<NPCActionScheduler>()
+                        Container.Bind<NPCActionInvoker>()
                                 .FromComponentInChildren()
                                 .AsTransient();
 
@@ -88,7 +89,7 @@ namespace TaxiGame.Installers
                         Container.BindFactory<UnityEngine.Object, Transform, Waypoint[], Wanderer, Wanderer.Factory>()
                                 .FromFactory<PrefabFactory<Transform, Waypoint[], Wanderer>>();
 
-                        Container.BindFactory<Vector3, Quaternion, HatHelperNPC, HatHelperNPC.Factory>()
+                        Container.BindFactory<Transform, HatHelperNPC, HatHelperNPC.Factory>()
                                 .WithId(NPCType.Helper)
                                 .FromComponentInNewPrefab(_helperPrefab);
                 }

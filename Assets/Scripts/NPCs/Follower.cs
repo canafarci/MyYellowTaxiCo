@@ -14,11 +14,11 @@ namespace TaxiGame.NPC
     {
         private Transform _target;
         private NavMeshAgent _agent;
-        private NPCActionScheduler _npc;
+        private NPCActionInvoker _npc;
         protected Coroutine _followLoop;
 
         [Inject]
-        private void Init(NPCActionScheduler npc, NavMeshAgent agent)
+        private void Init(NPCActionInvoker npc, NavMeshAgent agent)
         {
             _agent = agent;
             _npc = npc;

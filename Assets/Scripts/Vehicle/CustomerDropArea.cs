@@ -41,7 +41,7 @@ namespace TaxiGame.Vehicles
         {
             Customer customer = inventory.PopInventoryObject(InventoryObjectType.Customer) as Customer;
             customer.GetFollower().StopFollowing();
-            customer.GetController().GoToVehicleSpot(transform, () => _vehicleSpot.HandleCustomerArrival());
+            customer.GetController().GoToVehicleSpot(_vehicleSpot.GetInPosition(), () => _vehicleSpot.HandleCustomerArrival());
         }
     }
 

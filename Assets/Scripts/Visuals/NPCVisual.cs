@@ -12,10 +12,10 @@ namespace TaxiGame.Visuals
     public class NPCVisual : MonoBehaviour
     {
         [SerializeField] private Transform _visual;
-        private NPCActionScheduler _npc;
+        private NPCActionInvoker _npc;
 
         [Inject]
-        private void Init(NPCActionScheduler npc)
+        private void Init(NPCActionInvoker npc)
         {
             _npc = npc;
         }
@@ -30,8 +30,14 @@ namespace TaxiGame.Visuals
         {
             if (e.AnimationStateHash == AnimationValues.CAR_ENTER)
             {
-                _visual.DOScale(Vector3.one * 0.0001f, .5f);
+                StartCoroutine(ShrinkDriver());
             }
+        }
+
+        private IEnumerator ShrinkDriver()
+        {
+            yield return new WaitForSeconds(AnimationValues.CAR_ENTER_ANIM_LENGTH);
+            _visual.DOScale(Vector3.one * 0.0001f, AnimationValues.CAR_ENTER_ANIM_LENGTH);
         }
 
         private void OnSpawnFX()

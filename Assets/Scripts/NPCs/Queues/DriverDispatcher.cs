@@ -100,7 +100,7 @@ namespace TaxiGame.NPC
 
         private void DispatchDriverToSpot(Driver driver, VehicleSpot spot, HashSet<Driver> drivers)
         {
-            driver.GetController().GoToVehicleSpot(spot.transform, () => spot.HandleDriverArrival());
+            driver.GetController().GoToVehicleSpot(spot.GetInPosition(), () => spot.HandleDriverArrival());
 
             drivers.Remove(driver);
             _spots.Remove(spot);

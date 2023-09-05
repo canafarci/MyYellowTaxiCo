@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Zenject;
 using TaxiGame.Items;
+using TaxiGame.NPC.Command;
 
 namespace TaxiGame.NPC
 {

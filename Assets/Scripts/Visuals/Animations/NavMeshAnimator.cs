@@ -10,10 +10,10 @@ namespace TaxiGame.Animations
         public Animator Animator { set { _animator = value; } }
         private NavMeshAgent _agent;
         private Animator _animator;
-        private NPCActionScheduler _npc;
+        private NPCActionInvoker _npc;
 
         [Inject]
-        private void Init(Animator animator, NavMeshAgent agent, NPCActionScheduler npc)
+        private void Init(Animator animator, NavMeshAgent agent, NPCActionInvoker npc)
         {
             _animator = animator;
             _agent = agent;

@@ -31,7 +31,7 @@ namespace TaxiGame.NPC
         {
             while (_currentNPCCount < _npcMaxCount)
             {
-                _npcFactory.Create(_spawnPoint.position, _spawnPoint.rotation);
+                _npcFactory.Create(_spawnPoint);
                 _currentNPCCount++;
                 yield return new WaitForSeconds(1f);
             }

@@ -9,6 +9,7 @@ namespace TaxiGame.Vehicles
     public class VehicleSpot : MonoBehaviour, IVehicleEvents
     {
         [SerializeField] private InventoryObjectType _hatType;
+        [SerializeField] private Transform _getInPosition;
         private Vehicle _vehicle;
         private VehicleManager _vehicleManager;
         private bool _isCustomerWaiting;
@@ -53,6 +54,7 @@ namespace TaxiGame.Vehicles
             });
         }
         //Getters-Setters
+        public Transform GetInPosition() => _getInPosition;
         public InventoryObjectType GetHatType() => _hatType;
         public bool HasVehicle() => _vehicle != null;
         public void SetVehicle(Vehicle vehicle)
