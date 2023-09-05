@@ -36,7 +36,7 @@ namespace TaxiGame.NPC
         {
             foreach (Waypoint waypoint in _waypoints)
             {
-                _controller.Move(waypoint.transform.position);
+                _controller.Move(waypoint.transform);
 
                 if (waypoint.StopWaypoint)
                 {

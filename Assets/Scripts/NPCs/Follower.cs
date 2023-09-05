@@ -12,7 +12,6 @@ namespace TaxiGame.NPC
 {
     public class Follower : MonoBehaviour
     {
-        [SerializeField] protected FollowerCanvas _followerCanvas;
         private Transform _target;
         private NavMeshAgent _agent;
         private NPCActionScheduler _npc;
@@ -23,11 +22,6 @@ namespace TaxiGame.NPC
         {
             _agent = agent;
             _npc = npc;
-        }
-
-        private void Awake()
-        {
-            _followerCanvas.Initialize();
         }
 
         public void StopFollowing()
@@ -47,9 +41,6 @@ namespace TaxiGame.NPC
         public void FollowPlayer(Transform target)
         {
             _npc.ClearAllActions();
-
-            if (_followerCanvas != null)
-                _followerCanvas.Remove();
 
             _target = target;
             _followLoop = StartCoroutine(FollowLoop());

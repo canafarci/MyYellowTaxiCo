@@ -1,30 +1,49 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
+using TaxiGame.NPC;
 using UnityEngine;
+using Zenject;
 
-public class WandererCamera : MonoBehaviour
+namespace TaxiGame.Visuals
 {
-    [SerializeField] float _camDuration;
-    GameObject _camera;
-    private void Start()
+    public class WandererCamera : MonoBehaviour
     {
-        if (PlayerPrefs.HasKey("WandererSpawnCamUsed")) return;
+        [SerializeField] private float _camDuration;
+        private CinemachineVirtualCamera _camera;
+        private WandererSpawner _wandererSpawner;
 
-        CinemachineVirtualCamera vcam = FindObjectsOfType<CinemachineVirtualCamera>(true).First(x => x.gameObject.name == "Wanderer Camera");
-        _camera = vcam.gameObject;
-        vcam.m_LookAt = transform;
-        vcam.m_Follow = transform;
-        StartCoroutine(CamCoroutine());
-        PlayerPrefs.SetInt("WandererSpawnCamUsed", 1);
-    }
+        [Inject]
+        private void Init(CinemachineVirtualCamera cam, WandererSpawner wandererSpawner)
+        {
+            _camera = cam;
+            _wandererSpawner = wandererSpawner;
+        }
 
-    IEnumerator CamCoroutine()
-    {
-        yield return new WaitForSeconds(2f);
-        _camera.SetActive(true);
-        yield return new WaitForSeconds(_camDuration);
-        _camera.SetActive(false);
+        private void Start()
+        {
+            _wandererSpawner.OnWandererSpawned += WandererSpawner_WandererSpawnedHandler;
+        }
+
+        private void WandererSpawner_WandererSpawnedHandler(object sender, OnWandererSpawnedArgs e)
+        {
+            StartCameraRoutine(e.Target);
+        }
+
+        private void StartCameraRoutine(Transform target)
+        {
+            _camera.m_LookAt = target;
+            _camera.m_Follow = target;
+            StartCoroutine(CamCoroutine());
+        }
+
+        private IEnumerator CamCoroutine()
+        {
+            _camera.Priority = 100;
+            yield return new WaitForSeconds(_camDuration);
+            _camera.Priority = 0;
+        }
     }
 }

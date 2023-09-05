@@ -1,3 +1,4 @@
+using Cinemachine;
 using TaxiGame.Items;
 using UnityEngine;
 using Zenject;
@@ -17,6 +18,10 @@ namespace TaxiGame.Installers
                         .AsTransient();
 
             Container.Bind<ParticleSystem>()
+                        .FromComponentInChildren()
+                        .AsTransient();
+
+            Container.Bind<CinemachineVirtualCamera>()
                         .FromComponentInChildren()
                         .AsTransient();
 

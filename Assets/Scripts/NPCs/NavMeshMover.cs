@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Animations;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -8,23 +9,24 @@ namespace TaxiGame.NPC
 {
     public class NavMeshMover : MonoBehaviour
     {
-        protected NPCActionScheduler _npc;
+        protected NPCActionScheduler _scheduler;
         private NavMeshAgent _agent;
 
         [Inject]
-        private void Init(NavMeshAgent agent, NPCActionScheduler npc)
+        private void Init(NavMeshAgent agent, NPCActionScheduler scheduler)
         {
             _agent = agent;
-            _npc = npc;
+            _scheduler = scheduler;
         }
 
-        public void Move(Vector3 pos)
+        public void Move(Transform destination)
         {
-            _npc.AddToActionQueue(MoveToPosition(pos));
+            _scheduler.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
+            _scheduler.AddToActionQueue(MoveToPosition(destination.position));
         }
         public void Wait(float duration)
         {
-            _npc.AddToActionQueue(WaitForDuration(duration));
+            _scheduler.AddToActionQueue(WaitForDuration(duration));
         }
 
         protected IEnumerator WaitForDuration(float duration)

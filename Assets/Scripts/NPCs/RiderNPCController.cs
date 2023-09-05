@@ -10,30 +10,24 @@ namespace TaxiGame.NPC
 {
     public class RiderNPCController : NavMeshMover
     {
-        public void Move(Transform destination)
-        {
-            _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
-            Move(destination.position);
-        }
-
         public void MoveAndSit(Transform destination)
         {
-            _npc.AddToActionQueue(GoAndSit(destination));
+            _scheduler.AddToActionQueue(GoAndSit(destination));
         }
         public void GoToVehicleSpot(Transform destination, Action onNPCReachedCar = null)
         {
-            _npc.AddToActionQueue(MoveToCar(destination, onNPCReachedCar));
+            _scheduler.AddToActionQueue(MoveToCar(destination, onNPCReachedCar));
         }
 
         private IEnumerator GoAndSit(Transform trans)
         {
-            _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
+            _scheduler.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
             yield return StartCoroutine(MoveToPosition(trans.position));
 
             Tween move = GetToExactPosition(trans);
             yield return move.WaitForCompletion();
 
-            _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, true);
+            _scheduler.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, true);
         }
 
         private Tween GetToExactPosition(Transform destination)
@@ -45,9 +39,9 @@ namespace TaxiGame.NPC
 
         private IEnumerator MoveToCar(Transform destination, Action onNPCReachedCar)
         {
-            _npc.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
+            _scheduler.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, false);
             yield return StartCoroutine(MoveToPosition(destination.position));
-            _npc.InvokeAnimationStateChangedEvent(AnimationValues.CAR_ENTER, true);
+            _scheduler.InvokeAnimationStateChangedEvent(AnimationValues.CAR_ENTER, true);
 
             yield return new WaitForSeconds(.5f);
 

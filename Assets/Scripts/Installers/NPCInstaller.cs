@@ -38,13 +38,17 @@ namespace TaxiGame.Installers
                                 .FromComponentInChildren()
                                 .AsTransient();
 
+                        Container.Bind<DriverHatDistributor>().
+                                FromComponentInChildren().
+                                AsTransient();
+
                         Container.Bind<Wanderer>()
                                 .FromComponentInChildren()
                                 .AsTransient();
 
-                        Container.Bind<DriverHatDistributor>().
-                                FromComponentInChildren().
-                                AsTransient();
+                        Container.Bind<WandererSpawner>()
+                                .FromComponentInHierarchy()
+                                .AsTransient();
 
                         BindDriverModel();
                         BindFactories();

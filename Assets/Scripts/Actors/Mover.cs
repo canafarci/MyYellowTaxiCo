@@ -62,7 +62,7 @@ public class Mover : MonoBehaviour
     private Vector3 RotateMoveVector(Vector3 start)
     {
         start.Normalize();
-        return Quaternion.AngleAxis(Globals.CAMERA_ROTATION_OFFSET.y, Vector3.up) * start;
+        return Quaternion.AngleAxis(Globals.CAMERA_LOOK_OFFSET.y, Vector3.up) * start;
     }
 
 }
