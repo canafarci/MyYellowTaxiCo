@@ -18,7 +18,7 @@ namespace TaxiGame.NPC
         }
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player") || other.CompareTag("HatHelperNPC"))
+            if (other.CompareTag(Globals.PLAYER_TAG) || other.CompareTag(Globals.HELPER_NPC_TAG))
             {
                 _inventories[other] = other.GetComponent<Inventory>();
                 _coroutines[other] = StartCoroutine(DropLoop(other));
@@ -26,7 +26,7 @@ namespace TaxiGame.NPC
         }
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Player") || other.CompareTag("HatHelperNPC"))
+            if (other.CompareTag(Globals.PLAYER_TAG) || other.CompareTag(Globals.HELPER_NPC_TAG))
             {
                 if (_coroutines[other] != null)
                     StopCoroutine(_coroutines[other]);

@@ -9,10 +9,10 @@ namespace TaxiGame.Upgrades
     public class StackerSpeedUpgradeReceiver
     {
         private UpgradeUtility _upgradeUtility;
-        private ItemGenerator _itemGenerator;
+        private HatGenerator _itemGenerator;
 
         [Inject]
-        private void Init(UpgradeUtility upgradeUtility, ItemGenerator itemGenerator)
+        private void Init(UpgradeUtility upgradeUtility, HatGenerator itemGenerator)
         {
             _upgradeUtility = upgradeUtility;
             _itemGenerator = itemGenerator;

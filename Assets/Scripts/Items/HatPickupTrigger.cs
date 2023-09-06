@@ -6,8 +6,9 @@ using TaxiGame.Items;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class StackPickup : MonoBehaviour
+public class HatPickupTrigger : MonoBehaviour
 {
+    //TODO REFACTOR
     private bool _secondGiveHatTutorialStarted = false;
     public bool IsHatStacker = false;
     [SerializeField] float _clearStackRate;
@@ -17,7 +18,7 @@ public class StackPickup : MonoBehaviour
     void Awake() => _stacker = GetComponent<Stacker>();
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("HatHelperNPC"))
+        if (other.CompareTag(Globals.PLAYER_TAG) || other.CompareTag(Globals.HELPER_NPC_TAG))
         {
             _coroutines[other] = StartCoroutine(UnloadLoop(other));
         }
@@ -25,7 +26,7 @@ public class StackPickup : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("HatHelperNPC"))
+        if (other.CompareTag(Globals.PLAYER_TAG) || other.CompareTag(Globals.HELPER_NPC_TAG))
         {
             if (_coroutines[other] != null)
                 StopCoroutine(_coroutines[other]);
@@ -34,14 +35,13 @@ public class StackPickup : MonoBehaviour
 
     IEnumerator UnloadLoop(Collider other)
     {
-        Inventory inventory = other.GetComponent<IInventoryHolder>().GetInventory();
+        Inventory inventory = other.GetComponent<Inventory>();
 
         while (true)
         {
             yield return new WaitForSeconds(_clearStackRate);
 
-            if (inventory.StackableItemCapacity > inventory.GetStackableItemCountInInventory()
-                                            && _stacker.ItemStack.TryPop(out StackableItem item))
+            if (!inventory.IsInventoryFull() && _stacker.ItemStack.TryPop(out StackableItem item))
             {
                 inventory.AddObjectToInventory(item);
 

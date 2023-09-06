@@ -7,7 +7,7 @@ using Zenject;
 
 namespace TaxiGame.Characters
 {
-    public class Player : MonoBehaviour, IHandleHolder, IInventoryHolder
+    public class Player : MonoBehaviour, IHandleHolder
     {
         [SerializeField] private Transform _handTransform;
         private Inventory _inventory;
@@ -19,8 +19,6 @@ namespace TaxiGame.Characters
             _inventory = inventory;
         }
         //Getters-Setters
-        public Inventory GetInventory() => _inventory;
-        public Transform GetHandTransform() => _handTransform;
         public void ClearHandle()
         {
             _inventory.PopInventoryObject(InventoryObjectType.GasHandle);

@@ -11,35 +11,31 @@ using Zenject;
 namespace TaxiGame.Animations
 {
 
-    public class Animations : MonoBehaviour
+    public abstract class Animations : MonoBehaviour
     {
+        protected Animator _animator;
+        protected ModifierUpgradesReceiver _upgradeReceiver;
         [SerializeField] private AnimationClip _idle, _holdingIdle, _running, _holdingRunning, _walking;
         private AnimatorOverrideController _animatorOverrideController;
-        private Animator _animator;
         private Inventory _inventory;
-        private Mover _mover;
-        private ModifierUpgradesReceiver _upgradeReceiver;
 
-        private float _moveAnimationSpeed;
 
         [Inject]
-        private void Init(Animator animator, Inventory inventory, ModifierUpgradesReceiver upgradeReceiver, Mover mover)
+        private void Init(Animator animator, Inventory inventory, ModifierUpgradesReceiver upgradeReceiver)
         {
             _animator = animator;
             _inventory = inventory;
-            _mover = mover;
-            _upgradeReceiver = upgradeReceiver;
 
             _animatorOverrideController = new AnimatorOverrideController(_animator.runtimeAnimatorController);
             _animator.runtimeAnimatorController = _animatorOverrideController;
+            _upgradeReceiver = upgradeReceiver;
 
         }
 
-        private void Start()
+        protected virtual void Start()
         {
-            _upgradeReceiver.OnPlayerSpeedUpgrade += ModifierUpgradesReceiver_PlayerSpeedUpgradeHandler;
             _inventory.OnInventoryModified += Inventory_InventoryModifiedHandler;
-            _mover.OnMoveDistanceCalculated += Mover_MoveDistanceCalculatedHandler;
+
             BrokenEngineRepairableVehicle.OnPlayerEnteredWithToolbox += BrokenEngineRepairableVehicle_PlayerEnteredWithToolboxHandler;
 
         }
@@ -50,18 +46,6 @@ namespace TaxiGame.Animations
             {
                 TriggerRepairAnimation();
             }
-        }
-
-        private void Mover_MoveDistanceCalculatedHandler(bool isMoving)
-        {
-            float target = isMoving ? 1f : 0f;
-            _moveAnimationSpeed = Mathf.Lerp(_moveAnimationSpeed, target, 10f * Time.deltaTime);
-        }
-
-
-        private void ModifierUpgradesReceiver_PlayerSpeedUpgradeHandler(float speed)
-        {
-            _animator.speed = speed / 7f;
         }
 
         private void Inventory_InventoryModifiedHandler(object sender, InventoryModifiedArgs e)
@@ -113,11 +97,6 @@ namespace TaxiGame.Animations
         {
             _animatorOverrideController["Running"] = _running;
             _animatorOverrideController["IDLE"] = _idle;
-        }
-
-        private void FixedUpdate()
-        {
-            _animator.SetFloat(AnimationValues.MOVE_FLOAT, _moveAnimationSpeed);
         }
     }
 

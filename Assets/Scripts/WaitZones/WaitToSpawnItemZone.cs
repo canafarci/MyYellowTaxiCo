@@ -6,6 +6,7 @@ namespace TaxiGame.WaitZones
 {
     public class WaitToSpawnItemZone : WaitingEngine
     {
+        //Referenced in WaitToSpawnItemZoneVisual class
         public event EventHandler<OnChangeSliderActivationEventArgs> OnChangeSliderActivation;
         private void Start()
         {

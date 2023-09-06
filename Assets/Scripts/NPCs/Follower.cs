@@ -1,9 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
 using TaxiGame.Animations;
-using TaxiGame.Items;
+using TaxiGame.NPC.Command;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;

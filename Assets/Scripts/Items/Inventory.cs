@@ -7,13 +7,6 @@ namespace TaxiGame.Items
 {
     public class Inventory : MonoBehaviour
     {
-        public int StackableItemCapacity
-        {
-            get => _maxStackSize;
-            set => _maxStackSize = value;
-        }
-
-
         [SerializeField] private int _maxStackSize;
         private ItemUtility _itemUtility;
         private Dictionary<InventoryObjectType, Stack<IInventoryObject>> _inventoryLookup = new();
@@ -129,6 +122,10 @@ namespace TaxiGame.Items
                 ItemAddedToInventory = itemIsAdded
             });
         }
+
+        //Getters-Setters
+        public void SetMaxStackCapacity(int capacity) => _maxStackSize = capacity;
+        public bool IsInventoryFull() => _maxStackSize == GetStackableItemCountInInventory();
     }
 
     public class InventoryModifiedArgs : EventArgs

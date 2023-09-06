@@ -1,18 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
-using TaxiGame.Items;
-using TaxiGame.NPC.Command;
 using UnityEngine;
-using UnityEngine.AI;
-using Zenject;
 
-namespace TaxiGame.NPC
+namespace TaxiGame.NPC.Command
 {
     public class NPCActionInvoker : MonoBehaviour
     {
-        public InventoryObjectType Hat;
         private Coroutine _performedActions = null;
         private Queue<INPCCommand> _actionsToPerform = new();
 

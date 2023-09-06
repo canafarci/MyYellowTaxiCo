@@ -32,4 +32,12 @@ public static class Globals
     public const float TOOLBOX_DROP_REPAIR_ANIMATION_DURATION = 2f;
 
     public static readonly Vector3 CAMERA_LOOK_OFFSET = new Vector3(0f, -45f, 0f);
+
+    //TAGS
+    public const string HELPER_NPC_TAG = "HelperNPC";
+    public const string PLAYER_TAG = "Player";
+
+    public const float PLAYER_BASE_SPEED = 5f;
+
+
 }

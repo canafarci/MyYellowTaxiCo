@@ -39,7 +39,7 @@ namespace TaxiGame.NPC
 
         private IEnumerator TryUnload(Collider other)
         {
-            Inventory inventory = other.GetComponent<IInventoryHolder>().GetInventory();
+            Inventory inventory = other.GetComponent<Inventory>();
 
             while (true)
             {

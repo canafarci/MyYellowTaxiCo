@@ -25,7 +25,7 @@ namespace TaxiGame.Items
         // private void Awake() => _remover = GetComponent<RemoveItem>();
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player") || other.CompareTag("HatHelperNPC"))
+            if (other.CompareTag(Globals.PLAYER_TAG) || other.CompareTag(Globals.HELPER_NPC_TAG))
             {
                 Inventory inventory = other.GetComponent<Inventory>();
 

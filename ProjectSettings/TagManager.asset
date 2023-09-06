@@ -7,13 +7,10 @@ TagManager:
   - FxTemporaire
   - ClusterTrigger
   - Handle
-  - CarNoGas
   - GasSlider
   - WallPush
-  - CarBrokenToolbox
-  - CarBrokenTire
   - WandererCamera
-  - HatHelperNPC
+  - HelperNPC
   layers:
   - Default
   - TransparentFX

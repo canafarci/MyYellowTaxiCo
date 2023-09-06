@@ -7,7 +7,7 @@ using Zenject;
 
 namespace TaxiGame.NPC
 {
-    public class HatHelperNPC : MonoBehaviour
+    public class HelperNPC : MonoBehaviour
     {
 
         [Inject]
@@ -16,7 +16,7 @@ namespace TaxiGame.NPC
             transform.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
         }
 
-        public class Factory : PlaceholderFactory<Transform, HatHelperNPC>
+        public class Factory : PlaceholderFactory<Transform, HelperNPC>
         {
 
         }

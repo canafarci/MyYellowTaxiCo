@@ -1,3 +1,4 @@
+using TaxiGame.Animations;
 using UnityEngine;
 namespace TaxiGame.Upgrades
 {
@@ -11,7 +12,14 @@ namespace TaxiGame.Upgrades
         public HelperNPCSpeed[] HelperNPCSpeeds;
         public HelperNPCInventorySize[] HelperNPCInventorySizes;
         public StackSpeed[] StackSpeeds;
-        public int BaseMoveSpeed = 5;
+        public float BaseMoveSpeed
+        {
+            get
+            {
+                return Globals.PLAYER_BASE_SPEED;
+            }
+        }
+
     }
 
     [System.Serializable]

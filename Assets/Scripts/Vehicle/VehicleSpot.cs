@@ -48,7 +48,7 @@ namespace TaxiGame.Vehicles
             OnVehicleReturned?.Invoke(this, new OnVehicleReturnedArgs
             {
                 HatType = _hatType,
-                SpawnerTransform = transform,
+                SpawnerTransform = _getInPosition,
                 CanSpawnDriver = _vehicleManager.CanSpawnDriver(this),
                 IsBrokenCar = vehicle.GetModel().IsCarBroken()
             });

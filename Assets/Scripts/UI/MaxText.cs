@@ -29,7 +29,7 @@ public class MaxText : MonoBehaviour
 
         Inventory inventory = sender as Inventory;
 
-        if (inventory.GetStackableItemCountInInventory() == inventory.StackableItemCapacity)
+        if (inventory.IsInventoryFull())
         {
             _text.enabled = true;
         }

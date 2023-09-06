@@ -1,4 +1,5 @@
 using TaxiGame.NPC;
+using TaxiGame.NPC.Command;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;

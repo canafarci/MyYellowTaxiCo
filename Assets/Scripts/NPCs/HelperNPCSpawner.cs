@@ -10,10 +10,10 @@ namespace TaxiGame.NPC
     {
         [SerializeField] private Transform _spawnPoint;
         private int _npcMaxCount, _currentNPCCount;
-        private HatHelperNPC.Factory _npcFactory;
+        private HelperNPC.Factory _npcFactory;
 
         [Inject]
-        private void Init([Inject(Id = NPCType.Helper)] HatHelperNPC.Factory npcFactory)
+        private void Init([Inject(Id = NPCType.Helper)] HelperNPC.Factory npcFactory)
         {
             _npcFactory = npcFactory;
         }
@@ -33,7 +33,7 @@ namespace TaxiGame.NPC
             {
                 _npcFactory.Create(_spawnPoint);
                 _currentNPCCount++;
-                yield return new WaitForSeconds(1f);
+                yield return null;
             }
         }
     }

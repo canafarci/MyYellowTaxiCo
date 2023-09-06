@@ -22,7 +22,7 @@ namespace TaxiGame.Vehicles
 
         private void OnTriggerEnter(Collider other)
         {
-            if (_vehicleSpot.HasVehicle() && (other.CompareTag("Player") || other.CompareTag("HatHelperNPC")))
+            if (_vehicleSpot.HasVehicle() && other.CompareTag(Globals.PLAYER_TAG) || other.CompareTag(Globals.HELPER_NPC_TAG))
             {
                 Inventory inventory = other.GetComponent<Inventory>();
 

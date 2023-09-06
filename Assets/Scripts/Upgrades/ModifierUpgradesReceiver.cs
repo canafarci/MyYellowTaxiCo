@@ -49,7 +49,8 @@ namespace TaxiGame.Upgrades
         private void UpgradePlayerInventorySize(int index)
         {
             Inventory playerInventory = _references.PlayerInventory; //TODO move reference -> WithID("PlayerInventory")
-            playerInventory.StackableItemCapacity = _upgradeData.PlayerInventorySizes[index].Size;
+            int MaxStackSize = _upgradeData.PlayerInventorySizes[index].Size;
+            playerInventory.SetMaxStackCapacity(MaxStackSize);
         }
         private void UpgradePlayerIncome(int index)
         {

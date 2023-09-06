@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TaxiGame.Items
 {
-    public class ItemGenerator : MonoBehaviour
+    public class HatGenerator : MonoBehaviour
     {
         [SerializeField] protected float _spawnRate;
         [SerializeField] protected GameObject[] _stackableItem, _stage2Hats, _stage3Hats;

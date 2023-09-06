@@ -22,5 +22,7 @@ namespace TaxiGame.Animations
 
         public const float PARK_ANIM_LENGTH = 1.83333333f;
         public const float CAR_ENTER_ANIM_LENGTH = .75f;
+
+        public const float HELPER_NPC_BASE_SPEED = 3f;
     }
 }

@@ -20,12 +20,11 @@ namespace TaxiGame.Vehicles.Repair
             _vehicleModel = model;
         }
 
-
         private void OnTriggerEnter(Collider other)
         {
-            if (!(other.CompareTag("Player") || other.CompareTag("HatHelperNPC"))) return;
+            if (!(other.CompareTag(Globals.PLAYER_TAG) || other.CompareTag(Globals.HELPER_NPC_TAG))) return;
 
-            Inventory inventory = other.GetComponent<IInventoryHolder>().GetInventory();
+            Inventory inventory = other.GetComponent<Inventory>();
 
             if (VehicleCanBeRepaired(inventory, _repairObjectType))
             {

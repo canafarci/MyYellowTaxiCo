@@ -32,7 +32,7 @@ namespace TaxiGame.Installers
 
         private void SetUpStackerSpeedUpgrade()
         {
-            Container.Bind<ItemGenerator>()
+            Container.Bind<HatGenerator>()
                             .FromComponentInHierarchy()
                             .AsSingle();
 

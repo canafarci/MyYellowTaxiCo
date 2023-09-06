@@ -33,6 +33,10 @@ namespace TaxiGame.Installers
                 .FromComponentInChildren()
                 .AsTransient();
 
+            Container.Bind<Animator>()
+                .FromComponentInChildren(false)
+                .AsTransient();
+
             Container.BindFactory<UnityEngine.Object, Transform, WandererMoney, WandererMoney.Factory>()
                     .FromFactory<PrefabFactory<Transform, WandererMoney>>();
         }
