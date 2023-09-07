@@ -9,12 +9,12 @@ namespace TaxiGame.Items
         [SerializeField] protected float _spawnRate;
         [SerializeField] protected GameObject[] _stackableItem, _stage2Hats, _stage3Hats;
         [SerializeField] protected Transform _startTransform;
-        protected Stacker _stacker;
+        protected HatStacker _stacker;
         private bool _spawnedFirst = false;
         private int _spawnUpgradeIndex = 0;
         void Awake()
         {
-            _stacker = GetComponent<Stacker>();
+            _stacker = GetComponent<HatStacker>();
         }
         void Start() => StartCoroutine(SpawnLoop());
         public void SpawnItem()

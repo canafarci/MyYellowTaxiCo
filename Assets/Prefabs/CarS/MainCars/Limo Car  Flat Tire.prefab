@@ -15061,6 +15061,8 @@ GameObject:
   - component: {fileID: 1596639003853141155}
   - component: {fileID: 1596639003853141154}
   - component: {fileID: 1596639003853141181}
+  - component: {fileID: 4036427526130620662}
+  - component: {fileID: 8203039325987657791}
   m_Layer: 0
   m_Name: World Canvas
   m_TagString: Untagged
@@ -15155,6 +15157,30 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4036427526130620662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596639003853141183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb3e12a24916edf4fa0e1b8258fc7c2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8203039325987657791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596639003853141183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f959ac2f521cae43a870452bc06782a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2460154570518298308
 GameObject:
   m_ObjectHideFlags: 0
@@ -84512,7 +84538,7 @@ PrefabInstance:
     - target: {fileID: 5150420696274731681, guid: ba62ffb24c1ea664092502ab0ef38d4a,
         type: 3}
       propertyPath: m_Name
-      value: Limo Car  Broken Tire
+      value: Limo Car  Flat Tire
       objectReference: {fileID: 0}
     - target: {fileID: 5150420696274731681, guid: ba62ffb24c1ea664092502ab0ef38d4a,
         type: 3}
@@ -84608,6 +84634,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 15.347
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037058272849572350, guid: ba62ffb24c1ea664092502ab0ef38d4a,
+        type: 3}
+      propertyPath: _hatType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037058272849572350, guid: ba62ffb24c1ea664092502ab0ef38d4a,
+        type: 3}
+      propertyPath: _isBroken
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037058272849572350, guid: ba62ffb24c1ea664092502ab0ef38d4a,
+        type: 3}
+      propertyPath: _moneyToGain
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6125918601049810316, guid: ba62ffb24c1ea664092502ab0ef38d4a,
         type: 3}
@@ -84811,7 +84852,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2467485820073870587}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6136444509950905120
+--- !u!114 &41028559127745406
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84820,11 +84861,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 7298009608274544218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51df434920b24084e85e275bd0a22bdc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1cc9520a22a9645a3a14df0c03261b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 8396435455899229671}
   _image: {fileID: 1596639003853141183}
+  _target: {fileID: 8396435455899229671}
+--- !u!114 &2064586418319127616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7298009608274544218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 531d06306bb834aa2ad3fe7a69478bea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _repairObjectType: 3
 --- !u!4 &7298009608274544229 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5150420696274731678, guid: ba62ffb24c1ea664092502ab0ef38d4a,

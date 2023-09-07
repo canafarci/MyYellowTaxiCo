@@ -39334,7 +39334,6 @@ GameObject:
   - component: {fileID: 1117114948976825681}
   - component: {fileID: 713518587577146862}
   - component: {fileID: 609259327053195811}
-  - component: {fileID: 8910937068067890043}
   m_Layer: 0
   m_Name: Indicator Charge Slider
   m_TagString: Untagged
@@ -39400,18 +39399,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8910937068067890043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2420259313896045313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f959ac2f521cae43a870452bc06782a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2467913357373918591
 GameObject:
   m_ObjectHideFlags: 0
@@ -54032,7 +54019,6 @@ GameObject:
   - component: {fileID: 4676230275795390092}
   - component: {fileID: 8049368401783598495}
   - component: {fileID: 1471037619757683332}
-  - component: {fileID: 2295043747276003345}
   m_Layer: 0
   m_Name: Indicator Outer Circle
   m_TagString: Untagged
@@ -54098,18 +54084,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2295043747276003345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2960906662151222557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f959ac2f521cae43a870452bc06782a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3025938803777528176
 GameObject:
   m_ObjectHideFlags: 0
@@ -78780,7 +78754,6 @@ GameObject:
   - component: {fileID: 6238139419810586604}
   - component: {fileID: 1690438320066852221}
   - component: {fileID: 6524203098847694884}
-  - component: {fileID: 8051220108876668831}
   m_Layer: 0
   m_Name: Indicator Low Charge Battery
   m_TagString: Untagged
@@ -78848,18 +78821,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8051220108876668831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4742564267270358340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f959ac2f521cae43a870452bc06782a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5290518371306265174
 GameObject:
   m_ObjectHideFlags: 0
@@ -108958,6 +108919,7 @@ GameObject:
   - component: {fileID: 2824231846062052068}
   - component: {fileID: 4837569425208823050}
   - component: {fileID: 6320806237269500713}
+  - component: {fileID: 3727289019495366790}
   m_Layer: 0
   m_Name: World Canvas
   m_TagString: Untagged
@@ -109061,6 +109023,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb3e12a24916edf4fa0e1b8258fc7c2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3727289019495366790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7549976705846801688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f959ac2f521cae43a870452bc06782a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7619709238276341928
@@ -158553,6 +158527,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 7.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037058272849572350, guid: ba62ffb24c1ea664092502ab0ef38d4a,
+        type: 3}
+      propertyPath: _hatType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037058272849572350, guid: ba62ffb24c1ea664092502ab0ef38d4a,
+        type: 3}
+      propertyPath: _isBroken
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037058272849572350, guid: ba62ffb24c1ea664092502ab0ef38d4a,
+        type: 3}
+      propertyPath: _moneyToGain
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6125918601049810316, guid: ba62ffb24c1ea664092502ab0ef38d4a,
         type: 3}

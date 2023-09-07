@@ -10,20 +10,33 @@ namespace TaxiGame.NPC.Command
     public class SitNPCCommand : INPCCommand
     {
         private NavMeshAgent _agent;
-        private Action _animationEvent;
         private Transform _destination;
+        private Action _animationEvent;
+        //this action can be used to add driver to driverlookup, it is created from DriverQueueCoordinator
+        private Action _onFinished;
 
-        public SitNPCCommand(NavMeshAgent agent, Action animationEvent, Transform destination)
+        public SitNPCCommand(NavMeshAgent agent,
+                             Transform destination,
+                             Action animationEvent,
+                             Action onFinished = null)
         {
             _agent = agent;
-            _animationEvent = animationEvent;
             _destination = destination;
+            _animationEvent = animationEvent;
+            _onFinished = onFinished;
         }
 
         public IEnumerator Execute()
         {
             yield return GetToExactPosition(_destination).WaitForCompletion();
             _animationEvent?.Invoke();
+
+            if (_onFinished != null)
+            {
+                //delay before changing lookup state
+                yield return new WaitForSeconds(0.5f);
+                _onFinished.Invoke();
+            }
         }
 
         private Tween GetToExactPosition(Transform destination)

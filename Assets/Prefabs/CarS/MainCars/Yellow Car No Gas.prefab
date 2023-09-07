@@ -505,7 +505,6 @@ GameObject:
   - component: {fileID: 3144844024576956906}
   - component: {fileID: 6300008203594992003}
   - component: {fileID: 2246894038340779071}
-  - component: {fileID: 970068071620595833}
   m_Layer: 0
   m_Name: Indicator Charge Slider
   m_TagString: Untagged
@@ -571,18 +570,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &970068071620595833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7312606553716998307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f959ac2f521cae43a870452bc06782a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7723714069532877595
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +670,6 @@ GameObject:
   - component: {fileID: 6532209238687994772}
   - component: {fileID: 1751738524759273360}
   - component: {fileID: 6479584530916014614}
-  - component: {fileID: 1303335767095936260}
   m_Layer: 0
   m_Name: Indicator Outer Circle
   m_TagString: Untagged
@@ -749,18 +735,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1303335767095936260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7804249247331369081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f959ac2f521cae43a870452bc06782a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4333962821853345193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -906,7 +880,7 @@ PrefabInstance:
     - target: {fileID: 6037058272849572350, guid: ba62ffb24c1ea664092502ab0ef38d4a,
         type: 3}
       propertyPath: _moneyToGain
-      value: 25
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6092554359609625797, guid: ba62ffb24c1ea664092502ab0ef38d4a,
         type: 3}

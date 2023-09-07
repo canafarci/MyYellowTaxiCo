@@ -1,5 +1,6 @@
 using Cinemachine;
 using TaxiGame.Items;
+using TaxiGame.Visuals;
 using UnityEngine;
 using Zenject;
 
@@ -24,6 +25,9 @@ namespace TaxiGame.Installers
             Container.Bind<CinemachineVirtualCamera>()
                         .FromComponentInChildren()
                         .AsTransient();
+
+            Container.Bind<TweeningService>()
+                        .AsSingle();
 
         }
     }

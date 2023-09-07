@@ -113,11 +113,11 @@ namespace TaxiGame.Installers
         {
             Container.Bind<GasStation>()
             .FromComponentInChildren()
-            .AsSingle();
+            .AsTransient();
 
             Container.Bind<LowGasBrokenCar>()
             .FromComponentInChildren()
-            .AsSingle();
+            .AsTransient();
 
             Container.Bind<IHandleHolder>().
             FromComponentInParents().

@@ -6,7 +6,7 @@ using TaxiGame.Items;
 using UnityEngine;
 using Zenject;
 
-namespace TaxiGame.Visuals
+namespace TaxiGame.Items.Visual
 {
     public class WandererMoneyVisual : MonoBehaviour
     {

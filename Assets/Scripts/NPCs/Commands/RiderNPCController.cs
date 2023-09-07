@@ -10,7 +10,7 @@ namespace TaxiGame.NPC.Command
 {
     public class RiderNPCController : NavMeshMover
     {
-        public void MoveAndSit(Transform destination)
+        public void MoveAndSit(Transform destination, Action onSuccessEvent = null)
         {
             //defined in the NavMeshMover class
             Move(destination);
@@ -20,7 +20,7 @@ namespace TaxiGame.NPC.Command
                 _invoker.InvokeAnimationStateChangedEvent(AnimationValues.IS_SITTING, true);
             };
 
-            INPCCommand command = new SitNPCCommand(_agent, animationEvent, destination);
+            INPCCommand command = new SitNPCCommand(_agent, destination, animationEvent, onSuccessEvent);
             _invoker.AddToActionQueue(command);
         }
         public void GoToVehicleSpot(Transform destination, Action onNPCReachedCar = null)

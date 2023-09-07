@@ -14,9 +14,7 @@ namespace TaxiGame.Visuals
         [SerializeField] private GameObject _lowGasIndicator;
         [SerializeField] private Image[] _lowGasImages;
         [SerializeField] private Color32 _gasFilledColor;
-
         [SerializeField] Image _carSlider;
-
         private LowGasBrokenCar _brokenCar;
 
         [Inject]

@@ -41,14 +41,16 @@ namespace TaxiGame.NPC
         public void AddToQueue(RiderNPC npc)
         {
             AssignSpotToNPC(npc);
-
-            _driverLookup.AddDriverToLookup(npc as Driver);
         }
 
         private void AssignSpotToNPC(RiderNPC npc)
         {
             DriverQueueSpot spot = FindAvailableSpot();
-            npc.GetController().MoveAndSit(spot.transform);
+
+            //callback to add driver to lookup
+            Action onSeated = () => _driverLookup.AddDriverToLookup(npc as Driver);
+
+            npc.GetController().MoveAndSit(spot.transform, onSeated);
             spot.SetNPC(npc);
         }
 

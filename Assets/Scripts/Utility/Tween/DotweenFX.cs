@@ -91,24 +91,7 @@ public class DotweenFX : MonoBehaviour
 
         tween.onComplete = () => Destroy(money.gameObject, .1f);
     }
-    public static IEnumerator StackTweenHat(StackableItem item, Vector3 endPos)
-    {
-        item.transform.DOKill();
-        Vector3 startPos = item.transform.position;
-        Vector3 intermediatePos = new Vector3(endPos.x / 2f, endPos.y + 1f, endPos.z / 2f);
-        Vector3[] path = { intermediatePos, endPos };
-        item.transform.DOLocalPath(path, .5f, PathType.CatmullRom, PathMode.Full3D);
 
-        float targetRotation = Random.Range(0f, 360f);
-        item.transform.DOLocalRotate(new Vector3(0, targetRotation, 0f), 0.5f);
-
-        yield return new WaitForSeconds(0.51f);
-
-        Sequence seq = DOTween.Sequence();
-        Vector3 endBaseScale = new Vector3(Globals.HAT_SCALE, Globals.HAT_SCALE, Globals.HAT_SCALE);
-        seq.Append(item.transform.DOScale(endBaseScale * 1.2f, .1f));
-        seq.Append(item.transform.DOScale(endBaseScale, .1f));
-    }
     public static IEnumerator StackTweenItem(StackableItem item, Vector3 endPos)
     {
         item.transform.DOKill();

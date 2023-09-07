@@ -14,12 +14,12 @@ namespace TaxiGame.NPC
     /// </summary>
     public class DriverHatDistributor : MonoBehaviour
     {
-        private Stacker _stacker;
+        private HatStacker _stacker;
         private DriverLookup _driverLookup;
         public event EventHandler<HatDistributedEventArgs> OnHatDistributed;
 
         [Inject]
-        private void Init(Stacker stacker, DriverLookup driverLookup)
+        private void Init(HatStacker stacker, DriverLookup driverLookup)
         {
             _stacker = stacker;
             _driverLookup = driverLookup;

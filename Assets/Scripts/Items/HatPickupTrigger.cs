@@ -13,9 +13,9 @@ public class HatPickupTrigger : MonoBehaviour
     public bool IsHatStacker = false;
     [SerializeField] float _clearStackRate;
     [SerializeField] UnityEvent _onSecondHatTutorialUnlock;
-    Stacker _stacker;
+    HatStacker _stacker;
     Dictionary<Collider, Coroutine> _coroutines = new Dictionary<Collider, Coroutine>();
-    void Awake() => _stacker = GetComponent<Stacker>();
+    void Awake() => _stacker = GetComponent<HatStacker>();
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(Globals.PLAYER_TAG) || other.CompareTag(Globals.HELPER_NPC_TAG))

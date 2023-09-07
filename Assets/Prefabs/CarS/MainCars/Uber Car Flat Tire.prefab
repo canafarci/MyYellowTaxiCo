@@ -93467,6 +93467,8 @@ GameObject:
   - component: {fileID: 3189997410627313637}
   - component: {fileID: 6538612524303313574}
   - component: {fileID: 2767817856887882994}
+  - component: {fileID: 7548127802661852563}
+  - component: {fileID: 3257749230453888343}
   m_Layer: 0
   m_Name: World Canvas
   m_TagString: Untagged
@@ -93560,6 +93562,30 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7548127802661852563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6145159427133969216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb3e12a24916edf4fa0e1b8258fc7c2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3257749230453888343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6145159427133969216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f959ac2f521cae43a870452bc06782a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6154142175765977337
 GameObject:
   m_ObjectHideFlags: 0
@@ -158121,7 +158147,7 @@ PrefabInstance:
     - target: {fileID: 5150420696274731681, guid: ba62ffb24c1ea664092502ab0ef38d4a,
         type: 3}
       propertyPath: m_Name
-      value: Uber Car Broken Tire
+      value: Uber Car Flat Tire
       objectReference: {fileID: 0}
     - target: {fileID: 5150420696274731681, guid: ba62ffb24c1ea664092502ab0ef38d4a,
         type: 3}
@@ -158177,6 +158203,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 7.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037058272849572350, guid: ba62ffb24c1ea664092502ab0ef38d4a,
+        type: 3}
+      propertyPath: _hatType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037058272849572350, guid: ba62ffb24c1ea664092502ab0ef38d4a,
+        type: 3}
+      propertyPath: _isBroken
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037058272849572350, guid: ba62ffb24c1ea664092502ab0ef38d4a,
+        type: 3}
+      propertyPath: _moneyToGain
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6125918601049810316, guid: ba62ffb24c1ea664092502ab0ef38d4a,
         type: 3}
@@ -158318,7 +158359,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7108078760629451542}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5590557792808476448
+--- !u!114 &7092616575729252833
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158327,11 +158368,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 2728354185892837815}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51df434920b24084e85e275bd0a22bdc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1cc9520a22a9645a3a14df0c03261b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 5887861966140074620}
   _image: {fileID: 6145159427133969216}
+  _target: {fileID: 5887861966140074620}
+--- !u!114 &7142671999340972576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2728354185892837815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 531d06306bb834aa2ad3fe7a69478bea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _repairObjectType: 3
 --- !u!4 &3050091069655561656 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5255962801259155118, guid: ba62ffb24c1ea664092502ab0ef38d4a,

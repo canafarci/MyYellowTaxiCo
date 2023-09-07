@@ -302,7 +302,7 @@ PrefabInstance:
     - target: {fileID: 8062187402050487383, guid: 7041c7fdc7fd5184c898fe4d23ff760a,
         type: 3}
       propertyPath: _moneyToGain
-      value: 25
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8660112090509889862, guid: 7041c7fdc7fd5184c898fe4d23ff760a,
         type: 3}
