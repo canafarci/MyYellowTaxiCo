@@ -6,13 +6,13 @@ using Zenject;
 
 namespace TaxiGame.Vehicles.Creation
 {
-    public class BrokenCarFactory : ICarFactory
+    public class BrokenCarSpawnDataFactory : ISpawnDataFactory
     {
         private BrokenCarsSO _brokenVehiclesSO;
         //constants
         private const int DEFAULT_CAR_MAX_RANGE = 3;
 
-        public BrokenCarFactory(BrokenCarsSO vehiclesSO)
+        public BrokenCarSpawnDataFactory(BrokenCarsSO vehiclesSO)
         {
             _brokenVehiclesSO = vehiclesSO;
         }

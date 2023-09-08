@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TaxiGame.Vehicles.Creation
 {
-    public interface ICarFactory
+    public interface ISpawnDataFactory
     {
         public SpawnedCarData CreateCarSpawnData(CarSpawnerID carSpawnerID);
     }

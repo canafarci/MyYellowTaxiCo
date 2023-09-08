@@ -6,10 +6,10 @@ using UnityEngine;
 
 namespace TaxiGame.Vehicles.Creation
 {
-    public class RegularCarFactory : ICarFactory
+    public class RegularCarSpawnDataFactory : ISpawnDataFactory
     {
         private RegularCarsSO _regularCarsSO;
-        public RegularCarFactory(RegularCarsSO regularCarsSO)
+        public RegularCarSpawnDataFactory(RegularCarsSO regularCarsSO)
         {
             _regularCarsSO = regularCarsSO;
         }

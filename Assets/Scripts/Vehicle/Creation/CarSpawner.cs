@@ -17,12 +17,11 @@ namespace TaxiGame.Vehicles.Creation
         private CarSpawnDataProvider _provider;
 
         public static event EventHandler<OnNewSpawnerActivatedEventArgs> OnNewSpawnerActivated;
-        public event Action OnCarSpawned;
 
         [Inject]
         private void Init(Vehicle.Factory factory,
-                            VehicleSpot spot,
-                            CarSpawnDataProvider provider)
+                          VehicleSpot spot,
+                          CarSpawnDataProvider provider)
         {
             _factory = factory;
             _spot = spot;
@@ -44,14 +43,13 @@ namespace TaxiGame.Vehicles.Creation
             SpawnedCarData spawnData = GetSpawnData(isInitialSpawn);
 
             VehicleConfiguration vehicleConfig = new VehicleConfiguration(_parkAnimator,
-                                            _enterNode,
-                                            _exitNode,
-                                            _spot,
-                                            this);
+                                                                          _enterNode,
+                                                                          _exitNode,
+                                                                          _spot,
+                                                                          this);
 
             _factory.Create(spawnData.Prefab, vehicleConfig, spawnData.VehicleInPlaceCallbacks);
 
-            OnCarSpawned?.Invoke();
         }
         private SpawnedCarData GetSpawnData(bool isInitialSpawn)
         {

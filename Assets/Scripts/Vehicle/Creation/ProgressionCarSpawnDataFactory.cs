@@ -4,12 +4,12 @@ using Zenject;
 
 namespace TaxiGame.Vehicles.Creation
 {
-    public class SpecialProgressionEventCarFactory : ICarFactory
+    public class ProgressionCarSpawnDataFactory : ISpawnDataFactory
     {
         private ProgressionCarsSO _progressionCarsSO;
         private GameProgressModel _progressModel;
 
-        public SpecialProgressionEventCarFactory(GameProgressModel progressModel, ProgressionCarsSO progressionCarsSO)
+        public ProgressionCarSpawnDataFactory(GameProgressModel progressModel, ProgressionCarsSO progressionCarsSO)
         {
             _progressModel = progressModel;
             _progressionCarsSO = progressionCarsSO;

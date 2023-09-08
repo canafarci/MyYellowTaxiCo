@@ -49,19 +49,19 @@ namespace TaxiGame.Installers
             .FromInstance(_progressionCarsSO)
             .AsSingle();
 
-            Container.Bind<ICarFactory>()
+            Container.Bind<ISpawnDataFactory>()
             .WithId(VehicleFactoryID.RegularCarFactory)
-            .To<RegularCarFactory>()
+            .To<RegularCarSpawnDataFactory>()
             .AsSingle();
 
-            Container.Bind<ICarFactory>()
+            Container.Bind<ISpawnDataFactory>()
             .WithId(VehicleFactoryID.BrokenCarFactory)
-            .To<BrokenCarFactory>()
+            .To<BrokenCarSpawnDataFactory>()
             .AsSingle();
 
-            Container.Bind<ICarFactory>()
+            Container.Bind<ISpawnDataFactory>()
             .WithId(VehicleFactoryID.ProgressionCarFactory)
-            .To<SpecialProgressionEventCarFactory>()
+            .To<ProgressionCarSpawnDataFactory>()
             .AsSingle();
         }
 

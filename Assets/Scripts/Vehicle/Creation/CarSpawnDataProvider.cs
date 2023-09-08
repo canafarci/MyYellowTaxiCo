@@ -9,16 +9,16 @@ namespace TaxiGame.Vehicles.Creation
 {
     public class CarSpawnDataProvider
     {
-        private ICarFactory _brokenCarFactory;
-        private ICarFactory _regularCarFactory;
-        private ICarFactory _specialCarFactory;
+        private ISpawnDataFactory _brokenCarFactory;
+        private ISpawnDataFactory _regularCarFactory;
+        private ISpawnDataFactory _specialCarFactory;
         private VehicleProgressionModel _model;
 
         private const float BROKEN_CAR_SPAWN_CHANCE = 0.33f;
 
-        public CarSpawnDataProvider([Inject(Id = VehicleFactoryID.RegularCarFactory)] ICarFactory regularCarFactory,
-                                    [Inject(Id = VehicleFactoryID.BrokenCarFactory)] ICarFactory brokenCarFactory,
-                                    [Inject(Id = VehicleFactoryID.ProgressionCarFactory)] ICarFactory specialCarFactory,
+        public CarSpawnDataProvider([Inject(Id = VehicleFactoryID.RegularCarFactory)] ISpawnDataFactory regularCarFactory,
+                                    [Inject(Id = VehicleFactoryID.BrokenCarFactory)] ISpawnDataFactory brokenCarFactory,
+                                    [Inject(Id = VehicleFactoryID.ProgressionCarFactory)] ISpawnDataFactory specialCarFactory,
                                     VehicleProgressionModel model)
         {
             _brokenCarFactory = brokenCarFactory;
