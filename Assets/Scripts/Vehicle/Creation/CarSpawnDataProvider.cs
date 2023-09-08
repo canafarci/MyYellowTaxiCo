@@ -1,23 +1,25 @@
 using System;
 using System.Collections.Generic;
+using TaxiGame.Installers;
 using TaxiGame.Items;
 using UnityEngine;
+using Zenject;
 
 namespace TaxiGame.Vehicles.Creation
 {
     public class CarSpawnDataProvider
     {
-        private BrokenCarFactory _brokenCarFactory;
-        private RegularCarFactory _regularCarFactory;
-        private SpecialProgressionEventCarFactory _specialCarFactory;
+        private ICarFactory _brokenCarFactory;
+        private ICarFactory _regularCarFactory;
+        private ICarFactory _specialCarFactory;
         private VehicleProgressionModel _model;
 
         private const float BROKEN_CAR_SPAWN_CHANCE = 0.33f;
 
-        public CarSpawnDataProvider(RegularCarFactory regularCarFactory,
-                        BrokenCarFactory brokenCarFactory,
-                        SpecialProgressionEventCarFactory specialCarFactory,
-                        VehicleProgressionModel model)
+        public CarSpawnDataProvider([Inject(Id = VehicleFactoryID.RegularCarFactory)] ICarFactory regularCarFactory,
+                                    [Inject(Id = VehicleFactoryID.BrokenCarFactory)] ICarFactory brokenCarFactory,
+                                    [Inject(Id = VehicleFactoryID.ProgressionCarFactory)] ICarFactory specialCarFactory,
+                                    VehicleProgressionModel model)
         {
             _brokenCarFactory = brokenCarFactory;
             _regularCarFactory = regularCarFactory;
@@ -25,27 +27,27 @@ namespace TaxiGame.Vehicles.Creation
             _model = model;
         }
 
-        public SpawnedCarData GetInitialCarSpawnData(InventoryObjectType spawnerType)
+        public SpawnedCarData GetInitialCarSpawnData(CarSpawnerID carSpawnerID)
         {
-            return _regularCarFactory.CreateRegularCarSpawnData(spawnerType);
+            return _regularCarFactory.CreateCarSpawnData(carSpawnerID);
         }
 
-        public SpawnedCarData GetCarSpawnData(CarSpawnerID carSpawnerID, InventoryObjectType spawnerType)
+        public SpawnedCarData GetCarSpawnData(CarSpawnerID carSpawnerID)
         {
             // Check for special progression events
             if (CheckShouldSpawnSpecialProgressionCar(carSpawnerID))
             {
-                return _specialCarFactory.CreateSpecialProgressionCarSpawnData(carSpawnerID);
+                return _specialCarFactory.CreateCarSpawnData(carSpawnerID);
             }
 
             // Return regular or broken car based on chance
             if (ShouldSpawnRandomBrokenCar(BROKEN_CAR_SPAWN_CHANCE))
             {
-                return _brokenCarFactory.CreateRandomBrokenCarSpawnData(spawnerType);
+                return _brokenCarFactory.CreateCarSpawnData(carSpawnerID);
             }
             else
             {
-                return _regularCarFactory.CreateRegularCarSpawnData(spawnerType);
+                return _regularCarFactory.CreateCarSpawnData(carSpawnerID);
             }
         }
 

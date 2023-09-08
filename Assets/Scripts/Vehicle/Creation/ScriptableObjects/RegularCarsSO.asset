@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c90564a0f351fc04499fa66ebba70d61, type: 3}
+  m_Name: RegularCarsSO
+  m_EditorClassIdentifier: 
+  RegularTaxi: {fileID: 5150420696274731681, guid: ba62ffb24c1ea664092502ab0ef38d4a,
+    type: 3}
+  RegularSuber: {fileID: 2728354185892837815, guid: eea9dacdb7a6a9440a816d74030119a7,
+    type: 3}
+  RegularLimo: {fileID: 7298009608274544218, guid: 8d667b10304c37a46accef95f26525a8,
+    type: 3}

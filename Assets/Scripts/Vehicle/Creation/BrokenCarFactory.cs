@@ -2,26 +2,34 @@ using System;
 using System.Collections.Generic;
 using TaxiGame.Items;
 using UnityEngine;
+using Zenject;
 
 namespace TaxiGame.Vehicles.Creation
 {
-    public class BrokenCarFactory : MonoBehaviour
+    public class BrokenCarFactory : ICarFactory
     {
-        [SerializeField] private BrokenCarPrefabs _brokenCarPrefabs;
+        private BrokenCarsSO _brokenVehiclesSO;
+        //constants
         private const int DEFAULT_CAR_MAX_RANGE = 3;
 
-        public SpawnedCarData CreateRandomBrokenCarSpawnData(InventoryObjectType spawnerType)
+        public BrokenCarFactory(BrokenCarsSO vehiclesSO)
         {
-            int maxRange = GetMaxRangeForColoredCars(spawnerType);
+            _brokenVehiclesSO = vehiclesSO;
+        }
+
+        public SpawnedCarData CreateCarSpawnData(CarSpawnerID carSpawnerID)
+        {
+            int maxRange = GetMaxRangeForColoredCars(carSpawnerID);
             int randomIndex = GetRandomInt(maxRange);
 
-            GameObject prefab = GetRandomBrokenCarPrefab(spawnerType, randomIndex);
+            GameObject prefab = GetRandomBrokenCarPrefab(carSpawnerID, randomIndex);
 
             return new SpawnedCarData(prefab);
         }
-        private int GetMaxRangeForColoredCars(InventoryObjectType spawnerType)
+        private int GetMaxRangeForColoredCars(CarSpawnerID carSpawnerID)
         {
-            if (spawnerType == InventoryObjectType.TaxiHat)
+            //If ID belongs to a taxi car
+            if (carSpawnerID != CarSpawnerID.LimoSpawner || carSpawnerID != CarSpawnerID.SuberSpawner)
             {
                 return GetYellowCarMaxRange();
             }
@@ -30,6 +38,7 @@ namespace TaxiGame.Vehicles.Creation
                 return DEFAULT_CAR_MAX_RANGE;
             }
         }
+        //TODO remove magic variables
         private int GetYellowCarMaxRange()
         {
             if (PlayerPrefs.HasKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE))
@@ -45,13 +54,14 @@ namespace TaxiGame.Vehicles.Creation
                 return 1;
             }
         }
-        private GameObject GetRandomBrokenCarPrefab(InventoryObjectType spawnerType, int index)
+        private GameObject GetRandomBrokenCarPrefab(CarSpawnerID carSpawnerID, int index)
         {
-            return spawnerType switch
+            return carSpawnerID switch
             {
-                InventoryObjectType.TaxiHat => _brokenCarPrefabs.BrokenYellowCars[index],
-                InventoryObjectType.SuberHat => _brokenCarPrefabs.BrokenPurpleCars[index],
-                _ => _brokenCarPrefabs.BrokenBlackCars[index]
+                CarSpawnerID.LimoSpawner => _brokenVehiclesSO.BrokenLimos[index],
+                CarSpawnerID.SuberSpawner => _brokenVehiclesSO.BrokenSubers[index],
+                //Rest of IDs all belong to taxi cars
+                _ => _brokenVehiclesSO.BrokenTaxis[index],
             };
         }
 
@@ -59,13 +69,5 @@ namespace TaxiGame.Vehicles.Creation
         {
             return UnityEngine.Random.Range(0, range);
         }
-    }
-
-    [Serializable]
-    public struct BrokenCarPrefabs
-    {
-        public GameObject[] BrokenYellowCars;
-        public GameObject[] BrokenPurpleCars;
-        public GameObject[] BrokenBlackCars;
     }
 }

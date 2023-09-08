@@ -56,9 +56,9 @@ namespace TaxiGame.Vehicles.Creation
         private SpawnedCarData GetSpawnData(bool isInitialSpawn)
         {
             if (isInitialSpawn)
-                return _provider.GetInitialCarSpawnData(_hatType);
+                return _provider.GetInitialCarSpawnData(_carSpawnerID);
             else
-                return _provider.GetCarSpawnData(_carSpawnerID, _hatType);
+                return _provider.GetCarSpawnData(_carSpawnerID);
         }
     }
 

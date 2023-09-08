@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a16fa35c0d67024eb31ced52df85568, type: 3}
+  m_Name: BrokenCarsSO
+  m_EditorClassIdentifier: 
+  BrokenTaxis:
+  - {fileID: 8889169347316545288, guid: fc5f4c4f6a5e5cd46bf319dff1c99fae, type: 3}
+  - {fileID: 8889169347316545288, guid: f3f9457a0f465924987d4951a2068598, type: 3}
+  - {fileID: 7161315786175655891, guid: 6d4f57401a448a144b5202cc21003b80, type: 3}
+  BrokenSubers:
+  - {fileID: 2728354185892837815, guid: a138f8f47b31d4144bc10eaaf46ecaca, type: 3}
+  - {fileID: 2728354185892837815, guid: 77a3207de735118499792be59b63fa15, type: 3}
+  - {fileID: 2728354185892837815, guid: f2dc72f16a0697c4da5861ad08fb8b96, type: 3}
+  BrokenLimos:
+  - {fileID: 7298009608274544218, guid: e29979db47fe40d409aeb0ecc84fed99, type: 3}
+  - {fileID: 7298009608274544218, guid: 65651a3707adaa54689bda0d81fecfc5, type: 3}
+  - {fileID: 7298009608274544218, guid: b31ff9b29e52a2543a61d7748a350d96, type: 3}

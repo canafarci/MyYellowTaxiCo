@@ -6,38 +6,32 @@ using UnityEngine;
 
 namespace TaxiGame.Vehicles.Creation
 {
-    public class RegularCarFactory : MonoBehaviour
+    public class RegularCarFactory : ICarFactory
     {
-        [SerializeField] RegularCarPrefabs _carPrefabs;
-
-        public SpawnedCarData CreateRegularCarSpawnData(InventoryObjectType spawnerType)
+        private RegularCarsSO _regularCarsSO;
+        public RegularCarFactory(RegularCarsSO regularCarsSO)
         {
-            return GetRegularCarSpawnData(spawnerType);
+            _regularCarsSO = regularCarsSO;
+        }
+        public SpawnedCarData CreateCarSpawnData(CarSpawnerID carSpawnerID)
+        {
+            return GetRegularCarSpawnData(carSpawnerID);
         }
 
-        public SpawnedCarData GetRegularCarSpawnData(InventoryObjectType spawnerType)
+        public SpawnedCarData GetRegularCarSpawnData(CarSpawnerID carSpawnerID)
         {
-            GameObject prefab = GetRegularCarPrefab(spawnerType);
+            GameObject prefab = GetRegularCarPrefab(carSpawnerID);
             return new SpawnedCarData(prefab);
         }
-        private GameObject GetRegularCarPrefab(InventoryObjectType spawnerType)
+        private GameObject GetRegularCarPrefab(CarSpawnerID carSpawnerID)
         {
-            return spawnerType switch
+            return carSpawnerID switch
             {
-                InventoryObjectType.TaxiHat => _carPrefabs.RegularYellowCar,
-                InventoryObjectType.SuberHat => _carPrefabs.RegularPurpleCar,
-                InventoryObjectType.LimoHat => _carPrefabs.RegularBlackCar,
-                _ => null
+                CarSpawnerID.SuberSpawner => _regularCarsSO.RegularSuber,
+                CarSpawnerID.LimoSpawner => _regularCarsSO.RegularLimo,
+                //rest of IDs all belong to Taxi cars
+                _ => _regularCarsSO.RegularTaxi
             };
-        }
-
-
-        [Serializable]
-        public struct RegularCarPrefabs
-        {
-            public GameObject RegularYellowCar;
-            public GameObject RegularPurpleCar;
-            public GameObject RegularBlackCar;
         }
     }
 }

@@ -4,19 +4,18 @@ using Zenject;
 
 namespace TaxiGame.Vehicles.Creation
 {
-    public class SpecialProgressionEventCarFactory : MonoBehaviour
+    public class SpecialProgressionEventCarFactory : ICarFactory
     {
-        [SerializeField] SpecialEventBrokenCars _specialCarPrefabs;
-
+        private ProgressionCarsSO _progressionCarsSO;
         private GameProgressModel _progressModel;
 
-        [Inject]
-        private void Init(GameProgressModel progressModel)
+        public SpecialProgressionEventCarFactory(GameProgressModel progressModel, ProgressionCarsSO progressionCarsSO)
         {
             _progressModel = progressModel;
+            _progressionCarsSO = progressionCarsSO;
         }
 
-        public SpawnedCarData CreateSpecialProgressionCarSpawnData(CarSpawnerID carSpawner)
+        public SpawnedCarData CreateCarSpawnData(CarSpawnerID carSpawner)
         {
             GameObject prefab = GetSpecialProgressionCarPrefab(carSpawner);
             Action progressionEvent = GetProgressionEvent(carSpawner);
@@ -27,9 +26,9 @@ namespace TaxiGame.Vehicles.Creation
         {
             return carSpawner switch
             {
-                CarSpawnerID.FirstYellowSpawner => _specialCarPrefabs.NoChargeYellowCar,
-                CarSpawnerID.SecondYellowSpawner => _specialCarPrefabs.BrokenEngineYellowCar,
-                CarSpawnerID.ThirdYellowSpawner => _specialCarPrefabs.FlatTireYellowCar,
+                CarSpawnerID.FirstYellowSpawner => _progressionCarsSO.NoChargeTaxi,
+                CarSpawnerID.SecondYellowSpawner => _progressionCarsSO.BrokenEngineTaxi,
+                CarSpawnerID.ThirdYellowSpawner => _progressionCarsSO.FlatTireTaxi,
                 _ => null
             };
         }
@@ -59,13 +58,5 @@ namespace TaxiGame.Vehicles.Creation
         ThirdYellowSpawner,
         SuberSpawner,
         LimoSpawner
-    }
-
-    [Serializable]
-    public struct SpecialEventBrokenCars
-    {
-        public GameObject NoChargeYellowCar;
-        public GameObject BrokenEngineYellowCar;
-        public GameObject FlatTireYellowCar;
     }
 }

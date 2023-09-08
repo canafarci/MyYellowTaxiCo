@@ -6,11 +6,15 @@ using TaxiGame.Vehicles;
 using TaxiGame.Vehicles.Creation;
 using TaxiGame.Vehicles.Visuals;
 using TaxiGame.Resource;
+using UnityEngine;
 
 namespace TaxiGame.Installers
 {
     public class VehiclesInstaller : MonoInstaller<VehiclesInstaller>
     {
+        [SerializeField] private RegularCarsSO _regularCarsSO;
+        [SerializeField] private BrokenCarsSO _brokenCarsSO;
+        [SerializeField] private ProgressionCarsSO _progressionCarsSO;
         public override void InstallBindings()
         {
             InstallVehicleModel();
@@ -20,12 +24,12 @@ namespace TaxiGame.Installers
             InstallLowGasVehicle();
 
             Container.Bind<BrokenEngineRepairableVehicle>().
-                        FromComponentInChildren().
-                        AsTransient();
+            FromComponentInChildren().
+            AsTransient();
 
             Container.Bind<FlatTireRepairableVehicle>().
-                        FromComponentInChildren().
-                        AsTransient();
+            FromComponentInChildren().
+            AsTransient();
 
             Container.BindFactory<UnityEngine.Object, VehicleConfiguration, List<Action>, Vehicle, Vehicle.Factory>()
             .FromFactory<PrefabFactory<VehicleConfiguration, List<Action>, Vehicle>>();
@@ -33,16 +37,31 @@ namespace TaxiGame.Installers
 
         private void InstallCarSpawnFactories()
         {
-            Container.Bind<RegularCarFactory>()
-            .FromComponentInHierarchy()
+            Container.Bind<RegularCarsSO>()
+            .FromInstance(_regularCarsSO)
             .AsSingle();
 
-            Container.Bind<BrokenCarFactory>()
-            .FromComponentInHierarchy()
+            Container.Bind<BrokenCarsSO>()
+            .FromInstance(_brokenCarsSO)
             .AsSingle();
 
-            Container.Bind<SpecialProgressionEventCarFactory>()
-            .FromComponentInHierarchy()
+            Container.Bind<ProgressionCarsSO>()
+            .FromInstance(_progressionCarsSO)
+            .AsSingle();
+
+            Container.Bind<ICarFactory>()
+            .WithId(VehicleFactoryID.RegularCarFactory)
+            .To<RegularCarFactory>()
+            .AsSingle();
+
+            Container.Bind<ICarFactory>()
+            .WithId(VehicleFactoryID.BrokenCarFactory)
+            .To<BrokenCarFactory>()
+            .AsSingle();
+
+            Container.Bind<ICarFactory>()
+            .WithId(VehicleFactoryID.ProgressionCarFactory)
+            .To<SpecialProgressionEventCarFactory>()
             .AsSingle();
         }
 
@@ -128,6 +147,12 @@ namespace TaxiGame.Installers
             .FromComponentInChildren()
             .AsTransient();
         }
+    }
 
+    public enum VehicleFactoryID
+    {
+        BrokenCarFactory,
+        RegularCarFactory,
+        ProgressionCarFactory
     }
 }
