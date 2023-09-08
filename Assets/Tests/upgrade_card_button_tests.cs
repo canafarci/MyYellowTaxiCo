@@ -1,6 +1,7 @@
 using UnityEngine;
 using NUnit.Framework;
 using UnityEngine.UI;
+using TaxiGame.Resource;
 
 namespace TaxiGame.Upgrades.Tests
 {

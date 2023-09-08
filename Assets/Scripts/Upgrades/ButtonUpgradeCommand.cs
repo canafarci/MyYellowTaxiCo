@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Resource;
 using TaxiGame.Upgrades;
 using UnityEngine;
 using Zenject;
@@ -12,15 +13,19 @@ namespace TaxiGame.Upgrades
         private UpgradeType _upgradeType;
         private UpgradeUtility _upgradeUtility;
         private IUpgradeReceiver _upgradeReceiver;
+        private ResourceTracker _resourceTracker;
+
         public ButtonUpgradeCommand(UpgradeCardVisual upgradeVisual,
                                     UpgradeType upgradeType,
                                     UpgradeUtility upgradeUtility,
-                                    IUpgradeReceiver upgradeReceiver)
+                                    IUpgradeReceiver upgradeReceiver,
+                                    ResourceTracker tracker)
         {
             _upgradeVisual = upgradeVisual;
             _upgradeType = upgradeType;
             _upgradeUtility = upgradeUtility;
             _upgradeReceiver = upgradeReceiver;
+            _resourceTracker = tracker;
         }
         public void Execute()
         {
@@ -50,7 +55,7 @@ namespace TaxiGame.Upgrades
         private void PayMoney(int index)
         {
             float cost = _upgradeUtility.GetUpgradeCost(index, _upgradeType);
-            ResourceTracker.Instance.OnPayMoney(cost);
+            _resourceTracker.OnPayMoney(cost);
         }
     }
 }

@@ -31,8 +31,17 @@ namespace TaxiGame.Vehicles
 
         public bool ShouldSpawnSpecialProgressionCar(CarSpawnerID carSpawner)
         {
-            string progressionKey = _spawnerToProgressionKeyMap[carSpawner];
-            return !PlayerPrefs.HasKey(progressionKey);
+            if (_spawnerToProgressionKeyMap.ContainsKey(carSpawner))
+            {
+                string progressionKey = _spawnerToProgressionKeyMap[carSpawner];
+                return !PlayerPrefs.HasKey(progressionKey);
+            }
+            //Suber and Limo car IDs can be checked as well
+            //They do not have progression cars
+            else
+            {
+                return false;
+            }
         }
 
         public void HandleLowGasCarRepaired()

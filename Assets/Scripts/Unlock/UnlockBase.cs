@@ -1,11 +1,20 @@
 using Ketchapp.MayoSDK;
+using TaxiGame.Resource;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 public abstract class UnlockBase : MonoBehaviour, IUnlockable
 {
     [SerializeField] protected UnityEvent _onUnlock;
     [SerializeField] protected string _identifier;
+    private ResourceTracker _resourceTracker;
+
+    [Inject]
+    private void Init(ResourceTracker tracker)
+    {
+        _resourceTracker = tracker;
+    }
     public virtual void UnlockObject()
     {
         _onUnlock.Invoke();
@@ -37,21 +46,21 @@ public abstract class UnlockBase : MonoBehaviour, IUnlockable
     {
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("ProgressionStatus", "Failed");
-        data.AddValue("Money", (int)ResourceTracker.Instance.PlayerMoney);
+        data.AddValue("Money", (int)_resourceTracker.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent(_identifier, data);
     }
     private void SendOnUnlockCompleteAnalytics()
     {
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("ProgressionStatus", "Completed");
-        data.AddValue("Money", (int)ResourceTracker.Instance.PlayerMoney);
+        data.AddValue("Money", (int)_resourceTracker.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent(_identifier, data);
     }
     protected void SendAnalyticsDataForProgressionStart()
     {
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("ProgressionStatus", "Started");
-        data.AddValue("Money", (int)ResourceTracker.Instance.PlayerMoney);
+        data.AddValue("Money", (int)_resourceTracker.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent(_identifier, data);
     }
 }

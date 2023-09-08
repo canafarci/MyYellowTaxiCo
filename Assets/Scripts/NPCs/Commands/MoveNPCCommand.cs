@@ -24,18 +24,23 @@ namespace TaxiGame.NPC.Command
             _animationEvent?.Invoke();
 
             yield return new WaitForSeconds(0.2f); //time for navmesh agent to clean up and initialize
-            Vector3 tarxz = new Vector3(_target.x, 0f, _target.z);
-            _agent.destination = tarxz;
 
-            while (_agent != null)
-            {
-                yield return new WaitForSeconds(0.25f);
+            Vector3 targetPositionWithoutY = new Vector3(_target.x, 0f, _target.z);
+            _agent.destination = targetPositionWithoutY;
 
-                Vector3 posxz = new Vector3(_agent.transform.position.x, 0f, _agent.transform.position.z);
+            Func<bool> agentReachedDestination = HasAgentReachedDestination(targetPositionWithoutY);
 
-                if (Vector3.Distance(posxz, tarxz) <= _agent.stoppingDistance)
-                    break;
-            }
+            yield return new WaitUntil(agentReachedDestination);
+        }
+
+        private Func<bool> HasAgentReachedDestination(Vector3 targetPositionWithoutY)
+        {
+            return () => Vector3.Distance(GetAgentPositionWithoutY(), targetPositionWithoutY) <= _agent.stoppingDistance;
+        }
+
+        private Vector3 GetAgentPositionWithoutY()
+        {
+            return new Vector3(_agent.transform.position.x, 0f, _agent.transform.position.z);
         }
     }
 }

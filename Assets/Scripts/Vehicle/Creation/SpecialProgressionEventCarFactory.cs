@@ -56,7 +56,9 @@ namespace TaxiGame.Vehicles.Creation
     {
         FirstYellowSpawner,
         SecondYellowSpawner,
-        ThirdYellowSpawner
+        ThirdYellowSpawner,
+        SuberSpawner,
+        LimoSpawner
     }
 
     [Serializable]

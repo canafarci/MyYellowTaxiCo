@@ -2,13 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Ketchapp.MayoSDK;
+using TaxiGame.Resource;
 using UnityEngine;
+using Zenject;
 
 public class LevelProgress : MonoBehaviour
 {
     StarTween _tweener;
     int _levelProgressValue, _currentLevel, _levelIncreaseTreshold;
+    private ResourceTracker _resourceTracker;
+
     public event Action<int> LevelIncreaseHandler;
+
+    [Inject]
+    private void Init(ResourceTracker tracker)
+    {
+        _resourceTracker = tracker;
+    }
     private void Awake()
     {
         _tweener = GetComponent<StarTween>();
@@ -31,7 +41,7 @@ public class LevelProgress : MonoBehaviour
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("StarLevel", _currentLevel);
         data.AddValue("ProgressionStatus", "Completed");
-        data.AddValue("Money", (int)ResourceTracker.Instance.PlayerMoney);
+        data.AddValue("Money", (int)_resourceTracker.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent("StarLevel", data);
 
 
@@ -91,7 +101,7 @@ public class LevelProgress : MonoBehaviour
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("StarLevel", _currentLevel);
         data.AddValue("ProgressionStatus", "Started");
-        data.AddValue("Money", (int)ResourceTracker.Instance.PlayerMoney);
+        data.AddValue("Money", (int)_resourceTracker.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent("StarLevel", data);
     }
 
@@ -102,7 +112,7 @@ public class LevelProgress : MonoBehaviour
             var data = new Ketchapp.MayoSDK.Analytics.Data();
             data.AddValue("StarLevel", _currentLevel);
             data.AddValue("ProgressionStatus", "Faied");
-            data.AddValue("Money", (int)ResourceTracker.Instance.PlayerMoney);
+            data.AddValue("Money", (int)_resourceTracker.PlayerMoney);
             KetchappSDK.Analytics.CustomEvent("StarLevel", data);
         }
     }

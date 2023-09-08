@@ -4,18 +4,30 @@ using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
 using TMPro;
+using Zenject;
+using TaxiGame.Resource;
 
 public class CheatPanel : MonoBehaviour
 {
-    [SerializeField] CinemachineVirtualCamera _cam;
-    [SerializeField] TextMeshProUGUI _text;
+    [SerializeField] private CinemachineVirtualCamera _cam;
+    [SerializeField] private TextMeshProUGUI _text;
+    private ResourceTracker _resourceTracker;
+
+    [Inject]
+    private void Init(ResourceTracker tracker)
+    {
+        _resourceTracker = tracker;
+    }
+
     private void Start()
     {
         GetComponentInChildren<Slider>(true).onValueChanged.AddListener(ChangeZoom);
     }
+
+
     public void OnGainButtonClicked()
     {
-        ResourceTracker.Instance.OnCheatMoneyGain(1000f);
+        _resourceTracker.OnCheatMoneyGain(1000f);
     }
     public void OnResetCameraButtonClicked()
     {

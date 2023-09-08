@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TaxiGame.Items;
+using TaxiGame.Resource;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,8 @@ namespace TaxiGame.Installers
         [SerializeField] private Joystick _joystick;
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<ResourceTracker>().AsSingle();
+
             Container.Bind<Rigidbody>().FromComponentInChildren().AsTransient();
 
             Container.Bind<Joystick>().FromInstance(_joystick).AsSingle();

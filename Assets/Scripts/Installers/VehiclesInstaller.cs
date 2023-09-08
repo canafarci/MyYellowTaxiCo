@@ -5,6 +5,7 @@ using TaxiGame.Vehicles.Repair;
 using TaxiGame.Vehicles;
 using TaxiGame.Vehicles.Creation;
 using TaxiGame.Vehicles.Visuals;
+using TaxiGame.Resource;
 
 namespace TaxiGame.Installers
 {
@@ -64,9 +65,9 @@ namespace TaxiGame.Installers
             .FromComponentInHierarchy().
             AsSingle();
 
-            Container.Bind<MoneyStacker>()
+            Container.Bind<MoneyStacker>() //TODO move to ResourceInstaller
             .FromComponentInChildren()
-            .AsSingle();
+            .AsTransient();
 
             Container.Bind<HeliSpot>()
             .FromComponentInChildren()

@@ -1,13 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using Ketchapp.MayoSDK;
+using TaxiGame.Resource;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 public class SecondHatTutorialTrigger : TutorialTrigger
 {
     public bool SecondHatTutorialStarted = false;
     [SerializeField] UnityEvent _onSecondHatTutorialUnlock;
+    private ResourceTracker _resourceTracker;
+    [Inject]
+    private void Init(ResourceTracker tracker)
+    {
+        _resourceTracker = tracker;
+    }
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
@@ -19,7 +27,7 @@ public class SecondHatTutorialTrigger : TutorialTrigger
 
             var data = new Ketchapp.MayoSDK.Analytics.Data();
             data.AddValue("ProgressionStatus", "Completed");
-            data.AddValue("Money", (int)ResourceTracker.Instance.PlayerMoney);
+            data.AddValue("Money", (int)_resourceTracker.PlayerMoney);
             KetchappSDK.Analytics.CustomEvent("----SecondHatTutorialGiveHatToDrivers", data);
         }
     }

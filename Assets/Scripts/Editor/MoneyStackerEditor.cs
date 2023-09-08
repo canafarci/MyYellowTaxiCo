@@ -1,24 +1,27 @@
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.UIElements;
-[CustomEditor(typeof(MoneyStacker))]
-public class MoneyStackerEditor : Editor
+
+namespace TaxiGame.Resource.Editors
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(MoneyStacker))]
+    public class MoneyStackerEditor : Editor
     {
-        DrawDefaultInspector();
-
-        MoneyStacker myTarget = (MoneyStacker)target;
-
-        if (GUILayout.Button("Spawn"))
+        public override void OnInspectorGUI()
         {
-            myTarget.StackItems(3);
-        }
+            DrawDefaultInspector();
 
-        if (GUILayout.Button("Empty"))
-        {
-            myTarget.StartEmptyStack();
+            MoneyStacker myTarget = (MoneyStacker)target;
+
+            if (GUILayout.Button("Spawn"))
+            {
+                myTarget.StackItems(3);
+            }
+
+            if (GUILayout.Button("Empty"))
+            {
+                myTarget.StartEmptyStack();
+            }
         }
     }
 }

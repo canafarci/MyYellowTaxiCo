@@ -1,4 +1,5 @@
 using System;
+using TaxiGame.Resource;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,13 +12,16 @@ namespace TaxiGame.Upgrades
         [SerializeField] UpgradeType _upgradeType;
         private IUpgradeCommand _upgradeCommand;
         private IUpgradeCommand _checkCanBuyCommand;
+        private ResourceTracker _resourceTracker;
 
         [Inject]
         public void Construct([Inject(Id = UpgradeCommandType.ButtonUpgrade)] IUpgradeCommand upgradeCommand,
-                              [Inject(Id = UpgradeCommandType.CheckCanUpgrade)] IUpgradeCommand checkCanBuyCommand)
+                              [Inject(Id = UpgradeCommandType.CheckCanUpgrade)] IUpgradeCommand checkCanBuyCommand,
+                              ResourceTracker tracker)
         {
             _upgradeCommand = upgradeCommand;
             _checkCanBuyCommand = checkCanBuyCommand;
+            _resourceTracker = tracker;
         }
         public void OnButtonClicked()
         {
@@ -33,7 +37,7 @@ namespace TaxiGame.Upgrades
         private void Start()
         {
             //check if upgrade can be bought whenever player money changes
-            ResourceTracker.Instance.OnPlayerMoneyChanged += PlayerMoneyChangedHandler;
+            _resourceTracker.OnPlayerMoneyChanged += PlayerMoneyChangedHandler;
         }
 
         private void PlayerMoneyChangedHandler(float obj)
@@ -49,7 +53,7 @@ namespace TaxiGame.Upgrades
         //cleanup
         private void OnDisable()
         {
-            ResourceTracker.Instance.OnPlayerMoneyChanged -= PlayerMoneyChangedHandler;
+            _resourceTracker.OnPlayerMoneyChanged -= PlayerMoneyChangedHandler;
         }
         public UpgradeType GetUpgradeType() => _upgradeType;
         public void SetUpgradeCommand(IUpgradeCommand upgradeCommand) => _upgradeCommand = upgradeCommand;

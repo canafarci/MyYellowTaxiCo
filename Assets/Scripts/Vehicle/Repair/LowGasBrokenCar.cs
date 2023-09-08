@@ -26,8 +26,11 @@ namespace TaxiGame.Vehicles.Repair
         {
             Handle handle = inventory.PopInventoryObject(InventoryObjectType.GasHandle) as Handle;
             handle.ChangeOwner(this);
+
             yield return new WaitForSeconds(Globals.LOW_GAS_CAR_ATTACH_HANDLE_DURATION);
+
             OnGasHandleAttachedToCar?.Invoke(this, new GasHandleAttachToCarEventArgs { GasHandle = _handle });
+
             yield return new WaitForSeconds(Globals.LOW_GAS_CAR_REPAIR_DURATION);
 
             InvokeVehicleRepairedEvent();

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Resource;
 using UnityEngine;
 using Zenject;
 
@@ -11,13 +12,16 @@ namespace TaxiGame.Upgrades
         private UpgradeCardVisual _upgradeVisual;
         private UpgradeType _upgradeType;
         private UpgradeUtility _upgradeUtility;
+        private ResourceTracker _resourceTracker;
         public CheckCanUpgradeCommand(UpgradeCardVisual upgradeVisual,
                                       UpgradeType upgradeType,
-                                      UpgradeUtility upgradeUtility)
+                                      UpgradeUtility upgradeUtility,
+                                      ResourceTracker tracker)
         {
             _upgradeVisual = upgradeVisual;
             _upgradeType = upgradeType;
             _upgradeUtility = upgradeUtility;
+            _resourceTracker = tracker;
         }
 
         public void Execute()
@@ -40,7 +44,7 @@ namespace TaxiGame.Upgrades
         private void UpdateVisualByUpgradeIndex(int index)
         {
             float cost = _upgradeUtility.GetUpgradeCost(index, _upgradeType);
-            float playerMoney = ResourceTracker.Instance.PlayerMoney;
+            float playerMoney = _resourceTracker.PlayerMoney;
 
             if (cost > playerMoney)
             {

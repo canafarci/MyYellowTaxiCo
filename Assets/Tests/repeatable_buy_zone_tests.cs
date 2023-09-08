@@ -7,6 +7,7 @@ using UnityEditor;
 using System;
 using System.Collections;
 using TaxiGame.UI;
+using TaxiGame.Resource;
 
 namespace TaxiGame.WaitZones.Tests
 {

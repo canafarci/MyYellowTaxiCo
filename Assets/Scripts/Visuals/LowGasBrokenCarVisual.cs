@@ -47,7 +47,6 @@ namespace TaxiGame.Visuals
             yield return sliderTween.WaitForCompletion();
 
             _lowGasIndicator.SetActive(false);
-
         }
 
         private void ChangeIndicatorImageColors()
@@ -55,7 +54,7 @@ namespace TaxiGame.Visuals
             foreach (Image image in _lowGasImages)
             {
                 Sequence sequence = DOTween.Sequence();
-                //1 /4 of the time to change to white, 3/4 to change to green
+                // 1 / 4 of the time to change to white, 3/4 to change to green
                 sequence.Append(image.DOColor(Color.white, Globals.LOW_GAS_CAR_REPAIR_DURATION / 4f));
                 sequence.Append(image.DOColor(_gasFilledColor, Globals.LOW_GAS_CAR_REPAIR_DURATION / 4f * 3f));
             }
