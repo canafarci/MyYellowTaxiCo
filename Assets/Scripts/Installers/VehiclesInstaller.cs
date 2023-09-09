@@ -88,6 +88,10 @@ namespace TaxiGame.Installers
             .FromComponentInChildren()
             .AsTransient();
 
+            Container.Bind<MoneyStackerTrigger>() //TODO move to ResourceInstaller
+            .FromComponentInChildren()
+            .AsTransient();
+
             Container.Bind<HeliSpot>()
             .FromComponentInChildren()
             .AsTransient();

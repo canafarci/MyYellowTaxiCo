@@ -25,7 +25,7 @@ namespace TaxiGame.Resource
 
         public void Initialize()
         {
-            MoneyStacker.MoneyPickupHandler += OnMoneyPickup;
+            MoneyStackerTrigger.MoneyPickupHandler += OnMoneyPickup;
             WandererMoney.MoneyPickupHandler += OnMoneyPickup;
             PayMoneyProcessor.MoneyPayHandler += OnPayMoney;
 
@@ -34,7 +34,7 @@ namespace TaxiGame.Resource
 
         public void Dispose()
         {
-            MoneyStacker.MoneyPickupHandler -= OnMoneyPickup;
+            MoneyStackerTrigger.MoneyPickupHandler -= OnMoneyPickup;
             WandererMoney.MoneyPickupHandler -= OnMoneyPickup;
             PayMoneyProcessor.MoneyPayHandler -= OnPayMoney;
         }

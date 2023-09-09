@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using Ketchapp.MayoSDK;
 using TaxiGame.NPC;
-using TaxiGame.Vehicles;
 using UnityEngine;
 using UnityEngine.Events;
 

@@ -74,24 +74,6 @@ public class DotweenFX : MonoBehaviour
         tween.onComplete = () => pooledMoney.SetActive(false);
 
     }
-    public static IEnumerator MoneyArcTween(Transform money, Vector3 startPos, int maxcount)
-    {
-
-        float time = 1f / maxcount;
-        yield return new WaitForSeconds(time);
-
-        money.parent = null;
-        money.DOKill();
-        money.transform.position = startPos;
-        Vector3 endPos = GameManager.Instance.References.PlayerHand.position;
-        Vector3 intermediatePos = new Vector3((endPos.x + startPos.x) / 2f, endPos.y + 2f, (endPos.z + startPos.z) / 2f);
-        Vector3[] path = { startPos, intermediatePos, endPos };
-
-        Tween tween = money.transform.DOPath(path, .2f, PathType.CatmullRom, PathMode.Full3D);
-
-        tween.onComplete = () => Destroy(money.gameObject, .1f);
-    }
-
     public static IEnumerator StackTweenItem(StackableItem item, Vector3 endPos)
     {
         item.transform.DOKill();

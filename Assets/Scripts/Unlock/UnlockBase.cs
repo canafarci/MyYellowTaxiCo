@@ -1,8 +1,10 @@
-using Ketchapp.MayoSDK;
 using TaxiGame.Resource;
 using UnityEngine;
 using UnityEngine.Events;
 using Zenject;
+#if UNITY_ANDROID
+using Ketchapp.MayoSDK;
+#endif
 
 public abstract class UnlockBase : MonoBehaviour, IUnlockable
 {
@@ -44,23 +46,29 @@ public abstract class UnlockBase : MonoBehaviour, IUnlockable
     }
     private void SendOnQuitAnalytics()
     {
+#if UNITY_ANDROID
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("ProgressionStatus", "Failed");
         data.AddValue("Money", (int)_resourceTracker.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent(_identifier, data);
+#endif
     }
     private void SendOnUnlockCompleteAnalytics()
     {
+#if UNITY_ANDROID
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("ProgressionStatus", "Completed");
         data.AddValue("Money", (int)_resourceTracker.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent(_identifier, data);
+#endif
     }
     protected void SendAnalyticsDataForProgressionStart()
     {
+#if UNITY_ANDROID
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("ProgressionStatus", "Started");
         data.AddValue("Money", (int)_resourceTracker.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent(_identifier, data);
+#endif
     }
 }

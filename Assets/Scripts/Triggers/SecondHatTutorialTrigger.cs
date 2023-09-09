@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using Ketchapp.MayoSDK;
 using TaxiGame.Resource;
 using UnityEngine;
 using UnityEngine.Events;
 using Zenject;
+
+#if UNITY_ANDROID
+using Ketchapp.MayoSDK;
+#endif
 
 public class SecondHatTutorialTrigger : TutorialTrigger
 {
@@ -24,11 +25,12 @@ public class SecondHatTutorialTrigger : TutorialTrigger
         {
             _onSecondHatTutorialUnlock.Invoke();
             SecondHatTutorialStarted = false;
-
+#if UNITY_ANDROID
             var data = new Ketchapp.MayoSDK.Analytics.Data();
             data.AddValue("ProgressionStatus", "Completed");
             data.AddValue("Money", (int)_resourceTracker.PlayerMoney);
             KetchappSDK.Analytics.CustomEvent("----SecondHatTutorialGiveHatToDrivers", data);
+#endif
         }
     }
 }

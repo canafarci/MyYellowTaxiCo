@@ -11,6 +11,10 @@ namespace TaxiGame.Visuals
         {
             return TweenStackableItemToTransformInternal(item, target.localPosition, duration, target.localRotation.eulerAngles.y);
         }
+        public Sequence GenerateMoveSequence(Transform item, Vector3 target, float duration)
+        {
+            return TweenStackableItemToTransformInternal(item, target, duration, item.localRotation.eulerAngles.y);
+        }
         public Sequence GenerateMoveSequenceWithRandomRotation(Transform item, Vector3 target, float duration)
         {
             float randomRotation = UnityEngine.Random.Range(0f, 360f);

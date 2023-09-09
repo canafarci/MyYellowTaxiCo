@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7018375624659520293}
   - component: {fileID: 7018375624659520292}
   - component: {fileID: 7018375624659520299}
+  - component: {fileID: 228491658160423749}
   m_Layer: 0
   m_Name: MoneyStacker
   m_TagString: Untagged
@@ -78,11 +79,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4ef9a77be73e74ab42f374247aba3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moneyDimensions: {x: 0.55, y: 0.3, z: 1.2}
-  _rows: 1
-  _columns: 1
-  _prefab: {fileID: 6021824632675370999, guid: c596a6944b749c54082fb537c55a0648, type: 3}
   _spawnPos: {fileID: 7018375624266323814}
+  _identifier: 
 --- !u!114 &7018375624659520292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,3 +106,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0450764, y: 5, z: 2.3301888}
   m_Center: {x: -0.011590004, y: 0, z: 0.028793335}
+--- !u!114 &228491658160423749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7018375624659520298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e76c8406ef35f8d48a837bad0fc3e4aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnPos: {fileID: 7018375624266323814}

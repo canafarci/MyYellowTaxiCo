@@ -18,13 +18,13 @@ namespace TaxiGame.Resource.Visuals
         }
         private void OnEnable()
         {
-            MoneyStacker.MoneyPickupHandler += OnMoneyPickup;
+            MoneyStackerTrigger.MoneyPickupHandler += OnMoneyPickup;
             WandererMoney.MoneyPickupHandler += OnMoneyPickup;
         }
 
         private void OnDisable()
         {
-            MoneyStacker.MoneyPickupHandler -= OnMoneyPickup;
+            MoneyStackerTrigger.MoneyPickupHandler -= OnMoneyPickup;
             WandererMoney.MoneyPickupHandler -= OnMoneyPickup;
         }
         private void OnMoneyPickup()

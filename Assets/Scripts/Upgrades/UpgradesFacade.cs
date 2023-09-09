@@ -1,8 +1,3 @@
-using System;
-using System.Collections;
-using Ketchapp.MayoSDK;
-using TaxiGame.Characters;
-using UnityEngine;
 namespace TaxiGame.Upgrades
 {
     public class UpgradesFacade

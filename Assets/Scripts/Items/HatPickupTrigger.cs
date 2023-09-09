@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using Ketchapp.MayoSDK;
-using TaxiGame.Characters;
 using TaxiGame.Items;
 using TaxiGame.Resource;
 using UnityEngine;
 using UnityEngine.Events;
 using Zenject;
+#if UNITY_ANDROID
+using Ketchapp.MayoSDK;
+#endif
 
 public class HatPickupTrigger : MonoBehaviour
 {
@@ -66,6 +67,7 @@ public class HatPickupTrigger : MonoBehaviour
                     _secondGiveHatTutorialStarted = false;
                     FindObjectOfType<SecondHatTutorialTrigger>().SecondHatTutorialStarted = true;
                     FindObjectOfType<SecondHatTutorialTrigger>().GetComponent<Collider>().enabled = true;
+#if UNITY_ANDROID
 
                     var data = new Ketchapp.MayoSDK.Analytics.Data();
                     data.AddValue("ProgressionStatus", "Completed");
@@ -76,6 +78,7 @@ public class HatPickupTrigger : MonoBehaviour
                     dataStart.AddValue("ProgressionStatus", "Started");
                     dataStart.AddValue("Money", (int)_resourceTracker.PlayerMoney);
                     KetchappSDK.Analytics.CustomEvent("----SecondHatTutorialGiveHatToDrivers", data);
+#endif
                 }
             }
         }

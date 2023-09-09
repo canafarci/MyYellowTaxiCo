@@ -1,11 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Ketchapp.MayoSDK;
 using TaxiGame.Resource;
 using UnityEngine;
 using Zenject;
 
+#if UNITY_ANDROID
+using Ketchapp.MayoSDK;
+#endif
 public class LevelProgress : MonoBehaviour
 {
     StarTween _tweener;
@@ -38,6 +38,8 @@ public class LevelProgress : MonoBehaviour
     }
     private void OnLevelIncrease()
     {
+#if UNITY_ANDROID
+
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("StarLevel", _currentLevel);
         data.AddValue("ProgressionStatus", "Completed");
@@ -48,6 +50,7 @@ public class LevelProgress : MonoBehaviour
         _levelProgressValue = 1;
         _currentLevel += 1;
         PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
+#endif
         LevelIncreaseHandler?.Invoke(_currentLevel);
         UpdateTreshold(_currentLevel);
 
@@ -98,22 +101,28 @@ public class LevelProgress : MonoBehaviour
 
     private void LevelStartEvent(int level)
     {
+#if UNITY_ANDROID
+
         var data = new Ketchapp.MayoSDK.Analytics.Data();
         data.AddValue("StarLevel", _currentLevel);
         data.AddValue("ProgressionStatus", "Started");
         data.AddValue("Money", (int)_resourceTracker.PlayerMoney);
         KetchappSDK.Analytics.CustomEvent("StarLevel", data);
+#endif
     }
 
     protected void OnApplicationFocus(bool isFocused)
     {
+#if UNITY_ANDROID
         if (!isFocused)
         {
+
             var data = new Ketchapp.MayoSDK.Analytics.Data();
             data.AddValue("StarLevel", _currentLevel);
             data.AddValue("ProgressionStatus", "Faied");
             data.AddValue("Money", (int)_resourceTracker.PlayerMoney);
             KetchappSDK.Analytics.CustomEvent("StarLevel", data);
         }
+#endif
     }
 }

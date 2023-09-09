@@ -2187,7 +2187,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 4909763518484521670}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.54
   m_Height: 2.64
   m_Direction: 1
@@ -2204,7 +2204,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
@@ -2342,7 +2342,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38e5f06466acdf41a6fb8012896609e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hat: 0
 --- !u!114 &1957588813764623510
 MonoBehaviour:
   m_ObjectHideFlags: 0

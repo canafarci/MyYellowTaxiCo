@@ -117,9 +117,11 @@ namespace TaxiGame.Installers
                         Container.BindFactory<UnityEngine.Object, Transform, Waypoint[], Wanderer, Wanderer.Factory>()
                                 .FromFactory<PrefabFactory<Transform, Waypoint[], Wanderer>>();
 
+
                         Container.BindFactory<Transform, HelperNPC, HelperNPC.Factory>()
                                 .WithId(NPCType.Helper)
-                                .FromComponentInNewPrefab(_helperPrefab);
+                                .FromComponentInNewPrefab(_helperPrefab)
+                                .UnderTransformGroup("HelperNPCs");
                 }
 
                 private DriverQueueCoordinator GetDriverQueue(InjectContext context)

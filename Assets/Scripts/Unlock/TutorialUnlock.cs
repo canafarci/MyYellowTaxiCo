@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using Ketchapp.MayoSDK;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class TutorialUnlock : UnlockBase
 {

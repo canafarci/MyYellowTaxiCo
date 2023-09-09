@@ -11,6 +11,9 @@ TagManager:
   - WallPush
   - WandererCamera
   - HelperNPC
+  - CarNoGas
+  - CarBrokenTire
+  - CarBrokenToolbox
   layers:
   - Default
   - TransparentFX
@@ -24,7 +27,7 @@ TagManager:
   - Obi
   - Player
   - NPC
-  - Apartman
+  - SpinningDoor
   - Driver
   - push
   - PlayerWall
