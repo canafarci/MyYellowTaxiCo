@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TaxiGame.Items;
@@ -12,14 +11,10 @@ namespace TaxiGame.NPC
 {
     public class DriverDispatcher : MonoBehaviour
     {
-        /// <summary>
-        /// Dispatches drivers to VehicleSpots in certain states
-        /// </summary>
         [SerializeField] private InventoryObjectType _hatType;
         private HashSet<VehicleSpot> _spots = new HashSet<VehicleSpot>();
-        private Coroutine _checkSpotsCoroutine;
         private DriverLookup _driverLookup;
-        //subbed from DriverQueueCoordinator to remove dispatched driver from driverSpot
+
         public event EventHandler<OnDriverDispatchedArgs> OnDriverDispatched;
 
         [Inject]
@@ -27,10 +22,10 @@ namespace TaxiGame.NPC
         {
             _driverLookup = driverLookup;
         }
+
         private void Start()
         {
             SubscribeToEvents();
-
             InvokeRepeating(nameof(CheckTaxiSpots), 0f, 0.5f);
         }
 
@@ -42,16 +37,14 @@ namespace TaxiGame.NPC
 
         private void RepairableVehicle_VehicleRepairedHandler(object sender, OnVehicleRepairedArgs e)
         {
-            if (_hatType != e.HatType) return;
-
-            AddVehicleSpotToList(e.VehicleSpot);
+            if (_hatType == e.HatType)
+                AddVehicleSpotToList(e.VehicleSpot);
         }
 
         private void VehicleSpot_VehicleReturnedHandler(object sender, OnVehicleReturnedArgs e)
         {
-            if (e.IsBrokenCar || _hatType != e.HatType) return;
-
-            AddVehicleSpotToList(sender as VehicleSpot);
+            if (!e.IsBrokenCar && _hatType == e.HatType)
+                AddVehicleSpotToList(sender as VehicleSpot);
         }
 
         private void AddVehicleSpotToList(VehicleSpot spot)
@@ -59,47 +52,46 @@ namespace TaxiGame.NPC
             _spots.Add(spot);
         }
 
-        //Invoked repeatedly every 0.5 seconds
         private void CheckTaxiSpots()
         {
-            // Create a copy of the spots to avoid modification while iterating
             foreach (VehicleSpot spot in _spots.ToList())
             {
                 HashSet<Driver> driversWithoutHat = _driverLookup.GetDriversWithoutHat();
                 HashSet<Driver> driversWithHat = _driverLookup.GetDriversWithHat();
 
                 if (spot.IsCustomerWaiting())
-                {
-                    DispatchDriverWithoutHat(spot, driversWithoutHat);
-                }
+                    DispatchDriver(spot, driversWithoutHat, driversWithHat);
                 else
-                {
                     DispatchDriverWithHat(spot, driversWithHat);
-                }
             }
         }
 
-        private void DispatchDriverWithoutHat(VehicleSpot spot, HashSet<Driver> driversWithoutHat)
+        private void DispatchDriver(VehicleSpot spot, HashSet<Driver> driversWithoutHat, HashSet<Driver> driversWithHat)
         {
             if (driversWithoutHat.Count > 0)
             {
-                Driver driver = driversWithoutHat.LastOrDefault();
-                DispatchDriverToSpot(driver, spot, driversWithoutHat);
+                DispatchDriverToSpot(driversWithoutHat, spot);
+                spot.SetCustomerWaiting(false);
+            }
+            else if (DispatchDriverWithHat(spot, driversWithHat))
+            {
                 spot.SetCustomerWaiting(false);
             }
         }
-
-        private void DispatchDriverWithHat(VehicleSpot spot, HashSet<Driver> driversWithHat)
+        // Bool return type is required to set customer waiting in VehicleSpot to false when a driver is dispatched
+        private bool DispatchDriverWithHat(VehicleSpot spot, HashSet<Driver> driversWithHat)
         {
             if (driversWithHat.Count > 0)
             {
-                Driver driver = driversWithHat.LastOrDefault();
-                DispatchDriverToSpot(driver, spot, driversWithHat);
+                DispatchDriverToSpot(driversWithHat, spot);
+                return true;
             }
+            return false;
         }
 
-        private void DispatchDriverToSpot(Driver driver, VehicleSpot spot, HashSet<Driver> drivers)
+        private void DispatchDriverToSpot(HashSet<Driver> drivers, VehicleSpot spot)
         {
+            Driver driver = drivers.LastOrDefault();
             driver.GetController().GoToVehicleSpot(spot.GetInPosition(), () => spot.HandleDriverArrival());
 
             drivers.Remove(driver);
@@ -108,10 +100,8 @@ namespace TaxiGame.NPC
             OnDriverDispatched?.Invoke(this, new OnDriverDispatchedArgs { Driver = driver });
         }
 
-        // Getters-Setters
         public InventoryObjectType GetHatType() => _hatType;
 
-        // Cleanup
         private void OnDisable()
         {
             VehicleSpot.OnVehicleReturned -= VehicleSpot_VehicleReturnedHandler;

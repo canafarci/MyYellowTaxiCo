@@ -35,7 +35,7 @@ namespace TaxiGame.Visuals
             Vector3[] path = GeneratePath(item, target);
 
             Sequence moveSequence = DOTween.Sequence();
-            moveSequence.Append(item.DOLocalPath(path, duration, PathType.CatmullRom, PathMode.Full3D));
+            moveSequence.Join(item.DOLocalPath(path, duration, PathType.CatmullRom, PathMode.Full3D));
             moveSequence.Join(item.DOLocalRotate(new Vector3(0, rotationValue, 0f), duration));
 
             return moveSequence;

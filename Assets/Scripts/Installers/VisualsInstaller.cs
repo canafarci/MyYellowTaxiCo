@@ -32,10 +32,10 @@ namespace TaxiGame.Installers
                         .AsSingle();
 
 
-            Container.BindMemoryPool<CollectibleMoney, CollectibleMoney.Pool>()
+            Container.BindMemoryPool<MoneyVisual, MoneyVisual.Pool>()
                     .WithInitialSize(100)
                     .FromComponentInNewPrefab(_collectibleMoneyPrefab)
-                    .UnderTransformGroup("CollectibleMoneys");
+                    .UnderTransformGroup("MoneyVisualPrefabPool");
 
         }
     }

@@ -11,7 +11,7 @@ namespace TaxiGame.Resource.Visuals
     public class MoneyStackerVisual : MonoBehaviour
     {
         //Dependencies
-        private CollectibleMoney.Pool _collectibleMoneyPool;
+        private MoneyVisual.Pool _moneyVisualPool;
         private TweeningService _tweeningService;
         private MoneyStackerTrigger _moneyStackerTrigger;
         private MoneyStacker _stacker;
@@ -20,7 +20,7 @@ namespace TaxiGame.Resource.Visuals
         private int _currentRow = 0;
         private int _currentColumn = 0;
         private int _currentAisle = 0;
-        private Stack<CollectibleMoney> _collectibleMoneyStack = new();
+        private Stack<MoneyVisual> _collectibleMoneyStack = new();
         //Constants
         private const int MAX_ROWS = 2;
         private const int MAX_COLUMNS = 2;
@@ -29,16 +29,16 @@ namespace TaxiGame.Resource.Visuals
         [Inject]
         private void Init(MoneyStacker stacker,
                           MoneyStackerTrigger moneyStackerTrigger,
-                          CollectibleMoney.Pool collectibleMoneyPool,
+                          MoneyVisual.Pool moneyVisualPool,
                           TweeningService tweeningService)
         {
             _stacker = stacker;
-            _collectibleMoneyPool = collectibleMoneyPool;
+            _moneyVisualPool = moneyVisualPool;
             _tweeningService = tweeningService;
             _moneyStackerTrigger = moneyStackerTrigger;
         }
 
-        private void Start()
+        private void OnEnable()
         {
             _stacker.OnMoneyAddedToStack += MoneyStacker_MoneyAddedToStackHandler;
             _moneyStackerTrigger.OnMoneyPickedUpFromStack += MoneyStackerTrigger_MoneyPickedUpFromStackHandler;
@@ -46,22 +46,22 @@ namespace TaxiGame.Resource.Visuals
 
         private void MoneyStackerTrigger_MoneyPickedUpFromStackHandler(object sender, OnMoneyPickedUpFromStackArgs e)
         {
-            CollectibleMoney collectibleMoney = _collectibleMoneyStack.Pop();
-            Transform money = collectibleMoney.transform;
-            money.parent = e.Target;
+            MoneyVisual moneyVisual = _collectibleMoneyStack.Pop();
+            Transform money = moneyVisual.transform;
 
+            money.parent = e.Target;
             Sequence moveSequence = _tweeningService.GenerateMoveSequence(money, Vector3.zero, 0.2f);
-            moveSequence.onComplete = () => _collectibleMoneyPool.Despawn(collectibleMoney);
+            moveSequence.onComplete = () => _moneyVisualPool.Despawn(moneyVisual);
 
             DecreaseStackDimensions();
         }
 
         private void MoneyStacker_MoneyAddedToStackHandler()
         {
-            CollectibleMoney collectibleMoney = _collectibleMoneyPool.Spawn(_spawnPos.position);
-            _collectibleMoneyStack.Push(collectibleMoney);
+            MoneyVisual moneyVisual = _moneyVisualPool.Spawn(_spawnPos.position);
+            _collectibleMoneyStack.Push(moneyVisual);
 
-            Transform money = collectibleMoney.transform;
+            Transform money = moneyVisual.transform;
             money.parent = transform;
 
             Vector3 endPos = CalculatePosition(_currentRow, _currentColumn, _currentAisle);

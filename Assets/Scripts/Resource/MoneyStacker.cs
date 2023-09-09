@@ -24,17 +24,20 @@ namespace TaxiGame.Resource
         {
             _vehicleEvents = spot;
         }
-        private void Awake()
-        {
-            if (String.IsNullOrEmpty(_identifier)) return;
-            if (PlayerPrefs.HasKey(_identifier)) return;
-            StackItems(48);
-        }
 
         private void Start()
         {
             if (_vehicleEvents != null)
                 _vehicleEvents.OnVehicleMoneyEarned += (val) => StackItems(val);
+
+            StackMoneyIfGameStart();
+        }
+
+        private void StackMoneyIfGameStart()
+        {
+            if (String.IsNullOrEmpty(_identifier)) return;
+            if (PlayerPrefs.HasKey(_identifier)) return;
+            StackItems(48);
         }
 
         public void StackItems(int count) => StartCoroutine(StackItemRoutine(count));

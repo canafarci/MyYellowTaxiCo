@@ -23,56 +23,6 @@ public class DotweenFX : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        InitializeMoneyPool();
-    }
-
-    // Initializes the money object pool
-    private void InitializeMoneyPool()
-    {
-        _moneyPool = new List<GameObject>(_poolSize);
-        GameObject moneyPrefab = GameManager.Instance.References.GameConfig.MoneyPrefab;
-
-        for (int i = 0; i < _poolSize; i++)
-        {
-            GameObject pooledMoney = Instantiate(moneyPrefab);
-            pooledMoney.SetActive(false);
-            _moneyPool.Add(pooledMoney);
-        }
-    }
-
-    // Retrieves an inactive pooled money object or creates a new one if needed
-    private GameObject GetPooledMoney()
-    {
-        foreach (GameObject pooledMoney in _moneyPool)
-        {
-            if (!pooledMoney.activeInHierarchy)
-                return pooledMoney;
-        }
-
-        // If no inactive pooled object is found, create a new one and add it to the pool
-        GameObject newPooledMoney = Instantiate(GameManager.Instance.References.GameConfig.MoneyPrefab);
-        newPooledMoney.SetActive(false);
-        _moneyPool.Add(newPooledMoney);
-
-        return newPooledMoney;
-    }
-
-    // Coroutine that animates money objects along an arc towards a target position
-    public static void MoneyArcTween(Vector3 endPos)
-    {
-        GameObject pooledMoney = Instance.GetPooledMoney();
-        pooledMoney.transform.position = GameManager.Instance.References.PlayerHand.position;
-        pooledMoney.transform.rotation = GameManager.Instance.References.GameConfig.MoneyPrefab.transform.rotation;
-        pooledMoney.SetActive(true);
-
-        Vector3 intermediatePos = new Vector3((endPos.x + pooledMoney.transform.position.x) / 2f, endPos.y + 1f, (endPos.z + pooledMoney.transform.position.z) / 2f);
-        Vector3[] path = { pooledMoney.transform.position, intermediatePos, endPos };
-        Tween tween = pooledMoney.transform.DOPath(path, .20f, PathType.CatmullRom, PathMode.Full3D);
-        float targetRotation = UnityEngine.Random.Range(0f, 360f);
-        pooledMoney.transform.DOLocalRotate(new Vector3(0, targetRotation, 0f), 0.20f);
-
-        tween.onComplete = () => pooledMoney.SetActive(false);
-
     }
     public static IEnumerator StackTweenItem(StackableItem item, Vector3 endPos)
     {
