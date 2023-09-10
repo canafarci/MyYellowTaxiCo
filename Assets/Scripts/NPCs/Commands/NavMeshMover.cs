@@ -13,7 +13,6 @@ namespace TaxiGame.NPC.Command
     {
         protected NPCActionInvoker _invoker;
         protected NavMeshAgent _agent;
-
         [Inject]
         private void Init(NavMeshAgent agent, NPCActionInvoker invoker)
         {

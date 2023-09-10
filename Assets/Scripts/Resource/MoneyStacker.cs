@@ -28,19 +28,23 @@ namespace TaxiGame.Resource
         private void Start()
         {
             if (_vehicleEvents != null)
-                _vehicleEvents.OnVehicleMoneyEarned += (val) => StackItems(val);
+                _vehicleEvents.OnVehicleMoneyEarned += (val) => StackMoney(val);
 
-            StackMoneyIfGameStart();
+            StackMoneyIfNewGame();
         }
 
-        private void StackMoneyIfGameStart()
+        private void StackMoneyIfNewGame()
         {
             if (String.IsNullOrEmpty(_identifier)) return;
             if (PlayerPrefs.HasKey(_identifier)) return;
-            StackItems(48);
+            StackMoney(48);
         }
 
-        public void StackItems(int count) => StartCoroutine(StackItemRoutine(count));
+        public void StackMoney(int count)
+        {
+            StartCoroutine(StackItemRoutine(count));
+        }
+
         private IEnumerator StackItemRoutine(int count)
         {
             while (count > 0)
@@ -48,9 +52,10 @@ namespace TaxiGame.Resource
                 _moneyCountInStack++;
                 count--;
                 OnMoneyAddedToStack?.Invoke();
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(Globals.TIME_STEP);
             }
         }
+        //Getters-Setters
         public int GetMoneyCountInStack() => _moneyCountInStack;
         public void DecrementMoneyCountInStack() => _moneyCountInStack -= 1;
     }

@@ -24,6 +24,7 @@ namespace TaxiGame.Resource.Visuals
         //Constants
         private const int MAX_ROWS = 2;
         private const int MAX_COLUMNS = 2;
+        private const float TWEEN_DURATION = 0.2f;
         private readonly Vector3 MONEY_DIMENSIONS = new Vector3(0.55f, 0.2f, 1.1f);
 
         [Inject]
@@ -50,7 +51,7 @@ namespace TaxiGame.Resource.Visuals
             Transform money = moneyVisual.transform;
 
             money.parent = e.Target;
-            Sequence moveSequence = _tweeningService.GenerateMoveSequence(money, Vector3.zero, 0.2f);
+            Sequence moveSequence = _tweeningService.GenerateMoveSequence(money, Vector3.zero, TWEEN_DURATION);
             moveSequence.onComplete = () => _moneyVisualPool.Despawn(moneyVisual);
 
             DecreaseStackDimensions();
@@ -66,7 +67,7 @@ namespace TaxiGame.Resource.Visuals
 
             Vector3 endPos = CalculatePosition(_currentRow, _currentColumn, _currentAisle);
 
-            _tweeningService.GenerateMoveSequence(money, endPos, 0.2f);
+            _tweeningService.GenerateMoveSequence(money, endPos, TWEEN_DURATION);
 
             IncreaseStackDimensions();
         }

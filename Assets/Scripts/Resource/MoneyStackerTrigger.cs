@@ -42,7 +42,7 @@ namespace TaxiGame.Resource
                 OnMoneyPickedUpFromStack?.Invoke(this, new OnMoneyPickedUpFromStackArgs { Target = instigator });
                 MoneyPickupHandler?.Invoke();
 
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(Globals.TIME_STEP);
             }
 
             _moneyPickupCoroutine = null;
