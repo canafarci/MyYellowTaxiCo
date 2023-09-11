@@ -1329,7 +1329,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5830039f248d849a06597218404c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SecondHatTutorialStarted: 0
   IsHatStacker: 0
   _clearStackRate: 0.1
   _onSecondHatTutorialUnlock:
@@ -1372,6 +1371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692639213092f0a4d96bfcd7b245aec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemTargetPairs: []
 --- !u!1 &4102921878663253353
 GameObject:
   m_ObjectHideFlags: 0
@@ -1973,7 +1973,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6983666300142459718}
   m_Layer: 0
-  m_Name: VisibleUI
+  m_Name: RepairCircleZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

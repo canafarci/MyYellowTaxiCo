@@ -19,22 +19,26 @@ public abstract class UnlockBase : MonoBehaviour, IUnlockable
     }
     public virtual void UnlockObject()
     {
-        _onUnlock.Invoke();
-
         if (!HasUnlockedBefore())
+        {
+            _onUnlock.Invoke();
             SendOnUnlockCompleteAnalytics();
-
-        Save();
+            Save();
+        }
     }
 
     private void Save()
     {
         PlayerPrefs.SetInt(_identifier, 1);
     }
-    public bool HasUnlockedBefore()
+    protected bool HasUnlockedBefore()
     {
         return PlayerPrefs.HasKey(_identifier);
     }
+
+
+
+
 
     //TODO violates SRP
     private void OnApplicationFocus(bool isFocused)

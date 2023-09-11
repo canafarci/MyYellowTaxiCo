@@ -15,12 +15,13 @@ namespace TaxiGame.Items.Visual
         private TweeningService _tweeningService;
 
         [Inject]
-        private void Init(StackPositionCalculator positionCalculator, HatStacker stacker, TweeningService tweenService)
+        private void Init(StackPositionCalculator positionCalculator,
+                          HatStacker stacker,
+                          TweeningService tweenService)
         {
             _positionCalculator = positionCalculator;
             _hatStacker = stacker;
             _tweeningService = tweenService;
-
         }
 
         private void Start()

@@ -155,12 +155,12 @@ Material:
     - _OutlineWidth: 1.94
     - _Parallax: 0.02
     - _QueueOffset: 0
-    - _RampBands: 4
+    - _RampBands: 3
     - _RampBandsSmoothing: 0.1
     - _RampOffset: 0
     - _RampScale: 1
     - _RampSmoothing: 1
-    - _RampThreshold: 0.488
+    - _RampThreshold: 0.183
     - _RampType: 0
     - _ReceiveShadows: 1
     - _ReceiveShadowsOff: 1

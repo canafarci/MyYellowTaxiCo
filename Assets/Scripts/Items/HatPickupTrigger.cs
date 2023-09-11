@@ -13,19 +13,18 @@ public class HatPickupTrigger : MonoBehaviour
 {
     //TODO REFACTOR
     private bool _secondGiveHatTutorialStarted = false;
-    public bool IsHatStacker = false;
     [SerializeField] float _clearStackRate;
     [SerializeField] UnityEvent _onSecondHatTutorialUnlock;
-    HatStacker _stacker;
+    private HatStacker _hatStacker;
     Dictionary<Collider, Coroutine> _coroutines = new Dictionary<Collider, Coroutine>();
     private ResourceTracker _resourceTracker;
     [Inject]
-    private void Init(ResourceTracker tracker)
+    private void Init(ResourceTracker tracker, HatStacker stacker)
     {
         _resourceTracker = tracker;
+        _hatStacker = stacker;
     }
 
-    void Awake() => _stacker = GetComponent<HatStacker>();
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(Globals.PLAYER_TAG) || other.CompareTag(Globals.HELPER_NPC_TAG))
@@ -51,15 +50,12 @@ public class HatPickupTrigger : MonoBehaviour
         {
             yield return new WaitForSeconds(_clearStackRate);
 
-            if (!inventory.IsInventoryFull() && _stacker.ItemStack.TryPop(out StackableItem item))
+            if (!inventory.IsInventoryFull() && _hatStacker.ItemStack.TryPop(out StackableItem item))
             {
                 inventory.AddObjectToInventory(item);
 
                 IUnlockable unlock = GetComponent<IUnlockable>();
-                if (unlock != null && !unlock.HasUnlockedBefore())
-                {
-                    unlock.UnlockObject();
-                }
+                unlock?.UnlockObject();
 
                 if (_secondGiveHatTutorialStarted)
                 {
@@ -68,7 +64,6 @@ public class HatPickupTrigger : MonoBehaviour
                     FindObjectOfType<SecondHatTutorialTrigger>().SecondHatTutorialStarted = true;
                     FindObjectOfType<SecondHatTutorialTrigger>().GetComponent<Collider>().enabled = true;
 #if UNITY_ANDROID
-
                     var data = new Ketchapp.MayoSDK.Analytics.Data();
                     data.AddValue("ProgressionStatus", "Completed");
                     data.AddValue("Money", (int)_resourceTracker.PlayerMoney);

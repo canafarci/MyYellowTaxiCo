@@ -2,6 +2,7 @@ using Cinemachine;
 using TaxiGame.Items;
 using TaxiGame.Resource.Visuals;
 using TaxiGame.Visuals;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -31,12 +32,14 @@ namespace TaxiGame.Installers
             Container.Bind<TweeningService>()
                         .AsSingle();
 
-
             Container.BindMemoryPool<MoneyVisual, MoneyVisual.Pool>()
                     .WithInitialSize(100)
                     .FromComponentInNewPrefab(_collectibleMoneyPrefab)
                     .UnderTransformGroup("MoneyVisualPrefabPool");
 
+            Container.Bind<TextMeshProUGUI>()
+                        .FromComponentInChildren()
+                        .AsTransient();
         }
     }
 }

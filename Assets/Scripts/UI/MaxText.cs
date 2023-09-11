@@ -5,51 +5,49 @@ using UnityEngine;
 using TMPro;
 using TaxiGame.Items;
 using TaxiGame.NPC;
+using Zenject;
+using System.Linq;
 
 public class MaxText : MonoBehaviour
 {
-    TextMeshProUGUI _text;
-    Vector3 _baseOffset;
-    Transform _player;
-    private void Awake()
+    private TextMeshProUGUI _text;
+    private ItemUtility _itemUtility;
+    private Inventory _inventory;
+
+    [Inject]
+    private void Init(TextMeshProUGUI text,
+        ItemUtility itemUtility,
+        [Inject(Id = "UI")] Inventory inventory)
     {
-        _text = GetComponentInChildren<TextMeshProUGUI>();
-        _player = GameManager.Instance.References.PlayerInventory.transform;
+        _text = text;
+        _itemUtility = itemUtility;
+        _inventory = inventory;
     }
-
-    private void Start()
+    private void OnEnable()
     {
-        _baseOffset = _player.position - transform.position;
+        _inventory.OnInventoryModified += Inventory_InventoryModifiedHandler;
     }
-    private void OnEnable() => GameManager.Instance.References.PlayerInventory.OnInventoryModified += OnStackSizeChange; //TODO inject player inventory
-
-    private void OnStackSizeChange(object sender, InventoryModifiedArgs e)
+    private void Inventory_InventoryModifiedHandler(object sender, InventoryModifiedArgs e)
     {
-        if (IsNotStackableItem(e.InventoryObject.GetObjectType())) return;
+        InventoryObjectType objectType = e.InventoryObject.GetObjectType();
 
-        Inventory inventory = sender as Inventory;
-
-        if (inventory.IsInventoryFull())
+        if (IsStackableItem(objectType))
         {
-            _text.enabled = true;
-        }
-        else
-        {
-            _text.enabled = false;
-        }
-    }
+            Inventory inventory = sender as Inventory;
 
-    private bool IsNotStackableItem(InventoryObjectType objectType)
-    {
-        return objectType == InventoryObjectType.Customer || objectType == InventoryObjectType.GasHandle;
-    }
-
-    private void LateUpdate()
-    {
-        if (_text.enabled)
-        {
-            transform.position = _player.position + _baseOffset;
+            if (inventory.IsInventoryFull())
+            {
+                _text.enabled = true;
+            }
+            else
+            {
+                _text.enabled = false;
+            }
         }
     }
 
+    private bool IsStackableItem(InventoryObjectType objectType)
+    {
+        return _itemUtility.IsStackableObject(objectType);
+    }
 }

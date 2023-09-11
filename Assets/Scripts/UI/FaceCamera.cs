@@ -8,7 +8,7 @@ namespace TaxiGame.UI
     {
         private void LateUpdate()
         {
-            transform.LookAt(transform.position - Camera.main.transform.position);
+            transform.forward = Camera.main.transform.forward;
         }
     }
 }

@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 4436461012355988211, guid: 218b79f89f781e946832d87619954d2c,
         type: 3}
       propertyPath: ItemHeight
-      value: 0.4
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4436461012355988212, guid: 218b79f89f781e946832d87619954d2c,
         type: 3}
@@ -107,7 +107,9 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4436461012355988213, guid: 218b79f89f781e946832d87619954d2c, type: 3}
+    - {fileID: 4436461012355988214, guid: 218b79f89f781e946832d87619954d2c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 218b79f89f781e946832d87619954d2c, type: 3}
 --- !u!4 &2313885161458636570 stripped
 Transform:

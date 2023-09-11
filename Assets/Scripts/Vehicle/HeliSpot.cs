@@ -16,7 +16,8 @@ namespace TaxiGame.Vehicles
 
         //initialization
         [Inject]
-        private void Init(VehicleProgressionModel progressionModel, IUnlockable unlockable)
+        private void Init(VehicleProgressionModel progressionModel,
+                          [InjectOptional] IUnlockable unlockable)
         {
             _progressionModel = progressionModel;
             _unlockable = unlockable;
@@ -26,7 +27,7 @@ namespace TaxiGame.Vehicles
         {
             UpdateGameState();
 
-            CheckUnlockable();
+            _unlockable?.UnlockObject();
         }
 
         private void UpdateGameState()
@@ -34,14 +35,6 @@ namespace TaxiGame.Vehicles
             OnVehicleDeparted?.Invoke();
             OnVehicleMoneyEarned?.Invoke(HELI_MONEY_STACK_COUNT);
             _progressionModel.HandleHeliDeparted();
-        }
-
-        private void CheckUnlockable()
-        {
-            if (_unlockable != null && !_unlockable.HasUnlockedBefore())
-            {
-                _unlockable.UnlockObject();
-            }
         }
     }
 }

@@ -12,6 +12,7 @@ namespace TaxiGame.Items
         public int MaxStackSize { get { return _maxStackSize; } }
         [SerializeField] private int _maxStackSize;
         private Stack<StackableItem> _stack = new Stack<StackableItem>();
+        //Subscribed from HatStackerVisual
         public event EventHandler<OnHatStackedArgs> OnHatStacked;
 
         public void StackItem(StackableItem item)
@@ -23,7 +24,6 @@ namespace TaxiGame.Items
                 OnTweenComplete = stackItemDelegate,
                 ItemStack = _stack,
                 Item = item
-
             });
         }
     }

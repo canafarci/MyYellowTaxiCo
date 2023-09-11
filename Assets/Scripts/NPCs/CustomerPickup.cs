@@ -11,13 +11,17 @@ namespace TaxiGame.NPC
     {
         private References _references;
         private CustomerQueue _queue;
+        private IUnlockable _unlockable;
         private Coroutine _unloadCoroutine;
 
         [Inject]
-        private void Init(CustomerQueue queue, References references)
+        private void Init(CustomerQueue queue,
+                          References references,
+                          [InjectOptional] IUnlockable unlockable)
         {
             _references = references;
             _queue = queue;
+            _unlockable = unlockable;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -48,7 +52,7 @@ namespace TaxiGame.NPC
                     if (_queue.TryGetCustomer(out Customer customer))
                     {
                         customer.FollowPlayer(inventory);
-                        Unlock();
+                        _unlockable?.UnlockObject();
                     }
                 }
 
@@ -56,13 +60,5 @@ namespace TaxiGame.NPC
             }
         }
 
-        private void Unlock()
-        {
-            IUnlockable unlock = GetComponent<IUnlockable>();
-            if (unlock != null && !unlock.HasUnlockedBefore())
-            {
-                unlock.UnlockObject();
-            }
-        }
     }
 }

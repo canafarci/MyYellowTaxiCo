@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace TaxiGame.Items
 {
@@ -8,6 +9,15 @@ namespace TaxiGame.Items
     {
         [SerializeField] protected GameObject _stackableItem;
         [SerializeField] protected Transform _startTransform;
+        private IUnlockable _unlockable;
+
+        //initialization
+        [Inject]
+        private void Init([InjectOptional] IUnlockable unlockable)
+        {
+            _unlockable = unlockable;
+        }
+
         public void SpawnItem(Collider other)
         {
             if (CanSpawnItem(other))
@@ -16,9 +26,7 @@ namespace TaxiGame.Items
                 Inventory inventory = other.GetComponent<Inventory>();
                 inventory.AddObjectToInventory(item);
 
-                IUnlockable unlock = GetComponent<IUnlockable>();
-                if (unlock == null || unlock.HasUnlockedBefore()) return;
-                unlock.UnlockObject();
+                _unlockable?.UnlockObject();
             }
         }
         private bool CanSpawnItem(Collider other)

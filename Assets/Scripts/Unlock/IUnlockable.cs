@@ -5,5 +5,4 @@ using UnityEngine;
 public interface IUnlockable
 {
     public void UnlockObject();
-    public bool HasUnlockedBefore();
 }

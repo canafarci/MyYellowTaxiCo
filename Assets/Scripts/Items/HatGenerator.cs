@@ -33,7 +33,6 @@ namespace TaxiGame.Items
                 _spawnedFirst = true;
 
                 SpawnItem();
-
             }
         }
 

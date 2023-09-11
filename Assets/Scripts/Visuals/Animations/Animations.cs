@@ -18,18 +18,21 @@ namespace TaxiGame.Animations
         [SerializeField] private AnimationClip _idle, _holdingIdle, _running, _holdingRunning, _walking;
         private AnimatorOverrideController _animatorOverrideController;
         private Inventory _inventory;
-
+        private ItemUtility _itemUtility;
 
         [Inject]
-        private void Init(Animator animator, Inventory inventory, ModifierUpgradesReceiver upgradeReceiver)
+        private void Init(Animator animator,
+                          Inventory inventory,
+                          ModifierUpgradesReceiver upgradeReceiver,
+                          ItemUtility itemUtility)
         {
             _animator = animator;
             _inventory = inventory;
+            _itemUtility = itemUtility;
+            _upgradeReceiver = upgradeReceiver;
 
             _animatorOverrideController = new AnimatorOverrideController(_animator.runtimeAnimatorController);
             _animator.runtimeAnimatorController = _animatorOverrideController;
-            _upgradeReceiver = upgradeReceiver;
-
         }
 
         protected virtual void Start()
@@ -50,12 +53,13 @@ namespace TaxiGame.Animations
 
         private void Inventory_InventoryModifiedHandler(object sender, InventoryModifiedArgs e)
         {
-            if (e.InventoryObject.GetObjectType() == InventoryObjectType.GasHandle)
+            InventoryObjectType objectType = e.InventoryObject.GetObjectType();
+
+            if (objectType == InventoryObjectType.GasHandle)
             {
                 HandleGasHandleAnimations(e.ItemCountIsZero);
             }
-            // remaining types are all StackableItem types
-            else if (e.InventoryObject.GetObjectType() != InventoryObjectType.Customer || e.InventoryObject.GetObjectType() != InventoryObjectType.VIP)
+            else if (_itemUtility.IsStackableObject(objectType))
             {
                 HandleStackableItemAnimations(e.ItemCountIsZero);
             }

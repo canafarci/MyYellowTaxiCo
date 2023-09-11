@@ -13,9 +13,9 @@ public class TutorialTrigger : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && _unlocker != null && !_unlocker.HasUnlockedBefore())
+        if (other.CompareTag("Player"))
         {
-            _unlocker.UnlockObject();
+            _unlocker?.UnlockObject();
         }
     }
 

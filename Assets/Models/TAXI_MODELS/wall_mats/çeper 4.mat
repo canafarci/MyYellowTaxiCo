@@ -11,7 +11,6 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: edd7abf643fa4bc4e8561d4c280c97cf,
     type: 3}
   m_ValidKeywords:
-  - TCP2_RAMP_BANDS
   - TCP2_REFLECTIONS_FRESNEL
   - TCP2_RIM_LIGHTING_LIGHTMASK
   - TCP2_SHADOW_LIGHT_COLOR
@@ -143,13 +142,13 @@ Material:
     - _OutlineWidth: 1.31
     - _Parallax: 0.02
     - _QueueOffset: 0
-    - _RampBands: 1
+    - _RampBands: 9
     - _RampBandsSmoothing: 0.557
     - _RampOffset: 0
     - _RampScale: 1
     - _RampSmoothing: 1
-    - _RampThreshold: 0.907
-    - _RampType: 2
+    - _RampThreshold: 0.815
+    - _RampType: 0
     - _ReceiveShadows: 1
     - _ReceiveShadowsOff: 1
     - _ReflectionMapType: 0
