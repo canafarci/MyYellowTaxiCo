@@ -1,7 +1,7 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using Zenject;
+using TaxiGame.GameState.Unlocking;
 
 namespace TaxiGame.WaitZones
 {

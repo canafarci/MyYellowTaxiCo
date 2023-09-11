@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.GameState;
+using TaxiGame.GameState.Unlocking;
 using TaxiGame.Items;
 using TaxiGame.Resource;
 using UnityEngine;

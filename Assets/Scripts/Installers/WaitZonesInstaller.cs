@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TaxiGame.Items;
 using TaxiGame.WaitZones;
-using UnityEngine;
 using Zenject;
 
 namespace TaxiGame.Installers
@@ -12,7 +9,6 @@ namespace TaxiGame.Installers
         public override void InstallBindings()
         {
             Container.Bind<PayMoneyProcessor>().AsSingle();
-            Container.Bind<IUnlockable>().FromComponentInChildren().AsTransient();
             Container.Bind<IWaitingEngine>().FromComponentInChildren().AsTransient();
             Container.Bind<ItemSpawner>().FromComponentInChildren().AsTransient();
         }
