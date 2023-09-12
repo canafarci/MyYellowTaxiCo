@@ -2,43 +2,30 @@ using UnityEngine;
 
 public class ObjectiveArrow : MonoBehaviour
 {
-    public Transform Objective;
     [SerializeField] private Transform _arrowPivot;
-    private float _updateTimer;
-    Transform _player;
-
-    private void Awake()
-    {
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
+    private Transform _objective;
 
     public void DisableArrow()
     {
         _arrowPivot.gameObject.SetActive(false);
-        Objective = null;
+        _objective = null;
     }
 
     public void ChangeObjective(Transform newObjective)
     {
         _arrowPivot.gameObject.SetActive(true);
-        Objective = newObjective;
+        _objective = newObjective;
     }
-
-    private void Update()
-    {
-
-    }
-
     private void LateUpdate()
     {
-        if (Objective == null) return;
+        if (_objective == null) return;
 
         UpdateArrow();
     }
 
     private void UpdateArrow()
     {
-        float distance = Vector3.Distance(transform.position, Objective.position);
+        float distance = Vector3.Distance(transform.position, _objective.position);
         if (distance < 1f)
         {
             _arrowPivot.gameObject.SetActive(false);
@@ -49,7 +36,7 @@ public class ObjectiveArrow : MonoBehaviour
             _arrowPivot.gameObject.SetActive(true);
         }
         // Calculate the direction from the Player to the Objective
-        Vector3 direction = (Objective.position - transform.position).normalized;
+        Vector3 direction = (_objective.position - transform.position).normalized;
         // Ignore Y-axis difference, as it's a top-down game
         direction.y = 0;
         // Calculate the rotation required to face the direction

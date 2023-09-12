@@ -1,22 +1,24 @@
 using TaxiGame.GameState.Unlocking;
 using UnityEngine;
+using Zenject;
 
 namespace TaxiGame.GameState
 {
     public class TutorialTrigger : MonoBehaviour
     {
-        IUnlockable _unlocker;
+        IUnlockable _unlockable;
 
-        private void Awake()
+        [Inject]
+        private void Init(IUnlockable unlockable)
         {
-            _unlocker = GetComponent<IUnlockable>();
+            _unlockable = unlockable;
         }
 
         protected virtual void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag(Globals.PLAYER_TAG))
             {
-                _unlocker?.UnlockObject();
+                _unlockable.UnlockObject();
             }
         }
     }

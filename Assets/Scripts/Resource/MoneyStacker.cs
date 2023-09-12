@@ -14,7 +14,6 @@ namespace TaxiGame.Resource
         private IVehicleEvents _vehicleEvents;
         //Variables
         [SerializeField] private Transform _spawnPos;
-        [SerializeField] private string _identifier;
         private int _moneyCountInStack;
         //Subscribed from MoneyStackerVisual
         public event Action OnMoneyAddedToStack;
@@ -29,15 +28,6 @@ namespace TaxiGame.Resource
         {
             if (_vehicleEvents != null)
                 _vehicleEvents.OnVehicleMoneyEarned += (val) => StackMoney(val);
-
-            StackMoneyIfNewGame();
-        }
-
-        private void StackMoneyIfNewGame()
-        {
-            if (String.IsNullOrEmpty(_identifier)) return;
-            if (PlayerPrefs.HasKey(_identifier)) return;
-            StackMoney(48);
         }
 
         public void StackMoney(int count)

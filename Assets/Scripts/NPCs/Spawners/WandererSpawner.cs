@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using TaxiGame.GameState;
 using TaxiGame.Vehicles;
 using UnityEngine;
 using Zenject;
@@ -14,20 +14,20 @@ namespace TaxiGame.NPC
         [SerializeField] private float _spawnTime;
         private float _currentTime;
         private Wanderer.Factory _factory;
-        private VehicleProgressionModel _vehicleProgressModel;
+        private ProgressionState _progressionState;
         //WandererCamera subscribes to this event to show spawned wanderer
         public event EventHandler<OnWandererSpawnedArgs> OnWandererSpawned;
 
         [Inject]
-        private void Init(Wanderer.Factory factory, VehicleProgressionModel model)
+        private void Init(Wanderer.Factory factory, ProgressionState model)
         {
             _factory = factory;
-            _vehicleProgressModel = model;
+            _progressionState = model;
         }
 
         private void Awake()
         {
-            if (!_vehicleProgressModel.IsVIPTutorialComplete())
+            if (!_progressionState.IsVIPTutorialComplete())
             {
                 _currentTime = 5f;
             }
@@ -52,7 +52,7 @@ namespace TaxiGame.NPC
         {
             Wanderer wanderer = _factory.Create(_prefab, _spawnTransform, _waypoints);
 
-            _vehicleProgressModel.HandleVIPSpawned(wanderer);
+            _progressionState.HandleVIPSpawned(wanderer);
             OnWandererSpawned?.Invoke(this, new OnWandererSpawnedArgs { Target = wanderer.transform });
         }
     }

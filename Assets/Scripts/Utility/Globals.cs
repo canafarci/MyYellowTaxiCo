@@ -12,6 +12,7 @@ public static class Globals
     public const string NPC_SPEED_KEY = "NPCSPEEDUPGRADE";
 
     public const string NPC_INVENTORY_KEY = "NPCINVENTORYUPGRADE";
+    public const string START_TUTORIAL_COMPLETE = "STARTTUTORIAL";
     public const string FIRST_CHARGER_TUTORIAL_COMPLETE = "FIRSTTUTORIAL";
     public const string SECOND_BROKEN_TUTORIAL_COMPLETE = "SECONDTUTORIAL";
     public const string THIRD_TIRE_TUTORIAL_COMPLETE = "THIRDTUTORIAL";
@@ -36,8 +37,10 @@ public static class Globals
     //TAGS
     public const string HELPER_NPC_TAG = "HelperNPC";
     public const string PLAYER_TAG = "Player";
-
     public const float PLAYER_BASE_SPEED = 5f;
+
+    //GameState
+    public const string FIRST_TIME_GAME_STARTED = "FirstTimeGameStarted";
 
 
 }

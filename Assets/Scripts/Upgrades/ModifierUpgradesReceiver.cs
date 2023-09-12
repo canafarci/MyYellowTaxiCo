@@ -11,16 +11,17 @@ namespace TaxiGame.Upgrades
     {
         [SerializeField] private UpgradeDataSO _upgradeData;
         private UpgradesFacade _upgradesFacade;
-        private References _references;
+        private Inventory _playerInventory;
+
         public event Action<int> OnNPCInventorySizeUpgrade;
         public event Action<float> OnNPCSpeedUpgrade;
         public event Action<float> OnPlayerSpeedUpgrade;
 
         [Inject]
-        private void Init(UpgradesFacade upgradesFacade, References references)
+        private void Init(UpgradesFacade upgradesFacade, [Inject(Id = "PlayerInventory")] Inventory playerInventory)
         {
             _upgradesFacade = upgradesFacade;
-            _references = references;
+            _playerInventory = playerInventory;
         }
         public void ReceiveUpgradeCommand(UpgradeType upgradeType, int index)
         {
@@ -48,9 +49,8 @@ namespace TaxiGame.Upgrades
         }
         private void UpgradePlayerInventorySize(int index)
         {
-            Inventory playerInventory = _references.PlayerInventory; //TODO move reference -> WithID("PlayerInventory")
             int MaxStackSize = _upgradeData.PlayerInventorySizes[index].Size;
-            playerInventory.SetMaxStackCapacity(MaxStackSize);
+            _playerInventory.SetMaxStackCapacity(MaxStackSize);
         }
         private void UpgradePlayerIncome(int index)
         {

@@ -8,17 +8,14 @@ namespace TaxiGame.NPC
 {
     public class CustomerPickup : MonoBehaviour
     {
-        private References _references;
         private CustomerQueue _queue;
         private IUnlockable _unlockable;
         private Coroutine _unloadCoroutine;
 
         [Inject]
         private void Init(CustomerQueue queue,
-                          References references,
                           [InjectOptional] IUnlockable unlockable)
         {
-            _references = references;
             _queue = queue;
             _unlockable = unlockable;
         }

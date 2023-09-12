@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.GameState;
 using TaxiGame.Items;
 using TaxiGame.Vehicles;
 using UnityEngine;
@@ -11,25 +12,25 @@ namespace TaxiGame.NPC
     {
         private Follower _follower;
         private Collider _collider;
-        private VehicleProgressionModel _vehicleProgressionModel;
+        private ProgressionState _progressionState;
         private Wanderer _wanderer;
 
         [Inject]
         private void Init(Follower follower,
                             Collider collider,
-                            VehicleProgressionModel progressionModel,
+                            ProgressionState progressionState,
                             Wanderer wanderer)
         {
             _follower = follower;
             _collider = collider;
-            _vehicleProgressionModel = progressionModel;
+            _progressionState = progressionState;
             _wanderer = wanderer;
         }
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                _vehicleProgressionModel.HandleVIPTriggered();
+                _progressionState.HandleVIPTriggered();
                 _collider.enabled = false;
                 _follower.FollowPlayer(other.transform);
                 other.GetComponent<Inventory>().AddObjectToInventory(_wanderer);

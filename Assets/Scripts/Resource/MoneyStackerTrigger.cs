@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using TaxiGame.GameState.Unlocking;
 using UnityEngine;
 using Zenject;
 
@@ -9,7 +8,6 @@ namespace TaxiGame.Resource
     public class MoneyStackerTrigger : MonoBehaviour
     {
         //Dependencies
-        private IUnlockable _unlockable;
         private MoneyStacker _stacker;
         //Variable
         private Coroutine _moneyPickupCoroutine = null;
@@ -21,9 +19,8 @@ namespace TaxiGame.Resource
 
 
         [Inject]
-        private void Init([InjectOptional] IUnlockable unlockable, MoneyStacker stacker)
+        private void Init(MoneyStacker stacker)
         {
-            _unlockable = unlockable;
             _stacker = stacker;
         }
         private void OnTriggerEnter(Collider other)
@@ -31,7 +28,6 @@ namespace TaxiGame.Resource
             if (other.CompareTag(Globals.PLAYER_TAG) && _moneyPickupCoroutine == null)
             {
                 _moneyPickupCoroutine = StartCoroutine(Pickup(other.transform));
-                _unlockable?.UnlockObject();
             }
         }
         private IEnumerator Pickup(Transform instigator)

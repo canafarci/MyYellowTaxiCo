@@ -1,3 +1,4 @@
+using TaxiGame.GameState;
 using TaxiGame.GameState.Unlocking;
 using TaxiGame.Items;
 using TaxiGame.Resource;
@@ -12,8 +13,10 @@ namespace TaxiGame.Installers
         [SerializeField] private Joystick _joystick;
         public override void InstallBindings()
         {
-            Container.Bind<IUnlockable>().FromComponentInChildren().AsTransient();
+            Container.Bind<ProgressionState>().AsSingle();
 
+            Container.Bind<IUnlockable>().FromComponentInChildren().AsTransient();
+            Container.Bind<SequentialUnlockable>().FromComponentInChildren().AsTransient();
 
             Container.BindInterfacesAndSelfTo<ResourceTracker>().AsSingle();
 
