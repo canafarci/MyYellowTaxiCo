@@ -14,13 +14,14 @@ namespace TaxiGame.Resource
         public float PlayerMoney { get { return _currentMoney; } }
         private float _currentMoney;
         private UpgradesFacade _upgradesFacade;
+        private GameConfigSO _gameConfig;
+
         public event Action<float> OnPlayerMoneyChanged;
 
-
-        [Inject]
-        private void Init(UpgradesFacade upgradesFacade)
+        public ResourceTracker(UpgradesFacade upgradesFacade, GameConfigSO gameConfig)
         {
             _upgradesFacade = upgradesFacade;
+            _gameConfig = gameConfig;
         }
 
         public void Initialize()
@@ -56,7 +57,7 @@ namespace TaxiGame.Resource
         }
         private void OnMoneyPickup()
         {
-            _currentMoney += _upgradesFacade.GetIncomeModifier() * GameManager.Instance.References.GameConfig.MoneyPerStack;
+            _currentMoney += _upgradesFacade.GetIncomeModifier() * _gameConfig.MoneyPerStack;
             OnMoneyChange();
         }
         private void OnMoneyChange()
@@ -69,12 +70,12 @@ namespace TaxiGame.Resource
         {
             if (!PlayerPrefs.HasKey("Money"))
             {
-                PlayerPrefs.SetInt("Money", GameManager.Instance.References.GameConfig.StartMoney);
+                PlayerPrefs.SetInt("Money", _gameConfig.StartMoney);
                 _currentMoney = PlayerPrefs.GetInt("Money");
             }
             else if (PlayerPrefs.GetInt("TutorialComplete") == 1)
             {
-                PlayerPrefs.SetInt("Money", GameManager.Instance.References.GameConfig.StartMoney);
+                PlayerPrefs.SetInt("Money", _gameConfig.StartMoney);
                 _currentMoney = PlayerPrefs.GetInt("Money");
                 PlayerPrefs.SetInt("TutorialComplete", 2);
             }

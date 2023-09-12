@@ -15,6 +15,10 @@ namespace TaxiGame.Installers
             .WithId("UI")
             .FromComponentInParents()
             .AsTransient();
+
+            Container.Bind<CanvasGroup>()
+            .FromComponentInChildren().
+            AsSingle();
         }
     }
 }

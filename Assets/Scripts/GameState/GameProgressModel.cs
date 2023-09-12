@@ -80,9 +80,8 @@ public class GameProgressModel : MonoBehaviour
         _wandererTriggered.Invoke();
     }
 
-    public void OnFirstWandererSpawned(Wanderer wanderer)
+    public void OnFirstVIPSpawned(Wanderer wanderer)
     {
         _onFirstWandererSpawn.Invoke();
-        FindObjectOfType<ObjectiveArrow>().ChangeObjective(wanderer.transform); //TODO DI
     }
 }

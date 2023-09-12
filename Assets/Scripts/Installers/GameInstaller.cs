@@ -9,23 +9,22 @@ namespace TaxiGame.Installers
 {
     public class GameInstaller : MonoInstaller<GameInstaller>
     {
-        [SerializeField] private References _references;
         [SerializeField] private Joystick _joystick;
+        [SerializeField] private GameConfigSO _gameConfig;
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<ProgressionState>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ResourceTracker>().AsSingle();
+            Container.Bind<GameConfigSO>().FromInstance(_gameConfig).AsSingle();
 
             Container.Bind<IUnlockable>().FromComponentInChildren().AsTransient();
             Container.Bind<SequentialUnlockable>().FromComponentInChildren().AsTransient();
 
-            Container.BindInterfacesAndSelfTo<ResourceTracker>().AsSingle();
 
             Container.Bind<Rigidbody>().FromComponentInChildren().AsTransient();
 
             Container.Bind<Joystick>().FromInstance(_joystick).AsSingle();
             Container.BindInterfacesAndSelfTo<InputReader>().AsSingle();
-
-            Container.Bind<References>().FromInstance(_references).AsSingle();
 
             Container.Bind<Mover>().FromComponentInChildren().AsSingle();
 

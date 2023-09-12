@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4552baa906504b48a650e5cfa6ebfe7, type: 3}
+  m_Name: GameConfigSO
+  m_EditorClassIdentifier: 
+  FollowerDisableDelay: 0.5
+  MoneyPrefab: {fileID: 6021824632675370999, guid: 580a9e15465e1ab4582a0b3ad0d5a582,
+    type: 3}
+  ThunderWithEmission: {fileID: 2100000, guid: fc95a3cc3b4e97b43b107c998e8e9cdc, type: 2}
+  ThunderWithoutEmission: {fileID: 2100000, guid: 79f8717368e41f24f8879d0c38cb9cb7,
+    type: 2}
+  MoneyPerStack: 25
+  StartMoney: 21474836

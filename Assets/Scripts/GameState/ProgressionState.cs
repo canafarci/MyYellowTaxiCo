@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TaxiGame.NPC;
@@ -12,6 +13,9 @@ namespace TaxiGame.GameState
         private GameProgressModel _gameProgressionModel;
         //Variables
         private Dictionary<UnlockSequence, string> _unlockSequenceToKeyMap;
+        //Events
+        //Subscribed from ObjectiveArrow Visual class
+        public event EventHandler<OnFirstVIPSpawnedArgs> OnFirstVIPSpawned;
 
         public ProgressionState(GameProgressModel progressionModel)
         {
@@ -52,10 +56,16 @@ namespace TaxiGame.GameState
         public void HandleVIPSpawned(Wanderer wanderer)
         {
             if (!IsTutorialSequenceComplete(UnlockSequence.VIPTutorial))
-                _gameProgressionModel.OnFirstWandererSpawned(wanderer);
+            {
+                _gameProgressionModel.OnFirstVIPSpawned(wanderer);
+                OnFirstVIPSpawned?.Invoke(this, new OnFirstVIPSpawnedArgs { Target = wanderer.transform });
+            }
         }
+    }
 
-
+    public class OnFirstVIPSpawnedArgs : EventArgs
+    {
+        public Transform Target;
     }
 
     public enum UnlockSequence
