@@ -12,8 +12,6 @@ public class GameProgressModel : MonoBehaviour
                 _onFirstCustomerDelivered, _afterCustomerDeliveredLoad,
                 _onFirstWandererSpawn, _wandererTriggered, _afterWandererDeliveredLoad;
 
-    [SerializeField] GameObject[] _tutorialTexts;
-
     private void Start()
     {
         Invoke(nameof(Load), .3f);
@@ -72,10 +70,6 @@ public class GameProgressModel : MonoBehaviour
     public void OnThirdRepair()
     {
         _onFirstTireChange.Invoke();
-    }
-    public void DisableAllChildren()
-    {
-        _tutorialTexts.ToList().ForEach(x => x.SetActive(false));
     }
     public void OnFirstCustomerDelivered()
     {

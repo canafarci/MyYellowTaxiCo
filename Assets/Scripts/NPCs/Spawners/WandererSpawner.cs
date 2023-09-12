@@ -27,7 +27,7 @@ namespace TaxiGame.NPC
 
         private void Awake()
         {
-            if (!_progressionState.IsVIPTutorialComplete())
+            if (!_progressionState.IsTutorialSequenceComplete(UnlockSequence.VIPTutorial))
             {
                 _currentTime = 5f;
             }

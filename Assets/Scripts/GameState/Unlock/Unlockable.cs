@@ -21,10 +21,20 @@ namespace TaxiGame.GameState.Unlocking
         private void Start()
         {
             if (HasUnlockedBefore())
-                _persistentUnlock.Invoke();
+            {
+                HandleUnlockedBefore();
+            }
             else
+            {
                 SendAnalyticsDataForProgressionStart();
+            }
         }
+
+        protected virtual void HandleUnlockedBefore()
+        {
+            _persistentUnlock.Invoke();
+        }
+
         public virtual void UnlockObject()
         {
             if (!HasUnlockedBefore())

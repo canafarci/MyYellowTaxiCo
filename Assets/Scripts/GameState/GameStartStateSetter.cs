@@ -9,13 +9,13 @@ namespace TaxiGame.GameState
     public class GameStartStateSetter : MonoBehaviour
     {
         [SerializeField] private UnityEvent _gameStartEvent;
-        private SequentialUnlockable _unlockable;
+        private IUnlockable _unlockable;
         private MoneyStacker _stacker;
         private ProgressionState _progressionState;
         private const int START_MONEY_COUNT = 48;
 
         [Inject]
-        private void Init(SequentialUnlockable unlockable, MoneyStacker stacker, ProgressionState progressionState)
+        private void Init(IUnlockable unlockable, MoneyStacker stacker, ProgressionState progressionState)
         {
             _unlockable = unlockable;
             _stacker = stacker;
@@ -27,10 +27,6 @@ namespace TaxiGame.GameState
             {
                 _gameStartEvent.Invoke();
                 _stacker.StackMoney(START_MONEY_COUNT);
-            }
-            else if (!_progressionState.IsStartTutorialComplete())
-            {
-                _unlockable.UnlockSequentially();
             }
         }
         private void OnTriggerEnter(Collider other)

@@ -1,29 +1,41 @@
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 namespace TaxiGame.GameState.Unlocking
 {
     public class SequentialUnlockable : Unlockable
     {
         [SerializeField] private SequentialUnlockable _nextUnlocker;
+        [SerializeField] private UnlockSequence _unlockSequence;
+        private ProgressionState _progressionState;
 
-        public void UnlockSequentially()
+        [Inject]
+        private void Init(ProgressionState progressionState)
         {
-            if (HasUnlockedBefore())
-                StartCoroutine(UnlockCoroutine());
+            _progressionState = progressionState;
         }
-        private IEnumerator UnlockCoroutine()
+        protected override void HandleUnlockedBefore()
+        {
+            base.HandleUnlockedBefore();
+
+            if (!_progressionState.IsTutorialSequenceComplete(_unlockSequence))
+            {
+                StartCoroutine(SequentialUnlockCoroutine());
+            }
+        }
+
+        private IEnumerator SequentialUnlockCoroutine()
         {
             yield return new WaitForEndOfFrame();
 
             _onUnlock.Invoke();
-            _persistentUnlock.Invoke();
 
             if (_nextUnlocker != null)
             {
                 _nextUnlocker.gameObject.SetActive(true);
-                _nextUnlocker.UnlockSequentially();
             }
         }
     }
+
 }

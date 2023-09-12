@@ -1,86 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
-using TaxiGame.GameState;
 using TaxiGame.GameState.Unlocking;
 using TaxiGame.Items;
-using TaxiGame.Resource;
 using UnityEngine;
-using UnityEngine.Events;
 using Zenject;
 #if UNITY_ANDROID
 using Ketchapp.MayoSDK;
 #endif
 
-public class HatPickupTrigger : MonoBehaviour
+namespace TaxiGame.Items
 {
-    //TODO REFACTOR
-    private bool _secondGiveHatTutorialStarted = false;
-    [SerializeField] float _clearStackRate;
-    [SerializeField] UnityEvent _onSecondHatTutorialUnlock;
-    private HatStacker _hatStacker;
-    Dictionary<Collider, Coroutine> _coroutines = new Dictionary<Collider, Coroutine>();
-    private ResourceTracker _resourceTracker;
-    [Inject]
-    private void Init(ResourceTracker tracker, HatStacker stacker)
+    public class HatPickupTrigger : MonoBehaviour
     {
-        _resourceTracker = tracker;
-        _hatStacker = stacker;
-    }
+        //TODO REFACTOR
+        [SerializeField] private float _clearStackRate;
+        private HatStacker _hatStacker;
+        private IUnlockable _unlockable;
+        private Dictionary<Collider, Coroutine> _coroutines = new Dictionary<Collider, Coroutine>();
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag(Globals.PLAYER_TAG) || other.CompareTag(Globals.HELPER_NPC_TAG))
+        [Inject]
+        private void Init(HatStacker stacker, IUnlockable unlockable)
         {
-            _coroutines[other] = StartCoroutine(UnloadLoop(other));
+            _hatStacker = stacker;
+            _unlockable = unlockable;
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag(Globals.PLAYER_TAG) || other.CompareTag(Globals.HELPER_NPC_TAG))
+        private void OnTriggerEnter(Collider other)
         {
-            if (_coroutines[other] != null)
-                StopCoroutine(_coroutines[other]);
-        }
-    }
-
-    IEnumerator UnloadLoop(Collider other)
-    {
-        Inventory inventory = other.GetComponent<Inventory>();
-
-        while (true)
-        {
-            yield return new WaitForSeconds(_clearStackRate);
-
-            if (!inventory.IsInventoryFull() && _hatStacker.ItemStack.TryPop(out StackableItem item))
+            if (other.CompareTag(Globals.PLAYER_TAG) || other.CompareTag(Globals.HELPER_NPC_TAG))
             {
-                inventory.AddObjectToInventory(item);
+                _coroutines[other] = StartCoroutine(TryGiveHat(other));
+            }
+        }
 
-                IUnlockable unlock = GetComponent<IUnlockable>();
-                unlock?.UnlockObject();
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag(Globals.PLAYER_TAG) || other.CompareTag(Globals.HELPER_NPC_TAG))
+            {
+                if (_coroutines[other] != null)
+                    StopCoroutine(_coroutines[other]);
+            }
+        }
 
-                if (_secondGiveHatTutorialStarted)
+        private IEnumerator TryGiveHat(Collider other)
+        {
+            Inventory inventory = other.GetComponent<Inventory>();
+
+            //loop while instigator is in the trigger
+            while (true)
+            {
+                yield return new WaitForSeconds(_clearStackRate);
+
+                if (CanPickUpHat(inventory, out StackableItem item))
                 {
-                    _onSecondHatTutorialUnlock.Invoke();
-                    _secondGiveHatTutorialStarted = false;
-                    FindObjectOfType<SecondHatTutorialTrigger>().SecondHatTutorialStarted = true;
-                    FindObjectOfType<SecondHatTutorialTrigger>().GetComponent<Collider>().enabled = true;
-#if UNITY_ANDROID
-                    var data = new Ketchapp.MayoSDK.Analytics.Data();
-                    data.AddValue("ProgressionStatus", "Completed");
-                    data.AddValue("Money", (int)_resourceTracker.PlayerMoney);
-                    KetchappSDK.Analytics.CustomEvent("----SecondHatTutorialStart", data);
+                    inventory.AddObjectToInventory(item);
 
-                    var dataStart = new Ketchapp.MayoSDK.Analytics.Data();
-                    dataStart.AddValue("ProgressionStatus", "Started");
-                    dataStart.AddValue("Money", (int)_resourceTracker.PlayerMoney);
-                    KetchappSDK.Analytics.CustomEvent("----SecondHatTutorialGiveHatToDrivers", data);
-#endif
+                    _unlockable?.UnlockObject();
                 }
             }
         }
-    }
 
-    //Getters-Setters
-    public void SetSecondGiveHatTutorialStarted() => _secondGiveHatTutorialStarted = true;
+        private bool CanPickUpHat(Inventory inventory, out StackableItem item)
+        {
+            item = null;
+            return !inventory.IsInventoryFull() && _hatStacker.ItemStack.TryPop(out item);
+        }
+    }
 }

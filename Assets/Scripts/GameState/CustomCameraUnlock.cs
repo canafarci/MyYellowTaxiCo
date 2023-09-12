@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-public class CustomCameraUnlock : MonoBehaviour, ICustomUnlockBehaviour
+public class CustomCameraUnlock : MonoBehaviour
 {
-    [SerializeField] string _firstTimeIdentifier;
-    [SerializeField] float _cameraDuration;
-    [SerializeField] GameObject _camera;
-    CameraUnlocker _cameraUnlocker;
-    virtual public void OnUnlock()
+    [SerializeField] private float _cameraDuration;
+    private CameraUnlocker _cameraUnlocker;
+
+    [Inject]
+    private void Init(CameraUnlocker unlocker)
     {
-        if (PlayerPrefs.HasKey(_firstTimeIdentifier)) { return; }
-        FindObjectOfType<CameraUnlocker>().StartCameraRoutine(_camera, _cameraDuration);
-        PlayerPrefs.SetInt(_firstTimeIdentifier, 1);
+        _cameraUnlocker = unlocker;
+    }
+    public void CenterCameraOnUnlock()
+    {
+        _cameraUnlocker.StartCameraRoutine(gameObject, _cameraDuration);
     }
 }

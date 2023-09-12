@@ -83,7 +83,6 @@ namespace TaxiGame.Vehicles
             }
         }
 
-
         public void HandleHeliDeparted()
         {
             if (!PlayerPrefs.HasKey(Globals.FIFTH_VIP_TUTORIAL_COMPLETE))

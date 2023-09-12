@@ -13,6 +13,10 @@ namespace TaxiGame.Installers
         [SerializeField] private GameObject _collectibleMoneyPrefab;
         public override void InstallBindings()
         {
+            Container.Bind<CameraUnlocker>()
+                        .FromComponentInHierarchy()
+                        .AsSingle();
+
             Container.Bind<IFeedbackVisual>()
                         .FromComponentInChildren()
                         .AsTransient();
