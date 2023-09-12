@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
 
 namespace TaxiGame.NPC
@@ -25,7 +21,7 @@ namespace TaxiGame.NPC
         {
             customer = _endNode.GetNPC() as Customer;
 
-            if (customer == null)
+            if (customer == null || !customer.IsCustomerSeated())
             {
                 return false;
             }

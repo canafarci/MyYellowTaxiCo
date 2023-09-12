@@ -22,7 +22,7 @@ namespace TaxiGame.NPC
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag(Globals.PLAYER_TAG))
             {
                 _unloadCoroutine = StartCoroutine(TryUnload(other));
             }
@@ -30,7 +30,7 @@ namespace TaxiGame.NPC
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag(Globals.PLAYER_TAG))
             {
                 if (_unloadCoroutine != null)
                     StopCoroutine(_unloadCoroutine);
@@ -41,15 +41,12 @@ namespace TaxiGame.NPC
         {
             Inventory inventory = other.GetComponent<Inventory>();
 
-            while (true)
+            while (!inventory.HasInventoryObjectType(InventoryObjectType.Customer))
             {
-                if (!inventory.HasInventoryObjectType(InventoryObjectType.Customer))
+                if (_queue.TryGetCustomer(out Customer customer))
                 {
-                    if (_queue.TryGetCustomer(out Customer customer))
-                    {
-                        customer.FollowPlayer(inventory);
-                        _unlockable?.UnlockObject();
-                    }
+                    customer.FollowPlayer(inventory);
+                    _unlockable?.UnlockObject();
                 }
 
                 yield return new WaitForSeconds(0.5f);

@@ -23,9 +23,7 @@ namespace TaxiGame.Installers
 
                         BindHelperNPC();
 
-
                         BindFactories();
-
                 }
 
                 private void BindHelperNPC()
