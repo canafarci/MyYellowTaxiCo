@@ -648,7 +648,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5203300209828729818}
-  - component: {fileID: 5203300209828729821}
   - component: {fileID: 5203300209828729820}
   - component: {fileID: 5203300209828729823}
   - component: {fileID: 7517478811502373622}
@@ -678,18 +677,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5203300209828729821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5203300209828729819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b67b4d575dd1843b48e2bf21f29108, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &5203300209828729820
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -715,15 +702,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd82d35658c881646a3552a7564df0e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HatType: 0
   _enterNode: {fileID: 8226646738767340668}
   _exitNode: {fileID: 3825852529812633309}
-  _item: {fileID: 5150420696274731681, guid: ba62ffb24c1ea664092502ab0ef38d4a, type: 3}
-  _brokenCars: []
   _parkAnimator: {fileID: 0}
-  _specialChargerSpawn: 0
-  _specialBrokenSpawn: 0
-  _specialTireSpawn: 0
+  _hatType: 0
+  _carSpawnerID: 0
 --- !u!114 &7517478811502373622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -752,6 +735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hatType: 0
+  _getInPosition: {fileID: 0}
 --- !u!1 &5443496838141918556
 GameObject:
   m_ObjectHideFlags: 0

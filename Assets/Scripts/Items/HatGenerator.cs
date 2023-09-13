@@ -74,7 +74,7 @@ namespace TaxiGame.Items
 
         private bool CanSpawnItem()
         {
-            return _stacker.MaxStackSize >= _stacker.ItemStack.Count;
+            return _stacker.GetMaxStackSize() >= _stacker.GetItemStack().Count;
         }
         public void SetSpawnRate(float rate)
         {

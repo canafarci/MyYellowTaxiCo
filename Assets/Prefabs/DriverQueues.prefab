@@ -55,7 +55,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7063534741422691112}
-  - component: {fileID: 7063534741422691113}
   - component: {fileID: 7063534741422691114}
   m_Layer: 0
   m_Name: DriverQueuePurple
@@ -82,22 +81,6 @@ Transform:
   m_Father: {fileID: 9185324154282097040}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7063534741422691113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7063534741422691115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d93114e0a46d946a2dc51d79456f97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _driverSpots:
-  - {fileID: 5153048861113552770}
-  - {fileID: 9185324155992104998}
-  ItemType: 1
 --- !u!65 &7063534741422691114
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -120,7 +103,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8547257987214063169}
-  - component: {fileID: 8547257987214063168}
   - component: {fileID: 8547257987214063171}
   m_Layer: 0
   m_Name: DriverQueueBlack
@@ -146,21 +128,6 @@ Transform:
   m_Father: {fileID: 9185324154282097040}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8547257987214063168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8547257987214063170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d93114e0a46d946a2dc51d79456f97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _driverSpots:
-  - {fileID: 9185324155194417986}
-  ItemType: 2
 --- !u!65 &8547257987214063171
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1043,7 +1010,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9185324155131477169}
-  - component: {fileID: 9185324155131477168}
   - component: {fileID: 9185324155131477171}
   m_Layer: 0
   m_Name: DriverQueueYellow
@@ -1071,23 +1037,6 @@ Transform:
   m_Father: {fileID: 9185324154282097040}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9185324155131477168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9185324155131477170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d93114e0a46d946a2dc51d79456f97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _driverSpots:
-  - {fileID: 9185324155860281432}
-  - {fileID: 9185324154557433905}
-  - {fileID: 9185324156306480186}
-  ItemType: 0
 --- !u!65 &9185324155131477171
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TaxiGame.GameState.Unlocking;
@@ -12,11 +13,17 @@ namespace TaxiGame.Items
 {
     public class HatPickupTrigger : MonoBehaviour
     {
-        //TODO REFACTOR
-        [SerializeField] private float _clearStackRate;
+        //Dependencies
         private HatStacker _hatStacker;
         private IUnlockable _unlockable;
+        //Variables
         private Dictionary<Collider, Coroutine> _coroutines = new Dictionary<Collider, Coroutine>();
+        //Constants
+        private const float CLEAR_STACK_RATE = 0.25f;
+        //Events
+        //Subscribed from HatStackerVisual
+        public event Action OnHatPickedUp;
+
 
         [Inject]
         private void Init(HatStacker stacker, IUnlockable unlockable)
@@ -49,13 +56,14 @@ namespace TaxiGame.Items
             //loop while instigator is in the trigger
             while (true)
             {
-                yield return new WaitForSeconds(_clearStackRate);
+                yield return new WaitForSeconds(CLEAR_STACK_RATE);
 
                 if (CanPickUpHat(inventory, out StackableItem item))
                 {
                     inventory.AddObjectToInventory(item);
 
                     _unlockable?.UnlockObject();
+                    OnHatPickedUp?.Invoke();
                 }
             }
         }
@@ -63,7 +71,9 @@ namespace TaxiGame.Items
         private bool CanPickUpHat(Inventory inventory, out StackableItem item)
         {
             item = null;
-            return !inventory.IsInventoryFull() && _hatStacker.ItemStack.TryPop(out item);
+            return !_hatStacker.IsStackingHat()
+                && !inventory.IsInventoryFull()
+                && _hatStacker.GetItemStack().TryPop(out item);
         }
     }
 }

@@ -2296,22 +2296,8 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.06666667
-    functionName: OnTakeOff
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
   - time: 10.55
     functionName: DisableNPC
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 25.75
-    functionName: OnLanding
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

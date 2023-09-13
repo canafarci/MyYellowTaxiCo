@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TaxiGame.Items;
 using UnityEngine;
-using UnityEngine.Assertions;
 using Zenject;
 
 namespace TaxiGame.NPC
@@ -16,6 +14,8 @@ namespace TaxiGame.NPC
     {
         private HatStacker _stacker;
         private DriverLookup _driverLookup;
+        //Events
+        //Subscribed from DriverHatDistributorVisual and HatStackerVisual
         public event EventHandler<HatDistributedEventArgs> OnHatDistributed;
 
         [Inject]
@@ -35,11 +35,9 @@ namespace TaxiGame.NPC
             HashSet<Driver> driversWithoutHat = _driverLookup.GetDriversWithoutHat();
             HashSet<Driver> driversWithHat = _driverLookup.GetDriversWithHat();
 
-            if (driversWithoutHat.Count > 0 && _stacker.ItemStack.Count > 0)
+            if (CanDistributeHats(driversWithoutHat, out StackableItem hat))
             {
-
                 Driver driver = driversWithoutHat.FirstOrDefault();
-                StackableItem hat = _stacker.ItemStack.Pop();
 
                 driver.SetHasHat(true);
                 driversWithoutHat.Remove(driver);
@@ -47,6 +45,12 @@ namespace TaxiGame.NPC
 
                 InvokeHatDistributedEvent(driver, hat);
             }
+        }
+
+        private bool CanDistributeHats(HashSet<Driver> driversWithoutHat, out StackableItem hat)
+        {
+            hat = null;
+            return driversWithoutHat.Count > 0 && !_stacker.IsStackingHat() && _stacker.GetItemStack().TryPop(out hat);
         }
 
         private void InvokeHatDistributedEvent(Driver driver, StackableItem hat)

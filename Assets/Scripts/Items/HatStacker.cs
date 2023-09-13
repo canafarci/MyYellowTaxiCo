@@ -1,37 +1,39 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 using System;
 
 namespace TaxiGame.Items
 {
     public class HatStacker : MonoBehaviour
     {
-        public Stack<StackableItem> ItemStack { get { return _stack; } }
-        public int MaxStackSize { get { return _maxStackSize; } }
+        //Variables
         [SerializeField] private int _maxStackSize;
         private Stack<StackableItem> _stack = new Stack<StackableItem>();
+        //used to lock picking hats up from the stacker while stacking is in process
+        private int _currentlyStackingHatCount = 0;
         //Subscribed from HatStackerVisual
         public event EventHandler<OnHatStackedArgs> OnHatStacked;
-
         public void StackItem(StackableItem item)
         {
-            Action stackItemDelegate = () => _stack.Push(item);
+            _stack.Push(item);
+            _currentlyStackingHatCount++;
 
             OnHatStacked?.Invoke(this, new OnHatStackedArgs
             {
-                OnTweenComplete = stackItemDelegate,
-                ItemStack = _stack,
-                Item = item
+                Item = item,
+                OnStackCompleteDelegate = () => _currentlyStackingHatCount -= 1
             });
         }
+
+        //Getters-Setters
+        public int GetMaxStackSize() => _maxStackSize;
+        public Stack<StackableItem> GetItemStack() => _stack;
+        public bool IsStackingHat() => _currentlyStackingHatCount != 0;
     }
 
     public class OnHatStackedArgs : EventArgs
     {
-        public Action OnTweenComplete;
-        public Stack<StackableItem> ItemStack;
         public StackableItem Item;
+        public Action OnStackCompleteDelegate;
     }
 }

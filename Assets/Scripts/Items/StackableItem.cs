@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace TaxiGame.Items
 {
@@ -8,7 +7,6 @@ namespace TaxiGame.Items
     {
         public float ItemHeight;
         [SerializeField] private InventoryObjectType _hatType;
-
         public InventoryObjectType GetObjectType() => _hatType;
     }
 }

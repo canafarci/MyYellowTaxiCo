@@ -44,8 +44,13 @@ namespace TaxiGame.Installers
                 .FromComponentInChildren(false)
                 .AsTransient();
 
-            Container.BindFactory<UnityEngine.Object, Transform, WandererMoney, WandererMoney.Factory>()
-                    .FromFactory<PrefabFactory<Transform, WandererMoney>>();
+            Container.Bind<HatStacker>()
+                .FromComponentInChildren()
+                .AsTransient();
+
+            Container.Bind<HatPickupTrigger>()
+                .FromComponentInChildren()
+                .AsTransient();
         }
     }
 }

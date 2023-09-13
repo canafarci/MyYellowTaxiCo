@@ -40,7 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2125246898044877569}
-  - component: {fileID: 2125246898044877568}
   - component: {fileID: 2125246898044877571}
   m_Layer: 0
   m_Name: DriverQueue
@@ -68,24 +67,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2125246898044877568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2125246898044877570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d93114e0a46d946a2dc51d79456f97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _driverSpots:
-  - {fileID: 2125246898889027560}
-  - {fileID: 2125246897603743617}
-  - {fileID: 2125246899352787850}
-  - {fileID: 2703841819170277426}
-  ItemType: 0
 --- !u!65 &2125246898044877571
 BoxCollider:
   m_ObjectHideFlags: 0

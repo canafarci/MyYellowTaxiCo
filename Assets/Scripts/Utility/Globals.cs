@@ -23,7 +23,6 @@ public static class Globals
     public const float HAT_SCALE = 1.257031f;
     public const float HAT_WORN_SCALE = 0.9465261f;
 
-
     public const float LOW_GAS_CAR_REPAIR_DURATION = 3f;
     public const float LOW_GAS_CAR_ATTACH_HANDLE_DURATION = 0.5f;
     public const float HANDLE_MAX_DISTANCE_FROM_STATION = 10f;
@@ -31,7 +30,6 @@ public static class Globals
     public const float TIRE_DROP_TWEEN_DURATION = 1f;
     public const float TOOLBOX_DROP_TWEEN_DURATION = .35f;
     public const float TOOLBOX_DROP_REPAIR_ANIMATION_DURATION = 2f;
-
     public static readonly Vector3 CAMERA_LOOK_OFFSET = new Vector3(0f, -45f, 0f);
 
     //TAGS

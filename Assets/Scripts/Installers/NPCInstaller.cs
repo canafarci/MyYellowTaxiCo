@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 using TaxiGame.NPC.Command;
-using System;
 
 namespace TaxiGame.Installers
 {
@@ -28,13 +27,7 @@ namespace TaxiGame.Installers
 
                 private void BindHelperNPC()
                 {
-                        Container.Bind<HatPickupTrigger>()
-                            .FromComponentInHierarchy()
-                            .AsSingle();
 
-                        Container.Bind<QueueHatDropTrigger>()
-                            .FromComponentInHierarchy()
-                            .AsSingle();
 
                         Container.Bind<NavMeshMover>()
                             .FromComponentInChildren()
@@ -76,6 +69,9 @@ namespace TaxiGame.Installers
                         Container.Bind<WandererSpawner>()
                                 .FromComponentInHierarchy()
                                 .AsTransient();
+
+                        Container.BindFactory<UnityEngine.Object, Transform, WandererMoney, WandererMoney.Factory>()
+                                .FromFactory<PrefabFactory<Transform, WandererMoney>>();
                 }
 
                 private void BindDriver()
@@ -83,10 +79,6 @@ namespace TaxiGame.Installers
                         Container.Bind<INPCQueue>()
                                 .WithId(NPCType.Driver)
                                 .FromMethod(GetDriverQueue)
-                                .AsTransient();
-
-                        Container.Bind<HatStacker>()
-                                .FromComponentInChildren()
                                 .AsTransient();
 
                         Container.Bind<DriverDispatcher>()
@@ -102,9 +94,13 @@ namespace TaxiGame.Installers
                                 .FromComponentInParents()
                                 .AsTransient();
 
-                        Container.Bind<DriverHatDistributor>().
-                                FromComponentInChildren().
-                                AsTransient();
+                        Container.Bind<DriverHatDistributor>()
+                                .FromComponentInChildren()
+                                .AsTransient();
+
+                        Container.Bind<QueueHatDropTrigger>()
+                                .FromComponentInHierarchy()
+                                .AsSingle();
                 }
 
                 private void BindFactories()
