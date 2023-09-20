@@ -28,20 +28,25 @@ namespace TaxiGame.Vehicles
 
                 if (inventory.HasInventoryObjectType(InventoryObjectType.Customer))
                 {
-                    SendCustomerToVehicleSpot(inventory);
-
-                    _vehicleSpot.SetCustomerWaiting(true);
-                    //Update persistent game state
-                    _vehicleProgressionMpdel.HandleCustomerDropped();
+                    HandleEnteredDropAreaWithCustomer(inventory);
                 }
             }
+        }
+
+        private void HandleEnteredDropAreaWithCustomer(Inventory inventory)
+        {
+            SendCustomerToVehicleSpot(inventory);
+
+            _vehicleSpot.SetCustomerWaiting(true);
+            //Update persistent game state
+            _vehicleProgressionMpdel.HandleCustomerDropped();
         }
 
         private void SendCustomerToVehicleSpot(Inventory inventory)
         {
             Customer customer = inventory.PopInventoryObject(InventoryObjectType.Customer) as Customer;
-            customer.GetFollower().StopFollowing();
-            customer.GetController().GoToVehicleSpot(_vehicleSpot.GetInPosition(), () => _vehicleSpot.HandleCustomerArrival());
+            customer.GetFollower()?.StopFollowing();
+            customer.GetController()?.GoToVehicleSpot(_vehicleSpot.GetInPosition(), () => _vehicleSpot.HandleCustomerArrival());
         }
     }
 

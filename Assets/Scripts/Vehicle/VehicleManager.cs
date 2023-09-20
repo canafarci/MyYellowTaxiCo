@@ -9,18 +9,6 @@ namespace TaxiGame.Vehicles
     public class VehicleManager
     {
         private Dictionary<VehicleSpot, int> _vehicleTripCountLookup = new();
-        private LevelProgress _progresser;
-
-        [Inject]
-        private void Init(LevelProgress progresser, CarSpawnDataProvider model)
-        {
-            _progresser = progresser;
-        }
-
-        public void OnVehicleDeparted()
-        {
-            _progresser.OnLevelProgress();
-        }
 
         public bool CanSpawnDriver(VehicleSpot spot)
         {

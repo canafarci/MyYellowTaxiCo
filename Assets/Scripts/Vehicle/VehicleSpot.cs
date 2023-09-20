@@ -14,8 +14,11 @@ namespace TaxiGame.Vehicles
         private VehicleManager _vehicleManager;
         private bool _isCustomerWaiting;
         //events
+        //Subscribed from DriverDispatcher, DriverSpawner
         public static event EventHandler<OnVehicleReturnedArgs> OnVehicleReturned;
+        //Subscribed from CarSpawnerVisual and HeliSpotVisual, and is part of the contract of IVehicleEvents
         public event Action OnVehicleDeparted;
+        //Subscribed from MoneyStacker, and is part of the contract of IVehicleEvents
         public event Action<int> OnVehicleMoneyEarned;
         //initialization
         [Inject]
@@ -38,7 +41,6 @@ namespace TaxiGame.Vehicles
         }
         private void UpdateGameState()
         {
-            _vehicleManager.OnVehicleDeparted();
             OnVehicleDeparted?.Invoke();
             OnVehicleMoneyEarned?.Invoke(_vehicle.GetModel().GetMoneyStackCount());
             Clear();

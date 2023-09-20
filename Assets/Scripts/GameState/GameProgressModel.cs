@@ -73,7 +73,7 @@ public class GameProgressModel : MonoBehaviour
     }
     public void OnFirstCustomerDelivered()
     {
-        _onFirstCustomerDelivered.Invoke();
+        _onFirstCustomerDelivered?.Invoke();
     }
     public void VIPTriggered()
     {

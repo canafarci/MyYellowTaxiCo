@@ -1,5 +1,6 @@
 using System;
 using TaxiGame.Resource;
+using TaxiGame.Vehicles;
 using UnityEngine;
 using Zenject;
 
@@ -8,24 +9,27 @@ using Ketchapp.MayoSDK;
 #endif
 public class LevelProgress : MonoBehaviour
 {
-    StarTween _tweener;
-    int _levelProgressValue, _currentLevel, _levelIncreaseTreshold;
-    private ResourceTracker _resourceTracker;
-
+    private StarTween _tweener;
+    private int _levelProgressValue, _currentLevel, _levelIncreaseTreshold;
     public event Action<int> LevelIncreaseHandler;
 
-    [Inject]
-    private void Init(ResourceTracker tracker)
-    {
-        _resourceTracker = tracker;
-    }
     private void Awake()
     {
         _tweener = GetComponent<StarTween>();
     }
 
-    private void Start() => InitValues();
-    public void OnLevelProgress() => _tweener.OnLevelProgress(() => ProgressLevel());
+    private void Start()
+    {
+        InitValues();
+        VehicleSpot.OnVehicleReturned += VehicleSpot_VehicleReturnedHandler;
+    }
+
+    private void VehicleSpot_VehicleReturnedHandler(object sender, OnVehicleReturnedArgs e)
+    {
+        Action callback = () => ProgressLevel();
+        _tweener.OnLevelProgress(callback);
+    }
+
     public void ProgressLevel()
     {
         _levelProgressValue += 1;

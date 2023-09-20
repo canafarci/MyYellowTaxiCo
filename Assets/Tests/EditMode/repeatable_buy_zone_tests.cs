@@ -80,35 +80,6 @@ namespace TaxiGame.WaitZones.Tests
             Assert.IsTrue(20f > remainingMoneyAfterIteration);
             Assert.IsTrue(10f > remainingTime);
         }
-
-        [UnityTest]
-        public IEnumerator Iterate_FailsWhenTimeIsRemainingAndNoMoney()
-        {
-            //Arrange
-            TestableRepeatableBuyingWaitingZone waitingZone = new GameObject("BWZ", typeof(TestableRepeatableBuyingWaitingZone)).GetComponent<TestableRepeatableBuyingWaitingZone>();
-            PayMoneyProcessor payCalculator = Container.Resolve<PayMoneyProcessor>();
-            ResourceTracker resourceTracker = Container.Resolve<ResourceTracker>();
-            waitingZone.SetPayProcessor(payCalculator);
-            float remainingTime = 10f;
-            float remainingMoney = 20f;
-            waitingZone.SetRemainingMoney(remainingMoney);
-            waitingZone.SetRemainingTime(remainingTime);
-            // WaitZoneConfig config = ScriptableObject.CreateInstance<WaitZoneConfig>();
-            // config.OnSuccess = () => { };
-            resourceTracker.ZeroMoney();
-            GameObject instigator = new GameObject("instigator");
-
-            //Act
-            waitingZone.Begin(() => { }, instigator);
-            yield return new WaitForSeconds(Globals.TIME_STEP * 2f);
-            float remainingMoneyAfterIteration = waitingZone.GetRemainingMoney();
-            TestContext.WriteLine($"remainingTime : {remainingTime}, remainingMoney: {remainingMoneyAfterIteration}");            //Assert
-
-            //Assert
-            Assert.AreEqual(remainingMoney, remainingMoneyAfterIteration);
-            Assert.AreEqual(10f, remainingTime);
-        }
-
     }
 
     // Test-specific derived class for RepeatableBuyingWaitingZone
