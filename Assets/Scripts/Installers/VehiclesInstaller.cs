@@ -63,6 +63,17 @@ namespace TaxiGame.Installers
             .WithId(VehicleFactoryID.ProgressionCarFactory)
             .To<ProgressionCarSpawnDataFactory>()
             .AsSingle();
+
+
+            Container.Bind<CarSpawnDataProvider>()
+            .AsSingle();
+
+            Container.BindInterfacesAndSelfTo<VehicleProgressionModel>()
+            .AsSingle();
+
+            Container.Bind<GameProgressModel>()
+            .FromComponentInHierarchy().
+            AsSingle();
         }
 
         private void InstallVehicleModel()
@@ -73,16 +84,6 @@ namespace TaxiGame.Installers
 
             Container.Bind<VehicleManager>()
             .AsSingle();
-
-            Container.Bind<CarSpawnDataProvider>()
-            .AsSingle();
-
-            Container.Bind<VehicleProgressionModel>()
-            .AsSingle();
-
-            Container.Bind<GameProgressModel>()
-            .FromComponentInHierarchy().
-            AsSingle();
 
             Container.Bind<MoneyStacker>() //TODO move to ResourceInstaller
             .FromComponentInChildren()

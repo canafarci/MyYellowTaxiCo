@@ -12,7 +12,7 @@ namespace TaxiGame.Vehicles.Creation
         private ISpawnDataFactory _brokenCarFactory;
         private ISpawnDataFactory _regularCarFactory;
         private ISpawnDataFactory _specialCarFactory;
-        private VehicleProgressionModel _model;
+        private VehicleProgressionModel _vehicleProgressionModel;
 
         private const float BROKEN_CAR_SPAWN_CHANCE = 0.33f;
 
@@ -24,7 +24,7 @@ namespace TaxiGame.Vehicles.Creation
             _brokenCarFactory = brokenCarFactory;
             _regularCarFactory = regularCarFactory;
             _specialCarFactory = specialCarFactory;
-            _model = model;
+            _vehicleProgressionModel = model;
         }
 
         public SpawnedCarData GetInitialCarSpawnData(CarSpawnerID carSpawnerID)
@@ -53,7 +53,7 @@ namespace TaxiGame.Vehicles.Creation
 
         private bool CheckShouldSpawnSpecialProgressionCar(CarSpawnerID carSpawnerID)
         {
-            return _model.ShouldSpawnSpecialProgressionCar(carSpawnerID);
+            return _vehicleProgressionModel.ShouldSpawnSpecialProgressionCar(carSpawnerID);
         }
 
         private bool ShouldSpawnRandomBrokenCar(float chance)

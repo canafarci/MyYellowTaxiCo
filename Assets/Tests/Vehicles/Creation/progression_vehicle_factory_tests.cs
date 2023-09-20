@@ -5,7 +5,6 @@ using Zenject;
 
 namespace TaxiGame.Vehicles.Tests
 {
-    [TestFixture]
     public class progression_vehicle_factory_tests : ZenjectUnitTestFixture
     {
         [SetUp]
@@ -94,24 +93,6 @@ namespace TaxiGame.Vehicles.Tests
             Assert.IsTrue(firstData.Prefab == progressionCarSO.NoChargeTaxi);
             Assert.IsTrue(secondData.Prefab == progressionCarSO.BrokenEngineTaxi);
             Assert.IsTrue(thirdData.Prefab == progressionCarSO.FlatTireTaxi);
-        }
-
-
-        //Helper function
-        private void DeleteKeys()
-        {
-            if (PlayerPrefs.HasKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE))
-            {
-                PlayerPrefs.DeleteKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE);
-            }
-            if (PlayerPrefs.HasKey(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE))
-            {
-                PlayerPrefs.DeleteKey(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE);
-            }
-            if (PlayerPrefs.HasKey(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE))
-            {
-                PlayerPrefs.DeleteKey(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE);
-            }
         }
     }
 }

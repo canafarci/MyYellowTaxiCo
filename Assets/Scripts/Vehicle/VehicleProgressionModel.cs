@@ -8,18 +8,15 @@ using Zenject;
 
 namespace TaxiGame.Vehicles
 {
-    public class VehicleProgressionModel
+    public class VehicleProgressionModel : IInitializable
     {
         private Dictionary<CarSpawnerID, string> _spawnerToProgressionKeyMap;
         private GameProgressModel _gameProgressionModel;
-
-        [Inject]
-        private void Init(GameProgressModel progressionModel)
+        public VehicleProgressionModel(GameProgressModel progressionModel)
         {
             _gameProgressionModel = progressionModel;
         }
-
-        private VehicleProgressionModel()
+        public void Initialize()
         {
             _spawnerToProgressionKeyMap = new Dictionary<CarSpawnerID, string>
             {

@@ -4,7 +4,6 @@ using Zenject;
 
 namespace TaxiGame.Vehicles.Tests
 {
-    [TestFixture]
     public class regular_vehicle_factory_tests : ZenjectUnitTestFixture
     {
         [SetUp]

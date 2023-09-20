@@ -8,7 +8,6 @@ using TaxiGame.GameState;
 
 namespace TaxiGame.Vehicles.Tests
 {
-    [TestFixture]
     public class broken_vehicle_factory_tests : ZenjectUnitTestFixture
     {
         [SetUp]
