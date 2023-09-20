@@ -27,8 +27,8 @@ namespace TaxiGame.GameState
             {
                 { UnlockSequence.StartTutorial, Globals.START_TUTORIAL_COMPLETE },
                 { UnlockSequence.ChargeTutorial, Globals.FIRST_CHARGER_TUTORIAL_COMPLETE },
-                { UnlockSequence.ToolboxTutorial, Globals.SECOND_BROKEN_TUTORIAL_COMPLETE },
-                { UnlockSequence.TireTutorial, Globals.THIRD_TIRE_TUTORIAL_COMPLETE },
+                { UnlockSequence.EngineRepairTutorial, Globals.SECOND_BROKEN_TUTORIAL_COMPLETE },
+                { UnlockSequence.TireChangeTutorial, Globals.THIRD_TIRE_TUTORIAL_COMPLETE },
                 { UnlockSequence.CustomerTutorial, Globals.FOURTH_CUSTOMER_TUTORIAL_COMPLETE },
                 { UnlockSequence.VIPTutorial, Globals.FIFTH_VIP_TUTORIAL_COMPLETE }
             };
@@ -37,10 +37,6 @@ namespace TaxiGame.GameState
         public bool IsTutorialSequenceComplete(UnlockSequence sequence)
         {
             return PlayerPrefs.HasKey(_unlockSequenceToKeyMap[sequence]);
-        }
-        public bool IsStartTutorialComplete()
-        {
-            return PlayerPrefs.HasKey(Globals.START_TUTORIAL_COMPLETE);
         }
         public void HandleStartTutorialComplete()
         {
@@ -72,8 +68,8 @@ namespace TaxiGame.GameState
     {
         StartTutorial,
         ChargeTutorial,
-        ToolboxTutorial,
-        TireTutorial,
+        EngineRepairTutorial,
+        TireChangeTutorial,
         CustomerTutorial,
         VIPTutorial
     }

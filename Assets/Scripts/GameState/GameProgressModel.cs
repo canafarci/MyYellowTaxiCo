@@ -21,23 +21,23 @@ public class GameProgressModel : MonoBehaviour
     {
         if (PlayerPrefs.HasKey(Globals.FIRST_CHARGER_TUTORIAL_COMPLETE))
         {
-            _afterFirstChargeReload.Invoke();
+            _afterFirstChargeReload?.Invoke();
         }
         if (PlayerPrefs.HasKey(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE))
         {
-            _afterRepairLoad.Invoke();
+            _afterRepairLoad?.Invoke();
         }
         if (PlayerPrefs.HasKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE))
         {
-            _afterTireReload.Invoke();
+            _afterTireReload?.Invoke();
         }
         if (PlayerPrefs.HasKey(Globals.FOURTH_CUSTOMER_TUTORIAL_COMPLETE))
         {
-            _afterCustomerDeliveredLoad.Invoke();
+            _afterCustomerDeliveredLoad?.Invoke();
         }
         if (PlayerPrefs.HasKey(Globals.FIFTH_VIP_TUTORIAL_COMPLETE))
         {
-            _afterWandererDeliveredLoad.Invoke();
+            _afterWandererDeliveredLoad?.Invoke();
         }
     }
 

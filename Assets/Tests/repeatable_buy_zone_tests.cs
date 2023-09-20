@@ -1,18 +1,25 @@
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using TaxiGame.WaitZones;
-using TaxiGame.Upgrades;
-using UnityEditor;
-using System;
 using System.Collections;
-using TaxiGame.UI;
 using TaxiGame.Resource;
+using Zenject;
+using TaxiGame.Upgrades;
 
 namespace TaxiGame.WaitZones.Tests
 {
-    public class RepeatableBuyingWaitingZoneTests
+    public class RepeatableBuyingWaitingZoneTests : ZenjectUnitTestFixture
     {
+        [SetUp]
+        public void SetUp()
+        {
+            Container.Bind<PayMoneyProcessor>().AsSingle();
+            Container.Bind<ResourceTracker>().AsSingle();
+            Container.Bind<UpgradesFacade>().AsSingle();
+            Container.Bind<GameConfigSO>()
+                .FromScriptableObjectResource("ScriptableObjects/GameConfigSO")
+                .AsSingle();
+        }
         [Test]
         public void SetPrice_SetsCorrectPrice()
         {
@@ -54,8 +61,8 @@ namespace TaxiGame.WaitZones.Tests
         public void Iterate_CallsProcessPayMethod()
         {
             TestableRepeatableBuyingWaitingZone waitingZone = new GameObject("BWZ", typeof(TestableRepeatableBuyingWaitingZone)).GetComponent<TestableRepeatableBuyingWaitingZone>();
-            PayMoneyProcessor payCalculator = new GameObject("PM", typeof(PayMoneyProcessor)).GetComponent<PayMoneyProcessor>();
-            ResourceTracker resourceTracker = new GameObject("res", typeof(ResourceTracker)).GetComponent<ResourceTracker>();
+            PayMoneyProcessor payCalculator = Container.Resolve<PayMoneyProcessor>();
+            ResourceTracker resourceTracker = Container.Resolve<ResourceTracker>();
 
             float remainingMoney = 20f;
 
@@ -79,8 +86,8 @@ namespace TaxiGame.WaitZones.Tests
         {
             //Arrange
             TestableRepeatableBuyingWaitingZone waitingZone = new GameObject("BWZ", typeof(TestableRepeatableBuyingWaitingZone)).GetComponent<TestableRepeatableBuyingWaitingZone>();
-            PayMoneyProcessor payCalculator = new GameObject("PM", typeof(PayMoneyProcessor)).GetComponent<PayMoneyProcessor>();
-            ResourceTracker resourceTracker = new GameObject("res", typeof(ResourceTracker)).GetComponent<ResourceTracker>();
+            PayMoneyProcessor payCalculator = Container.Resolve<PayMoneyProcessor>();
+            ResourceTracker resourceTracker = Container.Resolve<ResourceTracker>();
             waitingZone.SetPayProcessor(payCalculator);
             float remainingTime = 10f;
             float remainingMoney = 20f;

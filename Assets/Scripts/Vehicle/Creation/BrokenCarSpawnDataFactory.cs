@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TaxiGame.GameState;
 using TaxiGame.Items;
 using UnityEngine;
 using Zenject;
@@ -9,12 +10,17 @@ namespace TaxiGame.Vehicles.Creation
     public class BrokenCarSpawnDataFactory : ISpawnDataFactory
     {
         private BrokenCarsSO _brokenVehiclesSO;
+        private ProgressionState _progressionState;
+
         //constants
         private const int DEFAULT_CAR_MAX_RANGE = 3;
+        private const int SECOND_TUTORIAL_MAX_RANGE = 2;
+        private const int FIRST_TUTORIAL_MAX_RANGE = 1;
 
-        public BrokenCarSpawnDataFactory(BrokenCarsSO vehiclesSO)
+        public BrokenCarSpawnDataFactory(BrokenCarsSO vehiclesSO, ProgressionState progressionState)
         {
             _brokenVehiclesSO = vehiclesSO;
+            _progressionState = progressionState;
         }
 
         public SpawnedCarData CreateCarSpawnData(CarSpawnerID carSpawnerID)
@@ -28,8 +34,7 @@ namespace TaxiGame.Vehicles.Creation
         }
         private int GetMaxRangeForColoredCars(CarSpawnerID carSpawnerID)
         {
-            //If ID belongs to a taxi car
-            if (carSpawnerID != CarSpawnerID.LimoSpawner || carSpawnerID != CarSpawnerID.SuberSpawner)
+            if (IsTaxiCar(carSpawnerID))
             {
                 return GetYellowCarMaxRange();
             }
@@ -38,20 +43,19 @@ namespace TaxiGame.Vehicles.Creation
                 return DEFAULT_CAR_MAX_RANGE;
             }
         }
-        //TODO remove magic variables
         private int GetYellowCarMaxRange()
         {
-            if (PlayerPrefs.HasKey(Globals.THIRD_TIRE_TUTORIAL_COMPLETE))
+            if (_progressionState.IsTutorialSequenceComplete(UnlockSequence.TireChangeTutorial))
             {
-                return 3;
+                return DEFAULT_CAR_MAX_RANGE;
             }
-            else if (PlayerPrefs.HasKey(Globals.SECOND_BROKEN_TUTORIAL_COMPLETE))
+            else if (_progressionState.IsTutorialSequenceComplete(UnlockSequence.EngineRepairTutorial))
             {
-                return 2;
+                return SECOND_TUTORIAL_MAX_RANGE;
             }
             else
             {
-                return 1;
+                return FIRST_TUTORIAL_MAX_RANGE;
             }
         }
         private GameObject GetRandomBrokenCarPrefab(CarSpawnerID carSpawnerID, int index)
@@ -68,6 +72,11 @@ namespace TaxiGame.Vehicles.Creation
         private int GetRandomInt(int range)
         {
             return UnityEngine.Random.Range(0, range);
+        }
+
+        private bool IsTaxiCar(CarSpawnerID carSpawnerID)
+        {
+            return carSpawnerID != CarSpawnerID.LimoSpawner && carSpawnerID != CarSpawnerID.SuberSpawner;
         }
     }
 }
