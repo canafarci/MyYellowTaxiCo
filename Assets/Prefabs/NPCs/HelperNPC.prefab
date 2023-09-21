@@ -78,11 +78,12 @@ GameObject:
   - component: {fileID: 7105595496654495327}
   - component: {fileID: 4022155226445957715}
   - component: {fileID: 1468741344}
-  - component: {fileID: 7105638431418530228}
   - component: {fileID: 7914820544323436756}
   - component: {fileID: 8075182849327878782}
   - component: {fileID: 6745055293638968259}
   - component: {fileID: 8974286512343320381}
+  - component: {fileID: 6203280293378311772}
+  - component: {fileID: 7350480557821877923}
   m_Layer: 0
   m_Name: HelperNPC
   m_TagString: HelperNPC
@@ -199,18 +200,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7105638431418530228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6783455744980478104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a12cf6d22b8b2c045bc9ce7204688ec7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7914820544323436756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +255,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 880d385d164c6cf43a44a51fd3dbdf16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6203280293378311772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6783455744980478104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1869d6fdfcf34ad4cbff457307de2033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7350480557821877923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6783455744980478104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12cf6d22b8b2c045bc9ce7204688ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6783455745478723519

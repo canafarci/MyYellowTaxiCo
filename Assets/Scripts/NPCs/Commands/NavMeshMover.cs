@@ -11,10 +11,10 @@ namespace TaxiGame.NPC.Command
 {
     public class NavMeshMover : MonoBehaviour
     {
-        protected NPCActionInvoker _invoker;
+        protected NPCCommandInvoker _invoker;
         protected NavMeshAgent _agent;
         [Inject]
-        private void Init(NavMeshAgent agent, NPCActionInvoker invoker)
+        private void Init(NavMeshAgent agent, NPCCommandInvoker invoker)
         {
             _agent = agent;
             _invoker = invoker;

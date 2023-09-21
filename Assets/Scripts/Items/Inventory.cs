@@ -7,7 +7,7 @@ namespace TaxiGame.Items
 {
     public class Inventory : MonoBehaviour
     {
-        [SerializeField] private int _maxStackSize;
+        [SerializeField] private int _maxStackSize = 1;
         private ItemUtility _itemUtility;
         private Dictionary<InventoryObjectType, Stack<IInventoryObject>> _inventoryLookup = new();
 

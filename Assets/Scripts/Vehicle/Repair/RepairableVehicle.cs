@@ -36,7 +36,6 @@ namespace TaxiGame.Vehicles.Repair
         {
             bool carIsNotRepaired = _vehicleModel.IsCarBroken();
 
-
             bool inventoryHasObject = inventory.HasInventoryObjectType(repairObjectType);
 
             return carIsNotRepaired && inventoryHasObject;

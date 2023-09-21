@@ -52,5 +52,8 @@
     "Temp/": true
   },
   "omnisharp.enableRoslynAnalyzers": false,
-  "dotnet.defaultSolution": "NewYork Taxi.sln"
+  "dotnet.defaultSolution": "NewYork Taxi.sln",
+  "editor.tokenColorCustomizations": {
+    "comments": "#9c9c9c"
+  }
 }

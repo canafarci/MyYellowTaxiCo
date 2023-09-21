@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TaxiGame.Installers;
 using TaxiGame.Items;
 using TaxiGame.NPC;
 using TaxiGame.NPC.Command;
@@ -11,8 +12,7 @@ namespace TaxiGame.NPC
     public class DeliverHatState : MonoBehaviour, IHelperNPCState
     {
         //Dependencies
-        private HatPickupTrigger _hatPickupTrigger;
-        private QueueHatDropTrigger _hatDropTrigger;
+        private HelperNPCLocationReferences _locationReferences;
         private Inventory _inventory;
         private NavMeshMover _mover;
 
@@ -20,28 +20,18 @@ namespace TaxiGame.NPC
         private bool _hasPickedUpHats = false;
 
         [Inject]
-        private void Init(HatPickupTrigger hatTrigger,
-                          QueueHatDropTrigger hatDropTrigger,
+        private void Init(HelperNPCLocationReferences locationReferences,
                           Inventory inventory,
                           NavMeshMover mover)
         {
-            _hatPickupTrigger = hatTrigger;
-            _hatDropTrigger = hatDropTrigger;
+            _locationReferences = locationReferences;
             _inventory = inventory;
             _mover = mover;
         }
 
-        private void Start()
-        {
-            Enter();
-        }
-        private void Update()
-        {
-            Tick();
-        }
         public void Enter()
         {
-            _mover.Move(_hatPickupTrigger.transform);
+            _mover.Move(_locationReferences.GetHatPickupLocation());
         }
 
         public void Tick()
@@ -49,7 +39,7 @@ namespace TaxiGame.NPC
             if (!_hasPickedUpHats && _inventory.IsInventoryFull())
             {
                 _hasPickedUpHats = true;
-                _mover.Move(_hatDropTrigger.transform);
+                _mover.Move(_locationReferences.GetHatDropLocation());
             }
             else if (_hasPickedUpHats && _inventory.GetStackableItemCountInInventory() == 0)
             {

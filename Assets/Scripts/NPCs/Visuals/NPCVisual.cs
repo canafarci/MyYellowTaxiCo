@@ -10,10 +10,10 @@ namespace TaxiGame.Visuals
     public class NPCVisual : MonoBehaviour
     {
         [SerializeField] private Transform _visual;
-        private NPCActionInvoker _npc;
+        private NPCCommandInvoker _npc;
 
         [Inject]
-        private void Init(NPCActionInvoker npc)
+        private void Init(NPCCommandInvoker npc)
         {
             _npc = npc;
         }
