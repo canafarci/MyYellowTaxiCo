@@ -30,7 +30,9 @@ namespace TaxiGame.WaitZones
             if (!isSuccessful)
                 Cancel(instigator);
             else
+            {
                 RaiseIterationEvent(instigator, _remainingMoney, _moneyToUnlock);
+            }
         }
 
         protected override bool CheckCanContinue(float remainingTime)

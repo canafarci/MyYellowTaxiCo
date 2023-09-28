@@ -24,22 +24,44 @@ namespace TaxiGame.WaitZones
             float precalculatedPlayerMoneyAfterStep = playerMoney - moneyStep;
             float preCalculatedRemainingPayMoney = remainingMoney - moneyStep;
 
-            if (preCalculatedRemainingPayMoney <= 0f)
+            bool canPay = false;
+
+            if (CanRegularPay(precalculatedPlayerMoneyAfterStep, preCalculatedRemainingPayMoney))
             {
-                MoneyPayHandler?.Invoke(remainingMoney);
-                remainingMoney = 0f;
-                return true;
+                OnRegularPay(ref remainingTime, ref remainingMoney, moneyStep);
+                canPay = true;
             }
-            if (precalculatedPlayerMoneyAfterStep < 0)
+            //player has excess money
+            else if (preCalculatedRemainingPayMoney < 0f)
+            {
+                remainingMoney = OnPlayerHasExcessMoney(remainingMoney);
+                canPay = true;
+            }
+            else
             {
                 OnNotEnoughMoney(ref remainingMoney, playerMoney);
-                return false;
             }
 
+            return canPay;
+        }
+
+        private static void OnRegularPay(ref float remainingTime, ref float remainingMoney, float moneyStep)
+        {
             remainingTime -= Globals.TIME_STEP;
             remainingMoney -= moneyStep;
             MoneyPayHandler?.Invoke(moneyStep);
-            return true;
+        }
+
+        private static float OnPlayerHasExcessMoney(float remainingMoney)
+        {
+            MoneyPayHandler?.Invoke(remainingMoney);
+            remainingMoney = 0f;
+            return remainingMoney;
+        }
+
+        private static bool CanRegularPay(float precalculatedPlayerMoneyAfterStep, float preCalculatedRemainingPayMoney)
+        {
+            return precalculatedPlayerMoneyAfterStep > 0 && preCalculatedRemainingPayMoney > 0;
         }
 
         private void OnNotEnoughMoney(ref float remainingMoney, float playerMoney)

@@ -5,7 +5,7 @@ using TaxiGame.NPC;
 using TaxiGame.Vehicles;
 using UnityEngine;
 
-namespace TaxiGame.Scripts
+namespace TaxiGame.NPC
 {
     public class RepairCarState : MonoBehaviour, IHelperNPCState
     {
@@ -26,17 +26,17 @@ namespace TaxiGame.Scripts
 
         public void Enter()
         {
-            throw new System.NotImplementedException();
+            print("entering new state");
         }
 
         public void Exit()
         {
-            throw new System.NotImplementedException();
+            print("exiting new state");
         }
 
         public void Tick()
         {
-            throw new System.NotImplementedException();
+            print("ticking new state");
         }
     }
 }

@@ -4,6 +4,7 @@ using TaxiGame.Installers;
 using TaxiGame.Items;
 using TaxiGame.NPC;
 using TaxiGame.NPC.Command;
+using TaxiGame.Scripts;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,8 @@ namespace TaxiGame.NPC
     public class DeliverHatState : MonoBehaviour, IHelperNPCState
     {
         //Dependencies
+        private HelperNPCStateMachine _stateMachine;
+        private IHelperNPCState _repairCarState;
         private HelperNPCLocationReferences _locationReferences;
         private Inventory _inventory;
         private NavMeshMover _mover;
@@ -20,10 +23,14 @@ namespace TaxiGame.NPC
         private bool _hasPickedUpHats = false;
 
         [Inject]
-        private void Init(HelperNPCLocationReferences locationReferences,
+        private void Init(HelperNPCStateMachine stateMachine,
+                          [Inject(Id = HelperNPCStates.RepairCar)] IHelperNPCState repairCarState,
+                          HelperNPCLocationReferences locationReferences,
                           Inventory inventory,
                           NavMeshMover mover)
         {
+            _stateMachine = stateMachine;
+            _repairCarState = repairCarState;
             _locationReferences = locationReferences;
             _inventory = inventory;
             _mover = mover;
@@ -36,17 +43,24 @@ namespace TaxiGame.NPC
 
         public void Tick()
         {
+            CheckTransition();
+
             if (!_hasPickedUpHats && _inventory.IsInventoryFull())
             {
                 _hasPickedUpHats = true;
                 _mover.Move(_locationReferences.GetHatDropLocation());
             }
-            else if (_hasPickedUpHats && _inventory.GetStackableItemCountInInventory() == 0)
+
+        }
+
+        private void CheckTransition()
+        {
+            if (_hasPickedUpHats && _inventory.GetStackableItemCountInInventory() == 0)
             {
-                Exit();
-                Enter();
+                _stateMachine.TransitionTo(_repairCarState);
             }
         }
+
         public void Exit()
         {
             _hasPickedUpHats = false;

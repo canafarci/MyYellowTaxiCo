@@ -84,6 +84,7 @@ GameObject:
   - component: {fileID: 8974286512343320381}
   - component: {fileID: 6203280293378311772}
   - component: {fileID: 7350480557821877923}
+  - component: {fileID: 394519015200728463}
   m_Layer: 0
   m_Name: HelperNPC
   m_TagString: HelperNPC
@@ -279,6 +280,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a12cf6d22b8b2c045bc9ce7204688ec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &394519015200728463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6783455744980478104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbcb372ebc8209f4ea126d5313d45550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6783455745478723519

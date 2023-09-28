@@ -41,6 +41,12 @@ namespace TaxiGame.Installers
                 .To<DeliverHatState>()
                 .FromComponentInChildren()
                 .AsTransient();
+
+            Container.Bind<IHelperNPCState>()
+                .WithId(HelperNPCStates.RepairCar)
+                .To<RepairCarState>()
+                .FromComponentInChildren()
+                .AsTransient();
         }
 
         private void BindCommandModule()
@@ -135,6 +141,7 @@ namespace TaxiGame.Installers
     }
     public enum HelperNPCStates
     {
-        DeliverHat
+        DeliverHat,
+        RepairCar
     }
 }
